@@ -1,4 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:linda_wedding_ecommerce/core/routes/routes.gr.dart';
+
+import '../../../../widgets/export_widget.dart';
+import '../../../../widgets/iconbutton_widget.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -26,20 +31,17 @@ class _LoginViewState extends State<LoginView> {
                 "Welcome back you've been missed!",
               ),
               const SizedBox(height: 30),
-              const TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    hintText: "Enter username"),
-              ),
+              const TextFieldWidget(
+                  pIcon: Icons.person_outlined,
+                  labelText: "UserName",
+                  hintText: "Enter username"),
               const SizedBox(height: 14),
-              const TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    hintText: "Password",
-                    suffixIcon: Icon(Icons.visibility_off_outlined, size: 18)),
-              ),
+              const TextFieldWidget(
+                  pIcon: Icons.lock_outlined,
+                  sIcon: Icons.visibility_off_outlined,
+                  obscureText: true,
+                  labelText: "Password",
+                  hintText: "Enter password"),
               const SizedBox(height: 14),
               const Align(
                 alignment: Alignment.centerRight,
@@ -53,13 +55,8 @@ class _LoginViewState extends State<LoginView> {
               SizedBox(
                   width: double.infinity,
                   height: 50,
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          backgroundColor: Colors.deepPurpleAccent),
-                      child: const Text("Sign In"))),
+                  child: EButtonWidget(
+                      onPress: () => context.router.push(const OnboardView()))),
               const SizedBox(height: 30),
               const Text("----- Or continue with -----",
                   style: TextStyle(
@@ -70,9 +67,9 @@ class _LoginViewState extends State<LoginView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
-                  Icon(Icons.g_mobiledata),
-                  Icon(Icons.apple),
-                  Icon(Icons.facebook),
+                  IconButtonWidget(icon: Icons.g_mobiledata),
+                  IconButtonWidget(icon: Icons.apple),
+                  IconButtonWidget(icon: Icons.facebook),
                 ],
               )
             ],
