@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linda_wedding_ecommerce/features/onboard/service/product_service.dart';
 
-import '../model/product_model.dart';
+import '../model/products_model.dart';
 
 part 'products_event.dart';
 part 'products_state.dart';

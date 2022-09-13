@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gradient_borders/gradient_borders.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final String? labelText;
@@ -22,10 +23,15 @@ class TextFieldWidget extends StatelessWidget {
       decoration: InputDecoration(
           //labelStyle: TextStyle(color: Colors.deepPurple),
           //labelText: labelText ?? "",
+
           prefixIcon: pIcon == null ? null : Icon(pIcon),
           suffixIcon: sIcon == null ? null : Icon(sIcon),
-          focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.deepPurpleAccent, width: 2),
+          focusedBorder: const GradientOutlineInputBorder(
+              gradient: LinearGradient(colors: [
+                Colors.deepPurpleAccent,
+                Color(0xffff70af),
+                Colors.deepPurpleAccent,
+              ]),
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0))),

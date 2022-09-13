@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linda_wedding_ecommerce/features/onboard/bloc/products_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/onboard/model/product_model.dart';
+import 'package:linda_wedding_ecommerce/features/onboard/model/products_model.dart';
 import 'package:linda_wedding_ecommerce/widgets/ebutton_widget.dart';
 
 class OnboardView extends StatefulWidget {
@@ -23,6 +23,11 @@ class _OnboardViewState extends State<OnboardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("LindaWedding - Home"),
+        centerTitle: true,
+      ),
+      drawer: const Drawer(),
       body: BlocBuilder<ProductsBloc, ProductsState>(
           bloc: _productBloc,
           builder: (context, state) {
@@ -38,6 +43,10 @@ class _OnboardViewState extends State<OnboardView> {
               return Container();
             }
           }),
+      bottomNavigationBar: BottomNavigationBar(items: const [
+        BottomNavigationBarItem(label: "", icon: Icon(Icons.home_rounded)),
+        BottomNavigationBarItem(label: "", icon: Icon(Icons.home_rounded)),
+      ]),
     );
   }
 
@@ -48,26 +57,55 @@ class _OnboardViewState extends State<OnboardView> {
 Widget _buildCard(BuildContext context, List<ProductsModel?> model) {
   return GridView.builder(
     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 200,
-        childAspectRatio: 3 / 4,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20),
+        mainAxisExtent: 280,
+        maxCrossAxisExtent: 400,
+        crossAxisSpacing: 5,
+        mainAxisSpacing: 5),
     shrinkWrap: true,
     itemCount: model.length,
     itemBuilder: ((context, index) {
-      return Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.network(model[index]!.image,
-                fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width / 8),
-            Text(model[index]!.title),
-            Text(model[index]!.price.toString()),
-            Text(model[index]!.rating.count.toString()),
-            EButtonWidget(onPress: () => debugPrint("object"))
-          ],
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.05),
+              spreadRadius: 5,
+              blurRadius: 1,
+              offset: const Offset(0, 0.2), // changes position of shadow
+            ),
+          ], color: Colors.white, borderRadius: BorderRadius.circular(10)),
+          child: Column(
+            children: [
+              Image.network(model[index]!.image,
+                  fit: BoxFit.contain, height: 180),
+              Text(model[index]!.title, overflow: TextOverflow.ellipsis),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  for (var i = 0; i < 5; i++)
+                    const Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                      size: 14,
+                    ),
+                  Text(" ( ${model[index]!.rating.count} )",
+                      overflow: TextOverflow.ellipsis),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "${model[index]!.price} TL",
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+              ),
+            ],
+          ),
         ),
       );
     }),

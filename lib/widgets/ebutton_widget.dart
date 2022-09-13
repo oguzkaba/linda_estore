@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gradient_borders/gradient_borders.dart';
 
 class EButtonWidget extends StatelessWidget {
   final VoidCallback? onPress;
@@ -9,12 +10,16 @@ class EButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-        onPressed: onPress ?? () {},
-        style: ElevatedButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            backgroundColor: Colors.deepPurpleAccent),
-        child: const Text("Sign In"));
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: ElevatedButton(
+          onPressed: onPress ?? () {},
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              primary: Colors.deepPurpleAccent),
+          child: const Text("Sign In")),
+    );
   }
 }
