@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gradient_borders/gradient_borders.dart';
 
 class EButtonWidget extends StatelessWidget {
   final VoidCallback? onPress;

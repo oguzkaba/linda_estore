@@ -12,7 +12,10 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     on<ProductsFetched>((event, emit) async {
       try {
         emit(ProductsLoading());
-        final productList = await ProductService.fetchProductsAll();
+        final productList = await ProductService.fetchProductsAll()
+            .timeout(const Duration(seconds: 2))
+            .onError(
+                (error, stackTrace) => emit(ProductsError(error.toString())));
         if (productList != null) {
           emit(ProductsLoaded(productList));
         }

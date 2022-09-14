@@ -15,6 +15,8 @@ import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:flutter/material.dart' as _i5;
 import 'package:linda_wedding_ecommerce/features/auth/login/view/login_view.dart'
     as _i1;
+import 'package:linda_wedding_ecommerce/features/onboard/model/products_model.dart'
+    as _i6;
 import 'package:linda_wedding_ecommerce/features/onboard/view/onboard_view.dart'
     as _i2;
 import 'package:linda_wedding_ecommerce/features/product/view/product_detail_view.dart'
@@ -35,8 +37,12 @@ class AppRouter extends _i4.RootStackRouter {
           routeData: routeData, child: const _i2.OnboardView());
     },
     ProductDetailView.name: (routeData) {
+      final args = routeData.argsAs<ProductDetailViewArgs>(
+          orElse: () => const ProductDetailViewArgs());
       return _i4.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i3.ProductDetailView());
+          routeData: routeData,
+          child: _i3.ProductDetailView(
+              key: args.key, productModel: args.productModel, id: args.id));
     }
   };
 
@@ -66,9 +72,27 @@ class OnboardView extends _i4.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.ProductDetailView]
-class ProductDetailView extends _i4.PageRouteInfo<void> {
-  const ProductDetailView()
-      : super(ProductDetailView.name, path: '/product-detail-view');
+class ProductDetailView extends _i4.PageRouteInfo<ProductDetailViewArgs> {
+  ProductDetailView({_i5.Key? key, _i6.ProductsModel? productModel, int? id})
+      : super(ProductDetailView.name,
+            path: '/product-detail-view',
+            args: ProductDetailViewArgs(
+                key: key, productModel: productModel, id: id));
 
   static const String name = 'ProductDetailView';
+}
+
+class ProductDetailViewArgs {
+  const ProductDetailViewArgs({this.key, this.productModel, this.id});
+
+  final _i5.Key? key;
+
+  final _i6.ProductsModel? productModel;
+
+  final int? id;
+
+  @override
+  String toString() {
+    return 'ProductDetailViewArgs{key: $key, productModel: $productModel, id: $id}';
+  }
 }
