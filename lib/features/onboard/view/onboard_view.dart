@@ -13,11 +13,9 @@ class OnboardView extends StatefulWidget {
 }
 
 class _OnboardViewState extends State<OnboardView> {
-  final _productBloc = ProductsBloc();
-
   @override
   void initState() {
-    _productBloc.add((ProductsFetched()));
+    BlocProvider.of<ProductsBloc>(context).add((ProductsFetched()));
     super.initState();
   }
 
@@ -29,30 +27,28 @@ class _OnboardViewState extends State<OnboardView> {
         centerTitle: true,
       ),
       drawer: const Drawer(),
-      body: BlocConsumer<ProductsBloc, ProductsState>(
-          listener: (context, state) {
-            if (state is ProductsError) {
-              final snackBar = SnackBar(
-                backgroundColor: Colors.red,
-                content: state.error.toString() == "XMLHttpRequest error."
-                    ? const Text("Hata-> (İstekte bulunulan adres hatalı.)")
-                    : const Text("Hata-> (Connection timeout)"),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            }
-          },
-          bloc: _productBloc,
-          builder: (context, state) {
-            if (state is ProductsInitial) {
-              return _buildLoadingWidget();
-            } else if (state is ProductsLoading) {
-              return _buildLoadingWidget();
-            } else if (state is ProductsLoaded) {
-              return _buildCard(context, state.products);
-            } else {
-              return Container();
-            }
-          }),
+      body:
+          BlocConsumer<ProductsBloc, ProductsState>(listener: (context, state) {
+        if (state is ProductsError) {
+          final snackBar = SnackBar(
+            backgroundColor: Colors.red,
+            content: state.error.toString() == "XMLHttpRequest error."
+                ? const Text("Hata-> (İstekte bulunulan adres hatalı.)")
+                : const Text("Hata-> (Connection timeout)"),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+      }, builder: (context, state) {
+        if (state is ProductsInitial) {
+          return _buildLoadingWidget();
+        } else if (state is ProductsLoading) {
+          return _buildLoadingWidget();
+        } else if (state is ProductsLoaded) {
+          return _buildCard(context, state.products);
+        } else {
+          return Container();
+        }
+      }),
       bottomNavigationBar: BottomNavigationBar(items: const [
         BottomNavigationBarItem(label: "", icon: Icon(Icons.home_rounded)),
         BottomNavigationBarItem(label: "", icon: Icon(Icons.home_rounded)),
@@ -74,9 +70,10 @@ Widget _buildCard(BuildContext context, List<ProductsModel?> model) {
     shrinkWrap: true,
     itemCount: model.length,
     itemBuilder: ((context, index) {
+      final rating = model[index]!.rating.rate;
       return GestureDetector(
-        onTap: () => context.router
-            .push(ProductDetailView(productModel: model[index]!, id: index)),
+        onTap: () =>
+            context.router.push(ProductDetailView(id: model[index]!.id)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
@@ -98,8 +95,8 @@ Widget _buildCard(BuildContext context, List<ProductsModel?> model) {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     for (var i = 0; i < 5; i++)
-                      const Icon(
-                        Icons.star,
+                      Icon(
+                        rating > i ? Icons.star : Icons.star_border,
                         color: Colors.amber,
                         size: 14,
                       ),

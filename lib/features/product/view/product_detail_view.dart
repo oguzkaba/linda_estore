@@ -1,29 +1,50 @@
 import 'package:flutter/material.dart';
-import '../../onboard/model/products_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/product_bloc.dart';
 
 class ProductDetailView extends StatefulWidget {
-  final ProductsModel? productModel;
-  final int? id;
-  const ProductDetailView({Key? key, this.productModel, this.id})
-      : super(key: key);
+  final int id;
+  const ProductDetailView({Key? key, required this.id}) : super(key: key);
 
   @override
   State<ProductDetailView> createState() => _ProductDetailViewState();
 }
 
 class _ProductDetailViewState extends State<ProductDetailView> {
+  final ProductBloc _productBloc = ProductBloc();
+  @override
+  void initState() {
+    _productBloc.add(ProductFetched(widget.id));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: widget.productModel == null || widget.id == null
-            ? const Text("Hata Oluştu...")
-            : SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Image.network(widget.productModel!.image, scale: 5),
-                    Text(widget.productModel!.description)
-                  ],
-                ),
-              ));
+        appBar: AppBar(
+          title: const Text("Details View"),
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+          child: BlocProvider(
+            create: (context) => ProductBloc(),
+            child: BlocBuilder<ProductBloc, ProductState>(
+              bloc: _productBloc,
+              builder: (context, state) {
+                if (state is ProductLoaded) {
+                  return Center(
+                      child: Image.network(state.product.image, scale: 5));
+                } else if (state is ProductError) {
+                  return Text("hata ${state.error}");
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+          ),
+        ));
   }
 }

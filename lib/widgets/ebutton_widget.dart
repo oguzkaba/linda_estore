@@ -17,7 +17,7 @@ class EButtonWidget extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
-              primary: Colors.deepPurpleAccent),
+              backgroundColor: Colors.deepPurpleAccent),
           child: const Text("Sign In")),
     );
   }

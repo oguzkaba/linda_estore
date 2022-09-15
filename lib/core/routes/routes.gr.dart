@@ -41,8 +41,7 @@ class AppRouter extends _i4.RootStackRouter {
           orElse: () => const ProductDetailViewArgs());
       return _i4.AdaptivePage<dynamic>(
           routeData: routeData,
-          child: _i3.ProductDetailView(
-              key: args.key, productModel: args.productModel, id: args.id));
+          child: _i3.ProductDetailView(key: args.key, id: args.id!));
     }
   };
 

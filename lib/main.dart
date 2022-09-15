@@ -6,7 +6,7 @@ import 'package:linda_wedding_ecommerce/features/onboard/bloc/products_bloc.dart
 import 'core/routes/routes.gr.dart';
 
 void main() {
-  runApp(BlocProvider(
+  runApp(BlocProvider<ProductsBloc>(
     create: (context) => ProductsBloc(),
     child: const MyApp(),
   ));
