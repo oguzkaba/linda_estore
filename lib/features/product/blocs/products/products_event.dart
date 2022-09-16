@@ -8,3 +8,9 @@ abstract class ProductsEvent extends Equatable {
 }
 
 class ProductsFetched extends ProductsEvent {}
+
+class ProductsByCategoryFetched extends ProductsEvent {
+  final String categoryName;
+
+  const ProductsByCategoryFetched(this.categoryName);
+}

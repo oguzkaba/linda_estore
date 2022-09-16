@@ -9,6 +9,7 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
+  animate_do: ^2.1.0
   auto_route: ^5.0.1
   build_runner: ^2.2.0
   cupertino_icons: ^1.0.2
@@ -16,10 +17,10 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
-  http: ^0.13.5
-  shimmer: ^2.0.0
   flutter_rating_bar: ^4.0.1
   gradient_borders: ^0.2.0
+  http: ^0.13.5
+  shimmer: ^2.0.0
 
 dev_dependencies:
   auto_route_generator: ^5.0.2

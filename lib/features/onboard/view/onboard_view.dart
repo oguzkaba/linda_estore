@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linda_wedding_ecommerce/core/routes/routes.gr.dart';
-import 'package:linda_wedding_ecommerce/features/onboard/bloc/products_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/onboard/model/products_model.dart';
+import '../../product/blocs/categories/categories_bloc.dart';
+
+import '../../product/blocs/products/products_bloc.dart';
+import '../../product/model/products_model.dart';
 
 class OnboardView extends StatefulWidget {
   const OnboardView({super.key});
@@ -15,6 +19,7 @@ class OnboardView extends StatefulWidget {
 class _OnboardViewState extends State<OnboardView> {
   @override
   void initState() {
+    BlocProvider.of<CategoriesBloc>(context).add((CategoriesFetched()));
     BlocProvider.of<ProductsBloc>(context).add((ProductsFetched()));
     super.initState();
   }
@@ -27,28 +32,81 @@ class _OnboardViewState extends State<OnboardView> {
         centerTitle: true,
       ),
       drawer: const Drawer(),
-      body:
-          BlocConsumer<ProductsBloc, ProductsState>(listener: (context, state) {
-        if (state is ProductsError) {
-          final snackBar = SnackBar(
-            backgroundColor: Colors.red,
-            content: state.error.toString() == "XMLHttpRequest error."
-                ? const Text("Hata-> (İstekte bulunulan adres hatalı.)")
-                : const Text("Hata-> (Connection timeout)"),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
-      }, builder: (context, state) {
-        if (state is ProductsInitial) {
-          return _buildLoadingWidget();
-        } else if (state is ProductsLoading) {
-          return _buildLoadingWidget();
-        } else if (state is ProductsLoaded) {
-          return _buildCard(context, state.products);
-        } else {
-          return Container();
-        }
-      }),
+      body: Column(
+        children: [
+          Expanded(
+            child: BlocConsumer<CategoriesBloc, CategoriesState>(
+                listener: (context, state) {
+              if (state is CategoriesError) {
+                final snackBar = SnackBar(
+                  backgroundColor: Colors.red,
+                  content: state.error == "XMLHttpRequest error."
+                      ? const Text("Hata-> (İstekte bulunulan adres hatalı.)")
+                      : const Text("Hata-> (Connection timeout)"),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            }, builder: (context, state) {
+              if (state is CategoriesInitial) {
+                return _buildLoadingWidget();
+              } else if (state is CategoriesLoading) {
+                return _buildLoadingWidget();
+              } else if (state is CategoriesLoaded) {
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: state.categories.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () => BlocProvider.of<ProductsBloc>(context).add(
+                          ProductsByCategoryFetched(state.categories[index])),
+                      child: Container(
+                          margin: const EdgeInsets.all(10),
+                          width: MediaQuery.of(context).size.width / 3,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              //*Kontrol edilecek
+                              color: state.categories
+                                          .indexOf(state.categories[index]) ==
+                                      index
+                                  ? Colors.redAccent
+                                  : Color(Random().nextInt(0xfff0f0f0))),
+                          child: Center(child: Text(state.categories[index]))),
+                    );
+                  },
+                );
+              } else {
+                return Container();
+              }
+            }),
+          ),
+          Expanded(
+            flex: 5,
+            child: BlocConsumer<ProductsBloc, ProductsState>(
+                listener: (context, state) {
+              if (state is ProductsError) {
+                final snackBar = SnackBar(
+                  backgroundColor: Colors.red,
+                  content: state.error == "XMLHttpRequest error."
+                      ? const Text("Hata-> (İstekte bulunulan adres hatalı.)")
+                      : const Text("Hata-> (Bağlantı zaman aşımı..)"),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            }, builder: (context, state) {
+              if (state is ProductsInitial) {
+                return _buildLoadingWidget();
+              } else if (state is ProductsLoading) {
+                return _buildLoadingWidget();
+              } else if (state is ProductsLoaded) {
+                return _buildBodyWidget(context, state.products);
+              } else {
+                return Container();
+              }
+            }),
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(items: const [
         BottomNavigationBarItem(label: "", icon: Icon(Icons.home_rounded)),
         BottomNavigationBarItem(label: "", icon: Icon(Icons.home_rounded)),
@@ -60,7 +118,7 @@ class _OnboardViewState extends State<OnboardView> {
       const Center(child: CircularProgressIndicator());
 }
 
-Widget _buildCard(BuildContext context, List<ProductsModel?> model) {
+Widget _buildBodyWidget(BuildContext context, List<ProductsModel?> model) {
   return GridView.builder(
     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
         mainAxisExtent: 280,
@@ -70,7 +128,7 @@ Widget _buildCard(BuildContext context, List<ProductsModel?> model) {
     shrinkWrap: true,
     itemCount: model.length,
     itemBuilder: ((context, index) {
-      final rating = model[index]!.rating.rate;
+      final rating = model[index]!.rating.rate.round();
       return GestureDetector(
         onTap: () =>
             context.router.push(ProductDetailView(id: model[index]!.id)),
@@ -96,7 +154,7 @@ Widget _buildCard(BuildContext context, List<ProductsModel?> model) {
                   children: [
                     for (var i = 0; i < 5; i++)
                       Icon(
-                        rating > i ? Icons.star : Icons.star_border,
+                        rating > i ? Icons.star : Icons.star_border_outlined,
                         color: Colors.amber,
                         size: 14,
                       ),

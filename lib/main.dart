@@ -1,13 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:linda_wedding_ecommerce/core/init/observer/observer.dart';
 import 'package:linda_wedding_ecommerce/core/themes/themes.dart';
-import 'package:linda_wedding_ecommerce/features/onboard/bloc/products_bloc.dart';
+import 'package:linda_wedding_ecommerce/features/product/blocs/categories/categories_bloc.dart';
 
 import 'core/routes/routes.gr.dart';
+import 'features/product/blocs/products/products_bloc.dart';
 
-void main() {
-  runApp(BlocProvider<ProductsBloc>(
-    create: (context) => ProductsBloc(),
+void main() async {
+  //* observe bloc logs
+  Bloc.observer = MyBlocObserver();
+
+  //* Update statusbar theme
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
+
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider<ProductsBloc>(
+        create: (context) => ProductsBloc(),
+      ),
+      BlocProvider(
+        create: (context) => CategoriesBloc(),
+      ),
+    ],
     child: const MyApp(),
   ));
 }

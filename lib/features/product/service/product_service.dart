@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:linda_wedding_ecommerce/features/onboard/model/products_model.dart';
 import '../model/product_model.dart';
+import '../model/products_model.dart';
 
 class ProductService {
   static Future fetchProductsAll() async {
@@ -23,7 +23,7 @@ class ProductService {
     }
   }
 
-  static Future fetchProductId({required int id}) async {
+  static Future fetchProductById({required int id}) async {
     try {
       final response =
           await http.get(Uri.parse("https://fakestoreapi.com/products/$id"));
