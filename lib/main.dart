@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linda_wedding_ecommerce/core/init/observer/observer.dart';
-import 'package:linda_wedding_ecommerce/core/themes/themes.dart';
-import 'package:linda_wedding_ecommerce/features/product/blocs/categories/categories_bloc.dart';
+import 'core/init/observer/observer.dart';
+import 'core/themes/themes.dart';
+import 'features/product/blocs/categories/categories_bloc.dart';
 
 import 'core/routes/routes.gr.dart';
 import 'features/product/blocs/products/products_bloc.dart';

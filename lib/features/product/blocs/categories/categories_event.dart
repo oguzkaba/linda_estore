@@ -7,4 +7,8 @@ abstract class CategoriesEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CategoriesFetched extends CategoriesEvent {}
+class CategoriesFetched extends CategoriesEvent {
+  final int selectedCat;
+
+  const CategoriesFetched(this.selectedCat);
+}

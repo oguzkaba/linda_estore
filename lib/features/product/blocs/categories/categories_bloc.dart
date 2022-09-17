@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/product/service/category_service.dart';
+import '../../service/category_service.dart';
 
 part 'categories_event.dart';
 part 'categories_state.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   CategoriesBloc() : super(CategoriesInitial()) {
-    on<CategoriesEvent>((event, emit) async {
+    on<CategoriesFetched>((event, emit) async {
       try {
         emit(CategoriesLoading());
         final productList = await CategoryService.fetchCategoriesAll()
@@ -15,7 +15,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
             .onError(
                 (error, stackTrace) => emit(CategoriesError(error.toString())));
         if (productList != null) {
-          emit(CategoriesLoaded(productList));
+          emit(CategoriesLoaded(productList, selectedCat: event.selectedCat));
         }
       } catch (e) {
         emit(CategoriesError(e.toString()));

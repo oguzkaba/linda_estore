@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/product/service/category_service.dart';
+import '../../service/category_service.dart';
 
 import '../../model/products_model.dart';
 import '../../service/product_service.dart';
@@ -24,11 +24,13 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
 
     on<ProductsByCategoryFetched>((event, emit) async {
       try {
-        emit(ProductsLoading());
-        final productList = await CategoryService.fetchProductByCategory(
-            categoryName: event.categoryName);
-        if (productList != null) {
-          emit(ProductsLoaded(productList as List<ProductsModel>));
+        if (event.categoryName.isNotEmpty) {
+          emit(ProductsLoading());
+          final productList = await CategoryService.fetchProductByCategory(
+              categoryName: event.categoryName);
+          if (productList != null) {
+            emit(ProductsLoaded(productList as List<ProductsModel>));
+          }
         }
       } catch (e) {
         emit(ProductsError(e.toString()));

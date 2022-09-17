@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:linda_wedding_ecommerce/features/auth/login/view/login_view.dart';
-import 'package:linda_wedding_ecommerce/features/onboard/view/onboard_view.dart';
-import 'package:linda_wedding_ecommerce/features/product/view/product_detail_view.dart';
-import 'package:linda_wedding_ecommerce/features/splash/view/splash_view.dart';
+import '../../features/auth/login/view/login_view.dart';
+import '../../features/onboard/view/onboard_view.dart';
+import '../../features/product/view/product_detail_view.dart';
+import '../../features/splash/view/splash_view.dart';
 
 @CustomAutoRouter(
   transitionsBuilder: TransitionsBuilders.slideRightWithFade,

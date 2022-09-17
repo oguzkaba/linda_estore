@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:linda_wedding_ecommerce/core/routes/routes.gr.dart';
+import '../../../../core/routes/routes.gr.dart';
 
 import '../../../../widgets/export_widget.dart';
 import '../../../../widgets/iconbutton_widget.dart';

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linda_wedding_ecommerce/core/routes/routes.gr.dart';
+import '../../../core/routes/routes.gr.dart';
 import '../../product/blocs/categories/categories_bloc.dart';
 
 import '../../product/blocs/products/products_bloc.dart';
@@ -19,7 +19,7 @@ class OnboardView extends StatefulWidget {
 class _OnboardViewState extends State<OnboardView> {
   @override
   void initState() {
-    BlocProvider.of<CategoriesBloc>(context).add((CategoriesFetched()));
+    BlocProvider.of<CategoriesBloc>(context).add((const CategoriesFetched(-1)));
     BlocProvider.of<ProductsBloc>(context).add((ProductsFetched()));
     super.initState();
   }
@@ -27,15 +27,15 @@ class _OnboardViewState extends State<OnboardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("LindaWedding - Home"),
-        centerTitle: true,
-      ),
       drawer: const Drawer(),
-      body: Column(
-        children: [
-          Expanded(
-            child: BlocConsumer<CategoriesBloc, CategoriesState>(
+      body: CustomScrollView(slivers: [
+        SliverAppBar(
+          pinned: true,
+          centerTitle: true,
+          title: const Text("LindaWedding - Home"),
+          bottom: AppBar(
+            leading: const SizedBox.shrink(),
+            flexibleSpace: BlocConsumer<CategoriesBloc, CategoriesState>(
                 listener: (context, state) {
               if (state is CategoriesError) {
                 final snackBar = SnackBar(
@@ -58,20 +58,39 @@ class _OnboardViewState extends State<OnboardView> {
                   itemCount: state.categories.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () => BlocProvider.of<ProductsBloc>(context).add(
-                          ProductsByCategoryFetched(state.categories[index])),
+                      onTap: () {
+                        BlocProvider.of<CategoriesBloc>(context)
+                            .add((CategoriesFetched(index)));
+                        BlocProvider.of<ProductsBloc>(context).add(
+                            ProductsByCategoryFetched(state.categories[index]));
+                      },
                       child: Container(
-                          margin: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(8),
                           width: MediaQuery.of(context).size.width / 3,
                           decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: state.selectedCat == index
+                                      ? Colors.deepPurpleAccent.withOpacity(0.2)
+                                      : Colors.grey.withOpacity(0.1),
+                                  spreadRadius: 7,
+                                  blurRadius: 7,
+                                  offset: const Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
                               borderRadius: BorderRadius.circular(10),
-                              //*Kontrol edilecek
-                              color: state.categories
-                                          .indexOf(state.categories[index]) ==
-                                      index
-                                  ? Colors.redAccent
-                                  : Color(Random().nextInt(0xfff0f0f0))),
-                          child: Center(child: Text(state.categories[index]))),
+                              color: state.selectedCat == index
+                                  ? Colors.deepPurpleAccent
+                                  : Colors.white),
+                          child: Center(
+                              child: Text(
+                            state.categories[index].toString().toUpperCase(),
+                            style: TextStyle(
+                                color: state.selectedCat == index
+                                    ? Colors.white
+                                    : Colors.grey),
+                          ))),
                     );
                   },
                 );
@@ -80,9 +99,10 @@ class _OnboardViewState extends State<OnboardView> {
               }
             }),
           ),
-          Expanded(
-            flex: 5,
-            child: BlocConsumer<ProductsBloc, ProductsState>(
+        ),
+        SliverList(delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return BlocConsumer<ProductsBloc, ProductsState>(
                 listener: (context, state) {
               if (state is ProductsError) {
                 final snackBar = SnackBar(
@@ -103,10 +123,10 @@ class _OnboardViewState extends State<OnboardView> {
               } else {
                 return Container();
               }
-            }),
-          ),
-        ],
-      ),
+            });
+          },
+        ))
+      ]),
       bottomNavigationBar: BottomNavigationBar(items: const [
         BottomNavigationBarItem(label: "", icon: Icon(Icons.home_rounded)),
         BottomNavigationBarItem(label: "", icon: Icon(Icons.home_rounded)),

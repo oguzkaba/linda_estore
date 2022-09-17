@@ -13,14 +13,15 @@ class CategoriesLoading extends CategoriesState {}
 
 class CategoriesLoaded extends CategoriesState {
   final List categories;
+  final int selectedCat;
 
-  const CategoriesLoaded(this.categories);
+  const CategoriesLoaded(this.categories, {this.selectedCat = -1});
 
   @override
   String toString() => 'SearchStateSuccess { items: $categories }';
 
   @override
-  List<Object> get props => [categories];
+  List<Object> get props => [categories, selectedCat];
 }
 
 class CategoriesError extends CategoriesState {

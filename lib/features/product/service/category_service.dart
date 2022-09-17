@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:linda_wedding_ecommerce/features/product/model/categories_model.dart';
-import 'package:linda_wedding_ecommerce/features/product/model/category_model.dart';
+import '../model/categories_model.dart';
+import '../model/category_model.dart';
 
 import '../model/products_model.dart';
 
