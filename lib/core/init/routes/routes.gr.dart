@@ -14,10 +14,10 @@
 import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:flutter/material.dart' as _i6;
 
-import '../../features/auth/login/view/login_view.dart' as _i2;
-import '../../features/onboard/view/onboard_view.dart' as _i3;
-import '../../features/product/view/product_detail_view.dart' as _i4;
-import '../../features/splash/view/splash_view.dart' as _i1;
+import '../../../features/auth/login/view/login_view.dart' as _i2;
+import '../../../features/home/view/home_view.dart' as _i3;
+import '../../../features/product/view/product_detail_view.dart' as _i4;
+import '../../../features/splash/view/splash_view.dart' as _i1;
 
 class AppRouter extends _i5.RootStackRouter {
   AppRouter([_i6.GlobalKey<_i6.NavigatorState>? navigatorKey])
@@ -43,10 +43,10 @@ class AppRouter extends _i5.RootStackRouter {
           opaque: true,
           barrierDismissible: false);
     },
-    OnboardView.name: (routeData) {
+    HomeView.name: (routeData) {
       return _i5.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i3.OnboardView(),
+          child: const _i3.HomeView(),
           transitionsBuilder: _i5.TransitionsBuilders.slideRightWithFade,
           durationInMilliseconds: 200,
           opaque: true,
@@ -68,7 +68,7 @@ class AppRouter extends _i5.RootStackRouter {
   List<_i5.RouteConfig> get routes => [
         _i5.RouteConfig(SplashView.name, path: '/'),
         _i5.RouteConfig(LoginView.name, path: '/login-view'),
-        _i5.RouteConfig(OnboardView.name, path: '/onboard-view'),
+        _i5.RouteConfig(HomeView.name, path: '/home-view'),
         _i5.RouteConfig(ProductDetailView.name, path: '/product-detail-view')
       ];
 }
@@ -90,11 +90,11 @@ class LoginView extends _i5.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.OnboardView]
-class OnboardView extends _i5.PageRouteInfo<void> {
-  const OnboardView() : super(OnboardView.name, path: '/onboard-view');
+/// [_i3.HomeView]
+class HomeView extends _i5.PageRouteInfo<void> {
+  const HomeView() : super(HomeView.name, path: '/home-view');
 
-  static const String name = 'OnboardView';
+  static const String name = 'HomeView';
 }
 
 /// generated route for

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/init/observer/observer.dart';
-import 'core/themes/themes.dart';
+import 'core/init/routes/routes.gr.dart';
+import 'core/init/themes/themes.dart';
 import 'features/product/blocs/categories/categories_bloc.dart';
-
-import 'core/routes/routes.gr.dart';
 import 'features/product/blocs/products/products_bloc.dart';
 
 void main() async {

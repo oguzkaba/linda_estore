@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
+import 'package:kartal/kartal.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final String? labelText;
@@ -18,7 +19,8 @@ class TextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: (value) => value.isNotNullOrNoEmpty ? null : 'fail',
       obscureText: obscureText ?? false,
       decoration: InputDecoration(
           //labelStyle: TextStyle(color: Colors.deepPurple),

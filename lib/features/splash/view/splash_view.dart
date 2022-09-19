@@ -2,8 +2,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../../../core/routes/routes.gr.dart';
+import 'package:kartal/kartal.dart';
+import '../../../core/init/routes/routes.gr.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -19,7 +19,7 @@ class _SplashViewState extends State<SplashView> {
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        Future.delayed(const Duration(seconds: 2), () {
+        Future.delayed(context.durationSlow, () {
           context.router.replaceAll(const [LoginView()]);
         });
       },
@@ -34,7 +34,7 @@ class _SplashViewState extends State<SplashView> {
         backgroundColor: Colors.deepPurple,
         body: Center(
           child: FadeIn(
-            duration: const Duration(milliseconds: 400),
+            duration: context.durationLow,
             child: const Text("LindaWedding",
                 style: TextStyle(color: Colors.white)),
           ),

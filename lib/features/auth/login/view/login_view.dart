@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/routes/routes.gr.dart';
+import 'package:kartal/kartal.dart';
 
-import '../../../../widgets/export_widget.dart';
-import '../../../../widgets/iconbutton_widget.dart';
+import '../../../../core/init/routes/routes.gr.dart';
+import '../../../../product/widgets/ebutton_widget.dart';
+import '../../../../product/widgets/iconbutton_widget.dart';
+import '../../../../product/widgets/textfield_widget.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -15,7 +17,6 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
-    final keyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -23,11 +24,12 @@ class _LoginViewState extends State<LoginView> {
           horizontal: 40.0,
         ),
         child: Column(
-          mainAxisAlignment:
-              keyboardOpen ? MainAxisAlignment.start : MainAxisAlignment.center,
+          mainAxisAlignment: context.isKeyBoardOpen
+              ? MainAxisAlignment.start
+              : MainAxisAlignment.center,
           children: [
             Visibility(
-              visible: !keyboardOpen,
+              visible: !context.isKeyBoardOpen,
               child: Column(
                 children: const [
                   Text("Hello Again!",
@@ -61,8 +63,7 @@ class _LoginViewState extends State<LoginView> {
                       color: Colors.black54)),
             ),
             const SizedBox(height: 30),
-            EButtonWidget(
-                onPress: () => context.router.push(const OnboardView())),
+            EButtonWidget(onPress: () => context.router.push(const HomeView())),
             const SizedBox(height: 30),
             const Text("- Or continue with -",
                 style: TextStyle(
