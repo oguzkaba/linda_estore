@@ -7,10 +7,10 @@ class AppTheme {
           .colorScheme
           .copyWith(primary: ColorConstants.primaryColor),
       appBarTheme: AppBarTheme(
-          iconTheme: IconThemeData(color: ColorConstants.secondaryColor),
+          iconTheme: IconThemeData(color: ColorConstants.primaryColor),
           backgroundColor: ColorConstants.myWhite,
           titleTextStyle: TextStyle(
-              color: ColorConstants.secondaryColor,
+              color: ColorConstants.primaryColor,
               fontSize: 16,
               fontWeight: FontWeight.bold)));
 }

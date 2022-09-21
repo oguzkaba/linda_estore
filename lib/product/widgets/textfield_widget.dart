@@ -10,6 +10,7 @@ class TextFieldWidget extends StatelessWidget {
   final bool? obscureText;
   final IconData? pIcon;
   final IconData? sIcon;
+  final VoidCallback? suffixOnPress;
   const TextFieldWidget({
     Key? key,
     this.labelText,
@@ -17,6 +18,7 @@ class TextFieldWidget extends StatelessWidget {
     this.obscureText,
     this.pIcon,
     this.sIcon,
+    this.suffixOnPress,
   }) : super(key: key);
 
   @override
@@ -25,15 +27,20 @@ class TextFieldWidget extends StatelessWidget {
       validator: (value) => value.isNotNullOrNoEmpty ? null : 'fail',
       obscureText: obscureText ?? false,
       decoration: InputDecoration(
-          prefixIcon: pIcon == null ? null : Icon(pIcon),
-          suffixIcon: sIcon == null ? null : Icon(sIcon),
+          prefixIcon: pIcon == null ? null : Icon(pIcon, size: 20),
+          suffixIcon: sIcon == null
+              ? null
+              : IconButton(
+                  icon: Icon(sIcon, size: 20),
+                  onPressed: suffixOnPress,
+                ),
           focusedBorder: GradientOutlineInputBorder(
               gradient: LinearGradient(colors: [
                 ColorConstants.primaryColor,
                 ColorConstants.secondaryColor,
                 ColorConstants.primaryColor,
               ]),
-              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+              borderRadius: const BorderRadius.all(Radius.circular(10.0))),
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           hintText: hintText ?? ""),
