@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kartal/kartal.dart';
+import '../../../core/constants/app/colors.dart';
 import '../../../core/init/routes/routes.gr.dart';
 
 class SplashView extends StatefulWidget {
@@ -31,12 +32,12 @@ class _SplashViewState extends State<SplashView> {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: ColorConstants.primaryColor,
         body: Center(
           child: FadeIn(
             duration: context.durationLow,
-            child: const Text("LindaWedding",
-                style: TextStyle(color: Colors.white)),
+            child: Text("LindaWedding",
+                style: TextStyle(color: ColorConstants.myWhite)),
           ),
         ),
       ),

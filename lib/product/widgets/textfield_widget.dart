@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 import 'package:kartal/kartal.dart';
 
+import '../../core/constants/app/colors.dart';
+
 class TextFieldWidget extends StatelessWidget {
   final String? labelText;
   final String? hintText;
@@ -23,16 +25,13 @@ class TextFieldWidget extends StatelessWidget {
       validator: (value) => value.isNotNullOrNoEmpty ? null : 'fail',
       obscureText: obscureText ?? false,
       decoration: InputDecoration(
-          //labelStyle: TextStyle(color: Colors.deepPurple),
-          //labelText: labelText ?? "",
-
           prefixIcon: pIcon == null ? null : Icon(pIcon),
           suffixIcon: sIcon == null ? null : Icon(sIcon),
-          focusedBorder: const GradientOutlineInputBorder(
+          focusedBorder: GradientOutlineInputBorder(
               gradient: LinearGradient(colors: [
-                Colors.deepPurpleAccent,
-                Color(0xffff70af),
-                Colors.deepPurpleAccent,
+                ColorConstants.primaryColor,
+                ColorConstants.secondaryColor,
+                ColorConstants.primaryColor,
               ]),
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           border: const OutlineInputBorder(

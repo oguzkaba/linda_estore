@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/constants/app/colors.dart';
+
 class IconButtonWidget extends StatelessWidget {
   final IconData icon;
   final double? size;
@@ -12,7 +14,7 @@ class IconButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      color: Colors.black54,
+      color: ColorConstants.myDark,
       tooltip: "Google",
       icon: Icon(icon, size: size ?? 30),
       onPressed: () {},

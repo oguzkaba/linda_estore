@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:linda_wedding_ecommerce/core/constants/app/colors.dart';
 import 'core/init/observer/observer.dart';
 import 'core/init/routes/routes.gr.dart';
 import 'core/init/themes/themes.dart';
@@ -13,8 +14,8 @@ void main() async {
 
   //* Update statusbar theme
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
+    SystemUiOverlayStyle(
+      statusBarColor: ColorConstants.myTransparent,
       statusBarIconBrightness: Brightness.dark,
     ),
   );

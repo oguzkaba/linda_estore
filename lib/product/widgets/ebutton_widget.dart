@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/constants/app/colors.dart';
+
 class EButtonWidget extends StatelessWidget {
   final VoidCallback? onPress;
   const EButtonWidget({
@@ -17,7 +19,7 @@ class EButtonWidget extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
-              backgroundColor: Colors.deepPurpleAccent),
+              backgroundColor: ColorConstants.primaryColor),
           child: const Text("Sign In")),
     );
   }

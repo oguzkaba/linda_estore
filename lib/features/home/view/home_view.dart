@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import '../../../core/constants/app/colors.dart';
 import '../../../core/init/routes/routes.gr.dart';
 import '../../product/blocs/categories/categories_bloc.dart';
 
@@ -40,7 +41,7 @@ class _HomeViewState extends State<HomeView> {
                   listener: (context, state) {
                 if (state is CategoriesError) {
                   final snackBar = SnackBar(
-                    backgroundColor: Colors.red,
+                    backgroundColor: ColorConstants.myRed,
                     content: state.error == "XMLHttpRequest error."
                         ? const Text("Hata-> (İstekte bulunulan adres hatalı.)")
                         : const Text("Hata-> (Connection timeout)"),
@@ -59,14 +60,14 @@ class _HomeViewState extends State<HomeView> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5.0),
                       child: TabBar(
-                        labelColor: Colors.white,
-                        unselectedLabelColor: Colors.deepPurpleAccent,
+                        labelColor: ColorConstants.myWhite,
+                        unselectedLabelColor: ColorConstants.secondaryColor,
                         indicator: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          gradient: const LinearGradient(colors: [
-                            Colors.deepPurpleAccent,
-                            Color.fromARGB(255, 110, 57, 255),
-                            Colors.deepPurpleAccent,
+                          gradient: LinearGradient(colors: [
+                            ColorConstants.secondaryColor,
+                            ColorConstants.primaryColor,
+                            ColorConstants.secondaryColor
                           ]),
                         ),
                         indicatorSize: TabBarIndicatorSize.label,
@@ -76,7 +77,7 @@ class _HomeViewState extends State<HomeView> {
                                   state.categories[value]));
                         },
                         isScrollable: true,
-                        indicatorColor: Colors.deepPurpleAccent,
+                        indicatorColor: ColorConstants.secondaryColor,
                         tabs: state.categories
                             .map((e) => Container(
                                   padding: context.paddingLow,
@@ -92,6 +93,7 @@ class _HomeViewState extends State<HomeView> {
                 }
               })),
         ),
+<<<<<<< Updated upstream
         BlocConsumer<ProductsBloc, ProductsState>(
           listener: (context, state) {
             if (state is ProductsError) {
@@ -117,6 +119,43 @@ class _HomeViewState extends State<HomeView> {
             }
           },
         )
+=======
+        SliverGrid(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 2,
+          ),
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return Text(index.toString());
+            },
+          ),
+        ),
+        // BlocConsumer<ProductsBloc, ProductsState>(
+        //   listener: (context, state) {
+        //     if (state is ProductsError) {
+        //       final snackBar = SnackBar(
+        //         backgroundColor: Colors.red,
+        //         content: state.error == "XMLHttpRequest error."
+        //             ? const Text("Hata-> (İstekte bulunulan adres hatalı.)")
+        //             : const Text("Hata-> (Bağlantı zaman aşımı..)"),
+        //       );
+        //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        //     }
+        //   },
+        //   builder: (context, state) {
+        //     if (state is ProductsInitial) {
+        //       return _buildLoadingWidget();
+        //     } else if (state is ProductsLoading) {
+        //       return _buildLoadingWidget();
+        //     } else if (state is ProductsLoaded) {
+        //       return _buildBodyWidget(context, state.products);
+        //     } else {
+        //       return Container();
+        //     }
+        //   },
+        // )
+>>>>>>> Stashed changes
       ]),
       bottomNavigationBar: BottomNavigationBar(items: const [
         BottomNavigationBarItem(label: "", icon: Icon(Icons.home_rounded)),
@@ -133,6 +172,7 @@ Widget _buildSliverLoadingWidget() =>
     const SliverToBoxAdapter(child: Center(child: CircularProgressIndicator()));
 
 Widget _buildBodyWidget(BuildContext context, List<ProductsModel> model) {
+<<<<<<< Updated upstream
   return SliverGrid(
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1, childAspectRatio: 3 / 2),
@@ -169,6 +209,58 @@ Widget _buildBodyWidget(BuildContext context, List<ProductsModel> model) {
                               : Icons.star_border_outlined,
                           color: Colors.amber,
                           size: 14,
+=======
+  return SliverGrid.count(
+    crossAxisCount: 3,
+    crossAxisSpacing: 5,
+    mainAxisSpacing: 5,
+    children: model
+        .map((e) => GestureDetector(
+              onTap: () => context.router.push(ProductDetailView(id: e.id)),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: ColorConstants.myLightGrey,
+                          spreadRadius: 5,
+                          blurRadius: 1,
+                          offset: const Offset(
+                              0, 0.2), // changes position of shadow
+                        ),
+                      ],
+                      color: ColorConstants.myWhite,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Column(
+                    children: [
+                      Image.network(e.image, fit: BoxFit.contain, height: 180),
+                      Text(e.title, overflow: TextOverflow.ellipsis),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          for (var i = 0; i < 5; i++)
+                            Icon(
+                              e.rating.rate.round() > i
+                                  ? Icons.star
+                                  : Icons.star_border_outlined,
+                              color: ColorConstants.myYellow,
+                              size: 14,
+                            ),
+                          Text(" ( ${e.rating.count} )",
+                              overflow: TextOverflow.ellipsis),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "${e.price} TL",
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+>>>>>>> Stashed changes
                         ),
                       Text(" ( ${model[index].rating.count} )",
                           overflow: TextOverflow.ellipsis),
