@@ -93,7 +93,7 @@ class _LoginViewState extends State<LoginView> {
                       style: TextStyle(color: ColorConstants.primaryColor),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          context.router.push(RegisterView());
+                          context.router.push(const RegisterView());
                         })
                 ]),
                 style: TextStyle(

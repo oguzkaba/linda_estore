@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
 import '../../../core/constants/app/colors.dart';
 import '../../../core/init/routes/routes.gr.dart';
@@ -35,9 +34,9 @@ class _HomeViewState extends State<HomeView> {
           snap: true,
           floating: true,
           centerTitle: true,
-          title: const Text("LindaWedding - Home"),
+          title: const Text("LindaStore"),
           bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(48.0),
+              preferredSize: const Size.fromHeight(35.0),
               child: BlocConsumer<CategoriesBloc, CategoriesState>(
                   listener: (context, state) {
                 if (state is CategoriesError) {
@@ -55,32 +54,7 @@ class _HomeViewState extends State<HomeView> {
                 } else if (state is CategoriesLoading) {
                   return _buildLoadingWidget();
                 } else if (state is CategoriesLoaded) {
-                  return DefaultTabController(
-                    animationDuration: context.durationLow,
-                    length: state.categories.length,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: TabBar(
-                        labelColor: ColorConstants.myBlack,
-                        unselectedLabelColor: ColorConstants.myLightGrey,
-                        indicatorSize: TabBarIndicatorSize.label,
-                        onTap: (value) {
-                          BlocProvider.of<ProductsBloc>(context).add(
-                              ProductsByCategoryFetched(
-                                  state.categories[value]));
-                        },
-                        isScrollable: true,
-                        indicatorColor: ColorConstants.primaryColor,
-                        tabs: state.categories
-                            .map((e) => Container(
-                                  padding: context.paddingLow,
-                                  decoration: null,
-                                  child: Text(e.toString().toCapitalized()),
-                                ))
-                            .toList(),
-                      ),
-                    ),
-                  );
+                  return _buildCatogoriesTab(context, state);
                 } else {
                   return context.emptySizedHeightBoxHigh;
                 }
@@ -104,7 +78,7 @@ class _HomeViewState extends State<HomeView> {
             } else if (state is ProductsLoading) {
               return _buildSliverLoadingWidget(context);
             } else if (state is ProductsLoaded) {
-              return _buildBodyWidget(context, state.products);
+              return _buildGridProducts(context, state.products);
               //return Container();
             } else {
               return SliverToBoxAdapter(child: Container());
@@ -112,18 +86,51 @@ class _HomeViewState extends State<HomeView> {
           },
         )
       ]),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-              backgroundColor: ColorConstants.secondaryColor,
-              label: "Home",
-              icon: const FaIcon(FontAwesomeIcons.houseChimney)),
-          const BottomNavigationBarItem(
-              label: "Cart", icon: Icon(Icons.shopping_basket_outlined)),
-          const BottomNavigationBarItem(
-              label: "Profile", icon: Icon(Icons.person_outline_rounded)),
-        ],
-        showUnselectedLabels: false,
+      bottomNavigationBar: SizedBox(
+        height: 42,
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: 1,
+          iconSize: 18,
+          selectedLabelStyle: const TextStyle(fontSize: 10),
+          unselectedLabelStyle: const TextStyle(fontSize: 10),
+          items: const [
+            BottomNavigationBarItem(
+                label: "Home", icon: Icon(Icons.home_rounded)),
+            BottomNavigationBarItem(
+                label: "Cart", icon: Icon(Icons.shopping_basket_rounded)),
+            BottomNavigationBarItem(
+                label: "Favorites", icon: Icon(Icons.favorite_rounded)),
+            BottomNavigationBarItem(label: "Account", icon: Icon(Icons.person)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  DefaultTabController _buildCatogoriesTab(
+      BuildContext context, CategoriesLoaded state) {
+    return DefaultTabController(
+      animationDuration: context.durationLow,
+      length: state.categories.length,
+      child: TabBar(
+        labelColor: ColorConstants.myBlack,
+        unselectedLabelColor: ColorConstants.myLightGrey,
+        indicatorSize: TabBarIndicatorSize.label,
+        onTap: (value) {
+          BlocProvider.of<ProductsBloc>(context)
+              .add(ProductsByCategoryFetched(state.categories[value]));
+        },
+        isScrollable: true,
+        indicatorColor: ColorConstants.primaryColor,
+        tabs: state.categories
+            .map((e) => Container(
+                  padding: context.paddingLow,
+                  decoration: null,
+                  child: Text(e.toString().toCapitalized(),
+                      style: const TextStyle(fontSize: 12)),
+                ))
+            .toList(),
       ),
     );
   }
@@ -137,63 +144,62 @@ Widget _buildSliverLoadingWidget(BuildContext context) => SliverToBoxAdapter(
         size: Size(context.width, context.height),
         child: const Center(child: CircularProgressIndicator.adaptive())));
 
-Widget _buildBodyWidget(BuildContext context, List<ProductsModel> model) {
+Widget _buildGridProducts(BuildContext context, List<ProductsModel> model) {
   return SliverGrid(
-    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 400,
-        childAspectRatio: 4 / 3,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10),
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: context.isSmallScreen
+            ? 2
+            : context.isMediumScreen
+                ? 3
+                : 4,
+        childAspectRatio: 0.9),
     delegate: SliverChildBuilderDelegate(
       childCount: model.length,
       (BuildContext context, int index) {
         return GestureDetector(
           onTap: () =>
               context.router.push(ProductDetailView(id: model[index].id)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.05),
-                  spreadRadius: 5,
-                  blurRadius: 1,
-                  offset: const Offset(0, 0.2), // changes position of shadow
-                ),
-              ], color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: Column(
-                children: [
-                  Image.network(model[index].image,
-                      fit: BoxFit.cover, height: context.height / 5),
-                  Text(model[index].title, overflow: TextOverflow.ellipsis),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      for (var i = 0; i < 5; i++)
-                        Icon(
-                          model[index].rating.rate.round() > i
-                              ? Icons.star
-                              : Icons.star_border_outlined,
-                          color: Colors.amber,
-                          size: 14,
-                        ),
-                      Text(" ( ${model[index].rating.count} )",
-                          overflow: TextOverflow.ellipsis),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "${model[index].price} TL",
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                  ),
-                ],
+          child: Container(
+            padding: const EdgeInsets.all(5),
+            margin: const EdgeInsets.all(5),
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.05),
+                spreadRadius: 3,
+                blurRadius: 1,
+                offset: const Offset(0, 0.2), // changes position of shadow
               ),
+            ], color: Colors.white, borderRadius: BorderRadius.circular(10)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Image.network(model[index].image,
+                    fit: BoxFit.contain, height: context.height / 7),
+                Text(model[index].title,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 12)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    for (var i = 0; i < 5; i++)
+                      Icon(
+                        model[index].rating.rate.round() > i
+                            ? Icons.star
+                            : Icons.star_border_outlined,
+                        color: Colors.amber,
+                        size: 10,
+                      ),
+                    Text(" ( ${model[index].rating.count} )",
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 12)),
+                  ],
+                ),
+                Text(
+                  "${model[index].price} TL",
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ),
         );
