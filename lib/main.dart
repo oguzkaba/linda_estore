@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
       routerDelegate: _appRouter.delegate(),
       routeInformationParser: _appRouter.defaultRouteParser(),
       themeMode: ThemeMode.light,
-      theme: AppTheme.lightTheme,
+      theme: AppTheme.instance.lightTheme,
     );
   }
 }

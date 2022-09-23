@@ -10,12 +10,13 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     on<CategoriesFetched>((event, emit) async {
       try {
         emit(CategoriesLoading());
-        final productList = await CategoryService.fetchCategoriesAll()
+        final List categoryList = await CategoryService.fetchCategoriesAll()
             .timeout(const Duration(seconds: 2))
             .onError(
                 (error, stackTrace) => emit(CategoriesError(error.toString())));
-        if (productList != null) {
-          emit(CategoriesLoaded(productList, selectedCat: event.selectedCat));
+        if (categoryList.isNotEmpty) {
+          categoryList.insert(0, "All");
+          emit(CategoriesLoaded(categoryList, selectedCat: event.selectedCat));
         }
       } catch (e) {
         emit(CategoriesError(e.toString()));

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/constants/app/colors.dart';
 
 class IconButtonWidget extends StatelessWidget {
   final IconData icon;
@@ -17,14 +18,14 @@ class IconButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(border: Border.all()),
-      padding: context.paddingLow,
-      margin: context.horizontalPaddingNormal,
-      child: Icon(
-        icon,
-        size: size ?? 24,
-        color: iColor,
+    return Padding(
+      padding: context.horizontalPaddingLow,
+      child: CircleAvatar(
+        backgroundColor: iColor.withOpacity(0.1),
+        child: IconButton(
+          icon: Icon(icon, size: size ?? 24, color: iColor),
+          onPressed: () {},
+        ),
       ),
     );
   }

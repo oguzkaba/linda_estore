@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kartal/kartal.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../core/constants/app/colors.dart';
 import '../../../core/init/routes/routes.gr.dart';
 
@@ -18,9 +18,13 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     super.initState();
 
+    _redirect();
+  }
+
+  Future<void> _redirect() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        Future.delayed(context.durationSlow, () {
+        Future.delayed(const Duration(seconds: 3), () {
           context.router.replaceAll(const [LoginView()]);
         });
       },
@@ -35,9 +39,19 @@ class _SplashViewState extends State<SplashView> {
         backgroundColor: ColorConstants.primaryColor,
         body: Center(
           child: FadeIn(
-            duration: context.durationLow,
-            child: Text("LindaWedding",
-                style: TextStyle(color: ColorConstants.myWhite)),
+            duration: const Duration(seconds: 3),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FaIcon(FontAwesomeIcons.cartShopping,
+                    color: ColorConstants.myWhite),
+                Text("LindaStore",
+                    style: TextStyle(
+                        color: ColorConstants.myWhite,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+              ],
+            ),
           ),
         ),
       ),
