@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linda_wedding_ecommerce/core/constants/app/colors.dart';
+import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
 import 'package:linda_wedding_ecommerce/features/auth/login/bloc/cubit/login_cubit.dart';
 import 'core/init/observer/observer.dart';
 import 'core/init/routes/routes.gr.dart';

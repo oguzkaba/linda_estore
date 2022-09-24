@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/image_extansion.dart';
 
-import '../../../../core/constants/app/colors.dart';
+import '../../../../core/constants/app/colors_constants.dart';
 
 class LoginTopWidget extends StatelessWidget {
   const LoginTopWidget({

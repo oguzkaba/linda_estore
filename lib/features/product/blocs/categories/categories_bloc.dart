@@ -10,6 +10,8 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     on<CategoriesFetched>((event, emit) async {
       try {
         emit(CategoriesLoading());
+        //*add test for shimmer
+        await Future.delayed(Duration(seconds: 5));
         final List categoryList = await CategoryService.fetchCategoriesAll()
             .timeout(const Duration(seconds: 2))
             .onError(

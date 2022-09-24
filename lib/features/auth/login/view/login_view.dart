@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/features/auth/login/bloc/cubit/login_cubit.dart';
 
-import '../../../../core/constants/app/colors.dart';
+import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../product/widgets/divider_widget.dart';
 import '../../../../product/widgets/ebutton_widget.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vexana/vexana.dart';
 
-import '../../core/constants/app/colors.dart';
+import '../../core/constants/app/colors_constants.dart';
 
 abstract class ServiceHelper {
   void showMessage(

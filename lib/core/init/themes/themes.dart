@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:linda_wedding_ecommerce/core/constants/app/colors.dart';
+import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
 
 class AppTheme {
   static AppTheme? _instance;
@@ -34,7 +34,6 @@ class AppTheme {
       );
 
   AppBarTheme get _appBarTheme => AppBarTheme(
-      centerTitle: true,
       toolbarHeight: 40,
       iconTheme: IconThemeData(color: ColorConstants.primaryColor),
       actionsIconTheme: IconThemeData(color: ColorConstants.primaryColor),

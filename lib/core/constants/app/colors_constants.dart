@@ -13,4 +13,6 @@ class ColorConstants {
   static Color myLightGrey = "dcdcdc".toColor;
   static Color myMediumGrey = "5c5c5c".toColor;
   static Color myBlue = "2196f3".toColor;
+  static Color shimmerBase = "e0e0e0".toColor;
+  static Color shimmerHighlight = "f5f5f5".toColor;
 }

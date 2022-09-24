@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/product/widgets/iconbutton_widget.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/sliver_grid_widget.dart';
-import '../../../core/constants/app/colors.dart';
+import 'package:linda_wedding_ecommerce/product/widgets/sliver_shimmer_widget.dart';
+import 'package:linda_wedding_ecommerce/product/widgets/textfield_widget.dart';
+import 'package:shimmer/shimmer.dart';
+import '../../../core/constants/app/colors_constants.dart';
 import '../../../product/widgets/bottom_nav_bar_widget.dart';
 import '../../product/blocs/categories/categories_bloc.dart';
 
@@ -27,7 +31,6 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Drawer(),
       body: _buildBody,
       bottomNavigationBar: _buildBottomNavBar,
     );
@@ -35,11 +38,23 @@ class _HomeViewState extends State<HomeView> {
 
   CustomScrollView get _buildBody => CustomScrollView(slivers: [
         SliverAppBar(
+          toolbarHeight: 36,
           pinned: true,
-          snap: true,
+          snap: false,
           floating: true,
-          centerTitle: true,
-          title: const Text("LindaStore"),
+          actions: [
+            IconButtonWidget(
+                circleRadius: 16,
+                size: 16,
+                icon: Icons.add_alert_rounded,
+                iColor: ColorConstants.primaryColor,
+                tooltip: "alert")
+          ],
+          titleSpacing: 4,
+          title: const SizedBox(
+              height: 30,
+              child: TextFieldWidget(
+                  hintText: "Search products...", pIcon: Icons.manage_search)),
           bottom: _buildSliverAppBarBottom,
         ),
         BlocConsumer<ProductsBloc, ProductsState>(
@@ -56,9 +71,9 @@ class _HomeViewState extends State<HomeView> {
           },
           builder: (context, state) {
             if (state is ProductsInitial) {
-              return _buildSliverLoadingWidget(context);
+              return const SliverShimmerWidget();
             } else if (state is ProductsLoading) {
-              return _buildSliverLoadingWidget(context);
+              return const SliverShimmerWidget();
             } else if (state is ProductsLoaded) {
               return _buildGridProducts(context, state.products);
             } else {
@@ -83,9 +98,9 @@ class _HomeViewState extends State<HomeView> {
         }
       }, builder: (context, state) {
         if (state is CategoriesInitial) {
-          return _buildLoadingWidget;
+          return _buildLoadingWidget(context);
         } else if (state is CategoriesLoading) {
-          return _buildLoadingWidget;
+          return _buildLoadingWidget(context);
         } else if (state is CategoriesLoaded) {
           return _buildCatogoriesTab(context, state.categories);
         } else {
@@ -118,7 +133,7 @@ class _HomeViewState extends State<HomeView> {
         indicatorColor: ColorConstants.primaryColor,
         tabs: model
             .map((e) => Container(
-                  padding: context.paddingLow,
+                  padding: const EdgeInsets.symmetric(vertical: 9),
                   decoration: null,
                   child: Text(e.toString().toCapitalized(),
                       style: const TextStyle(fontSize: 12)),
@@ -129,13 +144,23 @@ class _HomeViewState extends State<HomeView> {
   }
 }
 
-Widget get _buildLoadingWidget =>
-    const Center(child: CircularProgressIndicator.adaptive());
-
-Widget _buildSliverLoadingWidget(BuildContext context) => SliverToBoxAdapter(
-    child: SizedBox.fromSize(
-        size: Size(context.width, context.height),
-        child: const Center(child: CircularProgressIndicator.adaptive())));
+Widget _buildLoadingWidget(BuildContext context) {
+  return Center(
+      child: Shimmer.fromColors(
+          baseColor: ColorConstants.shimmerBase,
+          highlightColor: ColorConstants.shimmerHighlight,
+          child: DefaultTabController(
+            length: 4,
+            child: TabBar(indicator: const BoxDecoration(), tabs: [
+              for (var z = 0; z < 3; z++)
+                Container(
+                  padding: context.verticalPaddingLow,
+                  color: ColorConstants.myWhite,
+                  height: 20,
+                ),
+            ]),
+          )));
+}
 
 Widget _buildGridProducts(BuildContext context, List<ProductsModel> model) {
   return MySliverGridWidget(model: model);

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
 
 import '../../core/init/routes/routes.gr.dart';
 import '../../features/product/model/products_model.dart';
@@ -26,54 +27,66 @@ class MySliverGridWidget extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
         childCount: model.length,
         (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: () =>
-                context.router.push(ProductDetailView(id: model[index].id)),
-            child: Container(
-              padding: const EdgeInsets.all(5),
-              margin: const EdgeInsets.all(5),
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.05),
-                  spreadRadius: 3,
-                  blurRadius: 1,
-                  offset: const Offset(0, 0.2), // changes position of shadow
-                ),
-              ], color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Image.network(model[index].image,
-                      fit: BoxFit.contain, height: context.height / 7),
-                  Text(model[index].title,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: 12)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      for (var i = 0; i < 5; i++)
-                        Icon(
-                          model[index].rating.rate.round() > i
-                              ? Icons.star
-                              : Icons.star_border_outlined,
-                          color: Colors.amber,
-                          size: 10,
-                        ),
-                      Text(" ( ${model[index].rating.count} )",
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(fontSize: 12)),
-                    ],
-                  ),
-                  Text(
-                    "${model[index].price} TL",
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-          );
+          return _buildGrid(context, index);
         },
+      ),
+    );
+  }
+
+  GestureDetector _buildGrid(BuildContext context, int index) {
+    return GestureDetector(
+      onTap: () => context.router.push(ProductDetailView(id: model[index].id)),
+      child: Container(
+        padding: const EdgeInsets.all(5),
+        margin: const EdgeInsets.all(5),
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.05),
+            spreadRadius: 3,
+            blurRadius: 1,
+            offset: const Offset(0, 0.2), // changes position of shadow
+          ),
+        ], color: Colors.white, borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Image.network(model[index].image,
+                fit: BoxFit.contain, height: context.height * .15),
+            Text(model[index].title,
+                maxLines: context.isSmallScreen ? 1 : 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontSize: 12)),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.star,
+                      color: ColorConstants.myYellow,
+                      size: 10,
+                    ),
+                    Text(" ${model[index].rating.rate} ",
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                      borderRadius: context.normalBorderRadius,
+                      color: ColorConstants.secondaryColor.withOpacity(.3)),
+                  child: Text("${model[index].price} ₺",
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.bold)),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
