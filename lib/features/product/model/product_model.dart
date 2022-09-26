@@ -11,22 +11,22 @@ String productModelToJson(ProductModel data) => json.encode(data.toJson());
 
 class ProductModel {
   ProductModel({
-    required this.id,
-    required this.title,
-    required this.price,
-    required this.description,
-    required this.category,
-    required this.image,
-    required this.rating,
+    this.id,
+    this.title,
+    this.price,
+    this.description,
+    this.category,
+    this.image,
+    this.rating,
   });
 
-  final int id;
-  final String title;
-  final double price;
-  final String description;
-  final String category;
-  final String image;
-  final Rating rating;
+  final int? id;
+  final String? title;
+  final double? price;
+  final String? description;
+  final String? category;
+  final String? image;
+  final Rating? rating;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         id: json["id"],
@@ -45,8 +45,19 @@ class ProductModel {
         "description": description,
         "category": category,
         "image": image,
-        "rating": rating.toJson(),
+        "rating": rating?.toJson(),
       };
+
+  @override
+  ProductModel fromJson(Map<String, dynamic> json) => ProductModel(
+        id: json["id"],
+        title: json["title"],
+        price: json["price"].toDouble(),
+        description: json["description"],
+        category: json["category"],
+        image: json["image"],
+        rating: Rating.fromJson(json["rating"]),
+      );
 }
 
 class Rating {

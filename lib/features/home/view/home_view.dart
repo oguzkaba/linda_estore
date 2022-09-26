@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/init/network/service/network_service.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/iconbutton_widget.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/sliver_grid_widget.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/sliver_shimmer_widget.dart';
@@ -21,18 +22,25 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final manager = NetworkService.instance.networkManager;
+
   @override
   void initState() {
     BlocProvider.of<CategoriesBloc>(context).add((const CategoriesFetched(0)));
-    BlocProvider.of<ProductsBloc>(context).add((ProductsFetched()));
+    BlocProvider.of<ProductsBloc>(context)
+        .add((ProductsFetched(manager, _scaffoldKey)));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildBody,
-      bottomNavigationBar: _buildBottomNavBar,
+    return ScaffoldMessenger(
+      key: _scaffoldKey,
+      child: Scaffold(
+        body: _buildBody,
+        bottomNavigationBar: _buildBottomNavBar,
+      ),
     );
   }
 
@@ -62,9 +70,7 @@ class _HomeViewState extends State<HomeView> {
             if (state is ProductsError) {
               final snackBar = SnackBar(
                 backgroundColor: Colors.red,
-                content: state.error == "XMLHttpRequest error."
-                    ? const Text("Hata-> (İstekte bulunulan adres hatalı.)")
-                    : const Text("Hata-> (Bağlantı zaman aşımı..)"),
+                content: Text(state.error),
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
@@ -90,9 +96,7 @@ class _HomeViewState extends State<HomeView> {
         if (state is CategoriesError) {
           final snackBar = SnackBar(
             backgroundColor: ColorConstants.myRed,
-            content: state.error == "XMLHttpRequest error."
-                ? const Text("Hata-> (İstekte bulunulan adres hatalı.)")
-                : const Text("Hata-> (Connection timeout)"),
+            content: Text(state.error),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
@@ -123,7 +127,8 @@ class _HomeViewState extends State<HomeView> {
         indicatorSize: TabBarIndicatorSize.label,
         onTap: (value) {
           if (value == 0) {
-            BlocProvider.of<ProductsBloc>(context).add((ProductsFetched()));
+            BlocProvider.of<ProductsBloc>(context)
+                .add((ProductsFetched(manager, _scaffoldKey)));
           } else {
             BlocProvider.of<ProductsBloc>(context)
                 .add(ProductsByCategoryFetched(model[value]));
@@ -150,7 +155,7 @@ Widget _buildLoadingWidget(BuildContext context) {
           baseColor: ColorConstants.shimmerBase,
           highlightColor: ColorConstants.shimmerHighlight,
           child: DefaultTabController(
-            length: 4,
+            length: 3,
             child: TabBar(indicator: const BoxDecoration(), tabs: [
               for (var z = 0; z < 3; z++)
                 Container(
@@ -162,6 +167,6 @@ Widget _buildLoadingWidget(BuildContext context) {
           )));
 }
 
-Widget _buildGridProducts(BuildContext context, List<ProductsModel> model) {
+Widget _buildGridProducts(BuildContext context, List<ProductsModel?> model) {
   return MySliverGridWidget(model: model);
 }

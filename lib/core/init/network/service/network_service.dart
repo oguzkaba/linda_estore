@@ -1,4 +1,4 @@
-import 'package:vexana/vexana.dart';
+import 'package:dio/dio.dart';
 
 class NetworkService {
   static NetworkService? _instance;
@@ -10,11 +10,11 @@ class NetworkService {
   NetworkService._init();
 
   static const String _baseUrl = 'https://fakestoreapi.com/';
-  static const int _timeout = 30000;
+  static const int _timeout = 3000;
 
-  final INetworkManager networkManager = NetworkManager(
-    fileManager: LocalFile(),
-    options: BaseOptions(
+  final Dio networkManager = Dio(
+    BaseOptions(
+        responseType: ResponseType.plain,
         baseUrl: _baseUrl,
         followRedirects: false,
         receiveTimeout: _timeout,

@@ -34,7 +34,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               builder: (context, state) {
                 if (state is ProductLoaded) {
                   return Center(
-                      child: Image.network(state.product.image, scale: 5));
+                      child: Image.network(state.product.image!, scale: 5));
                 } else if (state is ProductError) {
                   return Text("hata ${state.error}");
                 } else {

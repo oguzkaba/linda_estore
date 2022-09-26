@@ -11,7 +11,7 @@ class ProductsInitial extends ProductsState {}
 class ProductsLoading extends ProductsState {}
 
 class ProductsLoaded extends ProductsState {
-  final List<ProductsModel> products;
+  final List<ProductsModel?> products;
 
   const ProductsLoaded(this.products);
 

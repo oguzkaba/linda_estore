@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kartal/kartal.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/init/routes/routes.gr.dart';
 
@@ -17,19 +18,24 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-
-    _redirect();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      controlAppState(context.durationSlow);
+    });
   }
 
-  Future<void> _redirect() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        Future.delayed(const Duration(seconds: 3), () {
-          context.router.replaceAll(const [LoginView()]);
-        });
-      },
-    );
+  Future<void> controlAppState(Duration duration) async {
+    //await _getProductsAndCategory();
+    await _redirect(duration);
   }
+
+  Future<void> _redirect(Duration duration) async {
+    context.router.replaceAll(const [LoginView()]);
+  }
+
+  // Future<void> _getProductsAndCategory() async {
+  //  BlocProvider.of<CategoriesBloc>(context).add((const CategoriesFetched(0)));
+  //   BlocProvider.of<ProductsBloc>(context).add((ProductsFetched()));
+  // }
 
   @override
   Widget build(BuildContext context) {

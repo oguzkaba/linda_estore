@@ -13,22 +13,22 @@ String productsModelToJson(List<ProductsModel> data) =>
 
 class ProductsModel {
   ProductsModel({
-    required this.id,
-    required this.title,
-    required this.price,
-    required this.description,
-    required this.category,
-    required this.image,
-    required this.rating,
+    this.id,
+    this.title,
+    this.price,
+    this.description,
+    this.category,
+    this.image,
+    this.rating,
   });
 
-  final int id;
-  final String title;
-  final double price;
-  final String description;
-  final String category;
-  final String image;
-  final Rating rating;
+  final int? id;
+  final String? title;
+  final double? price;
+  final String? description;
+  final String? category;
+  final String? image;
+  final Rating? rating;
 
   factory ProductsModel.fromJson(Map<String, dynamic> json) => ProductsModel(
         id: json["id"],
@@ -47,7 +47,7 @@ class ProductsModel {
         "description": description,
         "category": category,
         "image": image,
-        "rating": rating.toJson(),
+        "rating": rating?.toJson(),
       };
 }
 

@@ -7,7 +7,12 @@ abstract class ProductsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ProductsFetched extends ProductsEvent {}
+class ProductsFetched extends ProductsEvent {
+  final Dio manager;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
+
+  const ProductsFetched(this.manager, this.scaffoldKey);
+}
 
 class ProductsByCategoryFetched extends ProductsEvent {
   final String categoryName;

@@ -7,7 +7,7 @@ import '../../core/init/routes/routes.gr.dart';
 import '../../features/product/model/products_model.dart';
 
 class MySliverGridWidget extends StatelessWidget {
-  final List<ProductsModel> model;
+  final List<ProductsModel?> model;
 
   const MySliverGridWidget({
     Key? key,
@@ -35,7 +35,8 @@ class MySliverGridWidget extends StatelessWidget {
 
   GestureDetector _buildGrid(BuildContext context, int index) {
     return GestureDetector(
-      onTap: () => context.router.push(ProductDetailView(id: model[index].id)),
+      onTap: () =>
+          context.router.push(ProductDetailView(id: model[index]!.id!)),
       child: Container(
         padding: const EdgeInsets.all(5),
         margin: const EdgeInsets.all(5),
@@ -50,9 +51,9 @@ class MySliverGridWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Image.network(model[index].image,
+            Image.network(model[index]!.image!,
                 fit: BoxFit.contain, height: context.height * .15),
-            Text(model[index].title,
+            Text(model[index]!.title!,
                 maxLines: context.isSmallScreen ? 1 : 2,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(fontSize: 12)),
@@ -67,7 +68,7 @@ class MySliverGridWidget extends StatelessWidget {
                       color: ColorConstants.myYellow,
                       size: 10,
                     ),
-                    Text(" ${model[index].rating.rate} ",
+                    Text(" ${model[index]!.rating!.rate} ",
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold)),
@@ -78,7 +79,7 @@ class MySliverGridWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: context.normalBorderRadius,
                       color: ColorConstants.secondaryColor.withOpacity(.3)),
-                  child: Text("${model[index].price} ₺",
+                  child: Text("${model[index]!.price} ₺",
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           fontSize: 12, fontWeight: FontWeight.bold)),

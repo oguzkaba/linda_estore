@@ -11,7 +11,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
       try {
         emit(CategoriesLoading());
         //*add test for shimmer
-        await Future.delayed(Duration(seconds: 5));
+        //await Future.delayed(Duration(seconds: 5));
         final List categoryList = await CategoryService.fetchCategoriesAll()
             .timeout(const Duration(seconds: 2))
             .onError(

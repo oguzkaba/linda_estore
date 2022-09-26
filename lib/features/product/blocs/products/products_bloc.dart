@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../service/category_service.dart';
 
@@ -14,13 +16,16 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
       try {
         emit(ProductsLoading());
         //*add test for shimmer
-        //await Future.delayed(Duration(seconds: 5));
-        final productList = await ProductService.fetchProductsAll();
-        if (productList != null) {
-          emit(ProductsLoaded(productList));
-        }
+        await Future.delayed(Duration(seconds: 5));
+        final productList =
+            await ProductService(event.manager, event.scaffoldKey)
+                .fetchProductsAll();
+
+        emit(ProductsLoaded(productList));
       } catch (e) {
-        emit(ProductsError(e.toString()));
+        if (e is DioError) {
+          emit(ProductsError(e.message.toString()));
+        }
       }
     });
 
