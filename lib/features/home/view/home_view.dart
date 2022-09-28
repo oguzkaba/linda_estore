@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/init/network/service/network_service.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/iconbutton_widget.dart';
+import 'package:linda_wedding_ecommerce/product/widgets/search_bar_widget.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/sliver_grid_widget.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/sliver_shimmer_widget.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/textfield_widget.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../core/constants/app/colors_constants.dart';
+import '../../../product/utils/custom_error_widgets.dart';
 import '../../../product/widgets/bottom_nav_bar_widget.dart';
 import '../../product/blocs/categories/categories_bloc.dart';
 
@@ -59,20 +60,13 @@ class _HomeViewState extends State<HomeView> {
                 tooltip: "alert")
           ],
           titleSpacing: 4,
-          title: const SizedBox(
-              height: 30,
-              child: TextFieldWidget(
-                  hintText: "Search products...", pIcon: Icons.manage_search)),
+          title: const SizedBox(height: 30, child: SearchBarWidget()),
           bottom: _buildSliverAppBarBottom,
         ),
         BlocConsumer<ProductsBloc, ProductsState>(
           listener: (context, state) {
             if (state is ProductsError) {
-              final snackBar = SnackBar(
-                backgroundColor: Colors.red,
-                content: Text(state.error),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              CustomErrorWidgets.showError(context, state);
             }
           },
           builder: (context, state) {
@@ -94,11 +88,7 @@ class _HomeViewState extends State<HomeView> {
       child: BlocConsumer<CategoriesBloc, CategoriesState>(
           listener: (context, state) {
         if (state is CategoriesError) {
-          final snackBar = SnackBar(
-            backgroundColor: ColorConstants.myRed,
-            content: Text(state.error),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          CustomErrorWidgets.showError(context, state);
         }
       }, builder: (context, state) {
         if (state is CategoriesInitial) {

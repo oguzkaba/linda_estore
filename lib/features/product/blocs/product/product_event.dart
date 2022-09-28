@@ -8,7 +8,9 @@ abstract class ProductEvent extends Equatable {
 }
 
 class ProductFetched extends ProductEvent {
+  final Dio manager;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
   final int id;
 
-  const ProductFetched(this.id);
+  const ProductFetched(this.manager, this.scaffoldKey, this.id);
 }

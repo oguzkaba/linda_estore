@@ -16,15 +16,14 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
       try {
         emit(ProductsLoading());
         //*add test for shimmer
-        await Future.delayed(Duration(seconds: 5));
+        //await Future.delayed(Duration(seconds: 5));
         final productList =
             await ProductService(event.manager, event.scaffoldKey)
                 .fetchProductsAll();
-
         emit(ProductsLoaded(productList));
       } catch (e) {
         if (e is DioError) {
-          emit(ProductsError(e.message.toString()));
+          emit(ProductsError(e));
         }
       }
     });
@@ -42,7 +41,9 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
           }
         }
       } catch (e) {
-        emit(ProductsError(e.toString()));
+        if (e is DioError) {
+          emit(ProductsError(e));
+        }
       }
     });
   }

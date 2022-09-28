@@ -10,7 +10,7 @@ class NetworkService {
   NetworkService._init();
 
   static const String _baseUrl = 'https://fakestoreapi.com/';
-  static const int _timeout = 3000;
+  static const int _timeout = 15000;
 
   final Dio networkManager = Dio(
     BaseOptions(

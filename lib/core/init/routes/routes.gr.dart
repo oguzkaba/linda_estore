@@ -12,6 +12,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i7;
+import 'package:dio/dio.dart' as _i9;
 import 'package:flutter/material.dart' as _i8;
 
 import '../../../features/auth/forgot/view/forgot_view.dart' as _i3;
@@ -76,7 +77,11 @@ class AppRouter extends _i7.RootStackRouter {
       final args = routeData.argsAs<ProductDetailViewArgs>();
       return _i7.CustomPage<dynamic>(
           routeData: routeData,
-          child: _i6.ProductDetailView(key: args.key, id: args.id),
+          child: _i6.ProductDetailView(
+              key: args.key,
+              id: args.id,
+              manager: args.manager,
+              scaffoldKey: args.scaffoldKey),
           transitionsBuilder: _i7.TransitionsBuilders.slideRightWithFade,
           durationInMilliseconds: 200,
           opaque: true,
@@ -138,23 +143,33 @@ class HomeView extends _i7.PageRouteInfo<void> {
 /// generated route for
 /// [_i6.ProductDetailView]
 class ProductDetailView extends _i7.PageRouteInfo<ProductDetailViewArgs> {
-  ProductDetailView({_i8.Key? key, required int id})
+  ProductDetailView(
+      {_i8.Key? key,
+      required int id,
+      required _i9.Dio manager,
+      _i8.GlobalKey<_i8.ScaffoldState>? scaffoldKey})
       : super(ProductDetailView.name,
             path: '/product-detail-view',
-            args: ProductDetailViewArgs(key: key, id: id));
+            args: ProductDetailViewArgs(
+                key: key, id: id, manager: manager, scaffoldKey: scaffoldKey));
 
   static const String name = 'ProductDetailView';
 }
 
 class ProductDetailViewArgs {
-  const ProductDetailViewArgs({this.key, required this.id});
+  const ProductDetailViewArgs(
+      {this.key, required this.id, required this.manager, this.scaffoldKey});
 
   final _i8.Key? key;
 
   final int id;
 
+  final _i9.Dio manager;
+
+  final _i8.GlobalKey<_i8.ScaffoldState>? scaffoldKey;
+
   @override
   String toString() {
-    return 'ProductDetailViewArgs{key: $key, id: $id}';
+    return 'ProductDetailViewArgs{key: $key, id: $id, manager: $manager, scaffoldKey: $scaffoldKey}';
   }
 }
