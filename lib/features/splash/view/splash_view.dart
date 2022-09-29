@@ -19,7 +19,7 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      controlAppState(context.durationSlow);
+      controlAppState(const Duration(seconds: 3));
     });
   }
 
@@ -29,6 +29,7 @@ class _SplashViewState extends State<SplashView> {
   }
 
   Future<void> _redirect(Duration duration) async {
+    await Future.delayed(duration);
     context.router.replaceAll(const [LoginView()]);
   }
 

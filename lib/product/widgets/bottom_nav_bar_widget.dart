@@ -8,7 +8,7 @@ class MyBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: 1,
+      currentIndex: 0,
       iconSize: 18,
       items: const [
         BottomNavigationBarItem(label: "Home", icon: Icon(Icons.home_rounded)),

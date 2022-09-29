@@ -12,6 +12,7 @@ class TextFieldWidget extends StatelessWidget {
   final IconData? pIcon;
   final IconData? sIcon;
   final VoidCallback? suffixOnPress;
+  final Function(String)? onSubmitted;
   final Function(String)? onChange;
   final TextEditingController? fieldTextEditingController;
   final FocusNode? fieldFocusNode;
@@ -27,11 +28,13 @@ class TextFieldWidget extends StatelessWidget {
     this.fieldFocusNode,
     this.hintStyle,
     this.onChange,
+    this.onSubmitted,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onFieldSubmitted: onSubmitted,
       onChanged: onChange,
       controller: fieldTextEditingController,
       focusNode: fieldFocusNode,

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/init/network/service/network_service.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/iconbutton_widget.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/search_bar_widget.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/sliver_grid_widget.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/sliver_shimmer_widget.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../core/init/network/service/network_service.dart';
+import '../../../product/widgets/iconbutton_widget.dart';
+import '../../../product/widgets/search_bar_widget.dart';
+import '../../../product/widgets/sliver_grid_widget.dart';
+import '../../../product/widgets/sliver_shimmer_widget.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../product/utils/custom_error_widgets.dart';
 import '../../../product/widgets/bottom_nav_bar_widget.dart';
 import '../../product/blocs/categories/categories_bloc.dart';
-
 import '../../product/blocs/products/products_bloc.dart';
 import '../../product/model/products_model.dart';
 
@@ -25,12 +24,14 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final manager = NetworkService.instance.networkManager;
+  List<ProductsModel?> productsListforSearch = [];
 
   @override
   void initState() {
     BlocProvider.of<CategoriesBloc>(context).add((const CategoriesFetched(0)));
     BlocProvider.of<ProductsBloc>(context)
         .add((ProductsFetched(manager, _scaffoldKey)));
+
     super.initState();
   }
 
@@ -47,6 +48,7 @@ class _HomeViewState extends State<HomeView> {
 
   CustomScrollView get _buildBody => CustomScrollView(slivers: [
         SliverAppBar(
+          automaticallyImplyLeading: false,
           toolbarHeight: 36,
           pinned: true,
           snap: false,
@@ -60,7 +62,17 @@ class _HomeViewState extends State<HomeView> {
                 tooltip: "alert")
           ],
           titleSpacing: 4,
-          title: const SizedBox(height: 30, child: SearchBarWidget()),
+          title: BlocBuilder<ProductsBloc, ProductsState>(
+              builder: (context, state) {
+            if (state is ProductsLoaded) {
+              productsListforSearch = state.products;
+              return SizedBox(
+                  height: 30,
+                  child: SearchBarWidget(
+                      products: productsListforSearch.map((e) => e!).toList()));
+            }
+            return Container();
+          }),
           bottom: _buildSliverAppBarBottom,
         ),
         BlocConsumer<ProductsBloc, ProductsState>(
