@@ -14,7 +14,7 @@ class TextFieldWidget extends StatelessWidget {
   final VoidCallback? suffixOnPress;
   final Function(String)? onSubmitted;
   final Function(String)? onChange;
-  final TextEditingController? fieldTextEditingController;
+  final TextEditingController? controller;
   final FocusNode? fieldFocusNode;
   const TextFieldWidget({
     Key? key,
@@ -24,7 +24,7 @@ class TextFieldWidget extends StatelessWidget {
     this.pIcon,
     this.sIcon,
     this.suffixOnPress,
-    this.fieldTextEditingController,
+    this.controller,
     this.fieldFocusNode,
     this.hintStyle,
     this.onChange,
@@ -36,7 +36,7 @@ class TextFieldWidget extends StatelessWidget {
     return TextFormField(
       onFieldSubmitted: onSubmitted,
       onChanged: onChange,
-      controller: fieldTextEditingController,
+      controller: controller,
       focusNode: fieldFocusNode,
       validator: (value) => value.isNotNullOrNoEmpty ? null : 'fail',
       obscureText: obscureText ?? false,

@@ -46,7 +46,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           hintText: "Search product, category, brand...",
           pIcon: _isChange ? null : Icons.manage_search_outlined,
           sIcon: _isChange ? Icons.cancel_rounded : null,
-          fieldTextEditingController: fieldTextEditingController,
+          controller: fieldTextEditingController,
           fieldFocusNode: fieldFocusNode,
         ),
         onSelected: (ProductsModel selection) {

@@ -3,11 +3,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/image_extansion.dart';
 
-import '../../../../core/constants/app/colors_constants.dart';
+import '../../core/constants/app/colors_constants.dart';
 
-class LoginTopWidget extends StatelessWidget {
-  const LoginTopWidget({
+class AuthTopWidget extends StatelessWidget {
+  final String title;
+  final String subTitle;
+  final String image;
+
+  const AuthTopWidget({
     Key? key,
+    required this.title,
+    required this.subTitle,
+    required this.image,
   }) : super(key: key);
 
   @override
@@ -16,13 +23,12 @@ class LoginTopWidget extends StatelessWidget {
       visible: !context.isKeyBoardOpen,
       child: Column(
         children: [
-          const Text("Hello Again!",
+          Text(title,
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+          Text(subTitle, style: TextStyle(color: ColorConstants.myDark)),
           Padding(padding: context.paddingLow),
-          Text("Welcome back you've been missed!",
-              style: TextStyle(color: ColorConstants.myDark)),
           SvgPicture.asset(
-            "login".toSVG,
+            image.toSVG,
             height: context.height * .35,
           )
         ],

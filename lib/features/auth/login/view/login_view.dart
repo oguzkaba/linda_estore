@@ -11,7 +11,7 @@ import '../../../../product/widgets/ebutton_widget.dart';
 import '../../../../product/widgets/richtext_widget.dart';
 import '../../../../product/widgets/social_button_widget.dart';
 import '../../../../product/widgets/textfield_widget.dart';
-import '../widgets/login_top_widget.dart';
+import '../../../../product/widgets/auth_top_widget.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -32,7 +32,10 @@ class _LoginViewState extends State<LoginView> {
               ? MainAxisAlignment.start
               : MainAxisAlignment.center,
           children: [
-            const LoginTopWidget(),
+            const AuthTopWidget(
+                title: "Sign In",
+                subTitle: "Welcome back please sign in to continue",
+                image: "auth"),
             Padding(padding: context.paddingLow),
             _buildUnameInput(),
             Padding(padding: context.paddingLow),
@@ -40,10 +43,15 @@ class _LoginViewState extends State<LoginView> {
             //*forgot password
             _buildForgotButton(),
             //*sign in button
-            EButtonWidget(onPress: () => context.router.push(const HomeView())),
+            EButtonWidget(
+                text: "Sign In",
+                onPress: () => context.router.push(const HomeView())),
             Padding(padding: context.paddingLow),
             //*signup-or-social text
-            const RichTextWidget(),
+            RichTextWidget(
+                actionName: " +Register",
+                text: "Don't have account? ",
+                action: () => context.router.push(const RegisterView())),
             const DividerWidget(),
             //*social button
             const SocialIconButtonWidget()

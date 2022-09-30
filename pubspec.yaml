@@ -27,6 +27,7 @@ dependencies:
   hive: ^2.2.3
   http: ^0.13.5
   kartal: ^2.4.3
+  pinput: ^2.2.12
   shimmer: ^2.0.0
 
 dev_dependencies:
