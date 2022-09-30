@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/image_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/asset_extansion.dart';
 
 import '../../core/constants/app/colors_constants.dart';
 
@@ -24,7 +24,8 @@ class AuthTopWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(title,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+              style:
+                  const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
           Text(subTitle, style: TextStyle(color: ColorConstants.myDark)),
           Padding(padding: context.paddingLow),
           SvgPicture.asset(

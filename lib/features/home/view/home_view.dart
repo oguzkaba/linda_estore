@@ -39,9 +39,11 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return ScaffoldMessenger(
       key: _scaffoldKey,
-      child: Scaffold(
-        body: _buildBody,
-        bottomNavigationBar: _buildBottomNavBar,
+      child: SafeArea(
+        child: Scaffold(
+          body: _buildBody,
+          bottomNavigationBar: _buildBottomNavBar,
+        ),
       ),
     );
   }

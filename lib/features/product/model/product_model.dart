@@ -48,7 +48,6 @@ class ProductModel {
         "rating": rating?.toJson(),
       };
 
-  @override
   ProductModel fromJson(Map<String, dynamic> json) => ProductModel(
         id: json["id"],
         title: json["title"],

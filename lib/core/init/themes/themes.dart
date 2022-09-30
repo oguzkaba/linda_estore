@@ -11,17 +11,26 @@ class AppTheme {
   AppTheme._init();
 
   ThemeData get lightTheme => ThemeData.light().copyWith(
-      textTheme: ThemeData.light().textTheme.apply(
-            fontFamily: 'Montserrat',
-          ),
-      primaryTextTheme: ThemeData.light().textTheme.apply(
-            fontFamily: 'Montserrat',
-          ),
-      colorScheme: ThemeData()
-          .colorScheme
-          .copyWith(primary: ColorConstants.primaryColor),
-      appBarTheme: _appBarTheme,
-      bottomNavigationBarTheme: _bottomNavBarTheme);
+        textTheme: ThemeData.light().textTheme.apply(
+              fontFamily: 'Montserrat',
+            ),
+        primaryTextTheme: ThemeData.light().textTheme.apply(
+              fontFamily: 'Montserrat',
+            ),
+        colorScheme: ThemeData()
+            .colorScheme
+            .copyWith(primary: ColorConstants.primaryColor),
+        appBarTheme: _appBarTheme,
+        bottomNavigationBarTheme: _bottomNavBarTheme,
+        expansionTileTheme: _expansionTileTheme,
+      );
+
+  ExpansionTileThemeData get _expansionTileTheme => ExpansionTileThemeData(
+        backgroundColor: ColorConstants.myWhite,
+        collapsedBackgroundColor: ColorConstants.myWhite,
+        tilePadding: EdgeInsets.zero,
+        childrenPadding: EdgeInsets.zero,
+      );
 
   BottomNavigationBarThemeData get _bottomNavBarTheme =>
       BottomNavigationBarThemeData(

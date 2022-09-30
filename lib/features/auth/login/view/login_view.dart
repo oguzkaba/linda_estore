@@ -23,39 +23,41 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: context.horizontalPaddingMedium,
-        child: Column(
-          mainAxisAlignment: context.isKeyBoardOpen
-              ? MainAxisAlignment.start
-              : MainAxisAlignment.center,
-          children: [
-            const AuthTopWidget(
-                title: "Sign In",
-                subTitle: "Welcome back please sign in to continue",
-                image: "auth"),
-            Padding(padding: context.paddingLow),
-            _buildUnameInput(),
-            Padding(padding: context.paddingLow),
-            _buildPassInput(),
-            //*forgot password
-            _buildForgotButton(),
-            //*sign in button
-            EButtonWidget(
-                text: "Sign In",
-                onPress: () => context.router.push(const HomeView())),
-            Padding(padding: context.paddingLow),
-            //*signup-or-social text
-            RichTextWidget(
-                actionName: " +Register",
-                text: "Don't have account? ",
-                action: () => context.router.push(const RegisterView())),
-            const DividerWidget(),
-            //*social button
-            const SocialIconButtonWidget()
-          ],
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Padding(
+          padding: context.horizontalPaddingMedium,
+          child: Column(
+            mainAxisAlignment: context.isKeyBoardOpen
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.center,
+            children: [
+              const AuthTopWidget(
+                  title: "Sign In",
+                  subTitle: "Welcome back please sign in to continue",
+                  image: "auth"),
+              Padding(padding: context.paddingLow),
+              _buildUnameInput(),
+              Padding(padding: context.paddingLow),
+              _buildPassInput(),
+              //*forgot password
+              _buildForgotButton(),
+              //*sign in button
+              EButtonWidget(
+                  text: "Sign In",
+                  onPress: () => context.router.push(const HomeView())),
+              Padding(padding: context.paddingLow),
+              //*signup-or-social text
+              RichTextWidget(
+                  actionName: " +Register",
+                  text: "Don't have account? ",
+                  action: () => context.router.push(const RegisterView())),
+              const DividerWidget(),
+              //*social button
+              const SocialIconButtonWidget()
+            ],
+          ),
         ),
       ),
     );

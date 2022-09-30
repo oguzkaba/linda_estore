@@ -4,7 +4,7 @@ import 'package:kartal/kartal.dart';
 
 import '../../core/constants/app/colors_constants.dart';
 
-class TextFieldWidget extends StatelessWidget {
+class TextFieldWidget extends StatefulWidget {
   final String? labelText;
   final String? hintText;
   final bool? obscureText;
@@ -32,27 +32,39 @@ class TextFieldWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<TextFieldWidget> createState() => _TextFieldWidgetState();
+}
+
+class _TextFieldWidgetState extends State<TextFieldWidget> {
+  @override
+  void dispose() {
+    widget.fieldFocusNode?.unfocus();
+    widget.controller?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onFieldSubmitted: onSubmitted,
-      onChanged: onChange,
-      controller: controller,
-      focusNode: fieldFocusNode,
+      onFieldSubmitted: widget.onSubmitted,
+      onChanged: widget.onChange,
+      controller: widget.controller,
+      focusNode: widget.fieldFocusNode,
       validator: (value) => value.isNotNullOrNoEmpty ? null : 'fail',
-      obscureText: obscureText ?? false,
+      obscureText: widget.obscureText ?? false,
       decoration: InputDecoration(
         contentPadding: context.horizontalPaddingMedium,
-        hintText: hintText ?? "",
-        hintStyle: hintStyle ?? const TextStyle(fontSize: 14),
+        hintText: widget.hintText ?? "",
+        hintStyle: widget.hintStyle ?? const TextStyle(fontSize: 14),
         filled: true,
         fillColor: ColorConstants.secondaryColor.withOpacity(.15),
-        prefixIcon: pIcon == null ? null : Icon(pIcon, size: 20),
-        suffixIcon: sIcon == null
+        prefixIcon: widget.pIcon == null ? null : Icon(widget.pIcon, size: 20),
+        suffixIcon: widget.sIcon == null
             ? null
             : IconButton(
                 padding: EdgeInsets.zero,
-                icon: Icon(sIcon, size: 20),
-                onPressed: suffixOnPress,
+                icon: Icon(widget.sIcon, size: 20),
+                onPressed: widget.suffixOnPress,
               ),
         focusedBorder: GradientOutlineInputBorder(
             gradient: LinearGradient(colors: [

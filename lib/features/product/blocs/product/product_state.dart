@@ -12,14 +12,15 @@ class ProductLoading extends ProductState {}
 
 class ProductLoaded extends ProductState {
   final ProductModel product;
+  final List<MockDataModel> reviews;
 
-  const ProductLoaded(this.product);
+  const ProductLoaded(this.product, this.reviews);
 
   @override
   String toString() => 'SearchStateSuccess { items: $product }';
 
   @override
-  List<Object> get props => [product];
+  List<Object> get props => [product, reviews];
 }
 
 class ProductError extends ProductState {

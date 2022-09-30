@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/image_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/asset_extansion.dart';
+import 'package:linda_wedding_ecommerce/product/mock/model/fake_reviews_model.dart';
+import 'package:linda_wedding_ecommerce/product/mock/service/mock_data_service.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/export_widget.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/iconbutton_widget.dart';
 import '../../../core/constants/app/colors_constants.dart';
@@ -23,6 +25,7 @@ class ProductDetailView extends StatefulWidget {
 }
 
 class _ProductDetailViewState extends State<ProductDetailView> {
+  late List<MockDataModel> reviews;
   @override
   void initState() {
     BlocProvider.of<ProductBloc>(context)
@@ -40,10 +43,13 @@ class _ProductDetailViewState extends State<ProductDetailView> {
       },
       builder: (context, state) {
         if (state is ProductLoaded) {
-          return Scaffold(
+          return SafeArea(
+            child: Scaffold(
               backgroundColor: ColorConstants.myWhite,
+              extendBodyBehindAppBar: true,
               appBar: AppBar(
-                elevation: 0,
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
                 actions: [
                   IconButtonWidget(
                       icon: Icons.favorite_border,
@@ -59,7 +65,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                   children: [
                     Center(
                       child: Image.network(state.product.image!,
-                          height: context.height / 2),
+                          height: context.height * .5),
                     ),
                     Padding(padding: context.paddingLow),
                     Text(state.product.title!,
@@ -87,10 +93,28 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     const Text("Details",
                         style: TextStyle(
                             fontSize: 13, fontWeight: FontWeight.bold)),
+                    Padding(padding: context.paddingLow),
                     Text(state.product.description!,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                         style: const TextStyle(fontSize: 12)),
+                    Padding(padding: context.paddingNormal),
+                    const Text("Color",
+                        style: TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.bold)),
+                    Padding(padding: context.paddingLow),
+                    Row(
+                      children: [
+                        _buildColorOption(ColorConstants.myBlack,
+                            selected: true),
+                        context.emptySizedWidthBoxLow,
+                        _buildColorOption(ColorConstants.myRed),
+                        context.emptySizedWidthBoxLow,
+                        _buildColorOption(ColorConstants.myBlue),
+                        context.emptySizedWidthBoxLow,
+                        _buildColorOption(ColorConstants.myYellow)
+                      ],
+                    ),
                     Padding(padding: context.paddingNormal),
                     const Text("Size",
                         style: TextStyle(
@@ -98,73 +122,104 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     Padding(padding: context.paddingLow),
                     Row(
                       children: [
-                        _buildSizeContainer("S"),
+                        _buildSizeOption("S"),
                         context.emptySizedWidthBoxLow,
-                        _buildSizeContainer("M", selected: true),
+                        _buildSizeOption("M", selected: true),
                         context.emptySizedWidthBoxLow,
-                        _buildSizeContainer("L"),
+                        _buildSizeOption("L"),
                         context.emptySizedWidthBoxLow,
-                        _buildSizeContainer("XL")
+                        _buildSizeOption("XL")
                       ],
+                    ),
+                    Padding(padding: context.paddingNormal),
+                    const Text("Reviews",
+                        style: TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.bold)),
+                    Padding(padding: context.paddingLow),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: ((context, index) => ListTile(
+                          leading: CircleAvatar(
+                              child: Image.network(
+                            state.reviews[index].image,
+                            fit: BoxFit.cover,
+                          )),
+                          title: Text(state.reviews[index].fullName))),
+                      itemCount: state.reviews.length,
                     )
                   ],
                 ),
               )),
-              bottomNavigationBar: Container(
-                decoration: BoxDecoration(
-                  color: ColorConstants.myWhite,
-                  boxShadow: [
-                    BoxShadow(
-                      color: ColorConstants.myLightGrey,
-                      offset: const Offset(0.0, 1.0), //(x,y)
-                      blurRadius: 6.0,
-                    ),
-                  ],
-                ),
-                height: 60,
-                child: Padding(
-                  padding: context.paddingNormal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "PRICE",
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: ColorConstants.myLightGrey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "${state.product.price} ₺",
-                            style: TextStyle(
-                                color: ColorConstants.primaryColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      const EButtonWidget(text: "ADD", width: 150)
-                    ],
-                  ),
-                ),
-              ));
-        } else if (state is ProductError) {
-          return Center(child: SvgPicture.asset("error".toSVG));
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
+              bottomNavigationBar: _buildBottomWidget(context, state),
+            ),
           );
+        } else if (state is ProductError) {
+          return Container(
+              color: ColorConstants.myWhite,
+              width: double.infinity,
+              height: double.infinity,
+              child: Center(child: SvgPicture.asset("error".toSVG)));
+        } else {
+          return Container(
+              color: ColorConstants.myWhite,
+              width: double.infinity,
+              height: double.infinity,
+              child: const Center(child: CircularProgressIndicator()));
         }
       },
     );
   }
 
-  Container _buildSizeContainer(String size, {bool selected = false}) {
+  Container _buildBottomWidget(BuildContext context, ProductLoaded state) {
     return Container(
-      width: 50,
-      height: 50,
+      decoration: BoxDecoration(
+        color: ColorConstants.myWhite,
+        boxShadow: [
+          BoxShadow(
+            color: ColorConstants.myLightGrey,
+            offset: const Offset(0.0, 1.0), //(x,y)
+            blurRadius: 6.0,
+          ),
+        ],
+      ),
+      height: 60,
+      child: Padding(
+        padding:
+            EdgeInsets.symmetric(horizontal: context.width * .02, vertical: 12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "PRICE",
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: ColorConstants.myLightGrey,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "${state.product.price} ₺",
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: ColorConstants.primaryColor,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            const EButtonWidget(text: "ADD", width: 125)
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container _buildSizeOption(String size, {bool selected = false}) {
+    return Container(
+      width: 30,
+      height: 30,
       decoration: BoxDecoration(
           border:
               selected ? Border.all(color: ColorConstants.primaryColor) : null,
@@ -177,6 +232,25 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                   color: selected
                       ? ColorConstants.primaryColor
                       : ColorConstants.myMediumGrey))),
+    );
+  }
+
+  _buildColorOption(Color color, {bool selected = false}) {
+    return Container(
+      width: 30,
+      height: 30,
+      decoration: BoxDecoration(
+          color: color.withOpacity(.3),
+          borderRadius: BorderRadius.circular(10)),
+      child: Center(
+          child: CircleAvatar(
+              backgroundColor: color,
+              radius: 8,
+              child: selected
+                  ? Center(
+                      child: Icon(Icons.check,
+                          size: 12, color: ColorConstants.myWhite))
+                  : null)),
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
 
 class IconButtonWidget extends StatelessWidget {
   final IconData icon;

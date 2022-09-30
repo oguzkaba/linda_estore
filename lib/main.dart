@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
 import 'package:linda_wedding_ecommerce/features/auth/login/bloc/cubit/login_cubit.dart';
 import 'package:linda_wedding_ecommerce/features/product/blocs/product/product_bloc.dart';
-import 'core/constants/app/application_constants.dart';
 import 'core/init/observer/observer.dart';
 import 'core/init/routes/routes.gr.dart';
 import 'core/init/themes/themes.dart';

@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/features/auth/login/bloc/cubit/login_cubit.dart';
 
-import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../product/widgets/auth_top_widget.dart';
 import '../../../../product/widgets/divider_widget.dart';
@@ -23,39 +22,41 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        padding: context.paddingMedium,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const AuthTopWidget(
-                title: "Sign Up",
-                subTitle: "Welcome back please sign up to continue",
-                image: "auth"),
-            Padding(padding: context.paddingLow),
-            _buildInput("Enter Name", Icons.person_outlined),
-            Padding(padding: context.paddingLow),
-            _buildInput("Enter Email", Icons.email_outlined),
-            Padding(padding: context.paddingLow),
-            _buildPassInput("Enter password"),
-            Padding(padding: context.paddingLow),
-            _buildPassInput("Enter password again"),
-            Padding(padding: context.paddingLow),
-            //*sign up button
-            EButtonWidget(
-                text: "Create Account",
-                onPress: () => context.router.push(const LoginView())),
-            Padding(padding: context.paddingLow),
-            //*signup-or-social text
-            RichTextWidget(
-                actionName: " +Login",
-                text: "Do you have account? ",
-                action: () => context.router.push(const LoginView())),
-            const DividerWidget(),
-            //*social button
-            const SocialIconButtonWidget()
-          ],
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          padding: context.paddingMedium,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const AuthTopWidget(
+                  title: "Sign Up",
+                  subTitle: "Welcome back please sign up to continue",
+                  image: "auth"),
+              Padding(padding: context.paddingLow),
+              _buildInput("Enter Name", Icons.person_outlined),
+              Padding(padding: context.paddingLow),
+              _buildInput("Enter Email", Icons.email_outlined),
+              Padding(padding: context.paddingLow),
+              _buildPassInput("Enter password"),
+              Padding(padding: context.paddingLow),
+              _buildPassInput("Enter password again"),
+              Padding(padding: context.paddingLow),
+              //*sign up button
+              EButtonWidget(
+                  text: "Create Account",
+                  onPress: () => context.router.push(const LoginView())),
+              Padding(padding: context.paddingLow),
+              //*signup-or-social text
+              RichTextWidget(
+                  actionName: " +Login",
+                  text: "Do you have account? ",
+                  action: () => context.router.push(const LoginView())),
+              const DividerWidget(),
+              //*social button
+              const SocialIconButtonWidget()
+            ],
+          ),
         ),
       ),
     );

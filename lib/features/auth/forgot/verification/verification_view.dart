@@ -59,36 +59,39 @@ class _EmailVerificationViewState extends State<EmailVerificationView> {
       ),
     );
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: context.paddingMedium,
-        child: Center(
-          child: Column(children: [
-            const AuthTopWidget(
-                title: "Email Verification",
-                subTitle: "Enter the code we sent to your e-mail.",
-                image: "auth"),
-            Pinput(
-              controller: controller,
-              focusNode: focusNode,
-              defaultPinTheme: defaultPinTheme,
-              focusedPinTheme: focusedPinTheme,
-              submittedPinTheme: submittedPinTheme,
-              validator: (s) {
-                return s == '2222' ? null : 'Pin is incorrect';
-              },
-              pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-              showCursor: true,
-              onCompleted: (pin) =>
-                  pin == '2222' ? context.router.push(const HomeView()) : null,
-            ),
-            Padding(padding: context.paddingLow),
-            RichTextWidget(
-                actionName: " +Resend",
-                text: "Didn't receive code? ",
-                action: () => context.router.push(const RegisterView())),
-          ]),
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Padding(
+          padding: context.paddingMedium,
+          child: Center(
+            child: Column(children: [
+              const AuthTopWidget(
+                  title: "Email Verification",
+                  subTitle: "Enter the code we sent to your e-mail.",
+                  image: "auth"),
+              Pinput(
+                controller: controller,
+                focusNode: focusNode,
+                defaultPinTheme: defaultPinTheme,
+                focusedPinTheme: focusedPinTheme,
+                submittedPinTheme: submittedPinTheme,
+                validator: (s) {
+                  return s == '2222' ? null : 'Pin is incorrect';
+                },
+                pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                showCursor: true,
+                onCompleted: (pin) => pin == '2222'
+                    ? context.router.push(const HomeView())
+                    : null,
+              ),
+              Padding(padding: context.paddingLow),
+              RichTextWidget(
+                  actionName: " +Resend",
+                  text: "Didn't receive code? ",
+                  action: () => context.router.push(const RegisterView())),
+            ]),
+          ),
         ),
       ),
     );
