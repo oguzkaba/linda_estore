@@ -9,7 +9,6 @@ import '../../../product/widgets/sliver_grid_widget.dart';
 import '../../../product/widgets/sliver_shimmer_widget.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../product/utils/custom_error_widgets.dart';
-import '../../../product/widgets/bottom_nav_bar_widget.dart';
 import '../../product/blocs/categories/categories_bloc.dart';
 import '../../product/blocs/products/products_bloc.dart';
 import '../../product/model/products_model.dart';
@@ -42,7 +41,6 @@ class _HomeViewState extends State<HomeView> {
       child: SafeArea(
         child: Scaffold(
           body: _buildBody,
-          bottomNavigationBar: _buildBottomNavBar,
         ),
       ),
     );
@@ -115,11 +113,6 @@ class _HomeViewState extends State<HomeView> {
           return context.emptySizedHeightBoxLow;
         }
       }));
-
-  SizedBox get _buildBottomNavBar => const SizedBox(
-        height: 42,
-        child: MyBottomNavBar(),
-      );
 
   DefaultTabController _buildCatogoriesTab(BuildContext context, List model) {
     return DefaultTabController(

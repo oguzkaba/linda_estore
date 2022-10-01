@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,12 +7,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/asset_extansion.dart';
 import 'package:linda_wedding_ecommerce/product/mock/model/fake_reviews_model.dart';
-import 'package:linda_wedding_ecommerce/product/mock/service/mock_data_service.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/export_widget.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/iconbutton_widget.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../product/utils/custom_error_widgets.dart';
 import '../blocs/product/product_bloc.dart';
+import '../model/product_model.dart';
 
 class ProductDetailView extends StatefulWidget {
   final int id;
@@ -25,12 +27,18 @@ class ProductDetailView extends StatefulWidget {
 }
 
 class _ProductDetailViewState extends State<ProductDetailView> {
-  late List<MockDataModel> reviews;
+  ValueNotifier<bool> showReviews = ValueNotifier(false);
   @override
   void initState() {
     BlocProvider.of<ProductBloc>(context)
         .add(ProductFetched(widget.manager, widget.scaffoldKey, widget.id));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    showReviews.dispose();
+    super.dispose();
   }
 
   @override
@@ -48,12 +56,17 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               backgroundColor: ColorConstants.myWhite,
               extendBodyBehindAppBar: true,
               appBar: AppBar(
+                leading: IconButtonWidget(
+                    onPress: () => context.router.pop(),
+                    icon: Icons.chevron_left_rounded,
+                    iColor: ColorConstants.myBlack,
+                    tooltip: "Favorite"),
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
                 actions: [
                   IconButtonWidget(
                       icon: Icons.favorite_border,
-                      iColor: ColorConstants.myLightGrey,
+                      iColor: ColorConstants.myBlack,
                       tooltip: "Favorite")
                 ],
               ),
@@ -71,28 +84,33 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     Text(state.product.title!,
                         style: const TextStyle(fontWeight: FontWeight.bold)),
                     Padding(padding: context.paddingLow),
-                    Row(
-                      children: [
-                        Row(
-                          children: [
-                            for (var i = 0; i < 5; i++)
-                              Icon(Icons.star,
-                                  color: i < state.product.rating!.rate
-                                      ? ColorConstants.myYellow
-                                      : ColorConstants.myLightGrey,
-                                  size: 16),
-                          ],
-                        ),
-                        Text(" ( ${state.product.rating!.count} Reviews) ",
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 12)),
-                      ],
+                    GestureDetector(
+                      onTap: () => showReviews.value = true,
+                      child: Row(
+                        children: [
+                          Row(
+                            children: [
+                              for (var i = 0; i < 5; i++)
+                                Icon(Icons.star,
+                                    color: i < state.product.rating!.rate
+                                        ? ColorConstants.myYellow
+                                        : ColorConstants.myLightGrey,
+                                    size: 16),
+                            ],
+                          ),
+                          Text(" ( ${state.product.rating!.count} Reviews) ",
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12)),
+                        ],
+                      ),
                     ),
                     Padding(padding: context.paddingNormal),
                     const Text("Details",
                         style: TextStyle(
-                            fontSize: 13, fontWeight: FontWeight.bold)),
+                            decoration: TextDecoration.underline,
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold)),
                     Padding(padding: context.paddingLow),
                     Text(state.product.description!,
                         overflow: TextOverflow.ellipsis,
@@ -101,7 +119,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     Padding(padding: context.paddingNormal),
                     const Text("Color",
                         style: TextStyle(
-                            fontSize: 13, fontWeight: FontWeight.bold)),
+                            decoration: TextDecoration.underline,
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold)),
                     Padding(padding: context.paddingLow),
                     Row(
                       children: [
@@ -118,7 +138,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     Padding(padding: context.paddingNormal),
                     const Text("Size",
                         style: TextStyle(
-                            fontSize: 13, fontWeight: FontWeight.bold)),
+                            decoration: TextDecoration.underline,
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold)),
                     Padding(padding: context.paddingLow),
                     Row(
                       children: [
@@ -132,26 +154,24 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       ],
                     ),
                     Padding(padding: context.paddingNormal),
-                    const Text("Reviews",
-                        style: TextStyle(
-                            fontSize: 13, fontWeight: FontWeight.bold)),
+                    GestureDetector(
+                      onTap: () => showReviews.value = !showReviews.value,
+                      child: const Text("Reviews",
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold)),
+                    ),
                     Padding(padding: context.paddingLow),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: ((context, index) => ListTile(
-                          leading: CircleAvatar(
-                              child: Image.network(
-                            state.reviews[index].image,
-                            fit: BoxFit.cover,
-                          )),
-                          title: Text(state.reviews[index].fullName))),
-                      itemCount: state.reviews.length,
-                    )
+                    ValueListenableBuilder(
+                        valueListenable: showReviews,
+                        builder: (context, value, child) => showReviews.value
+                            ? _buildReviewsList(state.reviews)
+                            : context.emptySizedHeightBoxLow)
                   ],
                 ),
               )),
-              bottomNavigationBar: _buildBottomWidget(context, state),
+              bottomNavigationBar: _buildBottomWidget(context, state.product),
             ),
           );
         } else if (state is ProductError) {
@@ -171,7 +191,48 @@ class _ProductDetailViewState extends State<ProductDetailView> {
     );
   }
 
-  Container _buildBottomWidget(BuildContext context, ProductLoaded state) {
+  ListView _buildReviewsList(List<MockDataModel> reviews) {
+    return ListView.builder(
+      //*TODO long wait for load data--(lazyload require)
+      itemCount: reviews.length,
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: ((context, index) => Card(
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: ColorConstants.myLightGrey,
+                child: CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    imageUrl: reviews[index].image,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error)),
+              ),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(reviews[index].fullName),
+                  Row(
+                    children: [
+                      for (var i = 0; i < 5; i++)
+                        Icon(Icons.star,
+                            color: i < reviews[index].rate
+                                ? ColorConstants.myYellow
+                                : ColorConstants.myLightGrey,
+                            size: 16),
+                    ],
+                  ),
+                ],
+              ),
+              subtitle: Text(reviews[index].review),
+            ),
+          )),
+    );
+  }
+
+  Container _buildBottomWidget(BuildContext context, ProductModel product) {
     return Container(
       decoration: BoxDecoration(
         color: ColorConstants.myWhite,
@@ -201,7 +262,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "${state.product.price} ₺",
+                  "${product.price} ₺",
                   style: TextStyle(
                       fontSize: 16,
                       color: ColorConstants.primaryColor,

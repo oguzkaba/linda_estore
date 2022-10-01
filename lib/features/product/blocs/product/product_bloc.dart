@@ -20,7 +20,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         //await Future.delayed(Duration(seconds: 5));
         final product = await ProductService(event.manager, event.scaffoldKey)
             .fetchProductById(id: event.id);
-        final reviews = await MockDataService.readLocalJson();
+        final reviews = await MockDataService.instance.readLocalJson();
         emit(ProductLoaded(product, reviews));
       } catch (e) {
         if (e is DioError) {

@@ -1,9 +1,9 @@
-// enum NavigationEnums {
-//   splashView('/'),
-//   loginView('/loginView'),
-//   homeView('/homeView'),
-//   productDetailView('/productDetailView:id');
+enum NavigationEnums {
+  splashView('/'),
+  loginView('/loginView'),
+  homeView('/homeView'),
+  productDetailView('/productDetailView:id');
 
-//   final String routeName;
-//   const NavigationEnums(this.routeName);
-// }
+  final String routeName;
+  const NavigationEnums(this.routeName);
+}

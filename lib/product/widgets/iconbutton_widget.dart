@@ -7,6 +7,7 @@ class IconButtonWidget extends StatelessWidget {
   final double? circleRadius;
   final Color iColor;
   final String tooltip;
+  final VoidCallback? onPress;
 
   const IconButtonWidget({
     Key? key,
@@ -14,7 +15,7 @@ class IconButtonWidget extends StatelessWidget {
     this.size,
     required this.iColor,
     required this.tooltip,
-    this.circleRadius,
+    this.circleRadius, this.onPress,
   }) : super(key: key);
 
   @override
@@ -26,7 +27,7 @@ class IconButtonWidget extends StatelessWidget {
         backgroundColor: iColor.withOpacity(0.1),
         child: IconButton(
           icon: Icon(icon, size: size ?? 24, color: iColor),
-          onPressed: () {},
+          onPressed: onPress,
         ),
       ),
     );

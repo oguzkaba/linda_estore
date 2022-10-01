@@ -46,7 +46,7 @@ class _LoginViewState extends State<LoginView> {
               //*sign in button
               EButtonWidget(
                   text: "Sign In",
-                  onPress: () => context.router.push(const HomeView())),
+                  onPress: () => context.router.push(const AppView())),
               Padding(padding: context.paddingLow),
               //*signup-or-social text
               RichTextWidget(
