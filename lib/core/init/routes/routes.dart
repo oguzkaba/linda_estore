@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:linda_wedding_ecommerce/features/account/view/account_view.dart';
-import 'package:linda_wedding_ecommerce/features/app/view/app_view.dart';
+import 'package:linda_wedding_ecommerce/app/view/app_view.dart';
 import 'package:linda_wedding_ecommerce/features/auth/forgot/verification/verification_view.dart';
 import 'package:linda_wedding_ecommerce/features/auth/forgot/view/forgot_view.dart';
 import 'package:linda_wedding_ecommerce/features/auth/register/view/register_view.dart';

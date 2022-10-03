@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/features/auth/login/bloc/cubit/login_cubit.dart';
+import 'package:linda_wedding_ecommerce/features/auth/service/auth_service.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
+import '../../../../core/init/network/service/network_service.dart';
 import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../product/widgets/divider_widget.dart';
 import '../../../../product/widgets/ebutton_widget.dart';
@@ -12,6 +14,7 @@ import '../../../../product/widgets/richtext_widget.dart';
 import '../../../../product/widgets/social_button_widget.dart';
 import '../../../../product/widgets/textfield_widget.dart';
 import '../../../../product/widgets/auth_top_widget.dart';
+import '../model/login_request_model.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -21,6 +24,18 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final manager = NetworkService.instance.networkManager;
+  TextEditingController unameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    unameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,7 +61,12 @@ class _LoginViewState extends State<LoginView> {
               //*sign in button
               EButtonWidget(
                   text: "Sign In",
-                  onPress: () => context.router.push(const AppView())),
+                  onPress: () async {
+                    await AuthService(manager, _scaffoldKey).loginUser(
+                        model: LoginRequestModel(
+                            username: "mor_2314", password: "83r5^_"));
+                    context.router.push(const AppView());
+                  }),
               Padding(padding: context.paddingLow),
               //*signup-or-social text
               RichTextWidget(
@@ -68,6 +88,7 @@ class _LoginViewState extends State<LoginView> {
       if (state is ToogleSuffixIcon) {
         bool visibleValue = state.visibility;
         return TextFieldWidget(
+            controller: passwordController,
             pIcon: Icons.lock_outlined,
             sIcon: visibleValue
                 ? Icons.visibility_off_outlined
@@ -84,7 +105,8 @@ class _LoginViewState extends State<LoginView> {
   }
 
   TextFieldWidget _buildUnameInput() {
-    return const TextFieldWidget(
+    return TextFieldWidget(
+        controller: unameController,
         pIcon: Icons.person_outlined,
         labelText: "UserName",
         hintText: "Enter username");

@@ -15,8 +15,8 @@ import 'package:auto_route/auto_route.dart' as _i12;
 import 'package:dio/dio.dart' as _i14;
 import 'package:flutter/material.dart' as _i13;
 
+import '../../../app/view/app_view.dart' as _i9;
 import '../../../features/account/view/account_view.dart' as _i4;
-import '../../../features/app/view/app_view.dart' as _i9;
 import '../../../features/auth/forgot/verification/verification_view.dart'
     as _i6;
 import '../../../features/auth/forgot/view/forgot_view.dart' as _i5;

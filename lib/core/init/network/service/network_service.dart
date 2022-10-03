@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 class NetworkService {
@@ -18,6 +20,9 @@ class NetworkService {
         baseUrl: _baseUrl,
         followRedirects: false,
         receiveTimeout: _timeout,
-        sendTimeout: _timeout),
+        sendTimeout: _timeout,
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+        }),
   );
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartal/kartal.dart';
 
 class AccountView extends StatefulWidget {
   const AccountView({super.key});
@@ -10,6 +11,15 @@ class AccountView extends StatefulWidget {
 class _AccountViewState extends State<AccountView> {
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text("account"));
+    return SafeArea(
+      child: Scaffold(
+          body: Center(
+              child: Column(
+        children: [
+          const Text("Account", style: TextStyle(fontWeight: FontWeight.bold)),
+          Padding(padding: context.paddingLow),
+        ],
+      ))),
+    );
   }
 }
