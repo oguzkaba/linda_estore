@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
 import 'package:linda_wedding_ecommerce/features/auth/login/bloc/cubit/login_cubit.dart';
+import 'package:linda_wedding_ecommerce/features/cart/bloc/cart_bloc.dart';
 import 'package:linda_wedding_ecommerce/features/product/blocs/product/product_bloc.dart';
 import 'core/init/observer/observer.dart';
 import 'core/init/routes/routes.gr.dart';
@@ -35,6 +36,9 @@ void main() async {
       ),
       BlocProvider(
         create: (context) => ProductBloc(),
+      ),
+      BlocProvider(
+        create: (context) => CartBloc(),
       ),
     ],
     child: const MyApp(),
