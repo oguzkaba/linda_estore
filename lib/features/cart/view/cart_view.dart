@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/init/routes/routes.gr.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/iconbutton_widget.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/textfield_widget.dart';
 import '../../product/model/product_model.dart';
@@ -274,7 +275,10 @@ Container _buildBottomWidget(
               ),
             ],
           ),
-          const EButtonWidget(text: "CHECKOUT", width: 150)
+          EButtonWidget(
+              text: "CHECKOUT",
+              width: 150,
+              onPress: () => context.router.push(const CheckOutView()))
         ],
       ),
     ),

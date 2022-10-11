@@ -7,12 +7,18 @@ class EButtonWidget extends StatelessWidget {
   final String text;
   final double? width;
   final double? height;
+  final Color? tColor;
+  final Color? bgColor;
+  final bool useBorder;
   const EButtonWidget({
     Key? key,
     this.onPress,
     required this.text,
     this.width,
     this.height,
+    this.tColor,
+    this.bgColor,
+    this.useBorder = false,
   }) : super(key: key);
 
   @override
@@ -25,9 +31,13 @@ class EButtonWidget extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               elevation: 0,
               shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                      color: ColorConstants.primaryColor,
+                      style: useBorder ? BorderStyle.solid : BorderStyle.none),
                   borderRadius: BorderRadius.circular(10)),
-              backgroundColor: ColorConstants.primaryColor),
-          child: Text(text)),
+              backgroundColor: bgColor ?? ColorConstants.primaryColor),
+          child: Text(text,
+              style: TextStyle(color: tColor ?? ColorConstants.myWhite))),
     );
   }
 }

@@ -21,6 +21,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
+  flutter_credit_card: ^3.0.4
   flutter_rating_bar: ^4.0.1
   flutter_svg: ^1.1.5
   font_awesome_flutter: ^10.2.1
@@ -44,6 +45,7 @@ flutter:
   assets:
     - assets/svg/
     - assets/images/
+    - assets/images/creditcard/
     - assets/fonts/
     - assets/jsons/
 

@@ -5,6 +5,7 @@ import 'package:linda_wedding_ecommerce/features/auth/forgot/verification/verifi
 import 'package:linda_wedding_ecommerce/features/auth/forgot/view/forgot_view.dart';
 import 'package:linda_wedding_ecommerce/features/auth/register/view/register_view.dart';
 import 'package:linda_wedding_ecommerce/features/cart/view/cart_view.dart';
+import 'package:linda_wedding_ecommerce/features/checkout/view/checkout_view.dart';
 
 import '../../../features/auth/login/view/login_view.dart';
 import '../../../features/favorite/view/favorite_view.dart';
@@ -27,6 +28,7 @@ import '../../../features/splash/view/splash_view.dart';
     AutoRoute(path: "/home", page: HomeView),
     AutoRoute(path: "/app", page: AppView),
     AutoRoute(path: "/cart", page: CartView),
+    AutoRoute(path: "/checkout", page: CheckOutView),
     AutoRoute(path: "/product-detail", page: ProductDetailView),
   ],
 )
