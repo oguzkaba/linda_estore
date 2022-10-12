@@ -39,8 +39,9 @@ class _CartViewState extends State<CartView> {
                           child: Column(
                             children: [
                               const Text("My Cart",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold)),
                               Padding(padding: context.paddingLow),
                               ListView.builder(
                                 physics: const NeverScrollableScrollPhysics(),
@@ -48,12 +49,13 @@ class _CartViewState extends State<CartView> {
                                 itemCount: 1,
                                 itemBuilder: (context, index) => Dismissible(
                                   dismissThresholds: const {
-                                    DismissDirection.endToStart: 0.6
+                                    DismissDirection.endToStart: 0.6,
+                                    DismissDirection.startToEnd: 0.6
                                   },
                                   confirmDismiss: (direction) async =>
                                       await _showDialogWidget(context),
                                   movementDuration: context.durationNormal,
-                                  direction: DismissDirection.endToStart,
+                                  direction: DismissDirection.horizontal,
                                   background: _slideRightBackground(),
                                   //secondaryBackground: _slideLeftBackground(),
                                   key: UniqueKey(),

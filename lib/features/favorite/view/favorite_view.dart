@@ -1,6 +1,5 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:kartal/kartal.dart';
 
 class FavoriteView extends StatefulWidget {
   const FavoriteView({super.key});
@@ -12,6 +11,15 @@ class FavoriteView extends StatefulWidget {
 class _FavoriteViewState extends State<FavoriteView> {
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text("favorite"));
+    return SafeArea(
+        child: Scaffold(
+            body: SingleChildScrollView(
+      child: Padding(
+          padding: context.paddingMedium,
+          child: const Center(
+            child: Text("Favorites",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+          )),
+    )));
   }
 }

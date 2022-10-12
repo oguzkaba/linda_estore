@@ -60,14 +60,21 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     onPress: () => context.router.pop(),
                     icon: Icons.chevron_left_rounded,
                     iColor: ColorConstants.myBlack,
-                    tooltip: "Favorite"),
+                    tooltip: "Back"),
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
                 actions: [
                   IconButtonWidget(
-                      icon: Icons.favorite_border,
-                      iColor: ColorConstants.myBlack,
-                      tooltip: "Favorite")
+                      onPress: () => debugPrint("added favorite"),
+                      icon: state.product.id! % 3 == 0
+                          ? Icons.favorite_border
+                          : Icons.favorite_rounded,
+                      size: 18,
+                      circleRadius: 18,
+                      iColor: state.product.id! % 3 == 0
+                          ? ColorConstants.myMediumGrey
+                          : ColorConstants.primaryColor,
+                      tooltip: "Favorite"),
                 ],
               ),
               body: SingleChildScrollView(

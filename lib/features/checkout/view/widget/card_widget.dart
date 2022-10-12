@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
@@ -42,11 +43,11 @@ class _CardWidgetState extends State<CardWidget> {
           children: <Widget>[
             Padding(padding: context.paddingLow),
             const Text("Checkout",
-                style: TextStyle(fontWeight: FontWeight.bold)),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
             Padding(padding: context.paddingLow),
             CreditCardWidget(
-              height: 300,
-              width: 450,
+              height: 220,
+              width: 400,
               cardNumber: cardNumber,
               expiryDate: expiryDate,
               cardHolderName: cardHolderName,
@@ -129,6 +130,7 @@ class _CardWidgetState extends State<CardWidget> {
                         EButtonWidget(
                             text: "Cancel",
                             width: context.width * .4,
+                            onPress: () => context.router.pop(),
                             bgColor: ColorConstants.myWhite,
                             useBorder: true,
                             tColor: ColorConstants.primaryColor),

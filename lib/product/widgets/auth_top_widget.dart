@@ -31,6 +31,7 @@ class AuthTopWidget extends StatelessWidget {
           SvgPicture.asset(
             image.toSVG,
             height: context.height * .35,
+            cacheColorFilter: false,
           )
         ],
       ),

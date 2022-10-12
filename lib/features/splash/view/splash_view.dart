@@ -2,10 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:linda_wedding_ecommerce/features/auth/bloc/auth_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/auth/login/model/login_request_model.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/init/network/service/network_service.dart';
 import '../../../core/init/routes/routes.gr.dart';
@@ -55,8 +51,8 @@ class _SplashViewState extends State<SplashView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FaIcon(FontAwesomeIcons.cartShopping,
-                    color: ColorConstants.myWhite),
+                Icon(Icons.shopping_bag_rounded,
+                    color: ColorConstants.myWhite, size: 30),
                 Text("LindaStore",
                     style: TextStyle(
                         color: ColorConstants.myWhite,
