@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/init/routes/routes.gr.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/iconbutton_widget.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
@@ -68,6 +70,8 @@ class _AccountViewState extends State<AccountView> {
   }
 
   ListTile _buildListTile(BuildContext context, int index) {
+    List actionList = [];
+
     List<String> actionNames = [
       "Edit Profile",
       "Shipping Adress",
@@ -98,7 +102,7 @@ class _AccountViewState extends State<AccountView> {
       trailing: IconButton(
         splashRadius: 1,
         icon: const Icon(Icons.chevron_right_rounded),
-        onPressed: () {},
+        onPressed: () => context.router.replaceAll([const LoginView()]),
       ),
       leading: IconButtonWidget(
         iColor: ColorConstants.primaryColor,

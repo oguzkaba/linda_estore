@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import '../../../../core/init/routes/routes.gr.dart';
 import 'package:flutter/material.dart';
+import 'package:kartal/kartal.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
-import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/asset_extansion.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/ebutton_widget.dart';
 
@@ -43,7 +44,7 @@ class _CardWidgetState extends State<CardWidget> {
           children: <Widget>[
             Padding(padding: context.paddingLow),
             const Text("Checkout",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             Padding(padding: context.paddingLow),
             CreditCardWidget(
               height: 220,
@@ -130,7 +131,7 @@ class _CardWidgetState extends State<CardWidget> {
                         EButtonWidget(
                             text: "Cancel",
                             width: context.width * .4,
-                            onPress: () => context.router.pop(),
+                            onPress: () => context.router.push(AppView(id: 1)),
                             bgColor: ColorConstants.myWhite,
                             useBorder: true,
                             tColor: ColorConstants.primaryColor),

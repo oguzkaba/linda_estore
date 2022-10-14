@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../../core/constants/app/application_constants.dart';
 
 class AppView extends StatefulWidget {
-  const AppView({super.key});
+  final int? id;
+  const AppView({super.key, this.id});
 
   @override
   State<AppView> createState() => _AppViewState();
@@ -11,6 +12,12 @@ class AppView extends StatefulWidget {
 
 class _AppViewState extends State<AppView> {
   ValueNotifier<int> selectIndex = ValueNotifier(0);
+
+  @override
+  void initState() {
+    super.initState();
+    selectIndex.value = widget.id ?? selectIndex.value;
+  }
 
   List<BottomNavigationBarItem> screens = [
     const BottomNavigationBarItem(

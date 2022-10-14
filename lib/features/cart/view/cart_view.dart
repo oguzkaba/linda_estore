@@ -40,7 +40,7 @@ class _CartViewState extends State<CartView> {
                             children: [
                               const Text("My Cart",
                                   style: TextStyle(
-                                      fontSize: 30,
+                                      fontSize: 24,
                                       fontWeight: FontWeight.bold)),
                               Padding(padding: context.paddingLow),
                               ListView.builder(

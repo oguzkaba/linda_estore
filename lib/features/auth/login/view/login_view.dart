@@ -65,7 +65,7 @@ class _LoginViewState extends State<LoginView> {
                     await AuthService(manager, _scaffoldKey).loginUser(
                         model: LoginRequestModel(
                             username: "mor_2314", password: "83r5^_"));
-                    context.router.push(const AppView());
+                    context.router.push(AppView(id: 0));
                   }),
               Padding(padding: context.paddingLow),
               //*signup-or-social text

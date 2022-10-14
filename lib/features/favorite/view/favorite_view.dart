@@ -18,7 +18,7 @@ class _FavoriteViewState extends State<FavoriteView> {
           padding: context.paddingMedium,
           child: const Center(
             child: Text("Favorites",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
           )),
     )));
   }
