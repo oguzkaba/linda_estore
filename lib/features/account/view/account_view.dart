@@ -28,34 +28,43 @@ class _AccountViewState extends State<AccountView> {
                         const Text("Account",
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.bold)),
-                        context.emptySizedHeightBoxNormal,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: ColorConstants.secondaryColor,
-                              child: const CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                    "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
-                                  ),
-                                  radius: 27),
+                        Card(
+                          elevation: 5,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 18.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor:
+                                      ColorConstants.secondaryColor,
+                                  child: CircleAvatar(
+                                      backgroundColor:
+                                          ColorConstants.secondaryColor,
+                                      backgroundImage: const NetworkImage(
+                                        "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
+                                      ),
+                                      radius: 27),
+                                ),
+                                context.emptySizedWidthBoxNormal,
+                                Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: const [
+                                      Text("Demo User",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold)),
+                                      Text(
+                                        "demo_user@gmail.com",
+                                      ),
+                                    ])
+                              ],
                             ),
-                            context.emptySizedWidthBoxNormal,
-                            Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Text("Demo User",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                  Text(
-                                    "demo_user@gmail.com",
-                                  ),
-                                ])
-                          ],
+                          ),
                         ),
-                        context.emptySizedHeightBoxNormal,
+                        context.emptySizedHeightBoxLow,
                         ListView.separated(
                           separatorBuilder: (context, index) => const Divider(),
                           shrinkWrap: true,
@@ -92,6 +101,16 @@ class _AccountViewState extends State<AccountView> {
       Icons.logout_rounded,
     ];
 
+    List<PageRouteInfo<dynamic>> actionRoute = [
+      const EditProfile(),
+      const Cards(),
+      const Notifications(),
+      const OrderHistory(),
+      const ShippingAdress(),
+      const TrackOrder(),
+      const LoginView(),
+    ];
+
     return ListTile(
       contentPadding: context.paddingLow,
       title: Text(actionNames[index],
@@ -102,7 +121,7 @@ class _AccountViewState extends State<AccountView> {
       trailing: IconButton(
         splashRadius: 1,
         icon: const Icon(Icons.chevron_right_rounded),
-        onPressed: () => context.router.replaceAll([const LoginView()]),
+        onPressed: () => context.router.replaceAll([actionRoute[index]]),
       ),
       leading: IconButtonWidget(
         iColor: ColorConstants.primaryColor,

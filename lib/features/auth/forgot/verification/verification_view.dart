@@ -25,12 +25,12 @@ class _EmailVerificationViewState extends State<EmailVerificationView> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    focusNode.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   controller.dispose();
+  //   focusNode.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

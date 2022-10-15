@@ -6,6 +6,7 @@ class IconButtonWidget extends StatelessWidget {
   final double? size;
   final double? circleRadius;
   final Color iColor;
+  final Color? bColor;
   final String tooltip;
   final VoidCallback? onPress;
 
@@ -17,6 +18,7 @@ class IconButtonWidget extends StatelessWidget {
     required this.tooltip,
     this.circleRadius,
     this.onPress,
+    this.bColor,
   }) : super(key: key);
 
   @override
@@ -25,7 +27,7 @@ class IconButtonWidget extends StatelessWidget {
       padding: context.horizontalPaddingLow,
       child: CircleAvatar(
         radius: circleRadius ?? 20,
-        backgroundColor: iColor.withOpacity(0.1),
+        backgroundColor: bColor ?? iColor.withOpacity(0.1),
         child: IconButton(
           splashRadius: 1,
           icon: Icon(icon, size: size ?? 24, color: iColor),

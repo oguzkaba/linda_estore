@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 import 'package:kartal/kartal.dart';
-
 import '../../core/constants/app/colors_constants.dart';
 
 class TextFieldWidget extends StatefulWidget {
@@ -39,7 +38,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   void dispose() {
     widget.fieldFocusNode?.unfocus();
-    widget.controller?.dispose();
+    //widget.controller?.dispose();
     super.dispose();
   }
 

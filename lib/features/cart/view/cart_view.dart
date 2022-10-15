@@ -49,13 +49,12 @@ class _CartViewState extends State<CartView> {
                                 itemCount: 1,
                                 itemBuilder: (context, index) => Dismissible(
                                   dismissThresholds: const {
-                                    DismissDirection.endToStart: 0.6,
-                                    DismissDirection.startToEnd: 0.6
+                                    DismissDirection.endToStart: 0.6
                                   },
                                   confirmDismiss: (direction) async =>
                                       await _showDialogWidget(context),
                                   movementDuration: context.durationNormal,
-                                  direction: DismissDirection.horizontal,
+                                  direction: DismissDirection.endToStart,
                                   background: _slideRightBackground(),
                                   //secondaryBackground: _slideLeftBackground(),
                                   key: UniqueKey(),

@@ -1,12 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:linda_wedding_ecommerce/features/account/view/account_view.dart';
 import 'package:linda_wedding_ecommerce/app/view/app_view.dart';
+import 'package:linda_wedding_ecommerce/features/account/view/widgets/edit_profile.dart';
+import 'package:linda_wedding_ecommerce/features/account/view/widgets/notifications.dart';
+import 'package:linda_wedding_ecommerce/features/account/view/widgets/order_history.dart';
+import 'package:linda_wedding_ecommerce/features/account/view/widgets/shipping_adress.dart';
+import 'package:linda_wedding_ecommerce/features/account/view/widgets/track_order.dart';
 import 'package:linda_wedding_ecommerce/features/auth/forgot/verification/verification_view.dart';
 import 'package:linda_wedding_ecommerce/features/auth/forgot/view/forgot_view.dart';
 import 'package:linda_wedding_ecommerce/features/auth/register/view/register_view.dart';
 import 'package:linda_wedding_ecommerce/features/cart/view/cart_view.dart';
 import 'package:linda_wedding_ecommerce/features/checkout/view/checkout_view.dart';
 
+import '../../../features/account/view/widgets/cards.dart';
 import '../../../features/auth/login/view/login_view.dart';
 import '../../../features/favorite/view/favorite_view.dart';
 import '../../../features/home/view/home_view.dart';
@@ -30,6 +36,12 @@ import '../../../features/splash/view/splash_view.dart';
     AutoRoute(path: "/verification", page: EmailVerificationView),
     AutoRoute(path: "/cart", page: CartView),
     AutoRoute(path: "/checkout", page: CheckOutView),
+    AutoRoute(path: "/edit-profile", page: EditProfile),
+    AutoRoute(path: "/cards", page: Cards),
+    AutoRoute(path: "/notifications", page: Notifications),
+    AutoRoute(path: "/order-history", page: OrderHistory),
+    AutoRoute(path: "/shipping-adress", page: ShippingAdress),
+    AutoRoute(path: "/track-order", page: TrackOrder),
   ],
 )
 class $AppRouter {}
