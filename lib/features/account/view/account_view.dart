@@ -66,6 +66,8 @@ class _AccountViewState extends State<AccountView> {
                         ),
                         context.emptySizedHeightBoxLow,
                         ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          primary: true,
                           separatorBuilder: (context, index) => const Divider(),
                           shrinkWrap: true,
                           itemCount: 7,
@@ -79,8 +81,6 @@ class _AccountViewState extends State<AccountView> {
   }
 
   ListTile _buildListTile(BuildContext context, int index) {
-    List actionList = [];
-
     List<String> actionNames = [
       "Edit Profile",
       "Shipping Adress",
@@ -103,11 +103,11 @@ class _AccountViewState extends State<AccountView> {
 
     List<PageRouteInfo<dynamic>> actionRoute = [
       const EditProfile(),
+      const ShippingAdress(),
+      const OrderHistory(),
+      const TrackOrder(),
       const Cards(),
       const Notifications(),
-      const OrderHistory(),
-      const ShippingAdress(),
-      const TrackOrder(),
       const LoginView(),
     ];
 
@@ -121,7 +121,7 @@ class _AccountViewState extends State<AccountView> {
       trailing: IconButton(
         splashRadius: 1,
         icon: const Icon(Icons.chevron_right_rounded),
-        onPressed: () => context.router.replaceAll([actionRoute[index]]),
+        onPressed: () => context.router.push(actionRoute[index]),
       ),
       leading: IconButtonWidget(
         iColor: ColorConstants.primaryColor,

@@ -1,8 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
@@ -31,8 +28,8 @@ class _EditProfileState extends State<EditProfile> {
           leading: Padding(
             padding: const EdgeInsets.all(4.0),
             child: IconButtonWidget(
-                size: 14,
-                onPress: () => context.router.push(AppView(id: 3)),
+                size: 16,
+                onPress: () => context.router.pop(),
                 icon: Icons.chevron_left_rounded,
                 iColor: ColorConstants.myMediumGrey,
                 tooltip: "Back"),

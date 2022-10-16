@@ -56,25 +56,31 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               backgroundColor: ColorConstants.myWhite,
               extendBodyBehindAppBar: true,
               appBar: AppBar(
-                leading: IconButtonWidget(
-                    onPress: () => context.router.pop(),
-                    icon: Icons.chevron_left_rounded,
-                    iColor: ColorConstants.myBlack,
-                    tooltip: "Back"),
+                leading: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: IconButtonWidget(
+                      size: 16,
+                      onPress: () => context.router.pop(),
+                      icon: Icons.chevron_left_rounded,
+                      iColor: ColorConstants.myMediumGrey,
+                      tooltip: "Back"),
+                ),
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
                 actions: [
-                  IconButtonWidget(
-                      onPress: () => debugPrint("added favorite"),
-                      icon: state.product.id! % 3 == 0
-                          ? Icons.favorite_border
-                          : Icons.favorite_rounded,
-                      size: 18,
-                      circleRadius: 18,
-                      iColor: state.product.id! % 3 == 0
-                          ? ColorConstants.myMediumGrey
-                          : ColorConstants.primaryColor,
-                      tooltip: "Favorite"),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    child: IconButtonWidget(
+                        onPress: () => debugPrint("added favorite"),
+                        icon: state.product.id! % 3 == 0
+                            ? Icons.favorite_border
+                            : Icons.favorite_rounded,
+                        size: 16,
+                        iColor: state.product.id! % 3 == 0
+                            ? ColorConstants.myMediumGrey
+                            : ColorConstants.primaryColor,
+                        tooltip: "Favorite"),
+                  ),
                 ],
               ),
               body: SingleChildScrollView(

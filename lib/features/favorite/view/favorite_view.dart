@@ -54,7 +54,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 8.0),
                                   child: SizedBox(
-                                      width: context.width / 4,
+                                      width: context.width * .24,
                                       height: context.height / 8,
                                       child: CachedNetworkImage(
                                         imageUrl: state.product.image!,

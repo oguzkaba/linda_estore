@@ -64,7 +64,7 @@ class _CartViewState extends State<CartView> {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 8.0),
                                         child: SizedBox(
-                                            width: context.width / 4,
+                                            width: context.width * .24,
                                             height: context.height / 8,
                                             child: CachedNetworkImage(
                                               imageUrl: state.product.image!,
@@ -279,7 +279,7 @@ Container _buildBottomWidget(
           EButtonWidget(
               text: "CHECKOUT",
               width: 150,
-              onPress: () => context.router.push(const CheckOutView()))
+              onPress: () => context.router.push(const Checkout()))
         ],
       ),
     ),

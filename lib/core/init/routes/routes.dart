@@ -10,9 +10,10 @@ import 'package:linda_wedding_ecommerce/features/auth/forgot/verification/verifi
 import 'package:linda_wedding_ecommerce/features/auth/forgot/view/forgot_view.dart';
 import 'package:linda_wedding_ecommerce/features/auth/register/view/register_view.dart';
 import 'package:linda_wedding_ecommerce/features/cart/view/cart_view.dart';
-import 'package:linda_wedding_ecommerce/features/checkout/view/checkout_view.dart';
+import 'package:linda_wedding_ecommerce/features/cart/view/widgets/checkout.dart';
 
 import '../../../features/account/view/widgets/cards.dart';
+import '../../../features/account/view/widgets/edit_card.dart';
 import '../../../features/auth/login/view/login_view.dart';
 import '../../../features/favorite/view/favorite_view.dart';
 import '../../../features/home/view/home_view.dart';
@@ -35,9 +36,10 @@ import '../../../features/splash/view/splash_view.dart';
     AutoRoute(path: "/favorite", page: FavoriteView),
     AutoRoute(path: "/verification", page: EmailVerificationView),
     AutoRoute(path: "/cart", page: CartView),
-    AutoRoute(path: "/checkout", page: CheckOutView),
+    AutoRoute(path: "/checkout", page: Checkout),
     AutoRoute(path: "/edit-profile", page: EditProfile),
     AutoRoute(path: "/cards", page: Cards),
+    AutoRoute(path: "/cards", page: EditCard),
     AutoRoute(path: "/notifications", page: Notifications),
     AutoRoute(path: "/order-history", page: OrderHistory),
     AutoRoute(path: "/shipping-adress", page: ShippingAdress),
