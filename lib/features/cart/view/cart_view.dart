@@ -186,8 +186,11 @@ class _CartViewState extends State<CartView> {
                         ),
                       ),
                     ),
-                    bottomNavigationBar: _buildBottomWidget(
-                        context, state.product, quantity.value)));
+                    persistentFooterAlignment: AlignmentDirectional.center,
+                    persistentFooterButtons: [
+                        _buildBottomWidget(
+                            context, state.product, quantity.value)
+                      ]));
       }
       return Container(); //TODO empty cart
     }));
@@ -237,23 +240,10 @@ class _CartViewState extends State<CartView> {
   }
 }
 
-Container _buildBottomWidget(
+Padding _buildBottomWidget(
     BuildContext context, ProductModel product, int quantity) {
-  return Container(
-    decoration: BoxDecoration(
-      color: ColorConstants.myWhite,
-      boxShadow: [
-        BoxShadow(
-          color: ColorConstants.myLightGrey,
-          offset: const Offset(0.0, 1.0), //(x,y)
-          blurRadius: 6.0,
-        ),
-      ],
-    ),
-    height: 60,
-    child: Padding(
-      padding:
-          EdgeInsets.symmetric(horizontal: context.width * .02, vertical: 12),
+  return Padding(
+      padding: EdgeInsets.symmetric(horizontal: context.width * .02),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -264,7 +254,7 @@ Container _buildBottomWidget(
                 "PRICE",
                 style: TextStyle(
                     fontSize: 12,
-                    color: ColorConstants.myLightGrey,
+                    color: ColorConstants.myDark,
                     fontWeight: FontWeight.bold),
               ),
               Text(
@@ -281,7 +271,5 @@ Container _buildBottomWidget(
               width: 150,
               onPress: () => context.router.push(const Checkout()))
         ],
-      ),
-    ),
-  );
+      ));
 }

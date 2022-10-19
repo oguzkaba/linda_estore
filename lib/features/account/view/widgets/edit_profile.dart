@@ -22,60 +22,71 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(
-          title: Text("Edit Profile",
-              style: TextStyle(color: ColorConstants.myBlack)),
-          leading: Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: IconButtonWidget(
-                size: 16,
-                onPress: () => context.router.pop(),
-                icon: Icons.chevron_left_rounded,
-                iColor: ColorConstants.myMediumGrey,
-                tooltip: "Back"),
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          centerTitle: true),
-      body: SingleChildScrollView(
-        padding: context.paddingMedium,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Stack(children: [
-              CircleAvatar(
-                  radius: 70,
-                  backgroundColor: ColorConstants.secondaryColor,
-                  child: CircleAvatar(
-                      backgroundColor: ColorConstants.secondaryColor,
-                      backgroundImage: const NetworkImage(
-                        "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
-                      ),
-                      radius: 65)),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: IconButtonWidget(
-                    onPress: () => {},
-                    icon: Icons.camera_alt_rounded,
-                    iColor: ColorConstants.myWhite,
-                    bColor: ColorConstants.primaryColor,
-                    tooltip: "Back"),
+            appBar: AppBar(
+                title: Text("Edit Profile",
+                    style: TextStyle(color: ColorConstants.myBlack)),
+                leading: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: IconButtonWidget(
+                      size: 16,
+                      onPress: () => context.router.pop(),
+                      icon: Icons.chevron_left_rounded,
+                      iColor: ColorConstants.myMediumGrey,
+                      tooltip: "Back"),
+                ),
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+                centerTitle: true),
+            body: SingleChildScrollView(
+              padding: context.paddingMedium,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Stack(children: [
+                    CircleAvatar(
+                        radius: 70,
+                        backgroundColor: ColorConstants.secondaryColor,
+                        child: CircleAvatar(
+                            backgroundColor: ColorConstants.secondaryColor,
+                            backgroundImage: const NetworkImage(
+                              "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
+                            ),
+                            radius: 65)),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: IconButtonWidget(
+                          onPress: () => {},
+                          icon: Icons.camera_alt_rounded,
+                          iColor: ColorConstants.myWhite,
+                          bColor: ColorConstants.primaryColor,
+                          tooltip: "Back"),
+                    ),
+                  ]),
+                  Padding(padding: context.verticalPaddingMedium),
+                  _buildInput("Enter Email", Icons.email_outlined),
+                  Padding(padding: context.verticalPaddingLow),
+                  _buildPassInput("Enter password"),
+                  Padding(padding: context.verticalPaddingLow),
+                  _buildPassInput("Enter password again"),
+                ],
               ),
-            ]),
-            Padding(padding: context.verticalPaddingMedium),
-            _buildInput("Enter Email", Icons.email_outlined),
-            Padding(padding: context.verticalPaddingLow),
-            _buildPassInput("Enter password"),
-            Padding(padding: context.verticalPaddingLow),
-            _buildPassInput("Enter password again"),
-            Padding(padding: context.verticalPaddingLow),
-            EButtonWidget(text: "Save", onPress: () => {}),
-            Padding(padding: context.verticalPaddingLow),
-          ],
-        ),
-      ),
-    ));
+            ),
+            bottomNavigationBar: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: ColorConstants.myWhite,
+                boxShadow: [
+                  BoxShadow(
+                    color: ColorConstants.myLightGrey,
+                    offset: const Offset(0.0, 1.0), //(x,y)
+                    blurRadius: 6.0,
+                  ),
+                ],
+              ),
+              height: 60,
+              child: EButtonWidget(text: "Save", onPress: () => {}),
+            )));
   }
 }
 

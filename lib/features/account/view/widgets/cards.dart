@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/asset_extansion.dart';
 import 'package:linda_wedding_ecommerce/core/init/routes/routes.gr.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/ebutton_widget.dart';
@@ -35,16 +36,20 @@ class _CardsState extends State<Cards> {
           elevation: 0.0,
           centerTitle: true),
       body: Stack(fit: StackFit.expand, children: [
-        _buildCard("A Bank", "45421414141414", ColorConstants.myDark),
         Positioned(
-          right: 0,
-          left: 0,
+            right: (context.width - 420) / 2,
+            left: (context.width - 420) / 2,
+            child:
+                _buildCard("A Bank", "45421414141414", ColorConstants.myDark)),
+        Positioned(
+          right: (context.width - 420) / 2,
+          left: (context.width - 420) / 2,
           top: 60,
           child: _buildCard("B Bank", "55421414141414", ColorConstants.myBlue),
         ),
         Positioned(
-          right: 0,
-          left: 0,
+          right: (context.width - 420) / 2,
+          left: (context.width - 420) / 2,
           top: 120,
           child: _buildCard("C Bank", "34421414141414", ColorConstants.myBlack),
         ),
@@ -74,7 +79,7 @@ class _CardsState extends State<Cards> {
       onTap: () => debugPrint(bankName),
       child: CreditCardWidget(
         height: 220,
-        width: 400,
+        width: 420,
         isSwipeGestureEnabled: false,
         bankName: bankName,
         isHolderNameVisible: true,
