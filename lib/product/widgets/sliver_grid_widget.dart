@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
 import 'package:linda_wedding_ecommerce/core/init/network/service/network_service.dart';
+import 'package:linda_wedding_ecommerce/features/favorite/cubit/favorite_cubit.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/iconbutton_widget.dart';
 
 import '../../core/init/routes/routes.gr.dart';
@@ -97,17 +99,22 @@ class MySliverGridWidget extends StatelessWidget {
           Positioned(
             right: 5,
             top: 10,
-            child: IconButtonWidget(
-                onPress: () => debugPrint("added favorite"),
-                icon: model[index]!.id! % 3 == 0
-                    ? Icons.favorite_border
-                    : Icons.favorite_rounded,
-                size: 18,
-                circleRadius: 18,
-                iColor: model[index]!.id! % 3 == 0
-                    ? ColorConstants.myMediumGrey
-                    : ColorConstants.primaryColor,
-                tooltip: "Favorite"),
+            child: BlocBuilder<FavoriteCubit, FavoriteState>(
+              builder: (context, state) {
+                return IconButtonWidget(
+                    onPress: () => BlocProvider.of<FavoriteCubit>(context)
+                        .toogleFavorite(index),
+                    icon: state.favList.contains(index)
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border,
+                    size: 18,
+                    circleRadius: 18,
+                    iColor: state.favList.contains(index)
+                        ? ColorConstants.primaryColor
+                        : ColorConstants.myMediumGrey,
+                    tooltip: "Favorite");
+              },
+            ),
           ),
         ]));
   }

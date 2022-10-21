@@ -121,7 +121,9 @@ class _AccountViewState extends State<AccountView> {
       trailing: IconButton(
         splashRadius: 1,
         icon: const Icon(Icons.chevron_right_rounded),
-        onPressed: () => context.router.push(actionRoute[index]),
+        onPressed: () => index == 6
+            ? context.router.popUntilRoot()
+            : context.router.push(actionRoute[index]),
       ),
       leading: IconButtonWidget(
         iColor: ColorConstants.primaryColor,

@@ -64,7 +64,10 @@ class _LoginViewState extends State<LoginView> {
                   onPress: () async {
                     await AuthService(manager, _scaffoldKey).loginUser(
                         model: LoginRequestModel(
-                            username: "mor_2314", password: "83r5^_"));
+                            username:
+                                /*unameController.text.trim() */ "mor_2314",
+                            password:
+                                /* passwordController.text.trim() */ "83r5^_"));
                     context.router.push(AppView(id: 0));
                   }),
               Padding(padding: context.paddingLow),

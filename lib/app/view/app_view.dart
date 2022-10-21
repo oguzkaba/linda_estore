@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
+import 'package:linda_wedding_ecommerce/features/favorite/cubit/favorite_cubit.dart';
 
 import '../../core/constants/app/application_constants.dart';
 
@@ -40,12 +42,35 @@ class _AppViewState extends State<AppView> {
         bottomNavigationBar: BottomNavigationBar(
             onTap: (value) => selectIndex.value = value,
             currentIndex: selectIndex.value,
-            iconSize: 18,
+            iconSize: 22,
             items: screens
                 .map(
                   (e) => BottomNavigationBarItem(
                     label: e.label,
-                    icon: e.icon,
+                    icon: e.label == "Favorites" &&
+                            FavoriteCubit().state.favList.isNotEmpty
+                        ? Stack(children: [
+                            e.icon,
+                            Positioned(
+                              right: 0,
+                              top: 0,
+                              child: CircleAvatar(
+                                  backgroundColor: ColorConstants.myBlack,
+                                  radius: 6,
+                                  child: Center(
+                                      child: Text(
+                                          FavoriteCubit()
+                                              .state
+                                              .favList
+                                              .length
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontSize: 8,
+                                              color: ColorConstants.myWhite,
+                                              fontWeight: FontWeight.bold)))),
+                            )
+                          ])
+                        : e.icon,
                   ),
                 )
                 .toList()),

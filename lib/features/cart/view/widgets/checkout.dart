@@ -47,7 +47,7 @@ class _CheckoutState extends State<Checkout> {
         body: Stepper(
           controlsBuilder: (context, details) =>
               context.emptySizedHeightBoxHigh,
-          currentStep: 2,
+          currentStep: 0,
           elevation: 1,
           type: StepperType.horizontal,
           steps: [
