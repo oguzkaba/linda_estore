@@ -18,4 +18,6 @@ class ProductsByCategoryFetched extends ProductsEvent {
   final String categoryName;
 
   const ProductsByCategoryFetched(this.categoryName);
+  @override
+  List<Object> get props => [categoryName];
 }

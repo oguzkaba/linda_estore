@@ -18,13 +18,13 @@ class ProductService extends IProductService {
 
   @override
   Future<List<ProductsModel>> fetchProductsAll() async {
-    final response = await manager.get("/products");
+    final response = await manager.get("products");
     return productsModelFromJson(response.data);
   }
 
   @override
   Future<ProductModel> fetchProductById({required int id}) async {
-    final response = await manager.get("/products/$id");
+    final response = await manager.get("products/$id");
     return productModelFromJson(response.data);
   }
 }
