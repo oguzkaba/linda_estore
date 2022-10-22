@@ -12,7 +12,6 @@ import '../../../core/init/network/service/network_service.dart';
 import '../../product/blocs/products/products_bloc.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../product/widgets/ebutton_widget.dart';
-import '../../product/model/products_model.dart';
 
 class CartView extends StatefulWidget {
   const CartView({super.key});
@@ -31,7 +30,7 @@ class _CartViewState extends State<CartView> {
     super.initState();
   }
 
-  ValueNotifier<int> quantity = ValueNotifier(1);
+  ValueNotifier<List<int>> quantityList = ValueNotifier([]);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -47,10 +46,22 @@ class _CartViewState extends State<CartView> {
 
   Widget _buildCartLoaded(List<CartModel> cartModel) =>
       BlocBuilder<ProductsBloc, ProductsState>(builder: (context, state) {
+        double total = 0;
         if (state is ProductsLoaded) {
+          //*Total Cart Price
+          for (var e in cartModel[1].products) {
+            quantityList.value.add(e.quantity);
+            total += e.quantity * state.products[e.productId]!.price!;
+          }
+          void quantityChangeNotifier(int index) {
+            List<int> newQList = List.from(quantityList.value);
+            // Modify here newList as you wish.
+            quantityList.value = newQList;
+          }
+
           return ValueListenableBuilder(
-              valueListenable: quantity,
-              builder: (context, value, child) => quantity.value == 0
+              valueListenable: quantityList,
+              builder: (context, value, child) => quantityList.value.isEmpty
                   ? const Center(
                       child: Text("Empty Cart")) //TODO: Add Empty Cart Widget
                   : Scaffold(
@@ -69,13 +80,13 @@ class _CartViewState extends State<CartView> {
                                 ListView.builder(
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemCount: cartModel.length,
+                                  itemCount: cartModel[1].products.length,
                                   itemBuilder: (context, index) => Dismissible(
                                     dismissThresholds: const {
                                       DismissDirection.endToStart: 0.6
                                     },
                                     confirmDismiss: (direction) async =>
-                                        await _showDialogWidget(context),
+                                        await _showDialogWidget(context, index),
                                     movementDuration: context.durationNormal,
                                     direction: DismissDirection.endToStart,
                                     background: _slideRightBackground(),
@@ -84,17 +95,17 @@ class _CartViewState extends State<CartView> {
                                     child: Card(
                                       child: Row(children: [
                                         Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           child: SizedBox(
                                               width: context.width * .24,
                                               height: context.height / 8,
                                               child: CachedNetworkImage(
                                                 imageUrl: state
-                                                    .products[
-                                                        cartModel[index].id]!
+                                                    .products[cartModel[1]
+                                                        .products[index]
+                                                        .productId]!
                                                     .image!,
-                                                fit: BoxFit.fitHeight,
+                                                fit: BoxFit.contain,
                                               )),
                                         ),
                                         SizedBox(
@@ -106,9 +117,9 @@ class _CartViewState extends State<CartView> {
                                                 alignment: Alignment.centerLeft,
                                                 child: Text(
                                                     state
-                                                        .products[
-                                                            cartModel[index]
-                                                                .id]!
+                                                        .products[cartModel[1]
+                                                            .products[index]
+                                                            .productId]!
                                                         .title!,
                                                     maxLines: 1,
                                                     overflow:
@@ -126,7 +137,7 @@ class _CartViewState extends State<CartView> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    "${state.products[cartModel[index].id]!.price} ₺",
+                                                    "${state.products[cartModel[1].products[index].productId]!.price} ₺",
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         color: ColorConstants
@@ -137,12 +148,19 @@ class _CartViewState extends State<CartView> {
                                                   Row(
                                                     children: [
                                                       IconButtonWidget(
-                                                          onPress: () => quantity
-                                                                      .value ==
-                                                                  1
-                                                              ? null
-                                                              : quantity
-                                                                  .value -= 1,
+                                                          onPress: () {
+                                                            quantityChangeNotifier(
+                                                                index);
+                                                            quantityList.value[
+                                                                        index] ==
+                                                                    1
+                                                                ? null
+                                                                : quantityList
+                                                                        .value[
+                                                                    index] -= 1;
+                                                            quantityChangeNotifier(
+                                                                index);
+                                                          },
                                                           circleRadius: 14,
                                                           size: 12,
                                                           icon: Icons.remove,
@@ -150,7 +168,9 @@ class _CartViewState extends State<CartView> {
                                                               .myBlack,
                                                           tooltip: "Remove"),
                                                       Text(
-                                                        quantity.value
+                                                        cartModel[1]
+                                                            .products[index]
+                                                            .quantity
                                                             .toString(),
                                                         style: TextStyle(
                                                             fontSize: 16,
@@ -162,8 +182,9 @@ class _CartViewState extends State<CartView> {
                                                       ),
                                                       IconButtonWidget(
                                                           onPress: () =>
-                                                              quantity.value +=
-                                                                  1,
+                                                              quantityList
+                                                                      .value[
+                                                                  index] += 1,
                                                           circleRadius: 14,
                                                           size: 12,
                                                           icon: Icons.add,
@@ -192,7 +213,7 @@ class _CartViewState extends State<CartView> {
                                           const Text("Sub Total"),
                                           const Expanded(child: Divider()),
                                           Text(
-                                              "${(state.products[cartModel[0].id]!.price! * quantity.value * .82).toStringAsFixed(2)} ₺",
+                                              "${(total * .82).toStringAsFixed(2)} ₺",
                                               style: const TextStyle(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.bold))
@@ -203,7 +224,7 @@ class _CartViewState extends State<CartView> {
                                           const Text("Tax"),
                                           const Expanded(child: Divider()),
                                           Text(
-                                              "${(state.products[cartModel[0].id]!.price! * quantity.value * .18).toStringAsFixed(2)} ₺",
+                                              "${(total * .18).toStringAsFixed(2)} ₺",
                                               style: const TextStyle(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.bold))
@@ -223,8 +244,7 @@ class _CartViewState extends State<CartView> {
                       ),
                       persistentFooterAlignment: AlignmentDirectional.center,
                       persistentFooterButtons: [
-                          _buildBottomWidget(context,
-                              state.products[cartModel[0].id]!, quantity.value)
+                          _buildBottomWidget(context, total)
                         ]));
         } else {
           return Container();
@@ -232,7 +252,7 @@ class _CartViewState extends State<CartView> {
         }
       });
 
-  Future<bool?> _showDialogWidget(BuildContext context) {
+  Future<bool?> _showDialogWidget(BuildContext context, int index) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -243,7 +263,7 @@ class _CartViewState extends State<CartView> {
             TextButton(
                 onPressed: () {
                   context.router.pop(true);
-                  quantity.value = 0;
+                  quantityList.value.removeAt(index);
                 },
                 child: const Text("Delete")),
             TextButton(
@@ -276,8 +296,7 @@ class _CartViewState extends State<CartView> {
   }
 }
 
-Padding _buildBottomWidget(
-    BuildContext context, ProductsModel product, int quantity) {
+Padding _buildBottomWidget(BuildContext context, double total) {
   return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.width * .02),
       child: Row(
@@ -294,7 +313,7 @@ Padding _buildBottomWidget(
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                "${(product.price! * quantity).toStringAsFixed(2)} ₺",
+                "${total.toStringAsFixed(2)} ₺",
                 style: TextStyle(
                     fontSize: 16,
                     color: ColorConstants.primaryColor,
