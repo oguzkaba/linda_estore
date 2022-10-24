@@ -17,28 +17,19 @@ class AppCacheModelAdapter extends TypeAdapter<AppCacheModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return AppCacheModel(
-      id: fields[0] as int?,
-      name: fields[1] as String?,
-      birthDate: fields[2] as String?,
-      isFirstInit: fields[3] == null ? true : fields[3] as bool?,
-      horoscopeSign: fields[4] as String?,
+      fields[0] as String?,
+      fields[1] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, AppCacheModel obj) {
     writer
-      ..writeByte(5)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.birthDate)
-      ..writeByte(3)
-      ..write(obj.isFirstInit)
-      ..writeByte(4)
-      ..write(obj.horoscopeSign);
+      ..writeByte(0)
+      ..write(obj.username)
+      ..writeByte(1)
+      ..write(obj.password);
   }
 
   @override

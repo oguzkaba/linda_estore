@@ -122,7 +122,7 @@ class _AccountViewState extends State<AccountView> {
         splashRadius: 1,
         icon: const Icon(Icons.chevron_right_rounded),
         onPressed: () => index == 6
-            ? context.router.popUntilRoot()
+            ? context.router.replaceAll([actionRoute[index]])
             : context.router.push(actionRoute[index]),
       ),
       leading: IconButtonWidget(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
 import 'package:linda_wedding_ecommerce/features/auth/login/bloc/cubit/login_cubit.dart';
 import 'package:linda_wedding_ecommerce/features/cart/bloc/cart_bloc.dart';
@@ -23,6 +24,10 @@ void main() async {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
+
+  WidgetsFlutterBinding.ensureInitialized();
+  //await EasyLocalization.ensureInitialized();
+  await Hive.initFlutter();
 
   runApp(MultiBlocProvider(
     providers: [

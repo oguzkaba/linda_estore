@@ -26,9 +26,10 @@ dependencies:
   flutter_svg: ^1.1.5
   font_awesome_flutter: ^10.2.1
   gradient_borders: ^0.2.0
-  hive: ^2.2.3
+  hive_flutter: ^1.1.0
   http: ^0.13.5
   kartal: ^2.4.3
+  lottie: ^1.4.3
   pinput: ^2.2.12
   shimmer: ^2.0.0
 
@@ -48,6 +49,7 @@ flutter:
     - assets/images/creditcard/
     - assets/fonts/
     - assets/jsons/
+    - assets/lotties/
 
   fonts:
     - family: Montserrat

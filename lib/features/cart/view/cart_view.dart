@@ -6,6 +6,7 @@ import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/init/routes/routes.gr.dart';
 import 'package:linda_wedding_ecommerce/features/cart/bloc/cart_bloc.dart';
 import 'package:linda_wedding_ecommerce/features/cart/model/cart_model.dart';
+import 'package:linda_wedding_ecommerce/features/cart/view/widgets/empty_cart_widget.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/iconbutton_widget.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/textfield_widget.dart';
 import '../../../core/init/network/service/network_service.dart';
@@ -61,9 +62,8 @@ class _CartViewState extends State<CartView> {
 
           return ValueListenableBuilder(
               valueListenable: quantityList,
-              builder: (context, value, child) => quantityList.value.isEmpty
-                  ? const Center(
-                      child: Text("Empty Cart")) //TODO: Add Empty Cart Widget
+              builder: (context, value, child) => true
+                  ? const EmptyCartWidget() //TODO: Add Empty Cart Widget
                   : Scaffold(
                       body: SingleChildScrollView(
                         primary: true,
@@ -247,7 +247,7 @@ class _CartViewState extends State<CartView> {
                           _buildBottomWidget(context, total)
                         ]));
         } else {
-          return Container();
+          return const EmptyCartWidget();
           //TODO empty cart
         }
       });

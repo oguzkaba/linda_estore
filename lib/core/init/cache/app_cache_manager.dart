@@ -1,5 +1,4 @@
-import 'package:hive/hive.dart';
-
+import 'package:hive_flutter/hive_flutter.dart';
 import '../../constants/cache/cache_constants.dart';
 import 'app_cache_model.dart';
 
@@ -26,7 +25,7 @@ abstract class CacheManagerInterface<T> {
 
   Future<void> putItem(String key, T item);
   Future<void> putAtItem(int index, T item);
-  Future<void> putAllItems(List<T> items);
+  //Future<void> putAllItems(List<T> items);
 
   Future<void> deleteItem(String key);
   Future<void> deleteAtItem(int index);
@@ -63,9 +62,9 @@ class AppCacheManager extends CacheManagerInterface<AppCacheModel> {
   @override
   AppCacheModel? getItem(String key) => box?.get(key);
 
-  @override
-  Future<void> putAllItems(List<AppCacheModel> items) async =>
-      await box?.putAll(Map.fromEntries(items.map((e) => MapEntry(e.id, e))));
+  // @override
+  // Future<void> putAllItems(List<AppCacheModel> items) async =>
+  //     await box?.putAll(Map.fromEntries(items.map((e) => MapEntry(e.id, e))));
 
   @override
   Future<void> putAtItem(int index, AppCacheModel item) async =>

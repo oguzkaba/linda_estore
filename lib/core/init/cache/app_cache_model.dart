@@ -1,5 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../constants/cache/cache_constants.dart';
 
@@ -8,38 +9,22 @@ part 'app_cache_model.g.dart';
 @HiveType(typeId: CacheConstants.appCacheTypeId)
 class AppCacheModel extends Equatable {
   @HiveField(0)
-  final int? id;
+  final String? username;
   @HiveField(1)
-  final String? name;
-  @HiveField(2)
-  final String? birthDate;
-  @HiveField(3, defaultValue: true)
-  final bool? isFirstInit;
-  @HiveField(4)
-  final String? horoscopeSign;
+  final String? password;
 
-  const AppCacheModel(
-      {this.id,
-      this.name,
-      this.birthDate,
-      this.isFirstInit,
-      this.horoscopeSign});
+  const AppCacheModel(this.username, this.password);
 
   AppCacheModel copyWith({
-    int? id,
-    String? name,
-    String? birthDate,
-    bool? isFirstInit,
-    String? horoscopeSign,
-  }) =>
-      AppCacheModel(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        birthDate: birthDate ?? this.birthDate,
-        isFirstInit: isFirstInit ?? this.isFirstInit,
-        horoscopeSign: horoscopeSign ?? this.horoscopeSign,
-      );
+    String? username,
+    String? password,
+  }) {
+    return AppCacheModel(
+      username ?? this.username,
+      password ?? this.password,
+    );
+  }
 
   @override
-  List<Object?> get props => [id, name, birthDate, isFirstInit, horoscopeSign];
+  List<Object?> get props => [username, password];
 }
