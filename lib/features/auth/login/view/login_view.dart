@@ -68,7 +68,7 @@ class _LoginViewState extends State<LoginView> {
                                 /*unameController.text.trim() */ "mor_2314",
                             password:
                                 /* passwordController.text.trim() */ "83r5^_"));
-                    context.router.push(AppView(id: 0));
+                    context.router.push(Dashboard());
                   }),
               Padding(padding: context.paddingLow),
               //*signup-or-social text

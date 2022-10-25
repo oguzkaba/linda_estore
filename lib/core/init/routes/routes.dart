@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:linda_wedding_ecommerce/features/account/view/account_view.dart';
-import 'package:linda_wedding_ecommerce/app/view/app_view.dart';
+import 'package:linda_wedding_ecommerce/features/dashboard/view/dashboard_view.dart';
 import 'package:linda_wedding_ecommerce/features/account/view/widgets/edit_profile.dart';
 import 'package:linda_wedding_ecommerce/features/account/view/widgets/notifications.dart';
 import 'package:linda_wedding_ecommerce/features/account/view/widgets/order_history.dart';
@@ -21,21 +21,22 @@ import '../../../features/product/view/product_detail_view.dart';
 import '../../../features/splash/view/splash_view.dart';
 
 @CustomAutoRouter(
-  transitionsBuilder: TransitionsBuilders.slideRightWithFade,
-  durationInMilliseconds: 200,
+  transitionsBuilder: TransitionsBuilders.fadeIn,
+  durationInMilliseconds: 300,
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     AutoRoute(path: "/", page: SplashView, initial: true),
-    AutoRoute(path: "/app", page: AppView),
-    AutoRoute(path: "/home", page: HomeView),
+    AutoRoute(path: "/dashboard", page: Dashboard, children: [
+      AutoRoute(path: "home", page: HomeView, initial: true),
+      AutoRoute(path: "cart", page: CartView),
+      AutoRoute(path: "favorite", page: FavoriteView),
+      AutoRoute(path: "account", page: AccountView),
+    ]),
     AutoRoute(path: "/product-detail", page: ProductDetailView),
-    AutoRoute(path: "/account", page: AccountView),
     AutoRoute(path: "/login", page: LoginView),
     AutoRoute(path: "/register", page: RegisterView),
     AutoRoute(path: "/forgot", page: ForgotView),
-    AutoRoute(path: "/favorite", page: FavoriteView),
     AutoRoute(path: "/verification", page: EmailVerificationView),
-    AutoRoute(path: "/cart", page: CartView),
     AutoRoute(path: "/checkout", page: Checkout),
     AutoRoute(path: "/edit-profile", page: EditProfile),
     AutoRoute(path: "/cards", page: Cards),

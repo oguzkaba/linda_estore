@@ -15,25 +15,25 @@ import 'package:auto_route/auto_route.dart' as _i20;
 import 'package:dio/dio.dart' as _i22;
 import 'package:flutter/material.dart' as _i21;
 
-import '../../../app/view/app_view.dart' as _i2;
-import '../../../features/account/view/account_view.dart' as _i5;
-import '../../../features/account/view/widgets/cards.dart' as _i14;
-import '../../../features/account/view/widgets/edit_card.dart' as _i15;
-import '../../../features/account/view/widgets/edit_profile.dart' as _i13;
-import '../../../features/account/view/widgets/notifications.dart' as _i16;
-import '../../../features/account/view/widgets/order_history.dart' as _i17;
-import '../../../features/account/view/widgets/shipping_adress.dart' as _i18;
-import '../../../features/account/view/widgets/track_order.dart' as _i19;
+import '../../../features/account/view/account_view.dart' as _i19;
+import '../../../features/account/view/widgets/cards.dart' as _i10;
+import '../../../features/account/view/widgets/edit_card.dart' as _i11;
+import '../../../features/account/view/widgets/edit_profile.dart' as _i9;
+import '../../../features/account/view/widgets/notifications.dart' as _i12;
+import '../../../features/account/view/widgets/order_history.dart' as _i13;
+import '../../../features/account/view/widgets/shipping_adress.dart' as _i14;
+import '../../../features/account/view/widgets/track_order.dart' as _i15;
 import '../../../features/auth/forgot/verification/verification_view.dart'
-    as _i10;
-import '../../../features/auth/forgot/view/forgot_view.dart' as _i8;
-import '../../../features/auth/login/view/login_view.dart' as _i6;
-import '../../../features/auth/register/view/register_view.dart' as _i7;
-import '../../../features/cart/view/cart_view.dart' as _i11;
-import '../../../features/cart/view/widgets/checkout.dart' as _i12;
-import '../../../features/favorite/view/favorite_view.dart' as _i9;
-import '../../../features/home/view/home_view.dart' as _i3;
-import '../../../features/product/view/product_detail_view.dart' as _i4;
+    as _i7;
+import '../../../features/auth/forgot/view/forgot_view.dart' as _i6;
+import '../../../features/auth/login/view/login_view.dart' as _i4;
+import '../../../features/auth/register/view/register_view.dart' as _i5;
+import '../../../features/cart/view/cart_view.dart' as _i17;
+import '../../../features/cart/view/widgets/checkout.dart' as _i8;
+import '../../../features/dashboard/view/dashboard_view.dart' as _i2;
+import '../../../features/favorite/view/favorite_view.dart' as _i18;
+import '../../../features/home/view/home_view.dart' as _i16;
+import '../../../features/product/view/product_detail_view.dart' as _i3;
 import '../../../features/splash/view/splash_view.dart' as _i1;
 
 class AppRouter extends _i20.RootStackRouter {
@@ -46,28 +46,19 @@ class AppRouter extends _i20.RootStackRouter {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
           child: const _i1.SplashView(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     },
-    AppView.name: (routeData) {
+    Dashboard.name: (routeData) {
       final args =
-          routeData.argsAs<AppViewArgs>(orElse: () => const AppViewArgs());
+          routeData.argsAs<DashboardArgs>(orElse: () => const DashboardArgs());
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: _i2.AppView(key: args.key, id: args.id),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
-          opaque: true,
-          barrierDismissible: false);
-    },
-    HomeView.name: (routeData) {
-      return _i20.CustomPage<dynamic>(
-          routeData: routeData,
-          child: const _i3.HomeView(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          child: _i2.Dashboard(key: args.key, id: args.id),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     },
@@ -75,148 +66,157 @@ class AppRouter extends _i20.RootStackRouter {
       final args = routeData.argsAs<ProductDetailViewArgs>();
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: _i4.ProductDetailView(
+          child: _i3.ProductDetailView(
               key: args.key,
               id: args.id,
               manager: args.manager,
               scaffoldKey: args.scaffoldKey),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
-          opaque: true,
-          barrierDismissible: false);
-    },
-    AccountView.name: (routeData) {
-      return _i20.CustomPage<dynamic>(
-          routeData: routeData,
-          child: const _i5.AccountView(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     },
     LoginView.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i6.LoginView(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          child: const _i4.LoginView(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     },
     RegisterView.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i7.RegisterView(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          child: const _i5.RegisterView(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     },
     ForgotView.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i8.ForgotView(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
-          opaque: true,
-          barrierDismissible: false);
-    },
-    FavoriteView.name: (routeData) {
-      return _i20.CustomPage<dynamic>(
-          routeData: routeData,
-          child: const _i9.FavoriteView(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          child: const _i6.ForgotView(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     },
     EmailVerificationView.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i10.EmailVerificationView(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
-          opaque: true,
-          barrierDismissible: false);
-    },
-    CartView.name: (routeData) {
-      return _i20.CustomPage<dynamic>(
-          routeData: routeData,
-          child: const _i11.CartView(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          child: const _i7.EmailVerificationView(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     },
     Checkout.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i12.Checkout(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          child: const _i8.Checkout(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     },
     EditProfile.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i13.EditProfile(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          child: const _i9.EditProfile(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     },
     Cards.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i14.Cards(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          child: const _i10.Cards(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     },
     EditCard.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i15.EditCard(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          child: const _i11.EditCard(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     },
     Notifications.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i16.Notifications(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          child: const _i12.Notifications(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     },
     OrderHistory.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i17.OrderHistory(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          child: const _i13.OrderHistory(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     },
     ShippingAdress.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i18.ShippingAdress(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          child: const _i14.ShippingAdress(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     },
     TrackOrder.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i19.TrackOrder(),
-          transitionsBuilder: _i20.TransitionsBuilders.slideRightWithFade,
-          durationInMilliseconds: 200,
+          child: const _i15.TrackOrder(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
+          opaque: true,
+          barrierDismissible: false);
+    },
+    HomeView.name: (routeData) {
+      return _i20.CustomPage<dynamic>(
+          routeData: routeData,
+          child: const _i16.HomeView(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
+          opaque: true,
+          barrierDismissible: false);
+    },
+    CartView.name: (routeData) {
+      return _i20.CustomPage<dynamic>(
+          routeData: routeData,
+          child: const _i17.CartView(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
+          opaque: true,
+          barrierDismissible: false);
+    },
+    FavoriteView.name: (routeData) {
+      return _i20.CustomPage<dynamic>(
+          routeData: routeData,
+          child: const _i18.FavoriteView(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
+          opaque: true,
+          barrierDismissible: false);
+    },
+    AccountView.name: (routeData) {
+      return _i20.CustomPage<dynamic>(
+          routeData: routeData,
+          child: const _i19.AccountView(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
     }
@@ -225,16 +225,24 @@ class AppRouter extends _i20.RootStackRouter {
   @override
   List<_i20.RouteConfig> get routes => [
         _i20.RouteConfig(SplashView.name, path: '/'),
-        _i20.RouteConfig(AppView.name, path: '/app'),
-        _i20.RouteConfig(HomeView.name, path: '/home'),
+        _i20.RouteConfig(Dashboard.name, path: '/dashboard', children: [
+          _i20.RouteConfig('#redirect',
+              path: '',
+              parent: Dashboard.name,
+              redirectTo: 'home',
+              fullMatch: true),
+          _i20.RouteConfig(HomeView.name, path: 'home', parent: Dashboard.name),
+          _i20.RouteConfig(CartView.name, path: 'cart', parent: Dashboard.name),
+          _i20.RouteConfig(FavoriteView.name,
+              path: 'favorite', parent: Dashboard.name),
+          _i20.RouteConfig(AccountView.name,
+              path: 'account', parent: Dashboard.name)
+        ]),
         _i20.RouteConfig(ProductDetailView.name, path: '/product-detail'),
-        _i20.RouteConfig(AccountView.name, path: '/account'),
         _i20.RouteConfig(LoginView.name, path: '/login'),
         _i20.RouteConfig(RegisterView.name, path: '/register'),
         _i20.RouteConfig(ForgotView.name, path: '/forgot'),
-        _i20.RouteConfig(FavoriteView.name, path: '/favorite'),
         _i20.RouteConfig(EmailVerificationView.name, path: '/verification'),
-        _i20.RouteConfig(CartView.name, path: '/cart'),
         _i20.RouteConfig(Checkout.name, path: '/checkout'),
         _i20.RouteConfig(EditProfile.name, path: '/edit-profile'),
         _i20.RouteConfig(Cards.name, path: '/cards'),
@@ -255,16 +263,19 @@ class SplashView extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.AppView]
-class AppView extends _i20.PageRouteInfo<AppViewArgs> {
-  AppView({_i21.Key? key, int? id})
-      : super(AppView.name, path: '/app', args: AppViewArgs(key: key, id: id));
+/// [_i2.Dashboard]
+class Dashboard extends _i20.PageRouteInfo<DashboardArgs> {
+  Dashboard({_i21.Key? key, int? id, List<_i20.PageRouteInfo>? children})
+      : super(Dashboard.name,
+            path: '/dashboard',
+            args: DashboardArgs(key: key, id: id),
+            initialChildren: children);
 
-  static const String name = 'AppView';
+  static const String name = 'Dashboard';
 }
 
-class AppViewArgs {
-  const AppViewArgs({this.key, this.id});
+class DashboardArgs {
+  const DashboardArgs({this.key, this.id});
 
   final _i21.Key? key;
 
@@ -272,20 +283,12 @@ class AppViewArgs {
 
   @override
   String toString() {
-    return 'AppViewArgs{key: $key, id: $id}';
+    return 'DashboardArgs{key: $key, id: $id}';
   }
 }
 
 /// generated route for
-/// [_i3.HomeView]
-class HomeView extends _i20.PageRouteInfo<void> {
-  const HomeView() : super(HomeView.name, path: '/home');
-
-  static const String name = 'HomeView';
-}
-
-/// generated route for
-/// [_i4.ProductDetailView]
+/// [_i3.ProductDetailView]
 class ProductDetailView extends _i20.PageRouteInfo<ProductDetailViewArgs> {
   ProductDetailView(
       {_i21.Key? key,
@@ -319,15 +322,7 @@ class ProductDetailViewArgs {
 }
 
 /// generated route for
-/// [_i5.AccountView]
-class AccountView extends _i20.PageRouteInfo<void> {
-  const AccountView() : super(AccountView.name, path: '/account');
-
-  static const String name = 'AccountView';
-}
-
-/// generated route for
-/// [_i6.LoginView]
+/// [_i4.LoginView]
 class LoginView extends _i20.PageRouteInfo<void> {
   const LoginView() : super(LoginView.name, path: '/login');
 
@@ -335,7 +330,7 @@ class LoginView extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.RegisterView]
+/// [_i5.RegisterView]
 class RegisterView extends _i20.PageRouteInfo<void> {
   const RegisterView() : super(RegisterView.name, path: '/register');
 
@@ -343,7 +338,7 @@ class RegisterView extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.ForgotView]
+/// [_i6.ForgotView]
 class ForgotView extends _i20.PageRouteInfo<void> {
   const ForgotView() : super(ForgotView.name, path: '/forgot');
 
@@ -351,15 +346,7 @@ class ForgotView extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.FavoriteView]
-class FavoriteView extends _i20.PageRouteInfo<void> {
-  const FavoriteView() : super(FavoriteView.name, path: '/favorite');
-
-  static const String name = 'FavoriteView';
-}
-
-/// generated route for
-/// [_i10.EmailVerificationView]
+/// [_i7.EmailVerificationView]
 class EmailVerificationView extends _i20.PageRouteInfo<void> {
   const EmailVerificationView()
       : super(EmailVerificationView.name, path: '/verification');
@@ -368,15 +355,7 @@ class EmailVerificationView extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.CartView]
-class CartView extends _i20.PageRouteInfo<void> {
-  const CartView() : super(CartView.name, path: '/cart');
-
-  static const String name = 'CartView';
-}
-
-/// generated route for
-/// [_i12.Checkout]
+/// [_i8.Checkout]
 class Checkout extends _i20.PageRouteInfo<void> {
   const Checkout() : super(Checkout.name, path: '/checkout');
 
@@ -384,7 +363,7 @@ class Checkout extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.EditProfile]
+/// [_i9.EditProfile]
 class EditProfile extends _i20.PageRouteInfo<void> {
   const EditProfile() : super(EditProfile.name, path: '/edit-profile');
 
@@ -392,7 +371,7 @@ class EditProfile extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.Cards]
+/// [_i10.Cards]
 class Cards extends _i20.PageRouteInfo<void> {
   const Cards() : super(Cards.name, path: '/cards');
 
@@ -400,7 +379,7 @@ class Cards extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.EditCard]
+/// [_i11.EditCard]
 class EditCard extends _i20.PageRouteInfo<void> {
   const EditCard() : super(EditCard.name, path: '/cards');
 
@@ -408,7 +387,7 @@ class EditCard extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i16.Notifications]
+/// [_i12.Notifications]
 class Notifications extends _i20.PageRouteInfo<void> {
   const Notifications() : super(Notifications.name, path: '/notifications');
 
@@ -416,7 +395,7 @@ class Notifications extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i17.OrderHistory]
+/// [_i13.OrderHistory]
 class OrderHistory extends _i20.PageRouteInfo<void> {
   const OrderHistory() : super(OrderHistory.name, path: '/order-history');
 
@@ -424,7 +403,7 @@ class OrderHistory extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i18.ShippingAdress]
+/// [_i14.ShippingAdress]
 class ShippingAdress extends _i20.PageRouteInfo<void> {
   const ShippingAdress() : super(ShippingAdress.name, path: '/shipping-adress');
 
@@ -432,9 +411,41 @@ class ShippingAdress extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i19.TrackOrder]
+/// [_i15.TrackOrder]
 class TrackOrder extends _i20.PageRouteInfo<void> {
   const TrackOrder() : super(TrackOrder.name, path: '/track-order');
 
   static const String name = 'TrackOrder';
+}
+
+/// generated route for
+/// [_i16.HomeView]
+class HomeView extends _i20.PageRouteInfo<void> {
+  const HomeView() : super(HomeView.name, path: 'home');
+
+  static const String name = 'HomeView';
+}
+
+/// generated route for
+/// [_i17.CartView]
+class CartView extends _i20.PageRouteInfo<void> {
+  const CartView() : super(CartView.name, path: 'cart');
+
+  static const String name = 'CartView';
+}
+
+/// generated route for
+/// [_i18.FavoriteView]
+class FavoriteView extends _i20.PageRouteInfo<void> {
+  const FavoriteView() : super(FavoriteView.name, path: 'favorite');
+
+  static const String name = 'FavoriteView';
+}
+
+/// generated route for
+/// [_i19.AccountView]
+class AccountView extends _i20.PageRouteInfo<void> {
+  const AccountView() : super(AccountView.name, path: 'account');
+
+  static const String name = 'AccountView';
 }
