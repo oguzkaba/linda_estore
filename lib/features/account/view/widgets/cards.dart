@@ -2,11 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/asset_extansion.dart';
-import 'package:linda_wedding_ecommerce/core/init/routes/routes.gr.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/ebutton_widget.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
+import '../../../../core/extansions/asset_extansion.dart';
+import '../../../../core/init/routes/routes.gr.dart';
+import '../../../../product/widgets/ebutton_widget.dart';
 import '../../../../product/widgets/iconbutton_widget.dart';
 
 class Cards extends StatefulWidget {

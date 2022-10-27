@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linda_wedding_ecommerce/product/mock/model/fake_reviews_model.dart';
-import 'package:linda_wedding_ecommerce/product/mock/service/mock_data_service.dart';
+import '../../../../product/mock/model/fake_reviews_model.dart';
+import '../../../../product/mock/service/mock_data_service.dart';
 
 import '../../model/product_model.dart';
 import '../../service/product_service.dart';

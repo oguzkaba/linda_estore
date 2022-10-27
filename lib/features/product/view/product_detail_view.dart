@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/asset_extansion.dart';
-import 'package:linda_wedding_ecommerce/product/mock/model/fake_reviews_model.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/export_widget.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/iconbutton_widget.dart';
+
 import '../../../core/constants/app/colors_constants.dart';
+import '../../../core/extansions/asset_extansion.dart';
+import '../../../product/mock/model/fake_reviews_model.dart';
 import '../../../product/utils/custom_error_widgets.dart';
+import '../../../product/widgets/export_widget.dart';
+import '../../../product/widgets/iconbutton_widget.dart';
 import '../blocs/product/product_bloc.dart';
 import '../model/product_model.dart';
 

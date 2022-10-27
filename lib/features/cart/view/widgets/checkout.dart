@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/export_widget.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
+import '../../../../product/widgets/export_widget.dart';
 import '../../../../product/widgets/iconbutton_widget.dart';
 
 class Checkout extends StatefulWidget {

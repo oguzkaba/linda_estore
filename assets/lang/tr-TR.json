@@ -1,0 +1,15 @@
+{
+    "splash": {
+        "appName": "LindaStore"
+    },
+    "login": {
+        "buttonText": "Giriş Yap",
+        "topTitle": "Giriş Yap",
+        "topMessage": "Tekrar hoş geldiniz, devam etmek için lütfen oturum açın",
+        "tfieldUnameHint": "Kullanıcı Adı",
+        "tfieldPassHint": "Şifre",
+        "forgot": "Şifremi unuttum?",
+        "haveAccount": "Hesabınız yok mu? ",
+        "register": " +Kayıt"
+    }
+}

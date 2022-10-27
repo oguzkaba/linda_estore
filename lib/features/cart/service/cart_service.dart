@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:linda_wedding_ecommerce/features/cart/model/cart_model.dart';
+import '../model/cart_model.dart';
 
 abstract class ICartService {
   final Dio manager;

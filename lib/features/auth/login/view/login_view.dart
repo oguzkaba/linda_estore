@@ -2,18 +2,20 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/features/auth/login/bloc/cubit/login_cubit.dart';
-import 'package:linda_wedding_ecommerce/features/auth/service/auth_service.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/init/network/service/network_service.dart';
 import '../../../../core/init/routes/routes.gr.dart';
+import '../../../../product/widgets/auth_top_widget.dart';
 import '../../../../product/widgets/divider_widget.dart';
 import '../../../../product/widgets/ebutton_widget.dart';
 import '../../../../product/widgets/richtext_widget.dart';
 import '../../../../product/widgets/social_button_widget.dart';
 import '../../../../product/widgets/textfield_widget.dart';
-import '../../../../product/widgets/auth_top_widget.dart';
+import '../../service/auth_service.dart';
+import '../bloc/cubit/login_cubit.dart';
 import '../model/login_request_model.dart';
 
 class LoginView extends StatefulWidget {
@@ -48,9 +50,9 @@ class _LoginViewState extends State<LoginView> {
                 ? MainAxisAlignment.start
                 : MainAxisAlignment.center,
             children: [
-              const AuthTopWidget(
-                  title: "Sign In",
-                  subTitle: "Welcome back please sign in to continue",
+              AuthTopWidget(
+                  title: LocaleKeys.login_topTitle.locale,
+                  subTitle: LocaleKeys.login_topMessage.locale,
                   image: "auth"),
               Padding(padding: context.paddingLow),
               _buildUnameInput(),
@@ -60,7 +62,7 @@ class _LoginViewState extends State<LoginView> {
               _buildForgotButton(),
               //*sign in button
               EButtonWidget(
-                  text: "Sign In",
+                  text: LocaleKeys.login_buttonText.locale,
                   onPress: () async {
                     await AuthService(manager, _scaffoldKey).loginUser(
                         model: LoginRequestModel(
@@ -73,8 +75,8 @@ class _LoginViewState extends State<LoginView> {
               Padding(padding: context.paddingLow),
               //*signup-or-social text
               RichTextWidget(
-                  actionName: " +Register",
-                  text: "Don't have account? ",
+                  actionName: LocaleKeys.login_register.locale,
+                  text: LocaleKeys.login_haveAccount.locale,
                   action: () => context.router.push(const RegisterView())),
               const DividerWidget(),
               //*social button
@@ -100,7 +102,7 @@ class _LoginViewState extends State<LoginView> {
                 context.read<LoginCubit>().toogleSuffixIcon(!visibleValue),
             obscureText: visibleValue ? false : true,
             labelText: "Password",
-            hintText: "Enter password");
+            hintText: LocaleKeys.login_tfieldPassHint.locale);
       } else {
         return context.emptySizedHeightBoxLow;
       }
@@ -112,7 +114,7 @@ class _LoginViewState extends State<LoginView> {
         controller: unameController,
         pIcon: Icons.person_outlined,
         labelText: "UserName",
-        hintText: "Enter username");
+        hintText: LocaleKeys.login_tfieldUnameHint.locale);
   }
 
   Align _buildForgotButton() {
@@ -121,7 +123,7 @@ class _LoginViewState extends State<LoginView> {
         child: TextButton(
           onPressed: () => context.router.push(const ForgotView()),
           child: Text(
-            "Forgot password ?",
+            LocaleKeys.login_forgot.locale,
             style: TextStyle(
                 decoration: TextDecoration.underline,
                 fontSize: 12,

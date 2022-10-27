@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/features/auth/login/bloc/cubit/login_cubit.dart';
 
 import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../product/widgets/auth_top_widget.dart';
@@ -11,6 +10,7 @@ import '../../../../product/widgets/ebutton_widget.dart';
 import '../../../../product/widgets/richtext_widget.dart';
 import '../../../../product/widgets/social_button_widget.dart';
 import '../../../../product/widgets/textfield_widget.dart';
+import '../../login/bloc/cubit/login_cubit.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});

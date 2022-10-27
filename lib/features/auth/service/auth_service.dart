@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:linda_wedding_ecommerce/features/account/model/user_model.dart';
-import 'package:linda_wedding_ecommerce/features/account/service/user_service.dart';
-import 'package:linda_wedding_ecommerce/features/auth/login/model/login_request_model.dart';
+import '../../account/model/user_model.dart';
+import '../../account/service/user_service.dart';
+import '../login/model/login_request_model.dart';
 
 abstract class IAuthService {
   final Dio manager;

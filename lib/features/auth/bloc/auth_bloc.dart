@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/account/model/user_model.dart';
-import 'package:linda_wedding_ecommerce/features/auth/login/model/login_request_model.dart';
-import 'package:linda_wedding_ecommerce/features/auth/service/auth_service.dart';
+import '../../account/model/user_model.dart';
+import '../login/model/login_request_model.dart';
+import '../service/auth_service.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

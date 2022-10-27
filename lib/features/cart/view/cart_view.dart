@@ -3,16 +3,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/init/routes/routes.gr.dart';
-import 'package:linda_wedding_ecommerce/features/cart/bloc/cart_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/cart/model/cart_model.dart';
-import 'package:linda_wedding_ecommerce/features/cart/view/widgets/empty_cart_widget.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/iconbutton_widget.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/textfield_widget.dart';
-import '../../../core/init/network/service/network_service.dart';
-import '../../product/blocs/products/products_bloc.dart';
+
+import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
+import '../../../core/init/network/service/network_service.dart';
+import '../../../core/init/routes/routes.gr.dart';
 import '../../../product/widgets/ebutton_widget.dart';
+import '../../../product/widgets/iconbutton_widget.dart';
+import '../../../product/widgets/textfield_widget.dart';
+import '../../product/blocs/products/products_bloc.dart';
+import '../bloc/cart_bloc.dart';
+import '../model/cart_model.dart';
+import 'widgets/empty_cart_widget.dart';
 
 class CartView extends StatefulWidget {
   const CartView({super.key});
@@ -36,19 +38,23 @@ class _CartViewState extends State<CartView> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: BlocBuilder<CartBloc, CartState>(builder: (context, state) {
-      if (state is CartLoaded) {
+      if (state is CartLoading) {
+        return const LoadingIndicator(lottieName: "cart_loading");
+      } else if (state is CartLoaded) {
         return _buildCartLoaded(state.cartsModel);
       } else if (state is CartError) {
         return Text(state.error.toString());
       }
-      return const Center(child: CircularProgressIndicator());
+      return const LoadingIndicator(lottieName: "cart_loading");
     }));
   }
 
   Widget _buildCartLoaded(List<CartModel> cartModel) =>
       BlocBuilder<ProductsBloc, ProductsState>(builder: (context, state) {
         double total = 0;
-        if (state is ProductsLoaded) {
+        if (state is ProductsLoading) {
+          return const LoadingIndicator(lottieName: "favorite_loading");
+        } else if (state is ProductsLoaded) {
           //*Total Cart Price
           for (var e in cartModel[1].products) {
             quantityList.value.add(e.quantity);
@@ -62,7 +68,7 @@ class _CartViewState extends State<CartView> {
 
           return ValueListenableBuilder(
               valueListenable: quantityList,
-              builder: (context, value, child) => true
+              builder: (context, value, child) => quantityList.value.isEmpty
                   ? const EmptyCartWidget() //TODO: Add Empty Cart Widget
                   : Scaffold(
                       body: SingleChildScrollView(

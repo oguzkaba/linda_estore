@@ -2,13 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
-import 'package:linda_wedding_ecommerce/core/init/network/service/network_service.dart';
-import 'package:linda_wedding_ecommerce/features/favorite/cubit/favorite_cubit.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/iconbutton_widget.dart';
 
+import '../../core/constants/app/colors_constants.dart';
+import '../../core/init/network/service/network_service.dart';
 import '../../core/init/routes/routes.gr.dart';
+import '../../features/favorite/cubit/favorite_cubit.dart';
 import '../../features/product/model/products_model.dart';
+import 'iconbutton_widget.dart';
 
 class MySliverGridWidget extends StatelessWidget {
   final List<ProductsModel?> model;
@@ -102,8 +102,8 @@ class MySliverGridWidget extends StatelessWidget {
             child: BlocBuilder<FavoriteCubit, FavoriteState>(
               builder: (context, state) {
                 return IconButtonWidget(
-                    onPress: () => BlocProvider.of<FavoriteCubit>(context)
-                        .toogleFavorite(index),
+                    onPress: () =>
+                        context.read<FavoriteCubit>().toogleFavorite(index),
                     icon: state.favList.contains(index)
                         ? Icons.favorite_rounded
                         : Icons.favorite_border,

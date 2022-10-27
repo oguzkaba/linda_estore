@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
 
+import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/init/routes/routes.gr.dart';
+import '../../../../product/widgets/auth_top_widget.dart';
 import '../../../../product/widgets/ebutton_widget.dart';
 import '../../../../product/widgets/textfield_widget.dart';
-import '../../../../product/widgets/auth_top_widget.dart';
 
 class ForgotView extends StatefulWidget {
   const ForgotView({super.key});

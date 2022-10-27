@@ -15,24 +15,24 @@ import 'package:auto_route/auto_route.dart' as _i20;
 import 'package:dio/dio.dart' as _i22;
 import 'package:flutter/material.dart' as _i21;
 
-import '../../../features/account/view/account_view.dart' as _i19;
-import '../../../features/account/view/widgets/cards.dart' as _i10;
-import '../../../features/account/view/widgets/edit_card.dart' as _i11;
-import '../../../features/account/view/widgets/edit_profile.dart' as _i9;
-import '../../../features/account/view/widgets/notifications.dart' as _i12;
-import '../../../features/account/view/widgets/order_history.dart' as _i13;
-import '../../../features/account/view/widgets/shipping_adress.dart' as _i14;
-import '../../../features/account/view/widgets/track_order.dart' as _i15;
+import '../../../features/account/view/account_view.dart' as _i17;
+import '../../../features/account/view/widgets/cards.dart' as _i19;
+import '../../../features/account/view/widgets/edit_card.dart' as _i9;
+import '../../../features/account/view/widgets/edit_profile.dart' as _i18;
+import '../../../features/account/view/widgets/notifications.dart' as _i10;
+import '../../../features/account/view/widgets/order_history.dart' as _i11;
+import '../../../features/account/view/widgets/shipping_adress.dart' as _i12;
+import '../../../features/account/view/widgets/track_order.dart' as _i13;
 import '../../../features/auth/forgot/verification/verification_view.dart'
     as _i7;
 import '../../../features/auth/forgot/view/forgot_view.dart' as _i6;
 import '../../../features/auth/login/view/login_view.dart' as _i4;
 import '../../../features/auth/register/view/register_view.dart' as _i5;
-import '../../../features/cart/view/cart_view.dart' as _i17;
+import '../../../features/cart/view/cart_view.dart' as _i15;
 import '../../../features/cart/view/widgets/checkout.dart' as _i8;
 import '../../../features/dashboard/view/dashboard_view.dart' as _i2;
-import '../../../features/favorite/view/favorite_view.dart' as _i18;
-import '../../../features/home/view/home_view.dart' as _i16;
+import '../../../features/favorite/view/favorite_view.dart' as _i16;
+import '../../../features/home/view/home_view.dart' as _i14;
 import '../../../features/product/view/product_detail_view.dart' as _i3;
 import '../../../features/splash/view/splash_view.dart' as _i1;
 
@@ -121,28 +121,10 @@ class AppRouter extends _i20.RootStackRouter {
           opaque: true,
           barrierDismissible: false);
     },
-    EditProfile.name: (routeData) {
-      return _i20.CustomPage<dynamic>(
-          routeData: routeData,
-          child: const _i9.EditProfile(),
-          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
-          durationInMilliseconds: 300,
-          opaque: true,
-          barrierDismissible: false);
-    },
-    Cards.name: (routeData) {
-      return _i20.CustomPage<dynamic>(
-          routeData: routeData,
-          child: const _i10.Cards(),
-          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
-          durationInMilliseconds: 300,
-          opaque: true,
-          barrierDismissible: false);
-    },
     EditCard.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i11.EditCard(),
+          child: const _i9.EditCard(),
           transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
           durationInMilliseconds: 300,
           opaque: true,
@@ -151,7 +133,7 @@ class AppRouter extends _i20.RootStackRouter {
     Notifications.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i12.Notifications(),
+          child: const _i10.Notifications(),
           transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
           durationInMilliseconds: 300,
           opaque: true,
@@ -160,7 +142,7 @@ class AppRouter extends _i20.RootStackRouter {
     OrderHistory.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i13.OrderHistory(),
+          child: const _i11.OrderHistory(),
           transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
           durationInMilliseconds: 300,
           opaque: true,
@@ -169,7 +151,7 @@ class AppRouter extends _i20.RootStackRouter {
     ShippingAdress.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i14.ShippingAdress(),
+          child: const _i12.ShippingAdress(),
           transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
           durationInMilliseconds: 300,
           opaque: true,
@@ -178,7 +160,7 @@ class AppRouter extends _i20.RootStackRouter {
     TrackOrder.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i15.TrackOrder(),
+          child: const _i13.TrackOrder(),
           transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
           durationInMilliseconds: 300,
           opaque: true,
@@ -187,7 +169,7 @@ class AppRouter extends _i20.RootStackRouter {
     HomeView.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i16.HomeView(),
+          child: const _i14.HomeView(),
           transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
           durationInMilliseconds: 300,
           opaque: true,
@@ -196,7 +178,7 @@ class AppRouter extends _i20.RootStackRouter {
     CartView.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i17.CartView(),
+          child: const _i15.CartView(),
           transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
           durationInMilliseconds: 300,
           opaque: true,
@@ -205,7 +187,7 @@ class AppRouter extends _i20.RootStackRouter {
     FavoriteView.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i18.FavoriteView(),
+          child: const _i16.FavoriteView(),
           transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
           durationInMilliseconds: 300,
           opaque: true,
@@ -214,7 +196,25 @@ class AppRouter extends _i20.RootStackRouter {
     AccountView.name: (routeData) {
       return _i20.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i19.AccountView(),
+          child: const _i17.AccountView(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
+          opaque: true,
+          barrierDismissible: false);
+    },
+    EditProfile.name: (routeData) {
+      return _i20.CustomPage<dynamic>(
+          routeData: routeData,
+          child: const _i18.EditProfile(),
+          transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
+          opaque: true,
+          barrierDismissible: false);
+    },
+    Cards.name: (routeData) {
+      return _i20.CustomPage<dynamic>(
+          routeData: routeData,
+          child: const _i19.Cards(),
           transitionsBuilder: _i20.TransitionsBuilders.fadeIn,
           durationInMilliseconds: 300,
           opaque: true,
@@ -236,7 +236,24 @@ class AppRouter extends _i20.RootStackRouter {
           _i20.RouteConfig(FavoriteView.name,
               path: 'favorite', parent: Dashboard.name),
           _i20.RouteConfig(AccountView.name,
-              path: 'account', parent: Dashboard.name)
+              path: 'account',
+              parent: Dashboard.name,
+              children: [
+                _i20.RouteConfig(EditProfile.name,
+                    path: 'edit-profile', parent: AccountView.name),
+                _i20.RouteConfig(Cards.name,
+                    path: 'cards', parent: AccountView.name),
+                _i20.RouteConfig('*#redirect',
+                    path: '*',
+                    parent: AccountView.name,
+                    redirectTo: '',
+                    fullMatch: true)
+              ]),
+          _i20.RouteConfig('*#redirect',
+              path: '*',
+              parent: Dashboard.name,
+              redirectTo: '',
+              fullMatch: true)
         ]),
         _i20.RouteConfig(ProductDetailView.name, path: '/product-detail'),
         _i20.RouteConfig(LoginView.name, path: '/login'),
@@ -244,8 +261,6 @@ class AppRouter extends _i20.RootStackRouter {
         _i20.RouteConfig(ForgotView.name, path: '/forgot'),
         _i20.RouteConfig(EmailVerificationView.name, path: '/verification'),
         _i20.RouteConfig(Checkout.name, path: '/checkout'),
-        _i20.RouteConfig(EditProfile.name, path: '/edit-profile'),
-        _i20.RouteConfig(Cards.name, path: '/cards'),
         _i20.RouteConfig(EditCard.name, path: '/cards'),
         _i20.RouteConfig(Notifications.name, path: '/notifications'),
         _i20.RouteConfig(OrderHistory.name, path: '/order-history'),
@@ -363,23 +378,7 @@ class Checkout extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.EditProfile]
-class EditProfile extends _i20.PageRouteInfo<void> {
-  const EditProfile() : super(EditProfile.name, path: '/edit-profile');
-
-  static const String name = 'EditProfile';
-}
-
-/// generated route for
-/// [_i10.Cards]
-class Cards extends _i20.PageRouteInfo<void> {
-  const Cards() : super(Cards.name, path: '/cards');
-
-  static const String name = 'Cards';
-}
-
-/// generated route for
-/// [_i11.EditCard]
+/// [_i9.EditCard]
 class EditCard extends _i20.PageRouteInfo<void> {
   const EditCard() : super(EditCard.name, path: '/cards');
 
@@ -387,7 +386,7 @@ class EditCard extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i12.Notifications]
+/// [_i10.Notifications]
 class Notifications extends _i20.PageRouteInfo<void> {
   const Notifications() : super(Notifications.name, path: '/notifications');
 
@@ -395,7 +394,7 @@ class Notifications extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.OrderHistory]
+/// [_i11.OrderHistory]
 class OrderHistory extends _i20.PageRouteInfo<void> {
   const OrderHistory() : super(OrderHistory.name, path: '/order-history');
 
@@ -403,7 +402,7 @@ class OrderHistory extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.ShippingAdress]
+/// [_i12.ShippingAdress]
 class ShippingAdress extends _i20.PageRouteInfo<void> {
   const ShippingAdress() : super(ShippingAdress.name, path: '/shipping-adress');
 
@@ -411,7 +410,7 @@ class ShippingAdress extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.TrackOrder]
+/// [_i13.TrackOrder]
 class TrackOrder extends _i20.PageRouteInfo<void> {
   const TrackOrder() : super(TrackOrder.name, path: '/track-order');
 
@@ -419,7 +418,7 @@ class TrackOrder extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i16.HomeView]
+/// [_i14.HomeView]
 class HomeView extends _i20.PageRouteInfo<void> {
   const HomeView() : super(HomeView.name, path: 'home');
 
@@ -427,7 +426,7 @@ class HomeView extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i17.CartView]
+/// [_i15.CartView]
 class CartView extends _i20.PageRouteInfo<void> {
   const CartView() : super(CartView.name, path: 'cart');
 
@@ -435,7 +434,7 @@ class CartView extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i18.FavoriteView]
+/// [_i16.FavoriteView]
 class FavoriteView extends _i20.PageRouteInfo<void> {
   const FavoriteView() : super(FavoriteView.name, path: 'favorite');
 
@@ -443,9 +442,26 @@ class FavoriteView extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i19.AccountView]
+/// [_i17.AccountView]
 class AccountView extends _i20.PageRouteInfo<void> {
-  const AccountView() : super(AccountView.name, path: 'account');
+  const AccountView({List<_i20.PageRouteInfo>? children})
+      : super(AccountView.name, path: 'account', initialChildren: children);
 
   static const String name = 'AccountView';
+}
+
+/// generated route for
+/// [_i18.EditProfile]
+class EditProfile extends _i20.PageRouteInfo<void> {
+  const EditProfile() : super(EditProfile.name, path: 'edit-profile');
+
+  static const String name = 'EditProfile';
+}
+
+/// generated route for
+/// [_i19.Cards]
+class Cards extends _i20.PageRouteInfo<void> {
+  const Cards() : super(Cards.name, path: 'cards');
+
+  static const String name = 'Cards';
 }

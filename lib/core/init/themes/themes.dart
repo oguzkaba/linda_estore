@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
+import '../../constants/app/colors_constants.dart';
 
 class AppTheme {
   static AppTheme? _instance;
@@ -38,8 +38,10 @@ class AppTheme {
         backgroundColor: ColorConstants.myWhite,
         // selectedIconTheme: ,
         // unselectedIconTheme: ,
-        selectedLabelStyle: const TextStyle(fontSize: 10),
-        unselectedLabelStyle: const TextStyle(fontSize: 10),
+        selectedLabelStyle:
+            TextStyle(fontSize: 10, color: ColorConstants.myDark),
+        unselectedLabelStyle:
+            TextStyle(fontSize: 10, color: ColorConstants.myLightGrey),
         type: BottomNavigationBarType.fixed,
       );
 

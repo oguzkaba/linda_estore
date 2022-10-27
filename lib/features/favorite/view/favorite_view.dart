@@ -3,10 +3,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/features/favorite/cubit/favorite_cubit.dart';
+import 'package:linda_wedding_ecommerce/core/components/indicator/loading_indicator.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../product/blocs/products/products_bloc.dart';
+import '../cubit/favorite_cubit.dart';
 
 class FavoriteView extends StatefulWidget {
   const FavoriteView({super.key});
@@ -32,7 +33,10 @@ class _FavoriteViewState extends State<FavoriteView> {
                     Padding(padding: context.paddingLow),
                     BlocBuilder<ProductsBloc, ProductsState>(
                         builder: (context, state) {
-                      if (state is ProductsLoaded) {
+                      if (state is ProductsLoading) {
+                        return const LoadingIndicator(
+                            lottieName: "favorite_loading");
+                      } else if (state is ProductsLoaded) {
                         return Expanded(
                           child: ListView.builder(
                             physics: const BouncingScrollPhysics(),

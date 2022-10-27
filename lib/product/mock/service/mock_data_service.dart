@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/asset_extansion.dart';
-import 'package:linda_wedding_ecommerce/product/mock/model/fake_reviews_model.dart';
+import '../../../core/extansions/asset_extansion.dart';
+import '../model/fake_reviews_model.dart';
 
 class MockDataService {
   static MockDataService? _instance;

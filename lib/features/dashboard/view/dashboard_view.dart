@@ -7,6 +7,7 @@ import 'package:linda_wedding_ecommerce/features/favorite/cubit/favorite_cubit.d
 
 import '../../../core/init/routes/routes.gr.dart';
 
+// ignore: must_be_immutable
 class Dashboard extends StatelessWidget {
   final int? id;
   Dashboard({

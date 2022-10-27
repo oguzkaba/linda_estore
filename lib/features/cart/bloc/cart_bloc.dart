@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/cart/model/cart_model.dart';
-import 'package:linda_wedding_ecommerce/features/cart/service/cart_service.dart';
+import '../model/cart_model.dart';
+import '../service/cart_service.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';

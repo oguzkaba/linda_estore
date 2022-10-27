@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/asset_extansion.dart';
 import 'package:lottie/lottie.dart';
+
+import '../../../../core/extansions/asset_extansion.dart';
 
 class EmptyCartWidget extends StatelessWidget {
   const EmptyCartWidget({super.key});

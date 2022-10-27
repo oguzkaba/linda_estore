@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
-import 'package:linda_wedding_ecommerce/core/init/routes/routes.gr.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/auth_top_widget.dart';
 import 'package:pinput/pinput.dart';
 
+import '../../../../core/constants/app/colors_constants.dart';
+import '../../../../core/init/routes/routes.gr.dart';
+import '../../../../product/widgets/auth_top_widget.dart';
 import '../../../../product/widgets/richtext_widget.dart';
 
 class EmailVerificationView extends StatefulWidget {

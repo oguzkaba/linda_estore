@@ -1,17 +1,17 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
-import 'package:linda_wedding_ecommerce/features/auth/login/bloc/cubit/login_cubit.dart';
-import 'package:linda_wedding_ecommerce/features/cart/bloc/cart_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/favorite/cubit/favorite_cubit.dart';
-import 'package:linda_wedding_ecommerce/features/product/blocs/product/product_bloc.dart';
+import 'package:linda_wedding_ecommerce/product/cubit/language_cubit.dart';
+
+import 'core/base/wrap_bloc_provider.dart';
+import 'core/constants/app/application_constants.dart';
+import 'core/constants/app/colors_constants.dart';
+import 'core/init/lang/lang_manager.dart';
 import 'core/init/observer/observer.dart';
 import 'core/init/routes/routes.gr.dart';
 import 'core/init/themes/themes.dart';
-import 'features/product/blocs/categories/categories_bloc.dart';
-import 'features/product/blocs/products/products_bloc.dart';
 
 void main() async {
   //* observe bloc logs
@@ -25,33 +25,17 @@ void main() async {
     ),
   );
 
+  //*Localization and hive init
   WidgetsFlutterBinding.ensureInitialized();
-  //await EasyLocalization.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await Hive.initFlutter();
 
-  runApp(MultiBlocProvider(
-    providers: [
-      BlocProvider<ProductsBloc>(
-        create: (context) => ProductsBloc(),
-      ),
-      BlocProvider(
-        create: (context) => CategoriesBloc(),
-      ),
-      BlocProvider(
-        create: (context) => LoginCubit(),
-      ),
-      BlocProvider(
-        create: (context) => ProductBloc(),
-      ),
-      BlocProvider(
-        create: (context) => CartBloc(),
-      ),
-      BlocProvider(
-        create: (context) => FavoriteCubit(),
-      ),
-    ],
-    child: const MyApp(),
-  ));
+  runApp(WrapBlocProvider(
+      child: EasyLocalization(
+          path: ApplicationConstants.langAssetPath,
+          supportedLocales: LangManager.instance.supportLocales,
+          startLocale: LangManager.instance.trLocale,
+          child: const MyApp())));
 }
 
 final _appRouter = AppRouter();
@@ -66,6 +50,9 @@ class MyApp extends StatelessWidget {
       routerDelegate: _appRouter.delegate(),
       routeInformationParser: _appRouter.defaultRouteParser(),
       //themeMode: ThemeMode.light,
+      localizationsDelegates: context.localizationDelegates,
+      locale: context.locale,
+      supportedLocales: context.supportedLocales,
       theme: AppTheme.instance.lightTheme,
     );
   }

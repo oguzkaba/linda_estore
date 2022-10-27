@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/init/routes/routes.gr.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/iconbutton_widget.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
+import '../../../core/init/routes/routes.gr.dart';
+import '../../../product/widgets/iconbutton_widget.dart';
 
 class AccountView extends StatefulWidget {
   const AccountView({super.key});
@@ -101,14 +101,14 @@ class _AccountViewState extends State<AccountView> {
       Icons.logout_rounded,
     ];
 
-    List<PageRouteInfo<dynamic>> actionRoute = [
-      const EditProfile(),
-      const ShippingAdress(),
-      const OrderHistory(),
-      const TrackOrder(),
-      const Cards(),
-      const Notifications(),
-      const LoginView(),
+    List<PageRouteInfo<dynamic>> actionRoute = const [
+      EditProfile(),
+      ShippingAdress(),
+      OrderHistory(),
+      TrackOrder(),
+      Cards(),
+      Notifications(),
+      LoginView(),
     ];
 
     return ListTile(
@@ -123,7 +123,7 @@ class _AccountViewState extends State<AccountView> {
         icon: const Icon(Icons.chevron_right_rounded),
         onPressed: () => index == 6
             ? context.router.replaceAll([actionRoute[index]])
-            : context.router.push(actionRoute[index]),
+            : context.pushRoute(actionRoute[index]),
       ),
       leading: IconButtonWidget(
         iColor: ColorConstants.primaryColor,

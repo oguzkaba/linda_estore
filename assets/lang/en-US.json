@@ -1,0 +1,15 @@
+{
+    "splash": {
+        "appName": "LindaStore"
+    },
+    "login": {
+        "buttonText": "Sign In",
+        "topTitle": "Sign In",
+        "topMessage": "Welcome back please sign in to continue",
+        "tfieldUnameHint": "Enter username",
+        "tfieldPassHint": "Enter Password",
+        "forgot": "Forgot password?",
+        "haveAccount": "Don't have account? ",
+        "register": " +Register"
+    }
+}
