@@ -3,6 +3,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 import 'package:linda_wedding_ecommerce/features/favorite/cubit/favorite_cubit.dart';
 
 import '../../../core/init/routes/routes.gr.dart';
@@ -16,13 +18,18 @@ class Dashboard extends StatelessWidget {
   }) : super(key: key);
 
   List<BottomNavigationBarItem> screens = [
-    const BottomNavigationBarItem(
-        label: "Home", icon: Icon(Icons.home_rounded)),
-    const BottomNavigationBarItem(
-        label: "Cart", icon: Icon(Icons.shopping_basket_rounded)),
-    const BottomNavigationBarItem(
-        label: "Favorites", icon: Icon(Icons.favorite_rounded)),
-    const BottomNavigationBarItem(label: "Account", icon: Icon(Icons.person)),
+    BottomNavigationBarItem(
+        label: LocaleKeys.dashboard_bottomNav_bNavHome.locale,
+        icon: const Icon(Icons.home_rounded)),
+    BottomNavigationBarItem(
+        label: LocaleKeys.dashboard_bottomNav_bNavCart.locale,
+        icon: const Icon(Icons.shopping_basket_rounded)),
+    BottomNavigationBarItem(
+        label: LocaleKeys.dashboard_bottomNav_bNavFav.locale,
+        icon: const Icon(Icons.favorite_rounded)),
+    BottomNavigationBarItem(
+        label: LocaleKeys.dashboard_bottomNav_bNavAcc.locale,
+        icon: const Icon(Icons.person)),
   ];
 
   @override

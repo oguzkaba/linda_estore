@@ -51,6 +51,7 @@ class _LoginViewState extends State<LoginView> {
                 : MainAxisAlignment.center,
             children: [
               AuthTopWidget(
+                  ctx: context,
                   title: LocaleKeys.login_topTitle.locale,
                   subTitle: LocaleKeys.login_topMessage.locale,
                   image: "auth"),

@@ -13,41 +13,45 @@ class AuthTopWidget extends StatelessWidget {
   final String title;
   final String subTitle;
   final String image;
+  final BuildContext ctx;
 
   const AuthTopWidget({
     Key? key,
     required this.title,
     required this.subTitle,
     required this.image,
+    required this.ctx,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LanguageCubit, Locale>(
-      builder: (context, state) => Visibility(
-        visible: !context.isKeyBoardOpen,
-        child: Column(
-          children: [
-            context.watch<LanguageCubit>().isChangedLang
-                ? _buildTranslateButton(context)
-                : _buildTranslateButton(context),
-            Text(title,
-                style:
-                    const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-            Text(subTitle, style: TextStyle(color: ColorConstants.myDark)),
-            Padding(padding: context.paddingLow),
-            SvgPicture.asset(
-              image.toSVG,
-              height: context.height * .35,
-              cacheColorFilter: false,
-            )
-          ],
-        ),
-      ),
-    );
+    return BlocBuilder<LanguageCubit, LanguageState>(builder: (context, state) {
+      if (state is LanguageLoaded) {
+        return Visibility(
+          visible: !context.isKeyBoardOpen,
+          child: Column(
+            children: [
+              _buildTranslateButton(ctx, state),
+              Text(title,
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold)),
+              Text(subTitle, style: TextStyle(color: ColorConstants.myDark)),
+              Padding(padding: context.paddingLow),
+              SvgPicture.asset(
+                image.toSVG,
+                height: context.height * .35,
+                cacheColorFilter: false,
+              )
+            ],
+          ),
+        );
+      } else {
+        return const SizedBox();
+      }
+    });
   }
 
-  SizedBox _buildTranslateButton(BuildContext context) {
+  SizedBox _buildTranslateButton(BuildContext context, LanguageLoaded state) {
     return SizedBox(
       height: 20,
       child: Align(
@@ -75,7 +79,8 @@ class AuthTopWidget extends StatelessWidget {
               ],
               onChanged: (dynamic value) {
                 debugPrint(value.toString());
-                context.read<LanguageCubit>().changeLanguage(context, value);
+                context.read<LanguageCubit>().changeLanguage(
+                    context, value.languageCode, value.countryCode);
               },
             ),
           )),

@@ -1,19 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/init/lang/lang_manager.dart';
+part 'language_state.dart';
 
-class LanguageCubit extends Cubit<Locale> {
-  LanguageCubit() : super(LangManager.instance.trLocale);
+class LanguageCubit extends Cubit<LanguageState> {
+  LanguageCubit() : super(const LanguageLoaded("TR", "tr"));
   Locale appLocale = LangManager.instance.trLocale;
-  bool isChangedLang = false;
 
-  Future<void> changeLanguage(BuildContext context, Locale value) async {
-    isChangedLang = false;
-    appLocale = value;
+  Future<void> changeLanguage(
+      BuildContext context, String languageCode, String countryCode) async {
+    appLocale = Locale(languageCode, countryCode);
     await context.setLocale(appLocale);
-    emit(appLocale);
-    isChangedLang = true;
+    emit(LanguageLoaded(languageCode, countryCode));
   }
 }

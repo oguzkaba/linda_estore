@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
@@ -66,9 +68,10 @@ class _EmailVerificationViewState extends State<EmailVerificationView> {
           padding: context.paddingMedium,
           child: Center(
             child: Column(children: [
-              const AuthTopWidget(
-                  title: "Email Verification",
-                  subTitle: "Enter the code we sent to your e-mail.",
+              AuthTopWidget(
+                  ctx: context,
+                  title: LocaleKeys.verification_topTitle.locale,
+                  subTitle: LocaleKeys.verification_topMessage.locale,
                   image: "auth"),
               Pinput(
                 controller: controller,
@@ -77,7 +80,9 @@ class _EmailVerificationViewState extends State<EmailVerificationView> {
                 focusedPinTheme: focusedPinTheme,
                 submittedPinTheme: submittedPinTheme,
                 validator: (s) {
-                  return s == '2222' ? null : 'Pin is incorrect';
+                  return s == '2222'
+                      ? null
+                      : LocaleKeys.verification_inCorrect.locale;
                 },
                 pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                 showCursor: true,
@@ -87,9 +92,9 @@ class _EmailVerificationViewState extends State<EmailVerificationView> {
               ),
               Padding(padding: context.paddingLow),
               RichTextWidget(
-                  actionName: " +Resend",
-                  text: "Didn't receive code? ",
-                  action: () => context.router.push(const RegisterView())),
+                  actionName: LocaleKeys.verification_resend.locale,
+                  text: LocaleKeys.verification_receiveCode.locale,
+                  action: () => context.router.push(const ForgotView())),
             ]),
           ),
         ),

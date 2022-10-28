@@ -11,5 +11,48 @@
         "forgot": "Şifremi unuttum?",
         "haveAccount": "Hesabınız yok mu? ",
         "register": " +Kayıt"
+    },
+    "register": {
+        "buttonText": "Kayıt Ol",
+        "topTitle": "Kayıt Ol",
+        "topMessage": "Tekrar hoş geldiniz, devam etmek için lütfen kayıt olun",
+        "tfieldNameHint": "Ad",
+        "tfieldEmailHint": "Email",
+        "tfieldPassHint": "Şifre",
+        "tfieldPass2Hint": "Şifre Tekrar",
+        "haveAccount": "Hesabınız var mı? ",
+        "login": " +Giriş Yap"
+    },
+    "forgot": {
+        "buttonText": "Onayla",
+        "button2Text": "Vazgeç",
+        "topTitle": "Şifremi Unuttum",
+        "topMessage": "Kayıtlı e-posta adresinize bir şifre sıfırlama bağlantısı gönderin",
+        "tfieldEmailHint": "Email"
+    },
+    "verification": {
+        "topTitle": "Email Doğrulama",
+        "topMessage": "Mailinize gönderdiğimiz kodu girin.",
+        "receiveCode": "Kod almadınız mı?",
+        "resend": " +Tekrar Gönder",
+        "inCorrect": "Pin Yanlış..!"
+    },
+    "dashboard": {
+        "bottomNav": {
+            "bNavHome": "Anasayfa",
+            "bNavCart": "Sepet",
+            "bNavFav": "Favoriler",
+            "bNavAcc": "Hesap"
+        }
+    },
+    "home": {
+        "search": "Ürün, kategori, marka ara...",
+        "category": {
+            "catAll": "Tümü",
+            "catElc": "Elektronik",
+            "catJew": "Takı / Mücevherat",
+            "catMen": "Erkek Giyim",
+            "catWom": "Kadın Giyim"
+        }
     }
 }

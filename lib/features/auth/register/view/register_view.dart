@@ -2,7 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import '../../../../core/extansions/string_extansion.dart';
 
+import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../product/widgets/auth_top_widget.dart';
 import '../../../../product/widgets/divider_widget.dart';
@@ -29,28 +31,31 @@ class _RegisterViewState extends State<RegisterView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const AuthTopWidget(
-                  title: "Sign Up",
-                  subTitle: "Welcome back please sign up to continue",
+              AuthTopWidget(
+                  ctx: context,
+                  title: LocaleKeys.register_topTitle.locale,
+                  subTitle: LocaleKeys.register_topMessage.locale,
                   image: "auth"),
               Padding(padding: context.paddingLow),
-              _buildInput("Enter Name", Icons.person_outlined),
+              _buildInput(LocaleKeys.register_tfieldNameHint.locale,
+                  Icons.person_outlined),
               Padding(padding: context.paddingLow),
-              _buildInput("Enter Email", Icons.email_outlined),
+              _buildInput(LocaleKeys.register_tfieldEmailHint.locale,
+                  Icons.email_outlined),
               Padding(padding: context.paddingLow),
-              _buildPassInput("Enter password"),
+              _buildPassInput(LocaleKeys.register_tfieldPassHint.locale),
               Padding(padding: context.paddingLow),
-              _buildPassInput("Enter password again"),
+              _buildPassInput(LocaleKeys.register_tfieldPass2Hint.locale),
               Padding(padding: context.paddingLow),
               //*sign up button
               EButtonWidget(
-                  text: "Create Account",
+                  text: LocaleKeys.register_buttonText.locale,
                   onPress: () => context.router.push(const LoginView())),
               Padding(padding: context.paddingLow),
               //*signup-or-social text
               RichTextWidget(
-                  actionName: " +Login",
-                  text: "Do you have account? ",
+                  actionName: LocaleKeys.register_login.locale,
+                  text: LocaleKeys.register_haveAccount.locale,
                   action: () => context.router.push(const LoginView())),
               const DividerWidget(),
               //*social button
@@ -74,7 +79,6 @@ class _RegisterViewState extends State<RegisterView> {
             suffixOnPress: () =>
                 context.read<LoginCubit>().toogleSuffixIcon(!visibleValue),
             obscureText: visibleValue ? false : true,
-            labelText: "Password",
             hintText: hintText);
       } else {
         return context.emptySizedHeightBoxLow;
@@ -83,7 +87,6 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   TextFieldWidget _buildInput(String hintText, IconData icon) {
-    return TextFieldWidget(
-        pIcon: icon, labelText: "UserName", hintText: hintText);
+    return TextFieldWidget(pIcon: icon, hintText: hintText);
   }
 }

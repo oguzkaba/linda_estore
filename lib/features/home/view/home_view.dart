@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../core/init/lang/translate_remote_entry.dart';
 import '../../../core/init/network/service/network_service.dart';
 import '../../../product/widgets/iconbutton_widget.dart';
 import '../../../product/widgets/search_bar_widget.dart';
@@ -137,7 +138,7 @@ class _HomeViewState extends State<HomeView> {
             .map((e) => Container(
                   padding: const EdgeInsets.symmetric(vertical: 9),
                   decoration: null,
-                  child: Text(e.toString().toCapitalized(),
+                  child: Text(translateCategory(e.toString().toCapitalized()),
                       style: const TextStyle(fontSize: 12)),
                 ))
             .toList(),

@@ -7,9 +7,52 @@
         "topTitle": "Sign In",
         "topMessage": "Welcome back please sign in to continue",
         "tfieldUnameHint": "Enter username",
-        "tfieldPassHint": "Enter Password",
+        "tfieldPassHint": "Enter password",
         "forgot": "Forgot password?",
         "haveAccount": "Don't have account? ",
         "register": " +Register"
+    },
+    "register": {
+        "buttonText": "Sign Up",
+        "topTitle": "Sign Up",
+        "topMessage": "Welcome back please sign up to continue",
+        "tfieldNameHint": "Enter name",
+        "tfieldEmailHint": "Enter email",
+        "tfieldPassHint": "Enter password",
+        "tfieldPass2Hint": "Enter password again",
+        "haveAccount": "Do you have account? ",
+        "login": " +Login"
+    },
+    "forgot": {
+        "buttonText": "Confirm",
+        "button2Text": "Cancel",
+        "topTitle": "Forgot Password",
+        "topMessage": "Send you registered email you a password reset link",
+        "tfieldEmailHint": "Enter email"
+    },
+    "verification": {
+        "topTitle": "Email Verification",
+        "topMessage": "Enter the code we sent to your e-mail.",
+        "receiveCode": "Didn't receive code? ",
+        "resend": " +Resend",
+        "inCorrect": "Pin is incorrect..!"
+    },
+    "dashboard": {
+        "bottomNav": {
+            "bNavHome": "Home",
+            "bNavCart": "Cart",
+            "bNavFav": "Favorites",
+            "bNavAcc": "Account"
+        }
+    },
+    "home": {
+        "search": "Search product, category, brand...",
+        "category": {
+            "catAll": "All",
+            "catElc": "Electronics",
+            "catJew": "Jewelery",
+            "catMen": "Men's Clothing",
+            "catWom": "Women's Clothing"
+        }
     }
 }

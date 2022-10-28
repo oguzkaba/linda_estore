@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 import '../../core/constants/app/colors_constants.dart';
 import '../../core/init/network/service/network_service.dart';
 import '../../core/init/routes/routes.gr.dart';
@@ -43,7 +45,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           onChange: (val) => _searcTextChanged(fieldTextEditingController),
           suffixOnPress: () => _closeSearch(fieldTextEditingController),
           hintStyle: const TextStyle(fontSize: 11),
-          hintText: "Search product, category, brand...",
+          hintText: LocaleKeys.home_search.locale,
           pIcon: _isChange ? null : Icons.manage_search_outlined,
           sIcon: _isChange ? Icons.cancel_rounded : null,
           controller: fieldTextEditingController,

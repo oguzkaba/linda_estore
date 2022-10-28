@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/init/routes/routes.gr.dart';
@@ -25,23 +27,23 @@ class _ForgotViewState extends State<ForgotView> {
           padding: context.paddingMedium,
           child: Column(
             children: [
-              const AuthTopWidget(
-                  title: "Forgot Password",
-                  subTitle:
-                      "Enter you registered email you a Password reset link",
+              AuthTopWidget(
+                  ctx: context,
+                  title: LocaleKeys.forgot_topTitle.locale,
+                  subTitle: LocaleKeys.forgot_topMessage.locale,
                   image: "auth"),
               Padding(padding: context.paddingLow),
               _buildInput(),
               //*confirm button
               Padding(padding: context.paddingLow),
               EButtonWidget(
-                  text: "Confirm",
+                  text: LocaleKeys.forgot_buttonText.locale,
                   onPress: () =>
                       context.router.push(const EmailVerificationView())),
               Padding(padding: context.paddingLow),
               //*cancel button
               EButtonWidget(
-                  text: "Cancel",
+                  text: LocaleKeys.forgot_button2Text.locale,
                   bgColor: ColorConstants.myWhite,
                   tColor: ColorConstants.primaryColor,
                   useBorder: true,
@@ -54,9 +56,8 @@ class _ForgotViewState extends State<ForgotView> {
   }
 
   TextFieldWidget _buildInput() {
-    return const TextFieldWidget(
+    return TextFieldWidget(
         pIcon: Icons.email_outlined,
-        labelText: "Email",
-        hintText: "Enter Email");
+        hintText: LocaleKeys.forgot_tfieldEmailHint.locale);
   }
 }
