@@ -2,9 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/extansions/asset_extansion.dart';
+import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../product/widgets/ebutton_widget.dart';
 import '../../../../product/widgets/iconbutton_widget.dart';
@@ -22,7 +24,8 @@ class _CardsState extends State<Cards> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-          title: Text("Cards", style: TextStyle(color: ColorConstants.myBlack)),
+          title: Text(LocaleKeys.account_action_cards_name.locale,
+              style: TextStyle(color: ColorConstants.myBlack)),
           leading: Padding(
             padding: const EdgeInsets.all(4.0),
             child: IconButtonWidget(
@@ -68,7 +71,7 @@ class _CardsState extends State<Cards> {
         ),
         height: 60,
         child: EButtonWidget(
-            text: "New",
+            text: LocaleKeys.account_action_cards_buttonText.locale,
             onPress: () => context.router.push((const EditCard()))),
       ),
     );

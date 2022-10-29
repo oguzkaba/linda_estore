@@ -4,6 +4,8 @@ import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/extansions/asset_extansion.dart';
@@ -40,7 +42,7 @@ class _EditCardState extends State<EditCard> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-            title: Text("Edit Card",
+            title: Text(LocaleKeys.account_action_cards_editCard_name.locale,
                 style: TextStyle(color: ColorConstants.myBlack)),
             leading: Padding(
               padding: const EdgeInsets.all(4.0),
@@ -58,6 +60,9 @@ class _EditCardState extends State<EditCard> {
           child: Column(
             children: <Widget>[
               CreditCardWidget(
+                labelCardHolder: LocaleKeys
+                    .account_action_cards_editCard_tfieldCardHolderHint.locale
+                    .toUpperCase(),
                 height: 220,
                 width: 400,
                 cardNumber: cardNumber,
@@ -123,14 +128,26 @@ class _EditCardState extends State<EditCard> {
                     themeColor: ColorConstants.primaryColor,
                     cardNumberDecoration: customInputDecoration(
                         "XXXX XXXX XXXX XXXX",
-                        "Card Number",
+                        LocaleKeys
+                            .account_action_cards_editCard_tfieldCardNoHint
+                            .locale,
                         Icons.credit_card_rounded),
                     expiryDateDecoration: customInputDecoration(
-                        "MM/YY", "Expired Date", Icons.date_range_rounded),
+                        "MM/YY",
+                        LocaleKeys.account_action_cards_editCard_tfieldDateHint
+                            .locale,
+                        Icons.date_range_rounded),
                     cvvCodeDecoration: customInputDecoration(
-                        "XXX", "CVV", Icons.password_rounded),
+                        "XXX",
+                        LocaleKeys
+                            .account_action_cards_editCard_tfieldCVVHint.locale,
+                        Icons.password_rounded),
                     cardHolderDecoration: customInputDecoration(
-                        "", "Card Holder", Icons.abc_rounded),
+                        "",
+                        LocaleKeys
+                            .account_action_cards_editCard_tfieldCardHolderHint
+                            .locale,
+                        Icons.abc_rounded),
                     onCreditCardModelChange: onCreditCardModelChange,
                   ),
                 ),
@@ -155,14 +172,18 @@ class _EditCardState extends State<EditCard> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               EButtonWidget(
-                  text: "Cancel",
+                  text: LocaleKeys
+                      .account_action_cards_editCard_button2Text.locale,
                   width: context.width * .4,
                   onPress: () => context.router.pop(),
                   bgColor: ColorConstants.myWhite,
                   useBorder: true,
                   tColor: ColorConstants.primaryColor),
               context.emptySizedWidthBoxNormal,
-              EButtonWidget(text: "Save", width: context.width * .4),
+              EButtonWidget(
+                  text: LocaleKeys
+                      .account_action_cards_editCard_buttonText.locale,
+                  width: context.width * .4),
             ],
           ),
         ));
@@ -195,7 +216,7 @@ class _EditCardState extends State<EditCard> {
       setState(() {
         cardNumber = creditCardModel!.cardNumber;
         expiryDate = creditCardModel.expiryDate;
-        cardHolderName = creditCardModel.cardHolderName;
+        cardHolderName = creditCardModel.cardHolderName.toUpperCase();
         cvvCode = creditCardModel.cvvCode;
         isCvvFocused = creditCardModel.isCvvFocused;
       });

@@ -3,6 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 
 import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
@@ -78,8 +80,8 @@ class _CartViewState extends State<CartView> {
                           child: Center(
                             child: Column(
                               children: [
-                                const Text("My Cart",
-                                    style: TextStyle(
+                                Text(LocaleKeys.cart_topTitle.locale,
+                                    style: const TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold)),
                                 Padding(padding: context.paddingLow),
@@ -216,7 +218,7 @@ class _CartViewState extends State<CartView> {
                                     children: [
                                       Row(
                                         children: [
-                                          const Text("Sub Total"),
+                                          Text(LocaleKeys.cart_subTotal.locale),
                                           const Expanded(child: Divider()),
                                           Text(
                                               "${(total * .82).toStringAsFixed(2)} ₺",
@@ -227,7 +229,7 @@ class _CartViewState extends State<CartView> {
                                       ),
                                       Row(
                                         children: [
-                                          const Text("Tax"),
+                                          Text(LocaleKeys.cart_tax.locale),
                                           const Expanded(child: Divider()),
                                           Text(
                                               "${(total * .18).toStringAsFixed(2)} ₺",
@@ -240,8 +242,8 @@ class _CartViewState extends State<CartView> {
                                   ),
                                 ),
                                 const Divider(),
-                                const TextFieldWidget(
-                                    hintText: "Enter Voucher Code",
+                                TextFieldWidget(
+                                    hintText: LocaleKeys.cart_discCode.locale,
                                     sIcon: Icons.check_circle_rounded)
                               ],
                             ),
@@ -263,18 +265,18 @@ class _CartViewState extends State<CartView> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Delete Confirmation"),
-          content: const Text("Are you sure you want to delete this item?"),
+          title: Text(LocaleKeys.cart_alert_title.locale),
+          content: Text(LocaleKeys.cart_alert_content.locale),
           actions: <Widget>[
             TextButton(
                 onPressed: () {
                   context.router.pop(true);
                   quantityList.value.removeAt(index);
                 },
-                child: const Text("Delete")),
+                child: Text(LocaleKeys.cart_alert_buttonText.locale)),
             TextButton(
               onPressed: () => context.router.pop(false),
-              child: const Text("Cancel"),
+              child: Text(LocaleKeys.cart_alert_button2Text.locale),
             ),
           ],
         );
@@ -312,7 +314,7 @@ Padding _buildBottomWidget(BuildContext context, double total) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "PRICE",
+                LocaleKeys.cart_price.locale,
                 style: TextStyle(
                     fontSize: 12,
                     color: ColorConstants.myDark,
@@ -328,7 +330,7 @@ Padding _buildBottomWidget(BuildContext context, double total) {
             ],
           ),
           EButtonWidget(
-              text: "CHECKOUT",
+              text: LocaleKeys.cart_buttonText.locale,
               width: 150,
               onPress: () => context.router.push(const Checkout()))
         ],

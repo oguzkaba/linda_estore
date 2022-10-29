@@ -27,7 +27,7 @@ class IconButtonWidget extends StatelessWidget {
       padding: context.horizontalPaddingLow,
       child: CircleAvatar(
         radius: circleRadius ?? 20,
-        backgroundColor: bColor ?? iColor.withOpacity(0.1),
+        backgroundColor: bColor ?? iColor.withOpacity(0.05),
         child: IconButton(
           splashRadius: 1,
           icon: Icon(icon, size: size ?? 24, color: iColor),

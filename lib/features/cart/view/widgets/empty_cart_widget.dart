@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../core/extansions/asset_extansion.dart';
@@ -14,8 +16,9 @@ class EmptyCartWidget extends StatelessWidget {
         padding: context.paddingMedium,
         child: Column(
           children: [
-            const Text("Empty Cart",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text(LocaleKeys.cart_emptyTitle.locale,
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             SizedBox(
               height: context.height * .7,
               child: Lottie.asset("empty_cart".toLottie),

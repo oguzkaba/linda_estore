@@ -2,8 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
+import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../product/widgets/ebutton_widget.dart';
 import '../../../../product/widgets/iconbutton_widget.dart';
 import '../../../../product/widgets/textfield_widget.dart';
@@ -22,7 +24,7 @@ class _EditProfileState extends State<EditProfile> {
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
-                title: Text("Edit Profile",
+                title: Text(LocaleKeys.account_action_editProfile_name.locale,
                     style: TextStyle(color: ColorConstants.myBlack)),
                 leading: Padding(
                   padding: const EdgeInsets.all(4.0),
@@ -63,11 +65,16 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ]),
                   Padding(padding: context.verticalPaddingMedium),
-                  _buildInput("Enter Email", Icons.email_outlined),
+                  _buildInput(
+                      LocaleKeys
+                          .account_action_editProfile_tfieldEmailHint.locale,
+                      Icons.email_outlined),
                   Padding(padding: context.verticalPaddingLow),
-                  _buildPassInput("Enter password"),
+                  _buildPassInput(LocaleKeys
+                      .account_action_editProfile_tfieldPassHint.locale),
                   Padding(padding: context.verticalPaddingLow),
-                  _buildPassInput("Enter password again"),
+                  _buildPassInput(LocaleKeys
+                      .account_action_editProfile_tfieldPass2Hint.locale),
                 ],
               ),
             ),
@@ -84,7 +91,9 @@ class _EditProfileState extends State<EditProfile> {
                 ],
               ),
               height: 60,
-              child: EButtonWidget(text: "Save", onPress: () => {}),
+              child: EButtonWidget(
+                  text: LocaleKeys.account_action_editProfile_buttonText.locale,
+                  onPress: () => {}),
             )));
   }
 }
@@ -101,7 +110,8 @@ BlocBuilder<LoginCubit, LoginState> _buildPassInput(String hintText) {
           suffixOnPress: () =>
               context.read<LoginCubit>().toogleSuffixIcon(!visibleValue),
           obscureText: visibleValue ? false : true,
-          labelText: "Password",
+          labelText:
+              LocaleKeys.account_action_editProfile_tfieldPassHint.locale,
           hintText: hintText);
     } else {
       return context.emptySizedHeightBoxLow;
@@ -111,5 +121,7 @@ BlocBuilder<LoginCubit, LoginState> _buildPassInput(String hintText) {
 
 TextFieldWidget _buildInput(String hintText, IconData icon) {
   return TextFieldWidget(
-      pIcon: icon, labelText: "UserName", hintText: hintText);
+      pIcon: icon,
+      labelText: LocaleKeys.account_action_editProfile_tfieldEmailHint.locale,
+      hintText: hintText);
 }

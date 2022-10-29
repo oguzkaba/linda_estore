@@ -35,7 +35,9 @@ class AuthTopWidget extends StatelessWidget {
               Text(title,
                   style: const TextStyle(
                       fontSize: 30, fontWeight: FontWeight.bold)),
-              Text(subTitle, style: TextStyle(color: ColorConstants.myDark)),
+              Text(subTitle,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: ColorConstants.myDark)),
               Padding(padding: context.paddingLow),
               SvgPicture.asset(
                 image.toSVG,

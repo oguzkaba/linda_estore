@@ -47,19 +47,21 @@ class _SplashViewState extends State<SplashView> {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
-        backgroundColor: ColorConstants.primaryColor,
         body: Center(
           child: FadeIn(
             duration: const Duration(seconds: 3),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.shopping_bag_outlined,
-                    color: ColorConstants.myWhite, size: 40),
+                BounceInDown(
+                  duration: const Duration(seconds: 3),
+                  child: Icon(Icons.shopping_bag_outlined,
+                      color: ColorConstants.primaryColor, size: 50),
+                ),
                 Text(LocaleKeys.splash_appName.locale,
                     style: TextStyle(
-                        color: ColorConstants.myWhite,
-                        fontSize: 20,
+                        color: ColorConstants.primaryColor,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold)),
               ],
             ),

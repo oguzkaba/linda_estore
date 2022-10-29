@@ -53,6 +53,73 @@
             "catJew": "Takı / Mücevherat",
             "catMen": "Erkek Giyim",
             "catWom": "Kadın Giyim"
+        },
+        "productDet": {
+            "details": "Detaylar",
+            "review": "Yorum",
+            "reviews": "Yorumlar",
+            "color": "Renk",
+            "size": "Boyut",
+            "price": "FİYAT",
+            "buttonText": "Sepete Ekle"
+        }
+    },
+    "cart": {
+        "topTitle": "Sepetim",
+        "emptyTitle": "Sepet Boş",
+        "buttonText": "ÖDEME YAP",
+        "subTotal": "Ara Toplam",
+        "tax": "Vergiler",
+        "discCode": "İndirim Kodunu Girin",
+        "price": "ÖDENECEK TUTAR",
+        "alert": {
+            "title": "Silme Onayı",
+            "content": "Bu ürünü silmek istediğinizden emin misiniz?",
+            "buttonText": "Sil",
+            "button2Text": "Vazgeç"
+        }
+    },
+    "favorites": {
+        "topTitle": "Favoriler",
+        "emptyTitle": "Favoriler Boş",
+        "alert": {
+            "title": "Silme Onayı",
+            "content": "Bu ürünü silmek istediğinizden emin misiniz?",
+            "buttonText": "Sil",
+            "button2Text": "Vazgeç"
+        }
+    },
+    "account": {
+        "topTitle": "Hesabım",
+        "demoUser": "Demo Kullanıcı",
+        "demoMail": "demo_kullanici@gmail.com",
+        "action": {
+            "editProfile": {
+                "name": "Profili Düzenle",
+                "buttonText": "Kaydet",
+                "tfieldEmailHint": "Email",
+                "tfieldPassHint": "Şifre",
+                "tfieldPass2Hint": "Şifre Tekrar"
+            },
+            "shipping": "Gönderim Adresi",
+            "order": "Sipariş",
+            "trackOrder": "Siparişi Takip Et",
+            "cards": {
+                "name": "Kartlar",
+                "buttonText": "YENİ",
+                "editCard": {
+                    "name": "Kart Düzenle",
+                    "buttonText": "Kaydet",
+                    "button2Text": "Vazgeç",
+                    "tfieldCardNoHint": "Kart Numarası",
+                    "tfieldDateHint": "Son Kull. Tar.",
+                    "tfieldCVVHint": "CVV",
+                    "tfieldCardHolderHint": "Kart Sahibi"
+                }
+            },
+            "notif": "Bildirimler",
+            "appSet": "Uygulama Ayarları",
+            "logout": "Oturumu Kapat"
         }
     }
 }

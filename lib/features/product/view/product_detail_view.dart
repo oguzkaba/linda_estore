@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/extansions/asset_extansion.dart';
@@ -112,7 +114,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                                     size: 16),
                             ],
                           ),
-                          Text(" ( ${state.product.rating!.count} Reviews) ",
+                          Text(
+                              " ( ${state.product.rating!.count} ${LocaleKeys.home_productDet_review.locale}) ",
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 12)),
@@ -120,8 +123,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       ),
                     ),
                     Padding(padding: context.paddingNormal),
-                    const Text("Details",
-                        style: TextStyle(
+                    Text(LocaleKeys.home_productDet_details.locale,
+                        style: const TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: 13,
                             fontWeight: FontWeight.bold)),
@@ -131,8 +134,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                         maxLines: 3,
                         style: const TextStyle(fontSize: 12)),
                     Padding(padding: context.paddingNormal),
-                    const Text("Color",
-                        style: TextStyle(
+                    Text(LocaleKeys.home_productDet_color.locale,
+                        style: const TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: 13,
                             fontWeight: FontWeight.bold)),
@@ -150,8 +153,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       ],
                     ),
                     Padding(padding: context.paddingNormal),
-                    const Text("Size",
-                        style: TextStyle(
+                    Text(LocaleKeys.home_productDet_size.locale,
+                        style: const TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: 13,
                             fontWeight: FontWeight.bold)),
@@ -170,8 +173,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     Padding(padding: context.paddingNormal),
                     GestureDetector(
                       onTap: () => showReviews.value = !showReviews.value,
-                      child: const Text("Reviews",
-                          style: TextStyle(
+                      child: Text(LocaleKeys.home_productDet_reviews.locale,
+                          style: const TextStyle(
                               decoration: TextDecoration.underline,
                               fontSize: 13,
                               fontWeight: FontWeight.bold)),
@@ -269,7 +272,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "PRICE",
+                  LocaleKeys.home_productDet_price.locale,
                   style: TextStyle(
                       fontSize: 12,
                       color: ColorConstants.myLightGrey,
@@ -284,7 +287,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 ),
               ],
             ),
-            const EButtonWidget(text: "ADD", width: 125)
+            EButtonWidget(
+                text: LocaleKeys.home_productDet_buttonText.locale, width: 125)
           ],
         ),
       ),

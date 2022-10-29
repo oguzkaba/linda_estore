@@ -86,9 +86,10 @@ class _EmailVerificationViewState extends State<EmailVerificationView> {
                 },
                 pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                 showCursor: true,
-                onCompleted: (pin) => pin == '2222'
-                    ? context.router.push(const HomeView())
-                    : null,
+                onCompleted: (pin) =>
+                    pin == '2222' //TODO add dynamic pin control
+                        ? context.router.push(Dashboard())
+                        : null,
               ),
               Padding(padding: context.paddingLow),
               RichTextWidget(

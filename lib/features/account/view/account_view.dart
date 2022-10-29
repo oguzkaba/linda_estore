@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/init/routes/routes.gr.dart';
@@ -25,8 +27,8 @@ class _AccountViewState extends State<AccountView> {
                   child: Center(
                     child: Column(
                       children: [
-                        const Text("Account",
-                            style: TextStyle(
+                        Text(LocaleKeys.account_topTitle.locale,
+                            style: const TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.bold)),
                         Card(
                           elevation: 5,
@@ -51,14 +53,12 @@ class _AccountViewState extends State<AccountView> {
                                 Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: const [
-                                      Text("Demo User",
-                                          style: TextStyle(
-                                              fontSize: 18,
+                                    children: [
+                                      Text(LocaleKeys.account_demoUser.locale,
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
-                                      Text(
-                                        "demo_user@gmail.com",
-                                      ),
+                                      Text(LocaleKeys.account_demoMail.locale,
+                                          style: const TextStyle(fontSize: 12)),
                                     ])
                               ],
                             ),
@@ -67,13 +67,20 @@ class _AccountViewState extends State<AccountView> {
                         context.emptySizedHeightBoxLow,
                         ListView.separated(
                           physics: const BouncingScrollPhysics(),
+                          padding: EdgeInsets.zero,
                           primary: true,
-                          separatorBuilder: (context, index) => const Divider(),
+                          separatorBuilder: (context, index) => const Divider(
+                              height: 0, indent: 70, endIndent: 30),
                           shrinkWrap: true,
-                          itemCount: 7,
+                          itemCount: 8,
                           itemBuilder: (context, index) =>
                               _buildListTile(context, index),
-                        )
+                        ),
+                        context.emptySizedHeightBoxLow,
+                        Text("v.1.0.0",
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: ColorConstants.myLightGrey))
                       ],
                     ),
                   )),
@@ -82,13 +89,14 @@ class _AccountViewState extends State<AccountView> {
 
   ListTile _buildListTile(BuildContext context, int index) {
     List<String> actionNames = [
-      "Edit Profile",
-      "Shipping Adress",
-      "Order History",
-      "Track Order",
-      "Cards",
-      "Notifications",
-      "Log Out",
+      LocaleKeys.account_action_editProfile_name.locale,
+      LocaleKeys.account_action_shipping.locale,
+      LocaleKeys.account_action_order.locale,
+      LocaleKeys.account_action_trackOrder.locale,
+      LocaleKeys.account_action_cards_name.locale,
+      LocaleKeys.account_action_notif.locale,
+      LocaleKeys.account_action_appSet.locale,
+      LocaleKeys.account_action_logout.locale,
     ];
 
     List<IconData> icons = [
@@ -98,6 +106,7 @@ class _AccountViewState extends State<AccountView> {
       Icons.local_shipping_rounded,
       Icons.credit_card_rounded,
       Icons.notifications_rounded,
+      Icons.settings_rounded,
       Icons.logout_rounded,
     ];
 
@@ -108,28 +117,34 @@ class _AccountViewState extends State<AccountView> {
       TrackOrder(),
       Cards(),
       Notifications(),
+      Settings(),
       LoginView(),
     ];
 
     return ListTile(
-      contentPadding: context.paddingLow,
+      //dense: true,
       title: Text(actionNames[index],
           style: TextStyle(
               fontSize: 12,
               color: ColorConstants.myMediumGrey,
               fontWeight: FontWeight.bold)),
-      trailing: IconButton(
-        splashRadius: 1,
-        icon: const Icon(Icons.chevron_right_rounded),
-        onPressed: () => index == 6
-            ? context.router.replaceAll([actionRoute[index]])
-            : context.pushRoute(actionRoute[index]),
+      trailing: IconButtonWidget(
+        size: 16,
+        bColor: ColorConstants.myWhite,
+        tooltip: actionNames[index],
+        iColor: ColorConstants.myMediumGrey,
+        icon: Icons.chevron_right_rounded,
       ),
       leading: IconButtonWidget(
+        size: 16,
+        circleRadius: 16,
         iColor: ColorConstants.primaryColor,
         icon: icons[index],
         tooltip: actionNames[index],
       ),
+      onTap: () => index == 7
+          ? context.router.replaceAll([actionRoute[index]])
+          : context.pushRoute(actionRoute[index]),
     );
   }
 }

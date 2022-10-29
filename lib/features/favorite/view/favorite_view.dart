@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/components/indicator/loading_indicator.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../product/blocs/products/products_bloc.dart';
@@ -25,9 +27,9 @@ class _FavoriteViewState extends State<FavoriteView> {
                 padding: context.paddingMedium,
                 child: Column(
                   children: [
-                    const Center(
-                      child: Text("Favorites",
-                          style: TextStyle(
+                    Center(
+                      child: Text(LocaleKeys.favorites_topTitle.locale,
+                          style: const TextStyle(
                               fontSize: 24, fontWeight: FontWeight.bold)),
                     ),
                     Padding(padding: context.paddingLow),
@@ -121,15 +123,15 @@ class _FavoriteViewState extends State<FavoriteView> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Delete Confirmation"),
-          content: const Text("Are you sure you want to delete this item?"),
+          title: Text(LocaleKeys.favorites_alert_title.locale),
+          content: Text(LocaleKeys.favorites_alert_content.locale),
           actions: <Widget>[
             TextButton(
                 onPressed: () => context.router.pop(true),
-                child: const Text("Delete")),
+                child: Text(LocaleKeys.favorites_alert_buttonText.locale)),
             TextButton(
               onPressed: () => context.router.pop(false),
-              child: const Text("Cancel"),
+              child: Text(LocaleKeys.favorites_alert_button2Text.locale),
             ),
           ],
         );

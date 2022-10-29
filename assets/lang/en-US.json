@@ -53,6 +53,73 @@
             "catJew": "Jewelery",
             "catMen": "Men's Clothing",
             "catWom": "Women's Clothing"
+        },
+        "productDet": {
+            "details": "Details",
+            "review": "Reviews",
+            "reviews": "Reviews",
+            "color": "Color",
+            "size": "Size",
+            "price": "PRICE",
+            "buttonText": "ADD"
+        }
+    },
+    "cart": {
+        "topTitle": "My Cart",
+        "emptyTitle": "Empty Cart",
+        "buttonText": "CHECKOUT",
+        "subTotal": "Sub Total",
+        "tax": "Tax",
+        "discCode": "Enter Discount Code",
+        "price": "PRICE",
+        "alert": {
+            "title": "Delete Confirmation",
+            "content": "Are you sure you want to delete this product?",
+            "buttonText": "Delete",
+            "button2Text": "Cancel"
+        }
+    },
+    "favorites": {
+        "topTitle": "Favorites",
+        "emptyTitle": "Empty Favorite",
+        "alert": {
+            "title": "Delete Confirmation",
+            "content": "Are you sure you want to delete this product?",
+            "buttonText": "Delete",
+            "button2Text": "Cancel"
+        }
+    },
+    "account": {
+        "topTitle": "Account",
+        "demoUser": "Demo User",
+        "demoMail": "demo_user@gmail.com",
+        "action": {
+            "editProfile": {
+                "name": "Edit Profile",
+                "buttonText": "Save",
+                "tfieldEmailHint": "Enter email",
+                "tfieldPassHint": "Enter password",
+                "tfieldPass2Hint": "Enter password again"
+            },
+            "shipping": "Shipping Adress",
+            "order": "Order History",
+            "trackOrder": "Track Order",
+            "cards": {
+                "name": "Cards",
+                "buttonText":"NEW",
+                "editCard": {
+                    "name": "Edit Card",
+                    "buttonText": "Save",
+                    "button2Text": "Cancel",
+                    "tfieldCardNoHint": "Card Number",
+                    "tfieldDateHint": "Expired Date",
+                    "tfieldCVVHint": "CVV",
+                    "tfieldCardHolderHint": "Card Holder"
+                }
+            },
+            "notif": "Notifications",
+            "appSet": "Application Settings",
+            "logout": "Log Out"
         }
     }
 }

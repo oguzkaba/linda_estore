@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:linda_wedding_ecommerce/features/account/view/widgets/settings.dart';
 
 import '../../../features/account/view/account_view.dart';
 import '../../../features/account/view/widgets/cards.dart';
@@ -30,11 +31,7 @@ import '../../../features/splash/view/splash_view.dart';
       AutoRoute(path: "home", page: HomeView, initial: true),
       AutoRoute(path: "cart", page: CartView),
       AutoRoute(path: "favorite", page: FavoriteView),
-      AutoRoute(path: "account", page: AccountView, children: [
-        AutoRoute(path: "edit-profile", page: EditProfile),
-        AutoRoute(path: "cards", page: Cards),
-        RedirectRoute(path: '*', redirectTo: ''),
-      ]),
+      AutoRoute(path: "account", page: AccountView),
       RedirectRoute(path: '*', redirectTo: ''),
     ]),
     AutoRoute(path: "/product-detail", page: ProductDetailView),
@@ -43,11 +40,14 @@ import '../../../features/splash/view/splash_view.dart';
     AutoRoute(path: "/forgot", page: ForgotView),
     AutoRoute(path: "/verification", page: EmailVerificationView),
     AutoRoute(path: "/checkout", page: Checkout),
-    AutoRoute(path: "/cards", page: EditCard),
-    AutoRoute(path: "/notifications", page: Notifications),
-    AutoRoute(path: "/order-history", page: OrderHistory),
+    AutoRoute(path: "edit-profile", page: EditProfile),
     AutoRoute(path: "/shipping-adress", page: ShippingAdress),
+    AutoRoute(path: "/order-history", page: OrderHistory),
     AutoRoute(path: "/track-order", page: TrackOrder),
+    AutoRoute(path: "/cards", page: Cards),
+    AutoRoute(path: "/edit-cards", page: EditCard),
+    AutoRoute(path: "/notifications", page: Notifications),
+    AutoRoute(path: "/app-settings", page: Settings),
   ],
 )
 class $AppRouter {}
