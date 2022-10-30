@@ -44,12 +44,14 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/svg/
+    - assets/fonts/
     - assets/images/
     - assets/images/creditcard/
-    - assets/fonts/
+    - assets/images/flag/
     - assets/jsons/
+    - assets/lang/
     - assets/lotties/
+    - assets/svg/
 
   fonts:
     - family: Montserrat

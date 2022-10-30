@@ -72,7 +72,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                         )),
                                   ),
                                   SizedBox(
-                                    width: context.width * .6,
+                                    width: context.width * .53,
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [

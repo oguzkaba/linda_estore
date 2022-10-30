@@ -117,7 +117,7 @@ class _CartViewState extends State<CartView> {
                                               )),
                                         ),
                                         SizedBox(
-                                          width: context.width * .6,
+                                          width: context.width * .53,
                                           child: Column(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
@@ -135,8 +135,7 @@ class _CartViewState extends State<CartView> {
                                                     textAlign: TextAlign.left,
                                                     style: const TextStyle(
                                                         fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 14)),
+                                                            FontWeight.bold)),
                                               ),
                                               context.emptySizedHeightBoxLow,
                                               Row(

@@ -60,24 +60,33 @@ class AuthTopWidget extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: DropdownButtonHideUnderline(
             child: DropdownButton(
-              icon: Icon(Icons.language_rounded,
-                  size: 16, color: ColorConstants.myBlue),
+              icon: const SizedBox.shrink(),
               isExpanded: false,
               autofocus: false,
               value: context.locale,
               items: <DropdownMenuItem>[
                 DropdownMenuItem(
                     value: LangManager.instance.trLocale,
-                    child: Text(
-                        LangManager.instance.trLocale.languageCode
-                            .toUpperCase(),
-                        style: const TextStyle(fontSize: 12))),
+                    child: Row(
+                      children: [
+                        Text(
+                            LangManager.instance.trLocale.languageCode
+                                .toUpperCase(),
+                            style: const TextStyle(fontSize: 12)),
+                        Image.asset("flag/turkey".toPNG, width: 18)
+                      ],
+                    )),
                 DropdownMenuItem(
                     value: LangManager.instance.enLocale,
-                    child: Text(
-                        LangManager.instance.enLocale.languageCode
-                            .toUpperCase(),
-                        style: const TextStyle(fontSize: 12)))
+                    child: Row(
+                      children: [
+                        Text(
+                            LangManager.instance.enLocale.languageCode
+                                .toUpperCase(),
+                            style: const TextStyle(fontSize: 12)),
+                        Image.asset("flag/usa".toPNG, width: 18)
+                      ],
+                    ))
               ],
               onChanged: (dynamic value) {
                 debugPrint(value.toString());
