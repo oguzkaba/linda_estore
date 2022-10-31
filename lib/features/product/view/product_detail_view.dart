@@ -98,7 +98,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     ),
                     Padding(padding: context.paddingLow),
                     Text(state.product.title!,
-                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                        style: Theme.of(context).textTheme.titleSmall),
                     Padding(padding: context.paddingLow),
                     GestureDetector(
                       onTap: () => showReviews.value = true,
@@ -117,28 +117,30 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                           Text(
                               " ( ${state.product.rating!.count} ${LocaleKeys.home_productDet_review.locale}) ",
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12)),
+                              style: Theme.of(context).textTheme.bodySmall),
                         ],
                       ),
                     ),
                     Padding(padding: context.paddingNormal),
                     Text(LocaleKeys.home_productDet_details.locale,
-                        style: const TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold)),
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium
+                            ?.copyWith(decoration: TextDecoration.underline)),
                     Padding(padding: context.paddingLow),
                     Text(state.product.description!,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
-                        style: const TextStyle(fontSize: 12)),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(fontWeight: FontWeight.normal)),
                     Padding(padding: context.paddingNormal),
                     Text(LocaleKeys.home_productDet_color.locale,
-                        style: const TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold)),
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium
+                            ?.copyWith(decoration: TextDecoration.underline)),
                     Padding(padding: context.paddingLow),
                     Row(
                       children: [
@@ -154,10 +156,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     ),
                     Padding(padding: context.paddingNormal),
                     Text(LocaleKeys.home_productDet_size.locale,
-                        style: const TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold)),
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium
+                            ?.copyWith(decoration: TextDecoration.underline)),
                     Padding(padding: context.paddingLow),
                     Row(
                       children: [
@@ -174,10 +176,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     GestureDetector(
                       onTap: () => showReviews.value = !showReviews.value,
                       child: Text(LocaleKeys.home_productDet_reviews.locale,
-                          style: const TextStyle(
-                              decoration: TextDecoration.underline,
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold)),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium
+                              ?.copyWith(decoration: TextDecoration.underline)),
                     ),
                     Padding(padding: context.paddingLow),
                     ValueListenableBuilder(
@@ -230,7 +232,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(reviews[index].fullName),
+                  Text(reviews[index].fullName,
+                      style: Theme.of(context).textTheme.bodySmall),
                   Row(
                     children: [
                       for (var i = 0; i < 5; i++)
@@ -273,17 +276,11 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               children: [
                 Text(
                   LocaleKeys.home_productDet_price.locale,
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: ColorConstants.myLightGrey,
-                      fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 Text(
                   "${product.price} ₺",
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: ColorConstants.primaryColor,
-                      fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ],
             ),
@@ -306,8 +303,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
           borderRadius: BorderRadius.circular(10)),
       child: Center(
           child: Text(size,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
                   color: selected
                       ? ColorConstants.primaryColor
                       : ColorConstants.myMediumGrey))),

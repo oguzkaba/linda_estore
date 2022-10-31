@@ -81,9 +81,9 @@ class _CartViewState extends State<CartView> {
                             child: Column(
                               children: [
                                 Text(LocaleKeys.cart_topTitle.locale,
-                                    style: const TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold)),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall),
                                 Padding(padding: context.paddingLow),
                                 ListView.builder(
                                   physics: const NeverScrollableScrollPhysics(),
@@ -133,9 +133,9 @@ class _CartViewState extends State<CartView> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold)),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall),
                                               ),
                                               context.emptySizedHeightBoxLow,
                                               Row(
@@ -145,12 +145,9 @@ class _CartViewState extends State<CartView> {
                                                 children: [
                                                   Text(
                                                     "${state.products[cartModel[1].products[index].productId]!.price} ₺",
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        color: ColorConstants
-                                                            .primaryColor,
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium,
                                                   ),
                                                   Row(
                                                     children: [
@@ -179,13 +176,9 @@ class _CartViewState extends State<CartView> {
                                                             .products[index]
                                                             .quantity
                                                             .toString(),
-                                                        style: TextStyle(
-                                                            fontSize: 16,
-                                                            color: ColorConstants
-                                                                .primaryColor,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleMedium,
                                                       ),
                                                       IconButtonWidget(
                                                           onPress: () =>
@@ -221,9 +214,9 @@ class _CartViewState extends State<CartView> {
                                           const Expanded(child: Divider()),
                                           Text(
                                               "${(total * .82).toStringAsFixed(2)} ₺",
-                                              style: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold))
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall)
                                         ],
                                       ),
                                       Row(
@@ -232,9 +225,9 @@ class _CartViewState extends State<CartView> {
                                           const Expanded(child: Divider()),
                                           Text(
                                               "${(total * .18).toStringAsFixed(2)} ₺",
-                                              style: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold))
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall)
                                         ],
                                       ),
                                     ],
@@ -314,17 +307,11 @@ Padding _buildBottomWidget(BuildContext context, double total) {
             children: [
               Text(
                 LocaleKeys.cart_price.locale,
-                style: TextStyle(
-                    fontSize: 12,
-                    color: ColorConstants.myDark,
-                    fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.bodySmall,
               ),
               Text(
                 "${total.toStringAsFixed(2)} ₺",
-                style: TextStyle(
-                    fontSize: 16,
-                    color: ColorConstants.primaryColor,
-                    fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ],
           ),

@@ -59,10 +59,7 @@ class _SplashViewState extends State<SplashView> {
                       color: ColorConstants.primaryColor, size: 50),
                 ),
                 Text(LocaleKeys.splash_appName.locale,
-                    style: TextStyle(
-                        color: ColorConstants.primaryColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold)),
+                    style: Theme.of(context).textTheme.titleMedium),
               ],
             ),
           ),

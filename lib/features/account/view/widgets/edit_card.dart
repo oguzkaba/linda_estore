@@ -197,7 +197,7 @@ class _EditCardState extends State<EditCard> {
         label: Text(labelText),
         labelStyle: TextStyle(color: ColorConstants.myBlack),
         hintText: hintText,
-        hintStyle: const TextStyle(fontSize: 14),
+        hintStyle: Theme.of(context).textTheme.labelMedium,
         filled: true,
         fillColor: ColorConstants.secondaryColor.withOpacity(.15),
         focusedBorder: GradientOutlineInputBorder(

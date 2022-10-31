@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
+import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../product/widgets/export_widget.dart';
 import '../../../../product/widgets/iconbutton_widget.dart';
 
@@ -47,7 +49,7 @@ class _CheckoutState extends State<Checkout> {
         body: Stepper(
           controlsBuilder: (context, details) =>
               context.emptySizedHeightBoxHigh,
-          currentStep: 0,
+          currentStep: 2,
           elevation: 1,
           type: StepperType.horizontal,
           steps: [
@@ -107,14 +109,25 @@ class _CheckoutState extends State<Checkout> {
               cardHolderName: cardHolderName.toUpperCase(),
               expiryDate: expiryDate,
               themeColor: ColorConstants.primaryColor,
-              cardNumberDecoration: customInputDecoration("XXXX XXXX XXXX XXXX",
-                  "Card Number", Icons.credit_card_rounded),
+              cardNumberDecoration: customInputDecoration(
+                  "XXXX XXXX XXXX XXXX",
+                  LocaleKeys
+                      .account_action_cards_editCard_tfieldCardNoHint.locale,
+                  Icons.credit_card_rounded),
               expiryDateDecoration: customInputDecoration(
-                  "MM/YY", "Expired Date", Icons.date_range_rounded),
-              cvvCodeDecoration:
-                  customInputDecoration("XXX", "CVV", Icons.password_rounded),
-              cardHolderDecoration:
-                  customInputDecoration("", "Card Holder", Icons.abc_rounded),
+                  "MM/YY",
+                  LocaleKeys
+                      .account_action_cards_editCard_tfieldDateHint.locale,
+                  Icons.date_range_rounded),
+              cvvCodeDecoration: customInputDecoration(
+                  "XXX",
+                  LocaleKeys.account_action_cards_editCard_tfieldCVVHint.locale,
+                  Icons.password_rounded),
+              cardHolderDecoration: customInputDecoration(
+                  "",
+                  LocaleKeys.account_action_cards_editCard_tfieldCardHolderHint
+                      .locale,
+                  Icons.abc_rounded),
               onCreditCardModelChange: onCreditCardModelChange,
             ),
             context.emptySizedHeightBoxLow3x,
@@ -128,9 +141,9 @@ class _CheckoutState extends State<Checkout> {
                   activeColor: ColorConstants.primaryColor,
                 ),
                 context.emptySizedWidthBoxLow,
-                const Text(
+                Text(
                   "Save this card details",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.bodySmall,
                 )
               ]),
             )
@@ -226,7 +239,7 @@ class _CheckoutState extends State<Checkout> {
         label: Text(labelText),
         labelStyle: TextStyle(color: ColorConstants.myBlack),
         hintText: hintText,
-        hintStyle: const TextStyle(fontSize: 14),
+        hintStyle: Theme.of(context).textTheme.bodySmall,
         filled: true,
         fillColor: ColorConstants.secondaryColor.withOpacity(.15),
         focusedBorder: GradientOutlineInputBorder(

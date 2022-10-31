@@ -17,8 +17,7 @@ class EmptyCartWidget extends StatelessWidget {
         child: Column(
           children: [
             Text(LocaleKeys.cart_emptyTitle.locale,
-                style:
-                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                style: Theme.of(context).textTheme.headlineSmall),
             SizedBox(
               height: context.height * .7,
               child: Lottie.asset("empty_cart".toLottie),

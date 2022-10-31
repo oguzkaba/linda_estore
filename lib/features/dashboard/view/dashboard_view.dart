@@ -61,10 +61,13 @@ class Dashboard extends StatelessWidget {
                                             .favList
                                             .length
                                             .toString(),
-                                        style: TextStyle(
-                                            fontSize: 8,
-                                            color: ColorConstants.myWhite,
-                                            fontWeight: FontWeight.bold)))),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(
+                                                fontSize: 8,
+                                                color:
+                                                    ColorConstants.myWhite)))),
                           )
                         ])
                       : e.icon,

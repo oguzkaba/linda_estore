@@ -5,7 +5,6 @@ import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 
-import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/init/network/service/network_service.dart';
 import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../product/widgets/auth_top_widget.dart';
@@ -125,11 +124,10 @@ class _LoginViewState extends State<LoginView> {
           onPressed: () => context.router.push(const ForgotView()),
           child: Text(
             LocaleKeys.login_forgot.locale,
-            style: TextStyle(
-                decoration: TextDecoration.underline,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: ColorConstants.myDark),
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(decoration: TextDecoration.underline),
           ),
         ));
   }

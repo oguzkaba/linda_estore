@@ -44,7 +44,10 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           onSubmitted: (val) => null,
           onChange: (val) => _searcTextChanged(fieldTextEditingController),
           suffixOnPress: () => _closeSearch(fieldTextEditingController),
-          hintStyle: const TextStyle(fontSize: 11),
+          hintStyle: Theme.of(context)
+              .textTheme
+              .bodySmall!
+              .copyWith(color: ColorConstants.myMediumGrey.withOpacity(.4)),
           hintText: LocaleKeys.home_search.locale,
           pIcon: _isChange ? null : Icons.manage_search_outlined,
           sIcon: _isChange ? Icons.cancel_rounded : null,
@@ -90,14 +93,12 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                           Image.network(option.image!, fit: BoxFit.fitWidth),
                       isThreeLine: false,
                       trailing: Text("${option.price} ₺",
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                          style: Theme.of(context).textTheme.bodySmall),
                       subtitle: Text(option.description!,
                           overflow: TextOverflow.ellipsis),
                       title: Text(option.title!,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: ColorConstants.primaryColor,
-                              fontSize: 12)),
+                          style: Theme.of(context).textTheme.bodySmall),
                     ),
                   );
                 },

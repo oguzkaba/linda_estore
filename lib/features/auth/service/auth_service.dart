@@ -8,7 +8,7 @@ abstract class IAuthService {
   final Dio manager;
   final GlobalKey<ScaffoldState>? scaffoldKey;
   IAuthService(this.manager, this.scaffoldKey);
-  Future<String> loginUser({required LoginRequestModel model});
+  Future<String?> loginUser({required LoginRequestModel model});
   Future<UserModel> registerUser({required UserModel model});
 }
 
@@ -16,11 +16,15 @@ class AuthService extends IAuthService {
   AuthService(super.manager, super.scaffoldKey);
 
   @override
-  Future<String> loginUser({required LoginRequestModel model}) async {
+  Future<String?> loginUser({required LoginRequestModel model}) async {
     //*Api user token request
-
-    final response = await manager.post("/auth/login", data: model.toJson());
-    return response.data;
+    try {
+      final response = await manager.post("/auths/login", data: model.toJson());
+      return response.data;
+    } on DioError catch (e) {
+      debugPrint(e.message);
+    }
+    return null;
   }
 
   @override

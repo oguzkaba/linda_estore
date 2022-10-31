@@ -28,8 +28,7 @@ class _AccountViewState extends State<AccountView> {
                     child: Column(
                       children: [
                         Text(LocaleKeys.account_topTitle.locale,
-                            style: const TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold)),
+                            style: Theme.of(context).textTheme.headlineSmall),
                         Card(
                           elevation: 5,
                           child: Padding(
@@ -55,10 +54,13 @@ class _AccountViewState extends State<AccountView> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(LocaleKeys.account_demoUser.locale,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall),
                                       Text(LocaleKeys.account_demoMail.locale,
-                                          style: const TextStyle(fontSize: 12)),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium),
                                     ])
                               ],
                             ),
@@ -78,9 +80,7 @@ class _AccountViewState extends State<AccountView> {
                         ),
                         context.emptySizedHeightBoxLow,
                         Text("v.1.0.0",
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: ColorConstants.myLightGrey))
+                            style: Theme.of(context).textTheme.labelSmall)
                       ],
                     ),
                   )),
@@ -124,10 +124,7 @@ class _AccountViewState extends State<AccountView> {
     return ListTile(
       //dense: true,
       title: Text(actionNames[index],
-          style: TextStyle(
-              fontSize: 12,
-              color: ColorConstants.myMediumGrey,
-              fontWeight: FontWeight.bold)),
+          style: Theme.of(context).textTheme.bodySmall),
       trailing: IconButtonWidget(
         size: 16,
         bColor: ColorConstants.myWhite,

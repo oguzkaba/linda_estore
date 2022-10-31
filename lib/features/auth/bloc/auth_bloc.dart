@@ -12,11 +12,14 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
     on<LoginUser>((event, emit) async {
+      //TODO tüm bloc ve servisleri bu şekilde değiştir
       try {
         emit(LoginLoading());
         final token = await AuthService(event.manager, event.scaffoldKey)
             .loginUser(model: event.loginRequestModel);
-        emit(LoginSuccess(token));
+        if (token != null) {
+          emit(LoginSuccess(token));
+        }
       } catch (e) {
         if (e is DioError) {
           emit(LoginError(e));

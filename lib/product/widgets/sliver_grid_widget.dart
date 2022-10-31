@@ -63,7 +63,7 @@ class MySliverGridWidget extends StatelessWidget {
                 Text(model[index]!.title!,
                     maxLines: context.isSmallScreen ? 1 : 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 12)),
+                    style: Theme.of(context).textTheme.bodySmall),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,8 +77,7 @@ class MySliverGridWidget extends StatelessWidget {
                         ),
                         Text(" ${model[index]!.rating!.rate} ",
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.bold)),
+                            style: Theme.of(context).textTheme.bodySmall),
                       ],
                     ),
                     Container(
@@ -88,8 +87,7 @@ class MySliverGridWidget extends StatelessWidget {
                           color: ColorConstants.secondaryColor.withOpacity(.3)),
                       child: Text("${model[index]!.price} ₺",
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.bold)),
+                          style: Theme.of(context).textTheme.bodySmall),
                     ),
                   ],
                 ),

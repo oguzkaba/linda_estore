@@ -1,0 +1,125 @@
+{
+    "splash": {
+      "appName": "琳达商店"
+    },
+    "login": {
+      "buttonText": "登录",
+      "topTitle": "登录",
+      "topMessage": "欢迎回来 请登录以继续",
+      "tfieldUnameHint": "输入用户名",
+      "tfieldPassHint": "输入密码",
+      "forgot": "忘记密码？",
+      "haveAccount": "没有帐户？",
+      "register": "+注册"
+    },
+    "register": {
+      "buttonText": "登记",
+      "topTitle": "登记",
+      "topMessage": "欢迎回来，请注册以继续",
+      "tfieldNameHint": "输入名称",
+      "tfieldEmailHint": "输入电子邮件",
+      "tfieldPassHint": "输入密码",
+      "tfieldPass2Hint": "再次输入密码",
+      "haveAccount": "你有帐户吗？",
+      "login": "+登录"
+    },
+    "forgot": {
+      "buttonText": "确认",
+      "button2Text": "取消",
+      "topTitle": "忘记密码",
+      "topMessage": "向您发送已注册的电子邮件，向您发送密码重置链接",
+      "tfieldEmailHint": "输入电子邮件"
+    },
+    "verification": {
+      "topTitle": "电子邮件验证",
+      "topMessage": "输入我们发送到您电子邮件的代码。",
+      "receiveCode": "没有收到代码？",
+      "resend": "+重新发送",
+      "inCorrect": "别针不正确..！"
+    },
+    "dashboard": {
+      "bottomNav": {
+        "bNavHome": "家",
+        "bNavCart": "车",
+        "bNavFav": "收藏 夹",
+        "bNavAcc": "帐户"
+      }
+    },
+    "home": {
+      "search": "搜索产品、类别、品牌...",
+      "category": {
+        "catAll": "都",
+        "catElc": "电子学",
+        "catJew": "珠宝首饰",
+        "catMen": "男士服装",
+        "catWom": "女装"
+      },
+      "productDet": {
+        "details": "详",
+        "review": "评论",
+        "reviews": "评论",
+        "color": "颜色",
+        "size": "大小",
+        "price": "价格",
+        "buttonText": "加"
+      }
+    },
+    "cart": {
+      "topTitle": "我的购物车",
+      "emptyTitle": "空车",
+      "buttonText": "收款处",
+      "subTotal": "小计",
+      "tax": "税",
+      "discCode": "输入折扣代码",
+      "price": "价格",
+      "alert": {
+        "title": "删除确认",
+        "content": "是否确实要删除此产品？",
+        "buttonText": "删除",
+        "button2Text": "取消"
+      }
+    },
+    "favorites": {
+      "topTitle": "收藏 夹",
+      "emptyTitle": "空收藏夹",
+      "alert": {
+        "title": "删除确认",
+        "content": "是否确实要删除此产品？",
+        "buttonText": "删除",
+        "button2Text": "取消"
+      }
+    },
+    "account": {
+      "topTitle": "帐户",
+      "demoUser": "演示用户",
+      "demoMail": "demo_user@gmail.com",
+      "action": {
+        "editProfile": {
+          "name": "编辑个人资料",
+          "buttonText": "救",
+          "tfieldEmailHint": "输入电子邮件",
+          "tfieldPassHint": "输入密码",
+          "tfieldPass2Hint": "再次输入密码"
+        },
+        "shipping": "送货地址",
+        "order": "订单历史",
+        "trackOrder": "跟踪订单",
+        "cards": {
+          "name": "卡",
+          "buttonText": "新增功能",
+          "editCard": {
+            "name": "编辑卡片",
+            "buttonText": "救",
+            "button2Text": "取消",
+            "tfieldCardNoHint": "卡号",
+            "tfieldDateHint": "过期日期",
+            "tfieldCVVHint": "商用车",
+            "tfieldCardHolderHint": "持卡人"
+          }
+        },
+        "notif": "通知",
+        "appSet": "应用程序设置",
+        "logout": "登出"
+      }
+    }
+  }

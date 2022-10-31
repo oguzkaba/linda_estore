@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/product/cubit/language_cubit.dart';
 
-import '../../core/constants/app/colors_constants.dart';
 import '../../core/extansions/asset_extansion.dart';
 import '../../core/init/lang/lang_manager.dart';
 
@@ -32,12 +31,10 @@ class AuthTopWidget extends StatelessWidget {
           child: Column(
             children: [
               _buildTranslateButton(ctx, state),
-              Text(title,
-                  style: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.bold)),
+              Text(title, style: Theme.of(context).textTheme.headlineSmall),
               Text(subTitle,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: ColorConstants.myDark)),
+                  style: Theme.of(context).textTheme.labelLarge),
               Padding(padding: context.paddingLow),
               SvgPicture.asset(
                 image.toSVG,
@@ -64,29 +61,15 @@ class AuthTopWidget extends StatelessWidget {
               isExpanded: false,
               autofocus: false,
               value: context.locale,
-              items: <DropdownMenuItem>[
-                DropdownMenuItem(
-                    value: LangManager.instance.trLocale,
-                    child: Row(
-                      children: [
-                        Text(
-                            LangManager.instance.trLocale.languageCode
-                                .toUpperCase(),
-                            style: const TextStyle(fontSize: 12)),
-                        Image.asset("flag/turkey".toPNG, width: 18)
-                      ],
-                    )),
-                DropdownMenuItem(
-                    value: LangManager.instance.enLocale,
-                    child: Row(
-                      children: [
-                        Text(
-                            LangManager.instance.enLocale.languageCode
-                                .toUpperCase(),
-                            style: const TextStyle(fontSize: 12)),
-                        Image.asset("flag/usa".toPNG, width: 18)
-                      ],
-                    ))
+              items: <DropdownMenuItem<Locale>>[
+                _buildMenuItem(context, LangManager.instance.trLocale,
+                    LangManager.instance.trLocale.languageCode, "flag/turkey"),
+                _buildMenuItem(context, LangManager.instance.enLocale,
+                    LangManager.instance.enLocale.languageCode, "flag/usa"),
+                _buildMenuItem(context, LangManager.instance.ruLocale,
+                    LangManager.instance.ruLocale.languageCode, "flag/russia"),
+                _buildMenuItem(context, LangManager.instance.zhLocale,
+                    LangManager.instance.zhLocale.languageCode, "flag/china"),
               ],
               onChanged: (dynamic value) {
                 debugPrint(value.toString());
@@ -96,5 +79,18 @@ class AuthTopWidget extends StatelessWidget {
             ),
           )),
     );
+  }
+
+  DropdownMenuItem<Locale> _buildMenuItem(
+      BuildContext context, Locale value, String langCode, String flag) {
+    return DropdownMenuItem(
+        value: value,
+        child: Row(
+          children: [
+            Text(langCode.toUpperCase(),
+                style: Theme.of(context).textTheme.bodySmall),
+            Image.asset(flag.toPNG, width: 18)
+          ],
+        ));
   }
 }

@@ -10,21 +10,55 @@ class AppTheme {
 
   AppTheme._init();
 
+  ThemeData get darkTheme => ThemeData.dark().copyWith(
+        //TODO dark theme edit
+        textTheme: _textTheme,
+        primaryTextTheme: _primaryTextTheme,
+        colorScheme: _colorScheme,
+        appBarTheme: _appBarTheme,
+        bottomNavigationBarTheme: _bottomNavBarTheme,
+        expansionTileTheme: _expansionTileTheme,
+        inputDecorationTheme: _inputTheme,
+      );
+
   ThemeData get lightTheme => ThemeData.light().copyWith(
-      textTheme: ThemeData.light().textTheme.apply(
-            fontFamily: 'Montserrat',
-          ),
-      primaryTextTheme: ThemeData.light().textTheme.apply(
-            fontFamily: 'Montserrat',
-          ),
-      colorScheme: ThemeData().colorScheme.copyWith(
-          primary: ColorConstants.primaryColor,
-          secondary: ColorConstants.secondaryColor),
-      appBarTheme: _appBarTheme,
-      bottomNavigationBarTheme: _bottomNavBarTheme,
-      expansionTileTheme: _expansionTileTheme,
-      inputDecorationTheme:
-          InputDecorationTheme(prefixIconColor: ColorConstants.primaryColor));
+        textTheme: _textTheme,
+        primaryTextTheme: _primaryTextTheme,
+        colorScheme: _colorScheme,
+        appBarTheme: _appBarTheme,
+        bottomNavigationBarTheme: _bottomNavBarTheme,
+        expansionTileTheme: _expansionTileTheme,
+        inputDecorationTheme: _inputTheme,
+      );
+
+  TextTheme get _textTheme => ThemeData.light()
+      .textTheme
+      .copyWith(
+        headlineSmall: TextStyle(
+            color: ColorConstants.myBlack, fontWeight: FontWeight.bold),
+        titleSmall: const TextStyle(fontWeight: FontWeight.bold),
+        titleMedium: TextStyle(
+            color: ColorConstants.primaryColor, fontWeight: FontWeight.bold),
+        labelLarge: TextStyle(color: ColorConstants.myMediumGrey),
+        labelMedium: const TextStyle(fontWeight: FontWeight.bold),
+        labelSmall: TextStyle(color: ColorConstants.myLightGrey),
+        bodySmall: TextStyle(
+            fontWeight: FontWeight.bold, color: ColorConstants.myDark),
+      )
+      .apply(
+        fontFamily: "Montserrat",
+      );
+
+  TextTheme get _primaryTextTheme => ThemeData.light().textTheme.apply(
+        fontFamily: "Montserrat",
+      );
+
+  InputDecorationTheme get _inputTheme =>
+      InputDecorationTheme(prefixIconColor: ColorConstants.primaryColor);
+
+  ColorScheme get _colorScheme => ThemeData().colorScheme.copyWith(
+      primary: ColorConstants.primaryColor,
+      secondary: ColorConstants.secondaryColor);
 
   ExpansionTileThemeData get _expansionTileTheme => ExpansionTileThemeData(
         backgroundColor: ColorConstants.myWhite,
@@ -36,8 +70,6 @@ class AppTheme {
   BottomNavigationBarThemeData get _bottomNavBarTheme =>
       BottomNavigationBarThemeData(
         backgroundColor: ColorConstants.myWhite,
-        // selectedIconTheme: ,
-        // unselectedIconTheme: ,
         selectedLabelStyle:
             TextStyle(fontSize: 10, color: ColorConstants.myDark),
         unselectedLabelStyle:

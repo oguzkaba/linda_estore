@@ -45,16 +45,21 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: Theme.of(context).textTheme.bodySmall,
       onFieldSubmitted: widget.onSubmitted,
       onChanged: widget.onChange,
       controller: widget.controller,
       focusNode: widget.fieldFocusNode,
-      validator: (value) => value.isNotNullOrNoEmpty ? null : 'fail',
+      validator: (value) => value.isNotNullOrNoEmpty ? null : "fail",
       obscureText: widget.obscureText ?? false,
       decoration: InputDecoration(
         contentPadding: context.horizontalPaddingMedium,
         hintText: widget.hintText ?? "",
-        hintStyle: widget.hintStyle ?? const TextStyle(fontSize: 14),
+        hintStyle: widget.hintStyle ??
+            Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(color: ColorConstants.myMediumGrey),
         filled: true,
         fillColor: ColorConstants.secondaryColor.withOpacity(.15),
         prefixIcon: widget.pIcon == null ? null : Icon(widget.pIcon, size: 20),

@@ -39,10 +39,7 @@ class _EmailVerificationViewState extends State<EmailVerificationView> {
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
-      textStyle: TextStyle(
-          fontSize: 20,
-          color: ColorConstants.myDark,
-          fontWeight: FontWeight.w600),
+      textStyle: Theme.of(context).textTheme.titleLarge,
       decoration: BoxDecoration(
         color: ColorConstants.secondaryColor.withOpacity(.15),
         border: Border.all(color: ColorConstants.myWhite),

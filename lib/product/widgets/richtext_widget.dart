@@ -23,9 +23,6 @@ class RichTextWidget extends StatelessWidget {
               style: TextStyle(color: ColorConstants.primaryColor),
               recognizer: TapGestureRecognizer()..onTap = action)
         ]),
-        style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            color: ColorConstants.myDark));
+        style: Theme.of(context).textTheme.bodySmall);
   }
 }

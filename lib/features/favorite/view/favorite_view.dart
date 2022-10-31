@@ -29,8 +29,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                   children: [
                     Center(
                       child: Text(LocaleKeys.favorites_topTitle.locale,
-                          style: const TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold)),
+                          style: Theme.of(context).textTheme.headlineSmall),
                     ),
                     Padding(padding: context.paddingLow),
                     BlocBuilder<ProductsBloc, ProductsState>(
@@ -83,9 +82,9 @@ class _FavoriteViewState extends State<FavoriteView> {
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.left,
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 14)),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall),
                                         ),
                                         context.emptySizedHeightBoxLow,
                                         Row(
@@ -94,11 +93,9 @@ class _FavoriteViewState extends State<FavoriteView> {
                                           children: [
                                             Text(
                                               "${state.products[index]!.price} ₺",
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: ColorConstants
-                                                      .primaryColor,
-                                                  fontWeight: FontWeight.bold),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium,
                                             ),
                                           ],
                                         ),
