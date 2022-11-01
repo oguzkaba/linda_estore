@@ -14,6 +14,8 @@ class TextFieldWidget extends StatefulWidget {
   final Function(String)? onSubmitted;
   final Function(String)? onChange;
   final TextEditingController? controller;
+  final TextInputType? keyType;
+  final TextInputAction? actionType;
   final FocusNode? fieldFocusNode;
   const TextFieldWidget({
     Key? key,
@@ -28,6 +30,8 @@ class TextFieldWidget extends StatefulWidget {
     this.hintStyle,
     this.onChange,
     this.onSubmitted,
+    this.keyType,
+    this.actionType,
   }) : super(key: key);
 
   @override
@@ -45,12 +49,18 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: widget.keyType,
+      textInputAction: widget.actionType,
       style: Theme.of(context).textTheme.bodySmall,
       onFieldSubmitted: widget.onSubmitted,
       onChanged: widget.onChange,
       controller: widget.controller,
       focusNode: widget.fieldFocusNode,
-      validator: (value) => value.isNotNullOrNoEmpty ? null : "fail",
+      validator: (value) => value.isNullOrEmpty
+          ? "*This field is required"
+          : value!.length < 6
+              ? "*At least 6 characters must be entered" //TODO add locale error strings
+              : null,
       obscureText: widget.obscureText ?? false,
       decoration: InputDecoration(
         contentPadding: context.horizontalPaddingMedium,

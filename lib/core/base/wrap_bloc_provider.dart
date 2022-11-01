@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:linda_wedding_ecommerce/features/auth/bloc/auth_bloc.dart';
 import 'package:linda_wedding_ecommerce/product/cubit/language_cubit.dart';
 
 import '../../features/auth/login/bloc/cubit/login_cubit.dart';
@@ -22,6 +23,9 @@ class WrapBlocProvider extends StatelessWidget {
       providers: [
         BlocProvider<ProductsBloc>(
           create: (context) => ProductsBloc(),
+        ),
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(),
         ),
         BlocProvider(
           create: (context) => CategoriesBloc(),

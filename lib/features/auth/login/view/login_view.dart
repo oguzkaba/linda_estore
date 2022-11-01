@@ -2,18 +2,19 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
-import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 
+import '../../../../core/extansions/string_extansion.dart';
+import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/network/service/network_service.dart';
 import '../../../../core/init/routes/routes.gr.dart';
+import '../../../../product/utils/custom_error_widgets.dart';
 import '../../../../product/widgets/auth_top_widget.dart';
 import '../../../../product/widgets/divider_widget.dart';
 import '../../../../product/widgets/ebutton_widget.dart';
 import '../../../../product/widgets/richtext_widget.dart';
 import '../../../../product/widgets/social_button_widget.dart';
 import '../../../../product/widgets/textfield_widget.dart';
-import '../../service/auth_service.dart';
+import '../../bloc/auth_bloc.dart';
 import '../bloc/cubit/login_cubit.dart';
 import '../model/login_request_model.dart';
 
@@ -27,8 +28,16 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final manager = NetworkService.instance.networkManager;
-  TextEditingController unameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late final TextEditingController unameController;
+  late final TextEditingController passwordController;
+
+  @override
+  void initState() {
+    unameController = TextEditingController();
+    passwordController = TextEditingController();
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -44,44 +53,68 @@ class _LoginViewState extends State<LoginView> {
         resizeToAvoidBottomInset: false,
         body: Padding(
           padding: context.horizontalPaddingMedium,
-          child: Column(
-            mainAxisAlignment: context.isKeyBoardOpen
-                ? MainAxisAlignment.start
-                : MainAxisAlignment.center,
-            children: [
-              AuthTopWidget(
-                  ctx: context,
-                  title: LocaleKeys.login_topTitle.locale,
-                  subTitle: LocaleKeys.login_topMessage.locale,
-                  image: "auth"),
-              Padding(padding: context.paddingLow),
-              _buildUnameInput(),
-              Padding(padding: context.paddingLow),
-              _buildPassInput(),
-              //*forgot password
-              _buildForgotButton(),
-              //*sign in button
-              EButtonWidget(
-                  text: LocaleKeys.login_buttonText.locale,
-                  onPress: () async {
-                    await AuthService(manager, _scaffoldKey).loginUser(
-                        model: LoginRequestModel(
-                            username:
-                                /*unameController.text.trim() */ "mor_2314",
-                            password:
-                                /* passwordController.text.trim() */ "83r5^_"));
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: context.isKeyBoardOpen
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.center,
+              children: [
+                AuthTopWidget(
+                    ctx: context,
+                    title: LocaleKeys.login_topTitle.locale,
+                    subTitle: LocaleKeys.login_topMessage.locale,
+                    image: "auth"),
+
+                Padding(padding: context.paddingLow),
+                _buildUnameInput(),
+                Padding(padding: context.paddingLow),
+                _buildPassInput(),
+                //*forgot password
+                _buildForgotButton(),
+                //*sign in button
+                BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
+                  if (state is LoginError) {
+                    CustomErrorWidgets.showError(context, state);
+                  }
+                }, builder: (context, state) {
+                  if (state is LoginSuccess) {
                     context.router.push(Dashboard());
-                  }),
-              Padding(padding: context.paddingLow),
-              //*signup-or-social text
-              RichTextWidget(
-                  actionName: LocaleKeys.login_register.locale,
-                  text: LocaleKeys.login_haveAccount.locale,
-                  action: () => context.router.push(const RegisterView())),
-              const DividerWidget(),
-              //*social button
-              const SocialIconButtonWidget()
-            ],
+                  }
+                  return EButtonWidget(
+                      text: LocaleKeys.login_buttonText.locale,
+                      onPress: () {
+                        if (_formKey.currentState!.validate()) {
+                          context.read<AuthBloc>().add(AuthLogin(
+                              manager,
+                              _scaffoldKey,
+                              LoginRequestModel(
+                                  username: unameController.text.trim(),
+                                  password: passwordController.text.trim()),
+                              context));
+
+                          // await AuthService(manager, _scaffoldKey).loginUser(
+                          //     model: LoginRequestModel(
+                          //   username:
+                          //       unameController.text.trim(), // "mor_2314",
+                          //   password:
+                          //       passwordController.text.trim(), /* "83r5^_"*/
+                          // ));
+                        }
+                      });
+                }),
+
+                Padding(padding: context.paddingLow),
+                //*signup-or-social text
+                RichTextWidget(
+                    actionName: LocaleKeys.login_register.locale,
+                    text: LocaleKeys.login_haveAccount.locale,
+                    action: () => context.router.push(const RegisterView())),
+                const DividerWidget(),
+                //*social button
+                const SocialIconButtonWidget()
+              ],
+            ),
           ),
         ),
       ),
@@ -91,16 +124,17 @@ class _LoginViewState extends State<LoginView> {
   BlocBuilder<LoginCubit, LoginState> _buildPassInput() {
     return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
       if (state is ToogleSuffixIcon) {
-        bool visibleValue = state.visibility;
         return TextFieldWidget(
+            keyType: TextInputType.name,
+            actionType: TextInputAction.done,
             controller: passwordController,
             pIcon: Icons.lock_outlined,
-            sIcon: visibleValue
+            sIcon: state.visibility
                 ? Icons.visibility_off_outlined
                 : Icons.visibility_outlined,
             suffixOnPress: () =>
-                context.read<LoginCubit>().toogleSuffixIcon(!visibleValue),
-            obscureText: visibleValue ? false : true,
+                context.read<LoginCubit>().toogleSuffixIcon(!state.visibility),
+            obscureText: state.visibility ? false : true,
             labelText: "Password",
             hintText: LocaleKeys.login_tfieldPassHint.locale);
       } else {
@@ -111,6 +145,8 @@ class _LoginViewState extends State<LoginView> {
 
   TextFieldWidget _buildUnameInput() {
     return TextFieldWidget(
+        keyType: TextInputType.name,
+        actionType: TextInputAction.next,
         controller: unameController,
         pIcon: Icons.person_outlined,
         labelText: "UserName",

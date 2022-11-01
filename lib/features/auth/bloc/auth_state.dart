@@ -23,7 +23,7 @@ class LoginSuccess extends AuthState {
 }
 
 class LoginError extends AuthState {
-  final DioError error;
+  final String error;
 
   const LoginError(this.error);
 

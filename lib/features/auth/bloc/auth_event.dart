@@ -7,18 +7,32 @@ abstract class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoginUser extends AuthEvent {
+class AuthLogin extends AuthEvent {
   final Dio manager;
   final GlobalKey<ScaffoldState>? scaffoldKey;
   final LoginRequestModel loginRequestModel;
+  final BuildContext context;
 
-  const LoginUser(this.manager, this.scaffoldKey, this.loginRequestModel);
+  const AuthLogin(
+      this.manager, this.scaffoldKey, this.loginRequestModel, this.context);
 }
 
-class RegisterUser extends AuthEvent {
+class AuthRegister extends AuthEvent {
   final Dio manager;
   final GlobalKey<ScaffoldState>? scaffoldKey;
   final UserModel userModel;
+  final BuildContext context;
 
-  const RegisterUser(this.manager, this.scaffoldKey, this.userModel);
+  const AuthRegister(
+      this.manager, this.scaffoldKey, this.userModel, this.context);
 }
+
+class AuthLoginWithGoogle extends AuthEvent {}
+
+class AuthLoginWithApple extends AuthEvent {}
+
+class AuthLoginWithFacebook extends AuthEvent {}
+
+class AuthLogOut extends AuthEvent {}
+
+class AuthDeleteAccount extends AuthEvent {}
