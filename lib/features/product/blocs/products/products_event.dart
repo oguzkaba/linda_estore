@@ -15,9 +15,12 @@ class ProductsFetched extends ProductsEvent {
 }
 
 class ProductsByCategoryFetched extends ProductsEvent {
+  final Dio manager;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
   final String categoryName;
 
-  const ProductsByCategoryFetched(this.categoryName);
+  const ProductsByCategoryFetched(
+      this.manager, this.scaffoldKey, this.categoryName);
   @override
   List<Object> get props => [categoryName];
 }

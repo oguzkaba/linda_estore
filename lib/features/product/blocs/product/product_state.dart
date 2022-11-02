@@ -24,7 +24,7 @@ class ProductLoaded extends ProductState {
 }
 
 class ProductError extends ProductState {
-  final DioError error;
+  final Object error;
 
   const ProductError(this.error);
 

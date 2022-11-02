@@ -16,12 +16,14 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<ProductFetched>((event, emit) async {
       try {
         emit(ProductLoading());
-        //*add test for shimmer
-        //await Future.delayed(Duration(seconds: 5));
-        final product = await ProductService(event.manager, event.scaffoldKey)
+        final result = await ProductService(event.manager, event.scaffoldKey)
             .fetchProductById(id: event.id);
         final reviews = await MockDataService.instance.readLocalJson();
-        emit(ProductLoaded(product, reviews));
+        if (result.object != null) {
+          emit(ProductLoaded(result.object as ProductModel, reviews));
+        } else {
+          emit(ProductError(result.error!));
+        }
       } catch (e) {
         if (e is DioError) {
           emit(ProductError(e));

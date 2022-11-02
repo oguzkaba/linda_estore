@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
+import '../../../base/model/base_response_model.dart';
+
 class NetworkService {
   static NetworkService? _instance;
   static NetworkService get instance {
@@ -12,7 +14,7 @@ class NetworkService {
   NetworkService._init();
 
   static const String _baseUrl = 'https://fakestoreapi.com/';
-  static const int _timeout = 5000;
+  static const int _timeout = 15000;
 
   final Dio networkManager = Dio(
     BaseOptions(
@@ -21,6 +23,7 @@ class NetworkService {
         followRedirects: false,
         receiveTimeout: _timeout,
         sendTimeout: _timeout,
+        //connectTimeout: _timeout,
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
         }),

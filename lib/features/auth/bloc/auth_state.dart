@@ -23,7 +23,7 @@ class LoginSuccess extends AuthState {
 }
 
 class LoginError extends AuthState {
-  final String error;
+  final Object error;
 
   const LoginError(this.error);
 
@@ -41,10 +41,12 @@ class Registered extends AuthState {
   final UserModel userModel;
 
   const Registered(this.userModel);
+  @override
+  List<Object> get props => [userModel];
 }
 
 class RegisterError extends AuthState {
-  final DioError error;
+  final Object error;
 
   const RegisterError(this.error);
 

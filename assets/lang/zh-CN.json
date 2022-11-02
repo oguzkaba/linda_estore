@@ -2,6 +2,10 @@
     "splash": {
       "appName": "琳达商店"
     },
+    "error": {
+      "emptyField": "*此字段为必填项",
+      "shortEntry": "*必须至少输入 6 个字符"
+  },
     "login": {
       "buttonText": "登录",
       "topTitle": "登录",

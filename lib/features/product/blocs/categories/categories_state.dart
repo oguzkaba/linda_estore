@@ -25,7 +25,7 @@ class CategoriesLoaded extends CategoriesState {
 }
 
 class CategoriesError extends CategoriesState {
-  final String error;
+  final Object error;
 
   const CategoriesError(this.error);
 

@@ -28,7 +28,8 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void initState() {
-    BlocProvider.of<CategoriesBloc>(context).add((const CategoriesFetched(0)));
+    BlocProvider.of<CategoriesBloc>(context)
+        .add((CategoriesFetched(manager, _scaffoldKey, 0)));
     BlocProvider.of<ProductsBloc>(context)
         .add((ProductsFetched(manager, _scaffoldKey)));
 
@@ -79,7 +80,7 @@ class _HomeViewState extends State<HomeView> {
         BlocConsumer<ProductsBloc, ProductsState>(
           listener: (context, state) {
             if (state is ProductsError) {
-              CustomErrorWidgets.showError(context, state);
+              //CustomErrorWidgets.showError(context, state);
             }
           },
           builder: (context, state) {
@@ -101,7 +102,7 @@ class _HomeViewState extends State<HomeView> {
       child: BlocConsumer<CategoriesBloc, CategoriesState>(
           listener: (context, state) {
         if (state is CategoriesError) {
-          CustomErrorWidgets.showError(context, state);
+          CustomErrorWidgets.showError(context, state.error.toString());
         }
       }, builder: (context, state) {
         if (state is CategoriesInitial) {
@@ -128,8 +129,8 @@ class _HomeViewState extends State<HomeView> {
             BlocProvider.of<ProductsBloc>(context)
                 .add((ProductsFetched(manager, _scaffoldKey)));
           } else {
-            BlocProvider.of<ProductsBloc>(context)
-                .add(ProductsByCategoryFetched(model[value]));
+            BlocProvider.of<ProductsBloc>(context).add(
+                ProductsByCategoryFetched(manager, _scaffoldKey, model[value]));
           }
         },
         isScrollable: true,

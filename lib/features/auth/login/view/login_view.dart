@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/init/network/model/network_error_model.dart';
 
 import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
@@ -75,7 +76,8 @@ class _LoginViewState extends State<LoginView> {
                 //*sign in button
                 BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
                   if (state is LoginError) {
-                    CustomErrorWidgets.showError(context, state);
+                    CustomErrorWidgets.showError(
+                        context, state.error.toString());
                   }
                 }, builder: (context, state) {
                   if (state is LoginSuccess) {
@@ -89,17 +91,10 @@ class _LoginViewState extends State<LoginView> {
                               manager,
                               _scaffoldKey,
                               LoginRequestModel(
+                                  // mor_2314 , 83r5^_
                                   username: unameController.text.trim(),
                                   password: passwordController.text.trim()),
                               context));
-
-                          // await AuthService(manager, _scaffoldKey).loginUser(
-                          //     model: LoginRequestModel(
-                          //   username:
-                          //       unameController.text.trim(), // "mor_2314",
-                          //   password:
-                          //       passwordController.text.trim(), /* "83r5^_"*/
-                          // ));
                         }
                       });
                 }),

@@ -15,8 +15,6 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     on<ProductsFetched>((event, emit) async {
       try {
         emit(ProductsLoading());
-        //*add test for shimmer
-        //await Future.delayed(Duration(seconds: 5));
         final productList =
             await ProductService(event.manager, event.scaffoldKey)
                 .fetchProductsAll();
@@ -34,10 +32,11 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
           emit(ProductsLoading());
           //*add test for shimmer
           //await Future.delayed(Duration(seconds: 5));
-          final productList = await CategoryService.fetchProductByCategory(
-              categoryName: event.categoryName);
-          if (productList != null) {
-            emit(ProductsLoaded(productList as List<ProductsModel>));
+          final productList =
+              await CategoryService(event.manager, event.scaffoldKey)
+                  .fetchProductByCategory(categoryName: event.categoryName);
+          if (productList.object != null) {
+            emit(ProductsLoaded(productList.object as List<ProductsModel>));
           }
         }
       } catch (e) {

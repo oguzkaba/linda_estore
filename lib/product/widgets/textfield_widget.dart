@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 import '../../core/constants/app/colors_constants.dart';
 
 class TextFieldWidget extends StatefulWidget {
@@ -57,9 +59,9 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       controller: widget.controller,
       focusNode: widget.fieldFocusNode,
       validator: (value) => value.isNullOrEmpty
-          ? "*This field is required"
+          ? LocaleKeys.error_emptyField.locale
           : value!.length < 6
-              ? "*At least 6 characters must be entered" //TODO add locale error strings
+              ? LocaleKeys.error_shortEntry.locale
               : null,
       obscureText: widget.obscureText ?? false,
       decoration: InputDecoration(

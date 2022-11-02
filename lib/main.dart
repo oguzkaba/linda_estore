@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'core/base/wrap_bloc_provider.dart';
+import 'core/base/provider/wrap_bloc_provider.dart';
 import 'core/constants/app/application_constants.dart';
 import 'core/constants/app/colors_constants.dart';
 import 'core/init/lang/lang_manager.dart';

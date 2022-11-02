@@ -1,43 +1,48 @@
 import 'dart:async';
-import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:linda_wedding_ecommerce/core/enums/api_route_enums.dart';
 
-import 'package:http/http.dart' as http;
-
+import '../../../core/base/model/base_response_model.dart';
+import '../../../core/init/network/model/network_error_model.dart';
 import '../model/categories_model.dart';
 import '../model/products_model.dart';
 
-class CategoryService {
-  static Future fetchCategoriesAll() async {
-    try {
-      final response = await http
-          .get(Uri.parse("https://fakestoreapi.com/products/categories/"));
+abstract class ICategoryService {
+  final Dio manager;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
+  ICategoryService(this.manager, this.scaffoldKey);
+  Future<BaseResponseModel> fetchCategoriesAll();
+  Future<BaseResponseModel> fetchProductByCategory(
+      {required String categoryName});
+}
 
-      if (response.statusCode == 200) {
-        return categoriesModelFromJson(response.body);
-      } else {
-        throw ("İstek durumu başarısız oldu: ${response.statusCode}");
-      }
-    } on TimeoutException catch (_) {
-      throw ("Connection timeout");
-    } on SocketException catch (_) {
-      throw ("No Internet Connection");
+class CategoryService extends ICategoryService {
+  CategoryService(super.manager, super.scaffoldKey);
+
+  @override
+  Future<BaseResponseModel> fetchCategoriesAll() async {
+    try {
+      final response = await manager.get(ApiUrlEnum.categories.url);
+
+      return BaseResponseModel(object: categoriesModelFromJson(response.data));
+    } on DioError catch (e) {
+      return BaseResponseModel(
+          error: NetworkErrorModel(e.message, e.response!.statusCode!));
     }
   }
 
-  static Future fetchProductByCategory({required String categoryName}) async {
+  @override
+  Future<BaseResponseModel> fetchProductByCategory(
+      {required String categoryName}) async {
     try {
-      final response = await http.get(Uri.parse(
-          "https://fakestoreapi.com/products/category/$categoryName"));
+      final response =
+          await manager.get(ApiUrlEnum.category.url + categoryName);
 
-      if (response.statusCode == 200) {
-        return productsModelFromJson(response.body);
-      } else {
-        throw ("İstek durumu başarısız oldu: ${response.statusCode}");
-      }
-    } on TimeoutException catch (_) {
-      throw ("Connection timeout");
-    } on SocketException catch (_) {
-      throw ("No Internet Connection");
+      return BaseResponseModel(object: productsModelFromJson(response.data));
+    } on DioError catch (e) {
+      return BaseResponseModel(
+          error: NetworkErrorModel(e.message, e.response!.statusCode!));
     }
   }
 }

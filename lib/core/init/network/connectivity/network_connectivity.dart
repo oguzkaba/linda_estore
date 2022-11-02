@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 
-import '../../../constants/enums/network_connectivity_enums.dart';
+import '../../../enums/network_connectivity_enums.dart';
 
 typedef NetworkCallBack = void Function(NetworkConnectivityEnums result);
 

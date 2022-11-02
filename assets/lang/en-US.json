@@ -2,6 +2,10 @@
     "splash": {
         "appName": "LindaStore"
     },
+    "error": {
+        "emptyField": "*This field is required",
+        "shortEntry": "*At least 6 charecters must be entered"
+    },
     "login": {
         "buttonText": "Sign In",
         "topTitle": "Sign In",
@@ -106,7 +110,7 @@
             "trackOrder": "Track Order",
             "cards": {
                 "name": "Cards",
-                "buttonText":"NEW",
+                "buttonText": "NEW",
                 "editCard": {
                     "name": "Edit Card",
                     "buttonText": "Save",

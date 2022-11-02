@@ -36,11 +36,13 @@ class AppTheme {
       .copyWith(
         headlineSmall: TextStyle(
             color: ColorConstants.myBlack, fontWeight: FontWeight.bold),
-        titleSmall: const TextStyle(fontWeight: FontWeight.bold),
+        titleSmall: TextStyle(
+            color: ColorConstants.primaryColor, fontWeight: FontWeight.bold),
         titleMedium: TextStyle(
             color: ColorConstants.primaryColor, fontWeight: FontWeight.bold),
         labelLarge: TextStyle(color: ColorConstants.myMediumGrey),
-        labelMedium: const TextStyle(fontWeight: FontWeight.bold),
+        labelMedium: TextStyle(
+            color: ColorConstants.myDark, fontWeight: FontWeight.bold),
         labelSmall: TextStyle(color: ColorConstants.myLightGrey),
         bodySmall: TextStyle(
             fontWeight: FontWeight.bold, color: ColorConstants.myDark),

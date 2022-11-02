@@ -2,6 +2,10 @@
     "splash": {
         "appName": "LindaStore"
     },
+    "error": {
+        "emptyField": "*Bu alan zorunludur",
+        "shortEntry": "*En az 6 karakter girilmelidir"
+    },
     "login": {
         "buttonText": "Giriş Yap",
         "topTitle": "Giriş Yap",

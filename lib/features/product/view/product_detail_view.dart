@@ -49,7 +49,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
     return BlocConsumer<ProductBloc, ProductState>(
       listener: (BuildContext context, Object? state) {
         if (state is ProductError) {
-          CustomErrorWidgets.showError(context, state);
+          CustomErrorWidgets.showError(context, state.error.toString());
         }
       },
       builder: (context, state) {
@@ -194,11 +194,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
             ),
           );
         } else if (state is ProductError) {
-          return Container(
-              color: ColorConstants.myWhite,
-              width: double.infinity,
-              height: double.infinity,
-              child: Center(child: SvgPicture.asset("error".toSVG)));
+          return Scaffold(body: Center(child: SvgPicture.asset("error".toSVG)));
         } else {
           return Container(
               color: ColorConstants.myWhite,

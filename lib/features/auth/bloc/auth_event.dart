@@ -11,10 +11,12 @@ class AuthLogin extends AuthEvent {
   final Dio manager;
   final GlobalKey<ScaffoldState>? scaffoldKey;
   final LoginRequestModel loginRequestModel;
+  final NetworkErrorModel? networkErrorModel;
   final BuildContext context;
 
   const AuthLogin(
-      this.manager, this.scaffoldKey, this.loginRequestModel, this.context);
+      this.manager, this.scaffoldKey, this.loginRequestModel, this.context,
+      {this.networkErrorModel});
 }
 
 class AuthRegister extends AuthEvent {

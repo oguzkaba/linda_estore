@@ -5,6 +5,9 @@
 abstract class LocaleKeys {
   static const splash_appName = 'splash.appName';
   static const splash = 'splash';
+  static const error_emptyField = 'error.emptyField';
+  static const error_shortEntry = 'error.shortEntry';
+  static const error = 'error';
   static const login_buttonText = 'login.buttonText';
   static const login_topTitle = 'login.topTitle';
   static const login_topMessage = 'login.topMessage';
