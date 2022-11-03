@@ -1,34 +1,54 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:linda_wedding_ecommerce/core/base/model/base_response_model.dart';
+import 'package:linda_wedding_ecommerce/core/enums/api_route_enums.dart';
+import '../../../core/init/network/model/network_error_model.dart';
 import '../model/cart_model.dart';
 
 abstract class ICartService {
   final Dio manager;
   final GlobalKey<ScaffoldState>? scaffoldKey;
   ICartService(this.manager, this.scaffoldKey);
-  Future<List<CartModel>> fetchCarts();
-  Future<List<CartModel>> fetchCartByUserId({required int userId});
-  Future<List<CartModel>> fetchCartByCartId({required int cartId});
+  Future<BaseResponseModel> fetchCarts();
+  Future<BaseResponseModel> fetchCartByUserId({required int userId});
+  Future<BaseResponseModel> fetchCartByCartId({required int cartId});
 }
 
 class CartService extends ICartService {
   CartService(super.manager, super.scaffoldKey);
 
   @override
-  Future<List<CartModel>> fetchCarts() async {
-    final response = await manager.get("carts");
-    return cartModelFromJson(response.data);
+  Future<BaseResponseModel> fetchCarts() async {
+    try {
+      final response = await manager.get(ApiUrlEnum.carts.url);
+      return BaseResponseModel(object: cartModelFromJson(response.data));
+    } on DioError catch (e) {
+      return BaseResponseModel(
+          error: NetworkErrorModel(e.message, e.response!.statusCode!));
+    }
   }
 
   @override
-  Future<List<CartModel>> fetchCartByUserId({required int userId}) async {
-    final response = await manager.get("carts/user/$userId");
-    return cartModelFromJson(response.data);
+  Future<BaseResponseModel> fetchCartByUserId({required int userId}) async {
+    try {
+      final response =
+          await manager.get(ApiUrlEnum.cartsUser.url + userId.toString());
+      return BaseResponseModel(object: cartModelFromJson(response.data));
+    } on DioError catch (e) {
+      return BaseResponseModel(
+          error: NetworkErrorModel(e.message, e.response!.statusCode!));
+    }
   }
 
   @override
-  Future<List<CartModel>> fetchCartByCartId({required int cartId}) async {
-    final response = await manager.get("carts/user/$cartId");
-    return cartModelFromJson(response.data);
+  Future<BaseResponseModel> fetchCartByCartId({required int cartId}) async {
+    try {
+      final response =
+          await manager.get(ApiUrlEnum.cartsUser.url + cartId.toString());
+      return BaseResponseModel(object: cartModelFromJson(response.data));
+    } on DioError catch (e) {
+      return BaseResponseModel(
+          error: NetworkErrorModel(e.message, e.response!.statusCode!));
+    }
   }
 }

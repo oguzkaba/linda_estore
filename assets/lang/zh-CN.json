@@ -2,7 +2,9 @@
     "splash": {
       "appName": "琳达商店"
     },
+    "currency":"¥",
     "error": {
+      "error":"錯誤",
       "emptyField": "*此字段为必填项",
       "shortEntry": "*必须至少输入 6 个字符"
   },

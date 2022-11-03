@@ -1,10 +1,10 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-// ignore_for_file: constant_identifier_names
-
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const splash_appName = 'splash.appName';
   static const splash = 'splash';
+  static const currency = 'currency';
+  static const error_error = 'error.error';
   static const error_emptyField = 'error.emptyField';
   static const error_shortEntry = 'error.shortEntry';
   static const error = 'error';
@@ -85,37 +85,24 @@ abstract class LocaleKeys {
   static const account_topTitle = 'account.topTitle';
   static const account_demoUser = 'account.demoUser';
   static const account_demoMail = 'account.demoMail';
-  static const account_action_editProfile_name =
-      'account.action.editProfile.name';
-  static const account_action_editProfile_buttonText =
-      'account.action.editProfile.buttonText';
-  static const account_action_editProfile_tfieldEmailHint =
-      'account.action.editProfile.tfieldEmailHint';
-  static const account_action_editProfile_tfieldPassHint =
-      'account.action.editProfile.tfieldPassHint';
-  static const account_action_editProfile_tfieldPass2Hint =
-      'account.action.editProfile.tfieldPass2Hint';
+  static const account_action_editProfile_name = 'account.action.editProfile.name';
+  static const account_action_editProfile_buttonText = 'account.action.editProfile.buttonText';
+  static const account_action_editProfile_tfieldEmailHint = 'account.action.editProfile.tfieldEmailHint';
+  static const account_action_editProfile_tfieldPassHint = 'account.action.editProfile.tfieldPassHint';
+  static const account_action_editProfile_tfieldPass2Hint = 'account.action.editProfile.tfieldPass2Hint';
   static const account_action_editProfile = 'account.action.editProfile';
   static const account_action_shipping = 'account.action.shipping';
   static const account_action_order = 'account.action.order';
   static const account_action_trackOrder = 'account.action.trackOrder';
   static const account_action_cards_name = 'account.action.cards.name';
-  static const account_action_cards_buttonText =
-      'account.action.cards.buttonText';
-  static const account_action_cards_editCard_name =
-      'account.action.cards.editCard.name';
-  static const account_action_cards_editCard_buttonText =
-      'account.action.cards.editCard.buttonText';
-  static const account_action_cards_editCard_button2Text =
-      'account.action.cards.editCard.button2Text';
-  static const account_action_cards_editCard_tfieldCardNoHint =
-      'account.action.cards.editCard.tfieldCardNoHint';
-  static const account_action_cards_editCard_tfieldDateHint =
-      'account.action.cards.editCard.tfieldDateHint';
-  static const account_action_cards_editCard_tfieldCVVHint =
-      'account.action.cards.editCard.tfieldCVVHint';
-  static const account_action_cards_editCard_tfieldCardHolderHint =
-      'account.action.cards.editCard.tfieldCardHolderHint';
+  static const account_action_cards_buttonText = 'account.action.cards.buttonText';
+  static const account_action_cards_editCard_name = 'account.action.cards.editCard.name';
+  static const account_action_cards_editCard_buttonText = 'account.action.cards.editCard.buttonText';
+  static const account_action_cards_editCard_button2Text = 'account.action.cards.editCard.button2Text';
+  static const account_action_cards_editCard_tfieldCardNoHint = 'account.action.cards.editCard.tfieldCardNoHint';
+  static const account_action_cards_editCard_tfieldDateHint = 'account.action.cards.editCard.tfieldDateHint';
+  static const account_action_cards_editCard_tfieldCVVHint = 'account.action.cards.editCard.tfieldCVVHint';
+  static const account_action_cards_editCard_tfieldCardHolderHint = 'account.action.cards.editCard.tfieldCardHolderHint';
   static const account_action_cards_editCard = 'account.action.cards.editCard';
   static const account_action_cards = 'account.action.cards';
   static const account_action_notif = 'account.action.notif';
@@ -123,4 +110,5 @@ abstract class LocaleKeys {
   static const account_action_logout = 'account.action.logout';
   static const account_action = 'account.action';
   static const account = 'account';
+
 }

@@ -2,7 +2,9 @@
     "splash": {
         "appName": "LindaStore"
     },
+    "currency":"₺",
     "error": {
+        "error":"Hata",
         "emptyField": "*Bu alan zorunludur",
         "shortEntry": "*En az 6 karakter girilmelidir"
     },

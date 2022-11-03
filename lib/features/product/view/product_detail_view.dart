@@ -275,7 +275,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 Text(
-                  "${product.price} ₺",
+                  "${product.price} ${LocaleKeys.currency.locale}",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ],

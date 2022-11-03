@@ -4,16 +4,16 @@ import 'package:lottie/lottie.dart';
 
 import '../../extansions/asset_extansion.dart';
 
-class LoadingIndicator extends StatelessWidget {
+class LoadingIndicatorWidget extends StatelessWidget {
   final String lottieName;
-  const LoadingIndicator({Key? key, required this.lottieName})
+  const LoadingIndicatorWidget({Key? key, required this.lottieName})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: context.height * .7,
-      child: Lottie.asset(lottieName.toLottie),
+      child: Center(child: Lottie.asset(lottieName.toLottie)),
     );
   }
 }

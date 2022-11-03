@@ -4,7 +4,7 @@ import '../../core/constants/app/colors_constants.dart';
 
 class EButtonWidget extends StatelessWidget {
   final VoidCallback? onPress;
-  final String text;
+  final String? text;
   final double? width;
   final double? height;
   final Color? tColor;
@@ -36,8 +36,15 @@ class EButtonWidget extends StatelessWidget {
                       style: useBorder ? BorderStyle.solid : BorderStyle.none),
                   borderRadius: BorderRadius.circular(10)),
               backgroundColor: bgColor ?? ColorConstants.primaryColor),
-          child: Text(text,
-              style: TextStyle(color: tColor ?? ColorConstants.myWhite))),
+          child: text == null
+              ? Center(
+                  child: SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: CircularProgressIndicator(
+                          color: ColorConstants.myWhite, strokeWidth: 2)))
+              : Text(text!,
+                  style: TextStyle(color: tColor ?? ColorConstants.myWhite))),
     );
   }
 }

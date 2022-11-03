@@ -22,7 +22,7 @@ class CartLoaded extends CartState {
 }
 
 class CartError extends CartState {
-  final DioError error;
+  final Object error;
 
   const CartError(this.error);
 

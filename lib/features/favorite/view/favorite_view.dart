@@ -35,7 +35,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                     BlocBuilder<ProductsBloc, ProductsState>(
                         builder: (context, state) {
                       if (state is ProductsLoading) {
-                        return const LoadingIndicator(
+                        return const LoadingIndicatorWidget(
                             lottieName: "favorite_loading");
                       } else if (state is ProductsLoaded) {
                         return Expanded(

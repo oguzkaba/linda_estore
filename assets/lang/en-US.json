@@ -2,7 +2,9 @@
     "splash": {
         "appName": "LindaStore"
     },
+    "currency": "$",
     "error": {
+        "error":"Error",
         "emptyField": "*This field is required",
         "shortEntry": "*At least 6 charecters must be entered"
     },

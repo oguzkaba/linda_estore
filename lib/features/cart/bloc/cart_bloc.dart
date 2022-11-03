@@ -13,13 +13,15 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<FetchCarts>((event, emit) async {
       try {
         emit(CartLoading());
-        final carts =
+        final result =
             await CartService(event.manager, event.scaffoldKey).fetchCarts();
-        emit(CartLoaded(carts));
-      } catch (e) {
-        if (e is DioError) {
-          emit(CartError(e));
+        if (result.object != null) {
+          emit(CartLoaded(result.object as List<CartModel>));
+        } else {
+          emit(CartError(result.error!));
         }
+      } catch (e) {
+        emit(CartError(e));
       }
     });
   }

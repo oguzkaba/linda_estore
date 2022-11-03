@@ -2,8 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 
 import '../../core/constants/app/colors_constants.dart';
+import '../../core/init/lang/locale_keys.g.dart';
 import '../../core/init/network/service/network_service.dart';
 import '../../core/init/routes/routes.gr.dart';
 import '../../features/favorite/cubit/favorite_cubit.dart';
@@ -85,7 +87,8 @@ class MySliverGridWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: context.normalBorderRadius,
                           color: ColorConstants.secondaryColor.withOpacity(.3)),
-                      child: Text("${model[index]!.price} ₺",
+                      child: Text(
+                          "${model[index]!.price} ${LocaleKeys.currency.locale}",
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.bodySmall),
                     ),

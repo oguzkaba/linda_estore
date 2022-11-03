@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
+import 'package:linda_wedding_ecommerce/features/error/view/error_view.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../core/init/lang/translate_remote_entry.dart';
 import '../../../core/init/network/service/network_service.dart';
@@ -80,7 +83,8 @@ class _HomeViewState extends State<HomeView> {
         BlocConsumer<ProductsBloc, ProductsState>(
           listener: (context, state) {
             if (state is ProductsError) {
-              //CustomErrorWidgets.showError(context, state);
+              CustomErrorWidgets.showError(context, state.error.toString(),
+                  topMargin: 115);
             }
           },
           builder: (context, state) {
@@ -90,8 +94,11 @@ class _HomeViewState extends State<HomeView> {
               return const SliverShimmerWidget();
             } else if (state is ProductsLoaded) {
               return _buildGridProducts(context, state.products);
+            } else if (state is ProductsError) {
+              return SliverToBoxAdapter(
+                  child: ErrorView(errorText: LocaleKeys.error_error.locale));
             } else {
-              return SliverToBoxAdapter(child: context.emptySizedHeightBoxHigh);
+              return SliverToBoxAdapter(child: context.emptySizedHeightBoxLow);
             }
           },
         )
@@ -102,7 +109,8 @@ class _HomeViewState extends State<HomeView> {
       child: BlocConsumer<CategoriesBloc, CategoriesState>(
           listener: (context, state) {
         if (state is CategoriesError) {
-          CustomErrorWidgets.showError(context, state.error.toString());
+          CustomErrorWidgets.showError(context, state.error.toString(),
+              topMargin: 115);
         }
       }, builder: (context, state) {
         if (state is CategoriesInitial) {

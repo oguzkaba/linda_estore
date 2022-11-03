@@ -10,6 +10,7 @@ import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/init/network/service/network_service.dart';
 import '../../../core/init/routes/routes.gr.dart';
+import '../../../product/utils/custom_error_widgets.dart';
 import '../../../product/widgets/ebutton_widget.dart';
 import '../../../product/widgets/iconbutton_widget.dart';
 import '../../../product/widgets/textfield_widget.dart';
@@ -39,15 +40,20 @@ class _CartViewState extends State<CartView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+        child: BlocConsumer<CartBloc, CartState>(listener: (context, state) {
+      if (state is CartError) {
+        CustomErrorWidgets.showError(context, state.error.toString(),
+            topMargin: 115);
+      }
+    }, builder: (context, state) {
       if (state is CartLoading) {
-        return const LoadingIndicator(lottieName: "cart_loading");
+        return const LoadingIndicatorWidget(lottieName: "cart_loading");
       } else if (state is CartLoaded) {
         return _buildCartLoaded(state.cartsModel);
       } else if (state is CartError) {
         return Text(state.error.toString());
       }
-      return const LoadingIndicator(lottieName: "cart_loading");
+      return const LoadingIndicatorWidget(lottieName: "cart_loading");
     }));
   }
 
@@ -55,7 +61,7 @@ class _CartViewState extends State<CartView> {
       BlocBuilder<ProductsBloc, ProductsState>(builder: (context, state) {
         double total = 0;
         if (state is ProductsLoading) {
-          return const LoadingIndicator(lottieName: "favorite_loading");
+          return const LoadingIndicatorWidget(lottieName: "favorite_loading");
         } else if (state is ProductsLoaded) {
           //*Total Cart Price
           for (var e in cartModel[1].products) {
