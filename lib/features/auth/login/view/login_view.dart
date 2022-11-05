@@ -18,6 +18,48 @@ import '../../bloc/auth_bloc.dart';
 import '../bloc/cubit/login_cubit.dart';
 import '../model/login_request_model.dart';
 
+/*
+1
+johnd
+m38rmF$
+
+2
+mor_2314
+83r5^_
+
+3
+kevinryan
+kev02937@
+
+4
+donero
+ewedon
+
+5
+derek
+jklg*_56
+
+6
+david_r
+3478*#54
+
+7
+snyder
+f238&@*$
+
+8
+hopkins
+William56$hj
+
+9
+kate_h
+kfejk@*_
+
+10
+jimmie_k
+klein*#%*
+*/
+
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 
@@ -26,7 +68,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final manager = NetworkService.instance.networkManager;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late final TextEditingController unameController;
@@ -92,12 +134,11 @@ class _LoginViewState extends State<LoginView> {
                               if (_formKey.currentState!.validate()) {
                                 context.read<AuthBloc>().add(AuthLogin(
                                     manager,
-                                    _scaffoldKey,
+                                    scaffoldKey,
                                     LoginRequestModel(
-                                        // mor_2314 , 83r5^_
-                                        username: unameController.text.trim(),
-                                        password:
-                                            passwordController.text.trim()),
+                                      username: unameController.text.trim(),
+                                      password: passwordController.text.trim(),
+                                    ),
                                     context));
                               }
                             });

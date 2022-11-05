@@ -15,11 +15,12 @@ class LoginLoading extends AuthState {}
 
 class LoginSuccess extends AuthState {
   final String token;
+  final int userId;
 
-  const LoginSuccess(this.token);
+  const LoginSuccess(this.token, this.userId);
 
   @override
-  List<Object> get props => [token];
+  List<Object> get props => [token, userId];
 }
 
 class LoginError extends AuthState {
@@ -38,7 +39,7 @@ class LoginError extends AuthState {
 class RegisterLoading extends AuthState {}
 
 class Registered extends AuthState {
-  final UserModel userModel;
+  final AccountModel userModel;
 
   const Registered(this.userModel);
   @override

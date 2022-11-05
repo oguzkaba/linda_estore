@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
-import '../../../base/model/base_response_model.dart';
-
 class NetworkService {
   static NetworkService? _instance;
   static NetworkService get instance {

@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
+import 'package:linda_wedding_ecommerce/features/auth/bloc/auth_bloc.dart';
+import 'package:linda_wedding_ecommerce/features/error/view/error_view.dart';
 
 import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
@@ -32,7 +34,9 @@ class _CartViewState extends State<CartView> {
 
   @override
   void initState() {
-    BlocProvider.of<CartBloc>(context).add((FetchCarts(manager, scaffoldKey)));
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    BlocProvider.of<CartBloc>(context)
+        .add(FetchCarts(manager, scaffoldKey, authBloc));
     super.initState();
   }
 
@@ -49,22 +53,26 @@ class _CartViewState extends State<CartView> {
       if (state is CartLoading) {
         return const LoadingIndicatorWidget(lottieName: "cart_loading");
       } else if (state is CartLoaded) {
-        return _buildCartLoaded(state.cartsModel);
+        if (state.cartModel.isNullOrEmpty) {
+          return const EmptyCartWidget();
+        } else {
+          return _buildCartLoaded(state.cartModel);
+        }
       } else if (state is CartError) {
-        return Text(state.error.toString());
+        return Center(child: ErrorView(errorText: state.error.toString()));
       }
       return const LoadingIndicatorWidget(lottieName: "cart_loading");
     }));
   }
 
   Widget _buildCartLoaded(List<CartModel> cartModel) =>
-      BlocBuilder<ProductsBloc, ProductsState>(builder: (context, state) {
+      BlocListener<ProductsBloc, ProductsState>(listener: (context, state) {
         double total = 0;
         if (state is ProductsLoading) {
-          return const LoadingIndicatorWidget(lottieName: "favorite_loading");
+          const LoadingIndicatorWidget(lottieName: "favorite_loading");
         } else if (state is ProductsLoaded) {
           //*Total Cart Price
-          for (var e in cartModel[1].products) {
+          for (var e in cartModel[0].products) {
             quantityList.value.add(e.quantity);
             total += e.quantity * state.products[e.productId]!.price!;
           }
@@ -74,10 +82,10 @@ class _CartViewState extends State<CartView> {
             quantityList.value = newQList;
           }
 
-          return ValueListenableBuilder(
+          ValueListenableBuilder(
               valueListenable: quantityList,
               builder: (context, value, child) => quantityList.value.isEmpty
-                  ? const EmptyCartWidget() //TODO: Add Empty Cart Widget
+                  ? const EmptyCartWidget()
                   : Scaffold(
                       body: SingleChildScrollView(
                         primary: true,
@@ -94,7 +102,7 @@ class _CartViewState extends State<CartView> {
                                 ListView.builder(
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemCount: cartModel[1].products.length,
+                                  itemCount: cartModel[0].products.length,
                                   itemBuilder: (context, index) => Dismissible(
                                     dismissThresholds: const {
                                       DismissDirection.endToStart: 0.6
@@ -115,7 +123,7 @@ class _CartViewState extends State<CartView> {
                                               height: context.height / 8,
                                               child: CachedNetworkImage(
                                                 imageUrl: state
-                                                    .products[cartModel[1]
+                                                    .products[cartModel[0]
                                                         .products[index]
                                                         .productId]!
                                                     .image!,
@@ -131,7 +139,7 @@ class _CartViewState extends State<CartView> {
                                                 alignment: Alignment.centerLeft,
                                                 child: Text(
                                                     state
-                                                        .products[cartModel[1]
+                                                        .products[cartModel[0]
                                                             .products[index]
                                                             .productId]!
                                                         .title!,
@@ -150,7 +158,7 @@ class _CartViewState extends State<CartView> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    "${state.products[cartModel[1].products[index].productId]!.price} ₺",
+                                                    "${state.products[cartModel[0].products[index].productId]!.price} ₺",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .titleMedium,
@@ -178,7 +186,7 @@ class _CartViewState extends State<CartView> {
                                                               .myBlack,
                                                           tooltip: "Remove"),
                                                       Text(
-                                                        cartModel[1]
+                                                        cartModel[0]
                                                             .products[index]
                                                             .quantity
                                                             .toString(),
@@ -253,7 +261,7 @@ class _CartViewState extends State<CartView> {
                           _buildBottomWidget(context, total)
                         ]));
         } else {
-          return const EmptyCartWidget();
+          const EmptyCartWidget();
           //TODO empty cart
         }
       });

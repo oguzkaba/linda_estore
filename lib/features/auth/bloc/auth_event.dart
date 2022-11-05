@@ -1,40 +1,46 @@
 part of 'auth_bloc.dart';
 
 abstract class AuthEvent extends Equatable {
-  const AuthEvent();
+  final Dio manager;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
+  const AuthEvent(this.manager, this.scaffoldKey);
 
   @override
   List<Object> get props => [];
 }
 
 class AuthLogin extends AuthEvent {
-  final Dio manager;
-  final GlobalKey<ScaffoldState>? scaffoldKey;
   final LoginRequestModel loginRequestModel;
   final NetworkErrorModel? networkErrorModel;
   final BuildContext context;
 
   const AuthLogin(
-      this.manager, this.scaffoldKey, this.loginRequestModel, this.context,
+      super.manager, super.scaffoldKey, this.loginRequestModel, this.context,
       {this.networkErrorModel});
 }
 
 class AuthRegister extends AuthEvent {
-  final Dio manager;
-  final GlobalKey<ScaffoldState>? scaffoldKey;
-  final UserModel userModel;
   final BuildContext context;
 
-  const AuthRegister(
-      this.manager, this.scaffoldKey, this.userModel, this.context);
+  const AuthRegister(super.manager, super.scaffoldKey, this.context);
 }
 
-class AuthLoginWithGoogle extends AuthEvent {}
+class AuthLoginWithGoogle extends AuthEvent {
+  const AuthLoginWithGoogle(super.manager, super.scaffoldKey);
+}
 
-class AuthLoginWithApple extends AuthEvent {}
+class AuthLoginWithApple extends AuthEvent {
+  const AuthLoginWithApple(super.manager, super.scaffoldKey);
+}
 
-class AuthLoginWithFacebook extends AuthEvent {}
+class AuthLoginWithFacebook extends AuthEvent {
+  const AuthLoginWithFacebook(super.manager, super.scaffoldKey);
+}
 
-class AuthLogOut extends AuthEvent {}
+class AuthLogOut extends AuthEvent {
+  const AuthLogOut(super.manager, super.scaffoldKey);
+}
 
-class AuthDeleteAccount extends AuthEvent {}
+class AuthDeleteAccount extends AuthEvent {
+  const AuthDeleteAccount(super.manager, super.scaffoldKey);
+}

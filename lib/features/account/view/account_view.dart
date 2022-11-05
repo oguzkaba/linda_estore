@@ -1,12 +1,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
+import 'package:linda_wedding_ecommerce/features/account/bloc/account_bloc.dart';
+import 'package:linda_wedding_ecommerce/features/auth/bloc/auth_bloc.dart';
 
+import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
+import '../../../core/init/network/service/network_service.dart';
 import '../../../core/init/routes/routes.gr.dart';
+import '../../../product/utils/custom_error_widgets.dart';
 import '../../../product/widgets/iconbutton_widget.dart';
+import '../../error/view/error_view.dart';
 
 class AccountView extends StatefulWidget {
   const AccountView({super.key});
@@ -16,75 +23,105 @@ class AccountView extends StatefulWidget {
 }
 
 class _AccountViewState extends State<AccountView> {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final manager = NetworkService.instance.networkManager;
+
+  @override
+  void initState() {
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    BlocProvider.of<AccountBloc>(context)
+        .add(AccountFetch(manager, scaffoldKey, authBloc));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
             backgroundColor: ColorConstants.myWhite,
-            body: SingleChildScrollView(
-              child: Padding(
-                  padding: context.paddingMedium,
-                  child: Center(
-                    child: Column(
+            body: BlocConsumer<AccountBloc, AccountState>(
+                listener: (context, state) {
+              if (state is AccountError) {
+                CustomErrorWidgets.showError(context, state.error.toString());
+              }
+            }, builder: (context, state) {
+              if (state is AccountLoading) {
+                return const LoadingIndicatorWidget(
+                    lottieName: "account_loading");
+              } else if (state is AccountLoaded) {
+                return _buildAccountLoaded(context, state);
+              } else if (state is AccountError) {
+                return Center(
+                    child: ErrorView(errorText: state.error.toString()));
+              }
+              return context.emptySizedHeightBoxLow;
+            })));
+  }
+
+  SingleChildScrollView _buildAccountLoaded(
+      BuildContext context, AccountLoaded state) {
+    return SingleChildScrollView(
+      child: Padding(
+          padding: context.paddingMedium,
+          child: Center(
+            child: Column(
+              children: [
+                Text(LocaleKeys.account_topTitle.locale,
+                    style: Theme.of(context).textTheme.headlineSmall),
+                Card(
+                  elevation: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 18.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(LocaleKeys.account_topTitle.locale,
-                            style: Theme.of(context).textTheme.headlineSmall),
-                        Card(
-                          elevation: 5,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 18.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  radius: 30,
-                                  backgroundColor:
-                                      ColorConstants.secondaryColor,
-                                  child: CircleAvatar(
-                                      backgroundColor:
-                                          ColorConstants.secondaryColor,
-                                      backgroundImage: const NetworkImage(
-                                        "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
-                                      ),
-                                      radius: 27),
-                                ),
-                                context.emptySizedWidthBoxNormal,
-                                Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(LocaleKeys.account_demoUser.locale,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall),
-                                      Text(LocaleKeys.account_demoMail.locale,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelMedium),
-                                    ])
-                              ],
-                            ),
-                          ),
+                        CircleAvatar(
+                          radius: 30,
+                          backgroundColor: ColorConstants.secondaryColor,
+                          child: CircleAvatar(
+                              backgroundColor: ColorConstants.secondaryColor,
+                              backgroundImage: const NetworkImage(
+                                "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
+                              ),
+                              radius: 27),
                         ),
-                        context.emptySizedHeightBoxLow,
-                        ListView.separated(
-                          physics: const BouncingScrollPhysics(),
-                          padding: EdgeInsets.zero,
-                          primary: true,
-                          separatorBuilder: (context, index) => const Divider(
-                              height: 0, indent: 70, endIndent: 30),
-                          shrinkWrap: true,
-                          itemCount: 8,
-                          itemBuilder: (context, index) =>
-                              _buildListTile(context, index),
-                        ),
-                        context.emptySizedHeightBoxLow,
-                        Text("v.1.0.0",
-                            style: Theme.of(context).textTheme.labelSmall)
+                        context.emptySizedWidthBoxNormal,
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  "${state.accountModel.name!.firstname!.toCapitalized()} ${state.accountModel.name!.lastname!.toUpperCase()}",
+                                  style:
+                                      Theme.of(context).textTheme.titleSmall),
+                              Text(state.accountModel.email!,
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium),
+                              Text(state.accountModel.phone!,
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium),
+                            ])
                       ],
                     ),
-                  )),
-            )));
+                  ),
+                ),
+                context.emptySizedHeightBoxLow,
+                ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsets.zero,
+                  primary: true,
+                  separatorBuilder: (context, index) =>
+                      const Divider(height: 0, indent: 70, endIndent: 30),
+                  shrinkWrap: true,
+                  itemCount: 8,
+                  itemBuilder: (context, index) =>
+                      _buildListTile(context, index),
+                ),
+                context.emptySizedHeightBoxLow,
+                Text("v.1.0.0", style: Theme.of(context).textTheme.labelSmall)
+              ],
+            ),
+          )),
+    );
   }
 
   ListTile _buildListTile(BuildContext context, int index) {

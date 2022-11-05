@@ -10,22 +10,28 @@ abstract class CartEvent extends Equatable {
 class FetchCarts extends CartEvent {
   final Dio manager;
   final GlobalKey<ScaffoldState>? scaffoldKey;
-  const FetchCarts(this.manager, this.scaffoldKey);
+  final AuthBloc authBloc;
+
+  const FetchCarts(this.manager, this.scaffoldKey, this.authBloc);
 }
 
 class AddToCart extends CartEvent {
-  final CartModel cartModel;
+  final Dio manager;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
+  final int productId;
 
-  const AddToCart(this.cartModel);
+  const AddToCart(this.productId, this.manager, this.scaffoldKey);
 
   @override
-  List<Object> get props => [cartModel];
+  List<Object> get props => [productId];
 }
 
 class RemoveToCart extends CartEvent {
-  final CartModel cartModel;
+  final Dio manager;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
+  final int productId;
 
-  const RemoveToCart(this.cartModel);
+  const RemoveToCart(this.productId, this.manager, this.scaffoldKey);
   @override
-  List<Object> get props => [cartModel];
+  List<Object> get props => [productId];
 }

@@ -23,7 +23,7 @@ class ProductService extends IProductService {
   @override
   Future<BaseResponseModel> fetchProductsAll() async {
     try {
-      final response = await manager.get("ApiUrlEnum.products.url");
+      final response = await manager.get(ApiUrlEnum.products.url);
       return BaseResponseModel(object: productsModelFromJson(response.data));
     } on DioError catch (e) {
       return BaseResponseModel(
