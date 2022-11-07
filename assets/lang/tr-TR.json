@@ -108,7 +108,7 @@
                 "tfieldPass2Hint": "Şifre Tekrar"
             },
             "shipping": "Gönderim Adresi",
-            "order": "Sipariş",
+            "order": "Siparişler",
             "trackOrder": "Siparişi Takip Et",
             "cards": {
                 "name": "Kartlar",

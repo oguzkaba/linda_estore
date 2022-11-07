@@ -66,10 +66,10 @@ class _CartViewState extends State<CartView> {
   }
 
   Widget _buildCartLoaded(List<CartModel> cartModel) =>
-      BlocListener<ProductsBloc, ProductsState>(listener: (context, state) {
+      BlocBuilder<ProductsBloc, ProductsState>(builder: (context, state) {
         double total = 0;
         if (state is ProductsLoading) {
-          const LoadingIndicatorWidget(lottieName: "favorite_loading");
+          return const LoadingIndicatorWidget(lottieName: "cart_loading");
         } else if (state is ProductsLoaded) {
           //*Total Cart Price
           for (var e in cartModel[0].products) {
@@ -82,7 +82,7 @@ class _CartViewState extends State<CartView> {
             quantityList.value = newQList;
           }
 
-          ValueListenableBuilder(
+          return ValueListenableBuilder(
               valueListenable: quantityList,
               builder: (context, value, child) => quantityList.value.isEmpty
                   ? const EmptyCartWidget()
@@ -260,10 +260,10 @@ class _CartViewState extends State<CartView> {
                       persistentFooterButtons: [
                           _buildBottomWidget(context, total)
                         ]));
-        } else {
-          const EmptyCartWidget();
-          //TODO empty cart
+        } else if (state is ProductsError) {
+          return Center(child: ErrorView(errorText: state.error.toString()));
         }
+        return const EmptyCartWidget();
       });
 
   Future<bool?> _showDialogWidget(BuildContext context, int index) {
