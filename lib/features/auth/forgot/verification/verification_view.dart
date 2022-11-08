@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
+import 'package:linda_wedding_ecommerce/features/dashboard/view/dashboard_view.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
@@ -85,7 +86,8 @@ class _EmailVerificationViewState extends State<EmailVerificationView> {
                 showCursor: true,
                 onCompleted: (pin) =>
                     pin == '2222' //TODO add dynamic pin control
-                        ? context.router.push(Dashboard())
+                        ? context.router
+                            .push(DashboardRouter(children: const [HomeView()]))
                         : null,
               ),
               Padding(padding: context.paddingLow),

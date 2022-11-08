@@ -122,7 +122,8 @@ class _LoginViewState extends State<LoginView> {
                   }
                 }, builder: (context, state) {
                   if (state is LoginSuccess) {
-                    context.router.push(Dashboard());
+                    context.router
+                        .push(DashboardRouter(children: const [HomeView()]));
                   }
                   return EButtonWidget(
                       text: state is LoginLoading

@@ -27,13 +27,17 @@ import '../../../features/splash/view/splash_view.dart';
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     AutoRoute(path: "/", page: SplashView, initial: true),
-    AutoRoute(path: "/dashboard", page: Dashboard, children: [
-      AutoRoute(path: "home", page: HomeView),
-      AutoRoute(path: "cart", page: CartView),
-      AutoRoute(path: "favorite", page: FavoriteView),
-      AutoRoute(path: "account", page: AccountView),
-      RedirectRoute(path: '*', redirectTo: ''),
-    ]),
+    AutoRoute(
+        path: "/dashboard",
+        name: "DashboardRouter",
+        page: Dashboard,
+        children: [
+          AutoRoute(path: "home", page: HomeView),
+          AutoRoute(path: "cart", page: CartView),
+          AutoRoute(path: "favorite", page: FavoriteView),
+          AutoRoute(path: "account", page: AccountView),
+          RedirectRoute(path: '*', redirectTo: ''),
+        ]),
     AutoRoute(path: "/product-detail", page: ProductDetailView),
     AutoRoute(path: "/login", page: LoginView),
     AutoRoute(path: "/register", page: RegisterView),

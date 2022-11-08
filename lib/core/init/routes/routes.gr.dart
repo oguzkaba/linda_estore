@@ -53,12 +53,12 @@ class AppRouter extends _i21.RootStackRouter {
           opaque: true,
           barrierDismissible: false);
     },
-    Dashboard.name: (routeData) {
-      final args =
-          routeData.argsAs<DashboardArgs>(orElse: () => const DashboardArgs());
+    DashboardRouter.name: (routeData) {
+      final args = routeData.argsAs<DashboardRouterArgs>(
+          orElse: () => const DashboardRouterArgs());
       return _i21.CustomPage<dynamic>(
           routeData: routeData,
-          child: _i2.Dashboard(key: args.key, id: args.id),
+          child: _i2.Dashboard(key: args.key),
           transitionsBuilder: _i21.TransitionsBuilders.fadeIn,
           durationInMilliseconds: 300,
           opaque: true,
@@ -238,16 +238,18 @@ class AppRouter extends _i21.RootStackRouter {
   @override
   List<_i21.RouteConfig> get routes => [
         _i21.RouteConfig(SplashView.name, path: '/'),
-        _i21.RouteConfig(Dashboard.name, path: '/dashboard', children: [
-          _i21.RouteConfig(HomeView.name, path: 'home', parent: Dashboard.name),
-          _i21.RouteConfig(CartView.name, path: 'cart', parent: Dashboard.name),
+        _i21.RouteConfig(DashboardRouter.name, path: '/dashboard', children: [
+          _i21.RouteConfig(HomeView.name,
+              path: 'home', parent: DashboardRouter.name),
+          _i21.RouteConfig(CartView.name,
+              path: 'cart', parent: DashboardRouter.name),
           _i21.RouteConfig(FavoriteView.name,
-              path: 'favorite', parent: Dashboard.name),
+              path: 'favorite', parent: DashboardRouter.name),
           _i21.RouteConfig(AccountView.name,
-              path: 'account', parent: Dashboard.name),
+              path: 'account', parent: DashboardRouter.name),
           _i21.RouteConfig('*#redirect',
               path: '*',
-              parent: Dashboard.name,
+              parent: DashboardRouter.name,
               redirectTo: '',
               fullMatch: true)
         ]),
@@ -278,26 +280,24 @@ class SplashView extends _i21.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.Dashboard]
-class Dashboard extends _i21.PageRouteInfo<DashboardArgs> {
-  Dashboard({_i22.Key? key, int? id, List<_i21.PageRouteInfo>? children})
-      : super(Dashboard.name,
+class DashboardRouter extends _i21.PageRouteInfo<DashboardRouterArgs> {
+  DashboardRouter({_i22.Key? key, List<_i21.PageRouteInfo>? children})
+      : super(DashboardRouter.name,
             path: '/dashboard',
-            args: DashboardArgs(key: key, id: id),
+            args: DashboardRouterArgs(key: key),
             initialChildren: children);
 
-  static const String name = 'Dashboard';
+  static const String name = 'DashboardRouter';
 }
 
-class DashboardArgs {
-  const DashboardArgs({this.key, this.id});
+class DashboardRouterArgs {
+  const DashboardRouterArgs({this.key});
 
   final _i22.Key? key;
 
-  final int? id;
-
   @override
   String toString() {
-    return 'DashboardArgs{key: $key, id: $id}';
+    return 'DashboardRouterArgs{key: $key}';
   }
 }
 

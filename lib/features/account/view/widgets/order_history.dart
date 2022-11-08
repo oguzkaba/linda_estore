@@ -14,7 +14,6 @@ import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/network/service/network_service.dart';
 import '../../../../product/utils/custom_error_widgets.dart';
 import '../../../../product/widgets/iconbutton_widget.dart';
-import '../../../../product/widgets/textfield_widget.dart';
 import '../../../auth/bloc/auth_bloc.dart';
 import '../../../cart/bloc/cart_bloc.dart';
 import '../../../cart/view/widgets/empty_cart_widget.dart';
@@ -43,25 +42,43 @@ class _OrderHistoryState extends State<OrderHistory> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: BlocConsumer<CartBloc, CartState>(listener: (context, state) {
-      if (state is CartError) {
-        CustomErrorWidgets.showError(context, state.error.toString(),
-            topMargin: 115);
-      }
-    }, builder: (context, state) {
-      if (state is CartLoading) {
-        return const LoadingIndicatorWidget(lottieName: "order_loading");
-      } else if (state is CartLoaded) {
-        if (state.cartModel.isNullOrEmpty) {
-          return const EmptyCartWidget();
-        } else {
-          return _buildCartLoaded(state.cartModel);
-        }
-      } else if (state is CartError) {
-        return Center(child: ErrorView(errorText: state.error.toString()));
-      }
-      return const LoadingIndicatorWidget(lottieName: "cart_loading");
-    }));
+        child: Scaffold(
+            appBar: AppBar(
+                title: Text(LocaleKeys.account_action_trackOrder.locale,
+                    style: TextStyle(color: ColorConstants.myBlack)),
+                leading: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: IconButtonWidget(
+                      size: 16,
+                      onPress: () => context.router.pop(),
+                      icon: Icons.chevron_left_rounded,
+                      iColor: ColorConstants.myMediumGrey,
+                      tooltip: "Back"),
+                ),
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+                centerTitle: true),
+            body: BlocConsumer<CartBloc, CartState>(listener: (context, state) {
+              if (state is CartError) {
+                CustomErrorWidgets.showError(context, state.error.toString(),
+                    topMargin: 115);
+              }
+            }, builder: (context, state) {
+              if (state is CartLoading) {
+                return const LoadingIndicatorWidget(
+                    lottieName: "order_loading");
+              } else if (state is CartLoaded) {
+                if (state.cartModel.isNullOrEmpty) {
+                  return const EmptyCartWidget();
+                } else {
+                  return _buildCartLoaded(state.cartModel);
+                }
+              } else if (state is CartError) {
+                return Center(
+                    child: ErrorView(errorText: state.error.toString()));
+              }
+              return const LoadingIndicatorWidget(lottieName: "cart_loading");
+            })));
   }
 
   Widget _buildCartLoaded(List<CartModel> cartModel) =>
@@ -69,105 +86,99 @@ class _OrderHistoryState extends State<OrderHistory> {
         if (state is ProductsLoading) {
           return const LoadingIndicatorWidget(lottieName: "cart_loading");
         } else if (state is ProductsLoaded) {
-          return Scaffold(
-              appBar: AppBar(
-                  title: Text(LocaleKeys.account_action_trackOrder.locale,
-                      style: TextStyle(color: ColorConstants.myBlack)),
-                  leading: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: IconButtonWidget(
-                        size: 16,
-                        onPress: () => context.router.pop(),
-                        icon: Icons.chevron_left_rounded,
-                        iColor: ColorConstants.myMediumGrey,
-                        tooltip: "Back"),
-                  ),
-                  backgroundColor: Colors.transparent,
-                  elevation: 0.0,
-                  centerTitle: true),
-              body: SingleChildScrollView(
-                primary: true,
-                child: Padding(
-                  padding: context.paddingMedium,
-                  child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: cartModel.length,
-                      itemBuilder: (context, index) => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              context.emptySizedHeightBoxLow,
-                              Text(cartModel[index].date.toString(),
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium),
-                              GestureDetector(
-                                onTap: () =>
-                                    context.router.push(Dashboard(id: 2)),
-                                child: Card(
-                                    margin: const EdgeInsets.only(top: 10),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0, horizontal: 18),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            flex: 3,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                    "ORDER-O00000${cartModel[index].id}",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall),
-                                                context.emptySizedHeightBoxLow,
-                                                Text(
-                                                    "TOTAL", //TODO total order price
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleSmall),
-                                                context
-                                                    .emptySizedHeightBoxNormal,
-                                                const EButtonWidget(
-                                                  text: "Delivered",
-                                                  bRadius: 5,
-                                                  width: 100,
-                                                  height: 30,
-                                                ) //TODO order state
-                                              ],
-                                            ),
+          return SingleChildScrollView(
+            primary: true,
+            child: Padding(
+              padding: context.paddingMedium,
+              child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: cartModel.length,
+                  itemBuilder: (context, index) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          context.emptySizedHeightBoxLow,
+                          Text(cartModel[index].date.toString(),
+                              style: Theme.of(context).textTheme.labelMedium),
+                          InkWell(
+                            onTap: () {
+                              context.router.push(DashboardRouter(children: [
+                                CartView(cartModel: cartModel[index])
+                              ]));
+                            },
+                            child: Card(
+                                margin: const EdgeInsets.only(top: 10),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 8.0, horizontal: 18),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                "ORDER-O00000${cartModel[index].id}",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall),
+                                            context.emptySizedHeightBoxLow,
+                                            Text(
+                                                "TOTAL", //TODO total order price
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall),
+                                            context.emptySizedHeightBoxNormal,
+                                            const EButtonWidget(
+                                              text: "Delivered",
+                                              bRadius: 5,
+                                              width: 100,
+                                              height: 30,
+                                            ) //TODO order state
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: GridView.builder(
+                                          itemCount: cartModel[index]
+                                                      .products
+                                                      .length ==
+                                                  1
+                                              ? 1
+                                              : 2,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: cartModel[index]
+                                                        .products
+                                                        .length ==
+                                                    1
+                                                ? 1
+                                                : 2,
+                                            childAspectRatio: 1.0,
+                                            mainAxisSpacing: 10.0,
+                                            crossAxisSpacing: 10.0,
                                           ),
-                                          Expanded(
-                                            child: GridView.builder(
-                                              itemCount: cartModel[index]
-                                                          .products
-                                                          .length ==
-                                                      1
-                                                  ? 1
-                                                  : 2,
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
-                                              shrinkWrap: true,
-                                              gridDelegate:
-                                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: cartModel[index]
-                                                            .products
-                                                            .length ==
-                                                        1
-                                                    ? 1
-                                                    : 2,
-                                                childAspectRatio: 1.0,
-                                                mainAxisSpacing: 10.0,
-                                                crossAxisSpacing: 10.0,
-                                              ),
-                                              itemBuilder: (context, idx) => cartModel[
-                                                              index]
-                                                          .products
-                                                          .length <
-                                                      3
+                                          itemBuilder: (context, idx) => cartModel[
+                                                          index]
+                                                      .products
+                                                      .length <
+                                                  3
+                                              ? _buildPrdReview(
+                                                  state
+                                                      .products[cartModel[index]
+                                                              .products[idx]
+                                                              .productId -
+                                                          1]!
+                                                      .image!,
+                                                  cartModel[index])
+                                              : idx < 1
                                                   ? _buildPrdReview(
                                                       state
                                                           .products[cartModel[
@@ -177,31 +188,20 @@ class _OrderHistoryState extends State<OrderHistory> {
                                                               1]!
                                                           .image!,
                                                       cartModel[index])
-                                                  : idx < 1
-                                                      ? _buildPrdReview(
-                                                          state
-                                                              .products[cartModel[
-                                                                          index]
-                                                                      .products[
-                                                                          idx]
-                                                                      .productId -
-                                                                  1]!
-                                                              .image!,
-                                                          cartModel[index])
-                                                      : _buildPrdReview(
-                                                          "+ ${cartModel[index].products.length - 1}",
-                                                          more: true,
-                                                          cartModel[index]),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    )),
-                              ),
-                            ],
-                          )),
-                ),
-              ));
+                                                  : _buildPrdReview(
+                                                      "+ ${cartModel[index].products.length - 1}",
+                                                      more: true,
+                                                      cartModel[index]),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )),
+                          ),
+                        ],
+                      )),
+            ),
+          );
         } else if (state is ProductsError) {
           return Center(child: ErrorView(errorText: state.error.toString()));
         }

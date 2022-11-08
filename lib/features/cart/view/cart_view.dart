@@ -35,9 +35,9 @@ class _CartViewState extends State<CartView> {
 
   @override
   void initState() {
-    final authBloc = BlocProvider.of<AuthBloc>(context);
-    BlocProvider.of<CartBloc>(context)
-        .add(FetchCarts(manager, scaffoldKey, authBloc));
+    // final authBloc = BlocProvider.of<AuthBloc>(context);
+    // BlocProvider.of<CartBloc>(context)
+    //     .add(FetchCarts(manager, scaffoldKey, authBloc));
     super.initState();
   }
 
@@ -59,11 +59,10 @@ class _CartViewState extends State<CartView> {
           //*Total Cart Price
           for (var e in cartModel.products) {
             quantityList.value.add(e.quantity);
-            total += e.quantity * state.products[e.productId]!.price!;
+            total += e.quantity * state.products[e.productId - 1]!.price!;
           }
           void quantityChangeNotifier(int index) {
             List<int> newQList = List.from(quantityList.value);
-            // Modify here newList as you wish.
             quantityList.value = newQList;
           }
 
@@ -109,8 +108,9 @@ class _CartViewState extends State<CartView> {
                                               child: CachedNetworkImage(
                                                 imageUrl: state
                                                     .products[cartModel
-                                                        .products[index]
-                                                        .productId]!
+                                                            .products[index]
+                                                            .productId -
+                                                        1]!
                                                     .image!,
                                                 fit: BoxFit.contain,
                                               )),
@@ -125,8 +125,9 @@ class _CartViewState extends State<CartView> {
                                                 child: Text(
                                                     state
                                                         .products[cartModel
-                                                            .products[index]
-                                                            .productId]!
+                                                                .products[index]
+                                                                .productId -
+                                                            1]!
                                                         .title!,
                                                     maxLines: 1,
                                                     overflow:
@@ -143,7 +144,7 @@ class _CartViewState extends State<CartView> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    "${state.products[cartModel.products[index].productId]!.price} ₺",
+                                                    "${state.products[cartModel.products[index].productId - 1]!.price} ₺",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .titleMedium,

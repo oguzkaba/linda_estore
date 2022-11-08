@@ -11,11 +11,7 @@ import '../../../core/init/routes/routes.gr.dart';
 
 // ignore: must_be_immutable
 class Dashboard extends StatelessWidget {
-  final int? id;
-  Dashboard({
-    Key? key,
-    this.id,
-  }) : super(key: key);
+  Dashboard({Key? key}) : super(key: key);
 
   List<BottomNavigationBarItem> screens = [
     BottomNavigationBarItem(
