@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/core/init/routes/routes.gr.dart';
 import 'package:linda_wedding_ecommerce/features/cart/model/cart_model.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/ebutton_widget.dart';
 
@@ -68,16 +70,26 @@ class _OrderHistoryState extends State<OrderHistory> {
           return const LoadingIndicatorWidget(lottieName: "cart_loading");
         } else if (state is ProductsLoaded) {
           return Scaffold(
+              appBar: AppBar(
+                  title: Text(LocaleKeys.account_action_trackOrder.locale,
+                      style: TextStyle(color: ColorConstants.myBlack)),
+                  leading: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: IconButtonWidget(
+                        size: 16,
+                        onPress: () => context.router.pop(),
+                        icon: Icons.chevron_left_rounded,
+                        iColor: ColorConstants.myMediumGrey,
+                        tooltip: "Back"),
+                  ),
+                  backgroundColor: Colors.transparent,
+                  elevation: 0.0,
+                  centerTitle: true),
               body: SingleChildScrollView(
-            primary: true,
-            child: Padding(
-              padding: context.paddingMedium,
-              child: Center(
-                child: Column(children: [
-                  Text(LocaleKeys.account_action_order.locale,
-                      style: Theme.of(context).textTheme.headlineSmall),
-                  context.emptySizedHeightBoxLow,
-                  ListView.builder(
+                primary: true,
+                child: Padding(
+                  padding: context.paddingMedium,
+                  child: ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: cartModel.length,
@@ -87,86 +99,127 @@ class _OrderHistoryState extends State<OrderHistory> {
                               context.emptySizedHeightBoxLow,
                               Text(cartModel[index].date.toString(),
                                   style:
-                                      Theme.of(context).textTheme.labelSmall),
-                              Card(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  child: Row(
-                                    children: [
-                                      Column(
+                                      Theme.of(context).textTheme.labelMedium),
+                              GestureDetector(
+                                onTap: () =>
+                                    context.router.push(Dashboard(id: 2)),
+                                child: Card(
+                                    margin: const EdgeInsets.only(top: 10),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0, horizontal: 18),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(cartModel[index].id.toString(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall),
-                                          context.emptySizedHeightBoxLow,
-                                          Text("TOTAL", //TODO total order price
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall),
-                                          const EButtonWidget(
-                                              text:
-                                                  "Delivered") //TODO order state
+                                          Expanded(
+                                            flex: 3,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    "ORDER-O00000${cartModel[index].id}",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall),
+                                                context.emptySizedHeightBoxLow,
+                                                Text(
+                                                    "TOTAL", //TODO total order price
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall),
+                                                context
+                                                    .emptySizedHeightBoxNormal,
+                                                const EButtonWidget(
+                                                  text: "Delivered",
+                                                  bRadius: 5,
+                                                  width: 100,
+                                                  height: 30,
+                                                ) //TODO order state
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: GridView.builder(
+                                              itemCount: cartModel[index]
+                                                          .products
+                                                          .length ==
+                                                      1
+                                                  ? 1
+                                                  : 2,
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              shrinkWrap: true,
+                                              gridDelegate:
+                                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount: cartModel[index]
+                                                            .products
+                                                            .length ==
+                                                        1
+                                                    ? 1
+                                                    : 2,
+                                                childAspectRatio: 1.0,
+                                                mainAxisSpacing: 10.0,
+                                                crossAxisSpacing: 10.0,
+                                              ),
+                                              itemBuilder: (context, idx) => cartModel[
+                                                              index]
+                                                          .products
+                                                          .length <
+                                                      3
+                                                  ? _buildPrdReview(
+                                                      state
+                                                          .products[cartModel[
+                                                                      index]
+                                                                  .products[idx]
+                                                                  .productId -
+                                                              1]!
+                                                          .image!,
+                                                      cartModel[index])
+                                                  : idx < 1
+                                                      ? _buildPrdReview(
+                                                          state
+                                                              .products[cartModel[
+                                                                          index]
+                                                                      .products[
+                                                                          idx]
+                                                                      .productId -
+                                                                  1]!
+                                                              .image!,
+                                                          cartModel[index])
+                                                      : _buildPrdReview(
+                                                          "+ ${cartModel[index].products.length - 1}",
+                                                          more: true,
+                                                          cartModel[index]),
+                                            ),
+                                          )
                                         ],
                                       ),
-                                      GridView.builder(
-                                        itemCount: 4,
-                                        itemBuilder: (context, idx) => idx < 2
-                                            ? Container(
-                                                decoration: BoxDecoration(
-                                                  color: ColorConstants
-                                                      .myLightGrey,
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                ),
-                                                child: CachedNetworkImage(
-                                                  imageUrl: state
-                                                      .products[cartModel[index]
-                                                          .products[idx]
-                                                          .productId]!
-                                                      .image
-                                                      .toString(),
-                                                  fit: BoxFit.contain,
-                                                ),
-                                              )
-                                            : Container(
-                                                decoration: BoxDecoration(
-                                                  color: ColorConstants
-                                                      .myLightGrey,
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                ),
-                                                child: Center(
-                                                    child: Text(
-                                                        (cartModel[index]
-                                                                    .products
-                                                                    .length -
-                                                                3)
-                                                            .toString(),
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleMedium)),
-                                              ),
-                                        gridDelegate:
-                                            SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount:
-                                                    context.isSmallScreen
-                                                        ? 2
-                                                        : context.isMediumScreen
-                                                            ? 3
-                                                            : 4,
-                                                childAspectRatio: 0.9),
-                                      )
-                                    ],
-                                  )),
+                                    )),
+                              ),
                             ],
                           )),
-                ]),
-              ),
-            ),
-          ));
+                ),
+              ));
         } else if (state is ProductsError) {
           return Center(child: ErrorView(errorText: state.error.toString()));
         }
         return const EmptyCartWidget();
       });
+
+  GestureDetector _buildPrdReview(String text, CartModel cartModel,
+      {bool more = false}) {
+    return GestureDetector(
+      onTap: () => context.router.popAndPush(CartView(cartModel: cartModel)),
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: ColorConstants.myLightGrey),
+            borderRadius: BorderRadius.circular(4)),
+        child: more
+            ? Center(child: Text(text))
+            : CachedNetworkImage(imageUrl: text),
+      ),
+    );
+  }
 }

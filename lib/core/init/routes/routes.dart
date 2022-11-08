@@ -28,7 +28,7 @@ import '../../../features/splash/view/splash_view.dart';
   routes: <AutoRoute>[
     AutoRoute(path: "/", page: SplashView, initial: true),
     AutoRoute(path: "/dashboard", page: Dashboard, children: [
-      AutoRoute(path: "home", page: HomeView, initial: true),
+      AutoRoute(path: "home", page: HomeView),
       AutoRoute(path: "cart", page: CartView),
       AutoRoute(path: "favorite", page: FavoriteView),
       AutoRoute(path: "account", page: AccountView),

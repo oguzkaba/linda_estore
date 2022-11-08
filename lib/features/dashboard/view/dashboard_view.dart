@@ -35,7 +35,12 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      routes: const [HomeView(), CartView(), FavoriteView(), AccountView()],
+      routes: [
+        const HomeView(),
+        CartView(cartModel: null),
+        const FavoriteView(),
+        const AccountView()
+      ],
       bottomNavigationBuilder: (_, tabs) => BottomNavigationBar(
           onTap: tabs.setActiveIndex,
           currentIndex: tabs.activeIndex,

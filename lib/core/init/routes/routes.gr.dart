@@ -29,6 +29,7 @@ import '../../../features/auth/forgot/verification/verification_view.dart'
 import '../../../features/auth/forgot/view/forgot_view.dart' as _i6;
 import '../../../features/auth/login/view/login_view.dart' as _i4;
 import '../../../features/auth/register/view/register_view.dart' as _i5;
+import '../../../features/cart/model/cart_model.dart' as _i24;
 import '../../../features/cart/view/cart_view.dart' as _i18;
 import '../../../features/cart/view/widgets/checkout.dart' as _i8;
 import '../../../features/dashboard/view/dashboard_view.dart' as _i2;
@@ -204,9 +205,11 @@ class AppRouter extends _i21.RootStackRouter {
           barrierDismissible: false);
     },
     CartView.name: (routeData) {
+      final args =
+          routeData.argsAs<CartViewArgs>(orElse: () => const CartViewArgs());
       return _i21.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i18.CartView(),
+          child: _i18.CartView(key: args.key, cartModel: args.cartModel),
           transitionsBuilder: _i21.TransitionsBuilders.fadeIn,
           durationInMilliseconds: 300,
           opaque: true,
@@ -236,11 +239,6 @@ class AppRouter extends _i21.RootStackRouter {
   List<_i21.RouteConfig> get routes => [
         _i21.RouteConfig(SplashView.name, path: '/'),
         _i21.RouteConfig(Dashboard.name, path: '/dashboard', children: [
-          _i21.RouteConfig('#redirect',
-              path: '',
-              parent: Dashboard.name,
-              redirectTo: 'home',
-              fullMatch: true),
           _i21.RouteConfig(HomeView.name, path: 'home', parent: Dashboard.name),
           _i21.RouteConfig(CartView.name, path: 'cart', parent: Dashboard.name),
           _i21.RouteConfig(FavoriteView.name,
@@ -452,10 +450,25 @@ class HomeView extends _i21.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i18.CartView]
-class CartView extends _i21.PageRouteInfo<void> {
-  const CartView() : super(CartView.name, path: 'cart');
+class CartView extends _i21.PageRouteInfo<CartViewArgs> {
+  CartView({_i22.Key? key, _i24.CartModel? cartModel})
+      : super(CartView.name,
+            path: 'cart', args: CartViewArgs(key: key, cartModel: cartModel));
 
   static const String name = 'CartView';
+}
+
+class CartViewArgs {
+  const CartViewArgs({this.key, this.cartModel});
+
+  final _i22.Key? key;
+
+  final _i24.CartModel? cartModel;
+
+  @override
+  String toString() {
+    return 'CartViewArgs{key: $key, cartModel: $cartModel}';
+  }
 }
 
 /// generated route for

@@ -22,7 +22,8 @@ import '../model/cart_model.dart';
 import 'widgets/empty_cart_widget.dart';
 
 class CartView extends StatefulWidget {
-  const CartView({super.key});
+  final CartModel? cartModel;
+  const CartView({super.key, this.cartModel});
 
   @override
   State<CartView> createState() => _CartViewState();
@@ -44,35 +45,19 @@ class _CartViewState extends State<CartView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: BlocConsumer<CartBloc, CartState>(listener: (context, state) {
-      if (state is CartError) {
-        CustomErrorWidgets.showError(context, state.error.toString(),
-            topMargin: 115);
-      }
-    }, builder: (context, state) {
-      if (state is CartLoading) {
-        return const LoadingIndicatorWidget(lottieName: "cart_loading");
-      } else if (state is CartLoaded) {
-        if (state.cartModel.isNullOrEmpty) {
-          return const EmptyCartWidget();
-        } else {
-          return _buildCartLoaded(state.cartModel);
-        }
-      } else if (state is CartError) {
-        return Center(child: ErrorView(errorText: state.error.toString()));
-      }
-      return const LoadingIndicatorWidget(lottieName: "cart_loading");
-    }));
+        child: (widget.cartModel == null)
+            ? const EmptyCartWidget()
+            : _buildCartLoaded(widget.cartModel!));
   }
 
-  Widget _buildCartLoaded(List<CartModel> cartModel) =>
+  Widget _buildCartLoaded(CartModel cartModel) =>
       BlocBuilder<ProductsBloc, ProductsState>(builder: (context, state) {
         double total = 0;
         if (state is ProductsLoading) {
           return const LoadingIndicatorWidget(lottieName: "cart_loading");
         } else if (state is ProductsLoaded) {
           //*Total Cart Price
-          for (var e in cartModel[0].products) {
+          for (var e in cartModel.products) {
             quantityList.value.add(e.quantity);
             total += e.quantity * state.products[e.productId]!.price!;
           }
@@ -102,7 +87,7 @@ class _CartViewState extends State<CartView> {
                                 ListView.builder(
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemCount: cartModel[0].products.length,
+                                  itemCount: cartModel.products.length,
                                   itemBuilder: (context, index) => Dismissible(
                                     dismissThresholds: const {
                                       DismissDirection.endToStart: 0.6
@@ -123,7 +108,7 @@ class _CartViewState extends State<CartView> {
                                               height: context.height / 8,
                                               child: CachedNetworkImage(
                                                 imageUrl: state
-                                                    .products[cartModel[0]
+                                                    .products[cartModel
                                                         .products[index]
                                                         .productId]!
                                                     .image!,
@@ -139,7 +124,7 @@ class _CartViewState extends State<CartView> {
                                                 alignment: Alignment.centerLeft,
                                                 child: Text(
                                                     state
-                                                        .products[cartModel[0]
+                                                        .products[cartModel
                                                             .products[index]
                                                             .productId]!
                                                         .title!,
@@ -158,7 +143,7 @@ class _CartViewState extends State<CartView> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    "${state.products[cartModel[0].products[index].productId]!.price} ₺",
+                                                    "${state.products[cartModel.products[index].productId]!.price} ₺",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .titleMedium,
@@ -186,7 +171,7 @@ class _CartViewState extends State<CartView> {
                                                               .myBlack,
                                                           tooltip: "Remove"),
                                                       Text(
-                                                        cartModel[0]
+                                                        cartModel
                                                             .products[index]
                                                             .quantity
                                                             .toString(),

@@ -10,6 +10,7 @@ class EButtonWidget extends StatelessWidget {
   final Color? tColor;
   final Color? bgColor;
   final bool useBorder;
+  final double? bRadius;
   const EButtonWidget({
     Key? key,
     this.onPress,
@@ -19,6 +20,7 @@ class EButtonWidget extends StatelessWidget {
     this.tColor,
     this.bgColor,
     this.useBorder = false,
+    this.bRadius,
   }) : super(key: key);
 
   @override
@@ -34,7 +36,7 @@ class EButtonWidget extends StatelessWidget {
                   side: BorderSide(
                       color: ColorConstants.primaryColor,
                       style: useBorder ? BorderStyle.solid : BorderStyle.none),
-                  borderRadius: BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(bRadius ?? 10)),
               backgroundColor: bgColor ?? ColorConstants.primaryColor),
           child: text == null
               ? Center(
