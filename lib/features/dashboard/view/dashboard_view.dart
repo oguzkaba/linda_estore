@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
@@ -30,6 +31,7 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favoriteList = context.watch<FavoriteCubit>().favList;
     return AutoTabsScaffold(
       routes: [
         const HomeView(),
@@ -45,8 +47,7 @@ class Dashboard extends StatelessWidget {
               .map(
                 (e) => BottomNavigationBarItem(
                   label: e.label,
-                  icon: e.label == "Favorites" &&
-                          FavoriteCubit().state.favList.isNotEmpty
+                  icon: e.label == "Favorites" && favoriteList.isNotEmpty
                       ? Stack(children: [
                           e.icon,
                           Positioned(
@@ -56,12 +57,7 @@ class Dashboard extends StatelessWidget {
                                 backgroundColor: ColorConstants.myBlack,
                                 radius: 6,
                                 child: Center(
-                                    child: Text(
-                                        FavoriteCubit()
-                                            .state
-                                            .favList
-                                            .length
-                                            .toString(),
+                                    child: Text(favoriteList.length.toString(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall

@@ -43,9 +43,11 @@ class _RegisterViewState extends State<RegisterView> {
               _buildInput(LocaleKeys.register_tfieldEmailHint.locale,
                   Icons.email_outlined),
               Padding(padding: context.paddingLow),
-              _buildPassInput(LocaleKeys.register_tfieldPassHint.locale),
+              _buildPassInput(
+                  LocaleKeys.register_tfieldPassHint.locale, context),
               Padding(padding: context.paddingLow),
-              _buildPassInput(LocaleKeys.register_tfieldPass2Hint.locale),
+              _buildPassInput(
+                  LocaleKeys.register_tfieldPass2Hint.locale, context),
               Padding(padding: context.paddingLow),
               //*sign up button
               EButtonWidget(
@@ -67,23 +69,17 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  BlocBuilder<LoginCubit, LoginState> _buildPassInput(String hintText) {
-    return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
-      if (state is ToogleSuffixIcon) {
-        bool visibleValue = state.visibility;
-        return TextFieldWidget(
-            pIcon: Icons.lock_outlined,
-            sIcon: visibleValue
-                ? Icons.visibility_off_outlined
-                : Icons.visibility_outlined,
-            suffixOnPress: () =>
-                context.read<LoginCubit>().toogleSuffixIcon(!visibleValue),
-            obscureText: visibleValue ? false : true,
-            hintText: hintText);
-      } else {
-        return context.emptySizedHeightBoxLow;
-      }
-    });
+  Widget _buildPassInput(String hintText, BuildContext context) {
+    final visibility = context.watch<LoginCubit>().state.visibility;
+    return TextFieldWidget(
+        pIcon: Icons.lock_outlined,
+        sIcon: visibility
+            ? Icons.visibility_off_outlined
+            : Icons.visibility_outlined,
+        suffixOnPress: () =>
+            context.read<LoginCubit>().toogleSuffixIcon(!visibility),
+        obscureText: visibility ? false : true,
+        hintText: hintText);
   }
 
   TextFieldWidget _buildInput(String hintText, IconData icon) {

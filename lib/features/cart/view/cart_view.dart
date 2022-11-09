@@ -98,107 +98,120 @@ class _CartViewState extends State<CartView> {
                                     background: _slideRightBackground(),
                                     //secondaryBackground: _slideLeftBackground(),
                                     key: UniqueKey(),
-                                    child: Card(
-                                      child: Row(children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: SizedBox(
-                                              width: context.width * .24,
-                                              height: context.height / 8,
-                                              child: CachedNetworkImage(
-                                                imageUrl: state
-                                                    .products[cartModel
-                                                            .products[index]
-                                                            .productId -
-                                                        1]!
-                                                    .image!,
-                                                fit: BoxFit.contain,
-                                              )),
-                                        ),
-                                        SizedBox(
-                                          width: context.width * .53,
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                    state
-                                                        .products[cartModel
-                                                                .products[index]
-                                                                .productId -
-                                                            1]!
-                                                        .title!,
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.left,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall),
-                                              ),
-                                              context.emptySizedHeightBoxLow,
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "${state.products[cartModel.products[index].productId - 1]!.price} ₺",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleMedium,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      IconButtonWidget(
-                                                          onPress: () {
-                                                            quantityChangeNotifier(
-                                                                index);
-                                                            quantityList.value[
-                                                                        index] ==
-                                                                    1
-                                                                ? null
-                                                                : quantityList
-                                                                        .value[
-                                                                    index] -= 1;
-                                                            quantityChangeNotifier(
-                                                                index);
-                                                          },
-                                                          circleRadius: 14,
-                                                          size: 12,
-                                                          icon: Icons.remove,
-                                                          iColor: ColorConstants
-                                                              .myBlack,
-                                                          tooltip: "Remove"),
-                                                      Text(
-                                                        cartModel
-                                                            .products[index]
-                                                            .quantity
-                                                            .toString(),
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleMedium,
-                                                      ),
-                                                      IconButtonWidget(
-                                                          onPress: () =>
-                                                              quantityList
-                                                                      .value[
-                                                                  index] += 1,
-                                                          circleRadius: 14,
-                                                          size: 12,
-                                                          icon: Icons.add,
-                                                          iColor: ColorConstants
-                                                              .myBlack,
-                                                          tooltip: "Add")
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ],
+                                    child: GestureDetector(
+                                      onTap: () =>
+                                          context.router.push(ProductDetailView(
+                                        id: cartModel.products[index].productId,
+                                        manager: NetworkService
+                                            .instance.networkManager,
+                                      )),
+                                      child: Card(
+                                        child: Row(children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: SizedBox(
+                                                width: context.width * .24,
+                                                height: context.height / 8,
+                                                child: CachedNetworkImage(
+                                                  imageUrl: state
+                                                      .products[cartModel
+                                                              .products[index]
+                                                              .productId -
+                                                          1]!
+                                                      .image!,
+                                                  fit: BoxFit.contain,
+                                                )),
                                           ),
-                                        ),
-                                      ]),
+                                          SizedBox(
+                                            width: context.width * .53,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Align(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: Text(
+                                                      state
+                                                          .products[cartModel
+                                                                  .products[
+                                                                      index]
+                                                                  .productId -
+                                                              1]!
+                                                          .title!,
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      textAlign: TextAlign.left,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall),
+                                                ),
+                                                context.emptySizedHeightBoxLow,
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      "${state.products[cartModel.products[index].productId - 1]!.price} ₺",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        IconButtonWidget(
+                                                            onPress: () {
+                                                              quantityChangeNotifier(
+                                                                  index);
+                                                              quantityList.value[
+                                                                          index] ==
+                                                                      1
+                                                                  ? null
+                                                                  : quantityList
+                                                                          .value[
+                                                                      index] -= 1;
+                                                              quantityChangeNotifier(
+                                                                  index);
+                                                            },
+                                                            circleRadius: 14,
+                                                            size: 12,
+                                                            icon: Icons.remove,
+                                                            iColor:
+                                                                ColorConstants
+                                                                    .myBlack,
+                                                            tooltip: "Remove"),
+                                                        Text(
+                                                          cartModel
+                                                              .products[index]
+                                                              .quantity
+                                                              .toString(),
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .titleMedium,
+                                                        ),
+                                                        IconButtonWidget(
+                                                            onPress: () =>
+                                                                quantityList
+                                                                        .value[
+                                                                    index] += 1,
+                                                            circleRadius: 14,
+                                                            size: 12,
+                                                            icon: Icons.add,
+                                                            iColor:
+                                                                ColorConstants
+                                                                    .myBlack,
+                                                            tooltip: "Add")
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ]),
+                                      ),
                                     ),
                                   ),
                                 ),

@@ -20,7 +20,7 @@ import '../model/login_request_model.dart';
 
 /*
 1
-johnd
+johnd 
 m38rmF$
 
 2
@@ -111,7 +111,7 @@ class _LoginViewState extends State<LoginView> {
                 Padding(padding: context.paddingLow),
                 _buildUnameInput(),
                 Padding(padding: context.paddingLow),
-                _buildPassInput(),
+                _buildPassInput(context),
                 //*forgot password
                 _buildForgotButton(),
                 //*sign in button
@@ -162,26 +162,21 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  BlocBuilder<LoginCubit, LoginState> _buildPassInput() {
-    return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
-      if (state is ToogleSuffixIcon) {
-        return TextFieldWidget(
-            keyType: TextInputType.name,
-            actionType: TextInputAction.done,
-            controller: passwordController,
-            pIcon: Icons.lock_outlined,
-            sIcon: state.visibility
-                ? Icons.visibility_off_outlined
-                : Icons.visibility_outlined,
-            suffixOnPress: () =>
-                context.read<LoginCubit>().toogleSuffixIcon(!state.visibility),
-            obscureText: state.visibility ? false : true,
-            labelText: "Password",
-            hintText: LocaleKeys.login_tfieldPassHint.locale);
-      } else {
-        return context.emptySizedHeightBoxLow;
-      }
-    });
+  Widget _buildPassInput(BuildContext context) {
+    final visibility = context.watch<LoginCubit>().state.visibility;
+    return TextFieldWidget(
+        keyType: TextInputType.name,
+        actionType: TextInputAction.done,
+        controller: passwordController,
+        pIcon: Icons.lock_outlined,
+        sIcon: visibility
+            ? Icons.visibility_off_outlined
+            : Icons.visibility_outlined,
+        suffixOnPress: () =>
+            context.read<LoginCubit>().toogleSuffixIcon(!visibility),
+        obscureText: visibility ? false : true,
+        labelText: "Password",
+        hintText: LocaleKeys.login_tfieldPassHint.locale);
   }
 
   TextFieldWidget _buildUnameInput() {

@@ -1,16 +1,8 @@
 part of 'login_cubit.dart';
 
-abstract class LoginState extends Equatable {
-  const LoginState();
-
-  @override
-  List<Object> get props => [];
-}
-
-class ToogleSuffixIcon extends LoginState {
+class LoginState extends Equatable {
   final bool visibility;
-
-  const ToogleSuffixIcon(this.visibility);
+  const LoginState(this.visibility);
 
   @override
   List<Object> get props => [visibility];

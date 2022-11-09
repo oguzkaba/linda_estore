@@ -21,6 +21,7 @@ class FavoriteView extends StatefulWidget {
 class _FavoriteViewState extends State<FavoriteView> {
   @override
   Widget build(BuildContext context) {
+    var favoriteList = context.watch<FavoriteCubit>().favList;
     return SafeArea(
         child: Scaffold(
             body: Padding(
@@ -42,7 +43,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                           child: ListView.builder(
                             physics: const BouncingScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: FavoriteCubit().state.favList.length,
+                            itemCount: favoriteList.length,
                             itemBuilder: (context, index) => Dismissible(
                               dismissThresholds: const {
                                 DismissDirection.endToStart: 0.6,
@@ -63,9 +64,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                         height: context.height / 8,
                                         child: CachedNetworkImage(
                                           imageUrl: state
-                                              .products[FavoriteCubit()
-                                                  .state
-                                                  .favList[index]]!
+                                              .products[favoriteList[index]]!
                                               .image!,
                                           fit: BoxFit.contain,
                                         )),

@@ -100,7 +100,7 @@ class _OrderHistoryState extends State<OrderHistory> {
                           context.emptySizedHeightBoxLow,
                           Text(cartModel[index].date.toString(),
                               style: Theme.of(context).textTheme.labelMedium),
-                          InkWell(
+                          GestureDetector(
                             onTap: () {
                               context.router.push(DashboardRouter(children: [
                                 CartView(cartModel: cartModel[index])
@@ -165,33 +165,33 @@ class _OrderHistoryState extends State<OrderHistory> {
                                             mainAxisSpacing: 10.0,
                                             crossAxisSpacing: 10.0,
                                           ),
-                                          itemBuilder: (context, idx) => cartModel[
-                                                          index]
-                                                      .products
-                                                      .length <
-                                                  3
-                                              ? _buildPrdReview(
-                                                  state
-                                                      .products[cartModel[index]
-                                                              .products[idx]
-                                                              .productId -
-                                                          1]!
-                                                      .image!,
-                                                  cartModel[index])
-                                              : idx < 1
-                                                  ? _buildPrdReview(
-                                                      state
-                                                          .products[cartModel[
-                                                                      index]
-                                                                  .products[idx]
-                                                                  .productId -
-                                                              1]!
-                                                          .image!,
-                                                      cartModel[index])
-                                                  : _buildPrdReview(
-                                                      "+ ${cartModel[index].products.length - 1}",
-                                                      more: true,
-                                                      cartModel[index]),
+                                          itemBuilder: (context, idx) {
+                                            final productId = cartModel[index]
+                                                .products[idx]
+                                                .productId;
+                                            return cartModel[index]
+                                                        .products
+                                                        .length <
+                                                    3
+                                                ? _buildPrdReview(
+                                                    state
+                                                        .products[
+                                                            productId - 1]!
+                                                        .image!,
+                                                    productId: productId)
+                                                : idx < 1
+                                                    ? _buildPrdReview(
+                                                        state
+                                                            .products[
+                                                                productId - 1]!
+                                                            .image!,
+                                                        productId: productId)
+                                                    : _buildPrdReview(
+                                                        "+ ${cartModel[index].products.length - 1}",
+                                                        more: true,
+                                                        cartModel:
+                                                            cartModel[index]);
+                                          },
                                         ),
                                       )
                                     ],
@@ -208,10 +208,16 @@ class _OrderHistoryState extends State<OrderHistory> {
         return const EmptyCartWidget();
       });
 
-  GestureDetector _buildPrdReview(String text, CartModel cartModel,
-      {bool more = false}) {
+  GestureDetector _buildPrdReview(String text,
+      {CartModel? cartModel, int? productId, bool more = false}) {
     return GestureDetector(
-      onTap: () => context.router.popAndPush(CartView(cartModel: cartModel)),
+      onTap: () => more
+          ? context.router
+              .push(DashboardRouter(children: [CartView(cartModel: cartModel)]))
+          : context.router.push(ProductDetailView(
+              id: productId!,
+              manager: NetworkService.instance.networkManager,
+            )),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(color: ColorConstants.myLightGrey),

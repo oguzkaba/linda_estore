@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/components/indicator/loading_indicator.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
+import 'package:linda_wedding_ecommerce/features/error/view/error_view.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/extansions/asset_extansion.dart';
@@ -53,7 +55,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         }
       },
       builder: (context, state) {
-        if (state is ProductLoaded) {
+        if (state is ProductLoading) {
+          return const LoadingIndicatorWidget(lottieName: "product_loading");
+        } else if (state is ProductLoaded) {
           return SafeArea(
             child: Scaffold(
               backgroundColor: ColorConstants.myWhite,
@@ -194,7 +198,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
             ),
           );
         } else if (state is ProductError) {
-          return Scaffold(body: Center(child: SvgPicture.asset("error".toSVG)));
+          return ErrorView(errorText: state.error.toString());
         } else {
           return Container(
               color: ColorConstants.myWhite,
