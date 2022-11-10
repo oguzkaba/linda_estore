@@ -16,7 +16,7 @@ import '../../../../product/utils/custom_error_widgets.dart';
 import '../../../../product/widgets/iconbutton_widget.dart';
 import '../../../auth/bloc/auth_bloc.dart';
 import '../../../cart/bloc/cart_bloc.dart';
-import '../../../cart/view/widgets/empty_cart_widget.dart';
+import '../../../../product/widgets/empty_info_widget.dart';
 import '../../../error/view/error_view.dart';
 import '../../../product/blocs/products/products_bloc.dart';
 
@@ -69,7 +69,9 @@ class _OrderHistoryState extends State<OrderHistory> {
                     lottieName: "order_loading");
               } else if (state is CartLoaded) {
                 if (state.cartModel.isNullOrEmpty) {
-                  return const EmptyCartWidget();
+                  return EmptyInfoWidget(
+                      lottieSrc: "empty_cart",
+                      text: LocaleKeys.cart_emptyTitle.locale);
                 } else {
                   return _buildCartLoaded(state.cartModel);
                 }
@@ -205,7 +207,8 @@ class _OrderHistoryState extends State<OrderHistory> {
         } else if (state is ProductsError) {
           return Center(child: ErrorView(errorText: state.error.toString()));
         }
-        return const EmptyCartWidget();
+        return EmptyInfoWidget(
+            lottieSrc: "empty_cart", text: LocaleKeys.cart_emptyTitle.locale);
       });
 
   GestureDetector _buildPrdReview(String text,

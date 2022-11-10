@@ -19,7 +19,7 @@ import '../../../product/widgets/textfield_widget.dart';
 import '../../product/blocs/products/products_bloc.dart';
 import '../bloc/cart_bloc.dart';
 import '../model/cart_model.dart';
-import 'widgets/empty_cart_widget.dart';
+import '../../../product/widgets/empty_info_widget.dart';
 
 class CartView extends StatefulWidget {
   final CartModel? cartModel;
@@ -46,7 +46,9 @@ class _CartViewState extends State<CartView> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: (widget.cartModel == null)
-            ? const EmptyCartWidget()
+            ? EmptyInfoWidget(
+                lottieSrc: "empty_cart",
+                text: LocaleKeys.cart_emptyTitle.locale)
             : _buildCartLoaded(widget.cartModel!));
   }
 
@@ -69,7 +71,9 @@ class _CartViewState extends State<CartView> {
           return ValueListenableBuilder(
               valueListenable: quantityList,
               builder: (context, value, child) => quantityList.value.isEmpty
-                  ? const EmptyCartWidget()
+                  ? EmptyInfoWidget(
+                      lottieSrc: "empty_cart",
+                      text: LocaleKeys.cart_emptyTitle.locale)
                   : Scaffold(
                       body: SingleChildScrollView(
                         primary: true,
@@ -262,7 +266,8 @@ class _CartViewState extends State<CartView> {
         } else if (state is ProductsError) {
           return Center(child: ErrorView(errorText: state.error.toString()));
         }
-        return const EmptyCartWidget();
+        return EmptyInfoWidget(
+            lottieSrc: "empty_cart", text: LocaleKeys.cart_emptyTitle.locale);
       });
 
   Future<bool?> _showDialogWidget(BuildContext context, int index) {

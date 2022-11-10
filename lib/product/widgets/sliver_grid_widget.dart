@@ -105,15 +105,14 @@ class MySliverGridWidget extends StatelessWidget {
                 return IconButtonWidget(
                     onPress: () =>
                         context.read<FavoriteCubit>().toogleFavorite(index),
-                    icon: context.watch<FavoriteCubit>().favList.contains(index)
+                    icon: state.favList.contains(index)
                         ? Icons.favorite_rounded
                         : Icons.favorite_border,
                     size: 18,
                     circleRadius: 18,
-                    iColor:
-                        context.watch<FavoriteCubit>().favList.contains(index)
-                            ? ColorConstants.primaryColor
-                            : ColorConstants.myMediumGrey,
+                    iColor: state.favList.contains(index)
+                        ? ColorConstants.primaryColor
+                        : ColorConstants.myMediumGrey,
                     tooltip: "Favorite");
               },
             ),

@@ -5,17 +5,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'favorite_state.dart';
 
 class FavoriteCubit extends Cubit<FavoriteState> {
-  final List<int> favList;
-  FavoriteCubit(this.favList) : super(FavoriteState(favList));
+  FavoriteCubit() : super(const FavoriteState(favList: []));
 
-  void toogleFavorite(int index) {
+  Future<void> toogleFavorite(int index) async {
     try {
-      if (favList.contains(index)) {
-        favList.remove(index);
+      if (state.favList.contains(index)) {
+        var tempList = [...state.favList];
+        tempList.remove(index);
+
+        emit(FavoriteState(favList: [...tempList]));
       } else {
-        favList.add(index);
+        emit(FavoriteState(favList: [...state.favList, index]));
       }
-      emit(FavoriteState(favList));
     } catch (e) {
       if (e is DioError) {
         //emit(FavoriteError(e));

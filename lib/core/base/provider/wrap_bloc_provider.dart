@@ -44,7 +44,7 @@ class WrapBlocProvider extends StatelessWidget {
           create: (context) => CartBloc(),
         ),
         BlocProvider(
-          create: (context) => FavoriteCubit([]),
+          create: (context) => FavoriteCubit(),
         ),
         BlocProvider(
           create: (context) => LanguageCubit(),
