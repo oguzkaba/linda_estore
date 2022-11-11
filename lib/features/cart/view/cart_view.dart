@@ -5,19 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
-import 'package:linda_wedding_ecommerce/features/auth/bloc/auth_bloc.dart';
 import 'package:linda_wedding_ecommerce/features/error/view/error_view.dart';
 
 import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/init/network/service/network_service.dart';
 import '../../../core/init/routes/routes.gr.dart';
-import '../../../product/utils/custom_error_widgets.dart';
 import '../../../product/widgets/ebutton_widget.dart';
 import '../../../product/widgets/iconbutton_widget.dart';
 import '../../../product/widgets/textfield_widget.dart';
 import '../../product/blocs/products/products_bloc.dart';
-import '../bloc/cart_bloc.dart';
 import '../model/cart_model.dart';
 import '../../../product/widgets/empty_info_widget.dart';
 

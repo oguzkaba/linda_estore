@@ -103,14 +103,15 @@ class MySliverGridWidget extends StatelessWidget {
             child: BlocBuilder<FavoriteCubit, FavoriteState>(
               builder: (context, state) {
                 return IconButtonWidget(
-                    onPress: () =>
-                        context.read<FavoriteCubit>().toogleFavorite(index),
-                    icon: state.favList.contains(index)
+                    onPress: () => context
+                        .read<FavoriteCubit>()
+                        .toogleFavorite(model[index]!.id!),
+                    icon: state.favList.contains(model[index]!.id!)
                         ? Icons.favorite_rounded
                         : Icons.favorite_border,
                     size: 18,
                     circleRadius: 18,
-                    iColor: state.favList.contains(index)
+                    iColor: state.favList.contains(model[index]!.id!)
                         ? ColorConstants.primaryColor
                         : ColorConstants.myMediumGrey,
                     tooltip: "Favorite");

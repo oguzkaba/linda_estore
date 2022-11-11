@@ -6,11 +6,13 @@ import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/components/indicator/loading_indicator.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
+import 'package:linda_wedding_ecommerce/features/product/model/product_model.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/empty_info_widget.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../product/utils/custom_error_widgets.dart';
 import '../../product/blocs/products/products_bloc.dart';
+import '../../product/model/products_model.dart';
 import '../cubit/favorite_cubit.dart';
 
 class FavoriteView extends StatefulWidget {
@@ -23,6 +25,7 @@ class FavoriteView extends StatefulWidget {
 class _FavoriteViewState extends State<FavoriteView> {
   @override
   Widget build(BuildContext context) {
+    List<ProductsModel?> products = [];
     return SafeArea(
         child: Scaffold(
             body: Padding(
@@ -48,6 +51,10 @@ class _FavoriteViewState extends State<FavoriteView> {
                                 return const LoadingIndicatorWidget(
                                     lottieName: "favorite_loading");
                               } else if (state is ProductsLoaded) {
+                                if (products.isEmpty) {
+                                  products = state.products;
+                                }
+
                                 return Expanded(
                                   child: ListView.builder(
                                     physics: const BouncingScrollPhysics(),
@@ -74,9 +81,9 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                 width: context.width * .24,
                                                 height: context.height / 8,
                                                 child: CachedNetworkImage(
-                                                  imageUrl: state
-                                                      .products[stateFav
-                                                          .favList[index]]!
+                                                  imageUrl: products[stateFav
+                                                              .favList[index] -
+                                                          1]!
                                                       .image!,
                                                   fit: BoxFit.contain,
                                                 )),
@@ -90,7 +97,9 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                   alignment:
                                                       Alignment.centerLeft,
                                                   child: Text(
-                                                      state.products[index]!
+                                                      products[stateFav.favList[
+                                                                  index] -
+                                                              1]!
                                                           .title!,
                                                       maxLines: 1,
                                                       overflow:
@@ -107,7 +116,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      "${state.products[index]!.price} ₺",
+                                                      "${products[stateFav.favList[index] - 1]!.price} ₺",
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .titleMedium,

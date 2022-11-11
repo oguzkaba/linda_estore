@@ -3,19 +3,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/components/indicator/loading_indicator.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
-import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
-import 'package:linda_wedding_ecommerce/features/error/view/error_view.dart';
 
+import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
-import '../../../core/extansions/asset_extansion.dart';
+import '../../../core/extansions/string_extansion.dart';
+import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../product/mock/model/fake_reviews_model.dart';
 import '../../../product/utils/custom_error_widgets.dart';
 import '../../../product/widgets/export_widget.dart';
 import '../../../product/widgets/iconbutton_widget.dart';
+import '../../error/view/error_view.dart';
+import '../../favorite/cubit/favorite_cubit.dart';
 import '../blocs/product/product_bloc.dart';
 import '../model/product_model.dart';
 
@@ -78,14 +77,24 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
                     child: IconButtonWidget(
-                        onPress: () => debugPrint("added favorite"),
-                        icon: state.product.id! % 3 == 0
-                            ? Icons.favorite_border
-                            : Icons.favorite_rounded,
+                        onPress: () => context
+                            .read<FavoriteCubit>()
+                            .toogleFavorite(widget.id),
+                        icon: context
+                                .watch<FavoriteCubit>()
+                                .state
+                                .favList
+                                .contains(state.product.id!)
+                            ? Icons.favorite_rounded
+                            : Icons.favorite_border,
                         size: 16,
-                        iColor: state.product.id! % 3 == 0
-                            ? ColorConstants.myMediumGrey
-                            : ColorConstants.primaryColor,
+                        iColor: context
+                                .watch<FavoriteCubit>()
+                                .state
+                                .favList
+                                .contains(state.product.id!)
+                            ? ColorConstants.primaryColor
+                            : ColorConstants.myMediumGrey,
                         tooltip: "Favorite"),
                   ),
                 ],
@@ -97,7 +106,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
-                      child: Image.network(state.product.image!,
+                      child: CachedNetworkImage(
+                          imageUrl: state.product.image!,
                           height: context.height * .5),
                     ),
                     Padding(padding: context.paddingLow),

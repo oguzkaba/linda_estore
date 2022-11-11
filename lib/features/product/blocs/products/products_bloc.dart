@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import "../../../../core/extansions/cast_extansion.dart";
 
 import '../../model/products_model.dart';
 import '../../service/category_service.dart';
@@ -33,8 +34,10 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
           emit(ProductsLoading());
           final result = await CategoryService(event.manager, event.scaffoldKey)
               .fetchProductByCategory(categoryName: event.categoryName);
+
           if (result.object != null) {
-            emit(ProductsLoaded(result.object as List<ProductsModel>));
+            emit(ProductsLoaded(
+                result.object!.toCastModel<List<ProductsModel?>>()!));
           } else {
             emit(ProductsError(result.error!));
           }
