@@ -36,8 +36,14 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
               .fetchProductByCategory(categoryName: event.categoryName);
 
           if (result.object != null) {
-            emit(ProductsLoaded(
-                result.object!.toCastModel<List<ProductsModel?>>()!));
+            List<ProductsModel> filteredList = [];
+            for (var element in result.object as List<ProductsModel>) {
+              //todo kontrol
+              if (element.category == event.categoryName) {
+                filteredList.add(element);
+              }
+            }
+            emit(ProductsLoaded(filteredList));
           } else {
             emit(ProductsError(result.error!));
           }

@@ -14,17 +14,19 @@ class EmptyInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: context.paddingMedium,
-        child: Column(
-          children: [
-            Text(text, style: Theme.of(context).textTheme.headlineSmall),
-            SizedBox(
-              height: context.height * .7,
-              child: Lottie.asset(lottieSrc.toLottie),
-            ),
-          ],
+    return Scaffold(
+      body: Center(
+        child: Padding(
+          padding: context.paddingMedium,
+          child: Column(
+            children: [
+              Text(text, style: Theme.of(context).textTheme.headlineSmall),
+              SizedBox(
+                height: context.height * .7,
+                child: Lottie.asset(lottieSrc.toLottie),
+              ),
+            ],
+          ),
         ),
       ),
     );

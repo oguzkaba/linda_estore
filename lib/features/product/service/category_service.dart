@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:linda_wedding_ecommerce/core/enums/api_route_enums.dart';
+import 'package:linda_wedding_ecommerce/features/product/model/products_by_cat_model.dart';
 
 import '../../../core/base/model/base_response_model.dart';
 import '../../../core/init/network/model/network_error_model.dart';
@@ -36,8 +37,7 @@ class CategoryService extends ICategoryService {
   Future<BaseResponseModel> fetchProductByCategory(
       {required String categoryName}) async {
     try {
-      final response =
-          await manager.get(ApiUrlEnum.category.url + categoryName);
+      final response = await manager.get(ApiUrlEnum.products.url);
 
       return BaseResponseModel(object: productsModelFromJson(response.data));
     } on DioError catch (e) {

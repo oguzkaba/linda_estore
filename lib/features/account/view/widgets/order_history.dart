@@ -19,6 +19,7 @@ import '../../../cart/bloc/cart_bloc.dart';
 import '../../../../product/widgets/empty_info_widget.dart';
 import '../../../error/view/error_view.dart';
 import '../../../product/blocs/products/products_bloc.dart';
+import '../../../product/model/products_model.dart';
 
 class OrderHistory extends StatefulWidget {
   const OrderHistory({super.key});
@@ -30,6 +31,7 @@ class OrderHistory extends StatefulWidget {
 class _OrderHistoryState extends State<OrderHistory> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final manager = NetworkService.instance.networkManager;
+  List<ProductsModel?> products = [];
 
   @override
   void initState() {
@@ -88,6 +90,9 @@ class _OrderHistoryState extends State<OrderHistory> {
         if (state is ProductsLoading) {
           return const LoadingIndicatorWidget(lottieName: "cart_loading");
         } else if (state is ProductsLoaded) {
+          if (products.isEmpty) {
+            products = state.products;
+          }
           return SingleChildScrollView(
             primary: true,
             child: Padding(
@@ -175,20 +180,16 @@ class _OrderHistoryState extends State<OrderHistory> {
                                                         .products
                                                         .length <
                                                     3
-                                                ? _buildPrdReview(
-                                                    state
-                                                        .products[
-                                                            productId - 1]!
+                                                ? _buildPrdPreview(
+                                                    products[productId - 1]!
                                                         .image!,
                                                     productId: productId)
                                                 : idx < 1
-                                                    ? _buildPrdReview(
-                                                        state
-                                                            .products[
-                                                                productId - 1]!
+                                                    ? _buildPrdPreview(
+                                                        products[productId - 1]!
                                                             .image!,
                                                         productId: productId)
-                                                    : _buildPrdReview(
+                                                    : _buildPrdPreview(
                                                         "+ ${cartModel[index].products.length - 1}",
                                                         more: true,
                                                         cartModel:
@@ -211,7 +212,7 @@ class _OrderHistoryState extends State<OrderHistory> {
             lottieSrc: "empty_cart", text: LocaleKeys.cart_emptyTitle.locale);
       });
 
-  GestureDetector _buildPrdReview(String text,
+  GestureDetector _buildPrdPreview(String text,
       {CartModel? cartModel, int? productId, bool more = false}) {
     return GestureDetector(
       onTap: () => more

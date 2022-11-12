@@ -57,7 +57,9 @@ class Dashboard extends StatelessWidget {
                               right: 0,
                               top: 0,
                               child: CircleAvatar(
-                                  backgroundColor: ColorConstants.myBlack,
+                                  backgroundColor: tabs.activeIndex == 2
+                                      ? ColorConstants.myBlack
+                                      : ColorConstants.primaryColor,
                                   radius: 6,
                                   child: Center(
                                       child: Text(

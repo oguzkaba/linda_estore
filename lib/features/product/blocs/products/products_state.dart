@@ -16,7 +16,13 @@ class ProductsLoaded extends ProductsState {
   const ProductsLoaded(this.products);
 
   @override
-  String toString() => 'SearchStateSuccess { items: $products }';
+  List<Object> get props => [products];
+}
+
+class ProductsByCatLoaded extends ProductsState {
+  final List<ProductsModel?> products;
+
+  const ProductsByCatLoaded(this.products);
 
   @override
   List<Object> get props => [products];

@@ -94,6 +94,8 @@ class _HomeViewState extends State<HomeView> {
               return const SliverShimmerWidget();
             } else if (state is ProductsLoaded) {
               return _buildGridProducts(context, state.products);
+            } else if (state is ProductsLoaded) {
+              return _buildGridProducts(context, state.products);
             } else if (state is ProductsError) {
               return SliverToBoxAdapter(
                   child: ErrorView(errorText: LocaleKeys.error_error.locale));
