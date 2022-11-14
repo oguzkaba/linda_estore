@@ -2,9 +2,13 @@ import 'package:animate_do/animate_do.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:linda_wedding_ecommerce/features/auth/bloc/auth_bloc.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
+import '../../../core/constants/cache/cache_constants.dart';
 import '../../../core/extansions/string_extansion.dart';
+import '../../../core/init/cache/app_cache_manager.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../core/init/network/service/network_service.dart';
 import '../../../core/init/routes/routes.gr.dart';
@@ -19,28 +23,33 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final manager = NetworkService.instance.networkManager;
+  AppCacheManager appCacheManager = AppCacheManager(CacheConstants.appCache);
+
   @override
   void initState() {
+    //appCacheManager.clear();
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      controlAppState(const Duration(seconds: 3));
+      controlAuth(const Duration(seconds: 3));
     });
   }
 
-  Future<void> controlAppState(Duration duration) async {
-    //await _authApp();
-    await _redirect(duration);
-  }
+  Future<void> controlAuth(Duration duration) async {
+    await appCacheManager.init();
+    final getBoxToken = appCacheManager.getItem("token");
 
-  Future<void> _redirect(Duration duration) async {
-    await Future.delayed(duration);
-    context.router.replaceAll(const [LoginView()]);
+    if (getBoxToken != null) {
+      await Future.delayed(duration).then((value) {
+        BlocProvider.of<AuthBloc>(context)
+            .add(Authanticate(manager, scaffoldKey, getBoxToken));
+        context.router.push(DashboardRouter(children: const [HomeView()]));
+      });
+    } else {
+      await Future.delayed(duration).then((value) {
+        context.router.replaceAll(const [LoginView()]);
+      });
+    }
   }
-
-  // Future<void> _authApp() async {
-  //  BlocProvider.of<AuthBloc>(context).add(( LoginUser(manager, scaffoldKey,LoginRequestModel(
-  //                           username: "mor_2314", password: "83r5^_"))));
-  // }
 
   @override
   Widget build(BuildContext context) {

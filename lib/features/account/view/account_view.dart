@@ -28,9 +28,8 @@ class _AccountViewState extends State<AccountView> {
 
   @override
   void initState() {
-    final authBloc = BlocProvider.of<AuthBloc>(context);
     BlocProvider.of<AccountBloc>(context)
-        .add(AccountFetch(manager, scaffoldKey, authBloc));
+        .add(AccountFetch(manager, scaffoldKey));
     super.initState();
   }
 

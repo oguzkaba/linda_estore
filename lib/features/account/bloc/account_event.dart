@@ -10,7 +10,5 @@ abstract class AccountEvent extends Equatable {
 }
 
 class AccountFetch extends AccountEvent {
-  final AuthBloc authBloc;
-
-  const AccountFetch(super.manager, super.scaffoldKey, this.authBloc);
+  const AccountFetch(super.manager, super.scaffoldKey);
 }

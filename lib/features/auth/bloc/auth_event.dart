@@ -19,6 +19,12 @@ class AuthLogin extends AuthEvent {
       {this.networkErrorModel});
 }
 
+class Authanticate extends AuthEvent {
+  final String? token;
+
+  const Authanticate(super.manager, super.scaffoldKey, this.token);
+}
+
 class AuthRegister extends AuthEvent {
   final BuildContext context;
 

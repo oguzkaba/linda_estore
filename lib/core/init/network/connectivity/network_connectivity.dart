@@ -6,13 +6,13 @@ import '../../../enums/network_connectivity_enums.dart';
 
 typedef NetworkCallBack = void Function(NetworkConnectivityEnums result);
 
-abstract class NetworkConnectivityInterface {
+abstract class INetworkConnectivity {
   Future<NetworkConnectivityEnums> checkNetworkConnectivity();
   void handleNetworkConnectivity(NetworkCallBack onChange);
   void dispose();
 }
 
-class NetworkConnectivity extends NetworkConnectivityInterface {
+class NetworkConnectivity extends INetworkConnectivity {
   late final Connectivity _connectivity;
   StreamSubscription<ConnectivityResult>? _subscription;
 
