@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:linda_wedding_ecommerce/features/account/view/widgets/settings.dart';
 
 import '../../../features/account/view/account_view.dart';
 import '../../../features/account/view/widgets/cards.dart';
@@ -7,6 +6,7 @@ import '../../../features/account/view/widgets/edit_card.dart';
 import '../../../features/account/view/widgets/edit_profile.dart';
 import '../../../features/account/view/widgets/notifications.dart';
 import '../../../features/account/view/widgets/order_history.dart';
+import '../../../features/account/view/widgets/settings.dart';
 import '../../../features/account/view/widgets/shipping_adress.dart';
 import '../../../features/account/view/widgets/track_order.dart';
 import '../../../features/auth/forgot/verification/verification_view.dart';

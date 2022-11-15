@@ -47,7 +47,7 @@ class _ForgotViewState extends State<ForgotView> {
                   bgColor: ColorConstants.myWhite,
                   tColor: ColorConstants.primaryColor,
                   useBorder: true,
-                  onPress: () => context.router.push(const LoginView())),
+                  onPress: () => context.router.pushNamed("/login")),
             ],
           ),
         ),

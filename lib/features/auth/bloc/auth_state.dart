@@ -32,6 +32,13 @@ class LoginError extends AuthState {
   List<Object> get props => [error];
 }
 
+class LogOut extends AuthState {
+  const LogOut();
+
+  @override
+  List<Object> get props => [];
+}
+
 ///
 ///
 //*Register

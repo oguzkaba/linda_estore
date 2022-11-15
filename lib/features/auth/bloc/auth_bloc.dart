@@ -25,14 +25,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             .login(model: event.loginRequestModel);
 
         if (result.object != null) {
-          //Save hive box
+          //Save token
           await appCacheManager.init();
-          await appCacheManager.clear();
-
           final loginModel = result.object as LoginResponseModel;
           final userId = jwtToGetUserId(loginModel);
 
-          await appCacheManager.putItem("token", loginModel.token!);
+          AppCacheModel appCacheModel =
+              const AppCacheModel().copyWith(token: loginModel.token!);
+
+          await appCacheManager.setModel(
+              CacheConstants.appCache, appCacheModel);
 
           emit(LoginSuccess(result.object!.toString(), userId));
         } else {
@@ -48,6 +50,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(LoginLoading());
         final userId = jwtToGetUserId(LoginResponseModel(token: event.token));
         emit(LoginSuccess(event.token!, userId));
+      } catch (e) {
+        emit(LoginError(e));
+      }
+    });
+
+    on<AuthLogOut>((event, emit) async {
+      try {
+        //Delete token
+        await appCacheManager.init();
+        await appCacheManager.clear();
+        emit(const LogOut());
       } catch (e) {
         emit(LoginError(e));
       }

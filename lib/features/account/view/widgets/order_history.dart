@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 import 'package:linda_wedding_ecommerce/core/init/routes/routes.gr.dart';
+import 'package:linda_wedding_ecommerce/features/account/bloc/account_bloc.dart';
 import 'package:linda_wedding_ecommerce/features/cart/model/cart_model.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/ebutton_widget.dart';
 
@@ -14,7 +15,6 @@ import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/network/service/network_service.dart';
 import '../../../../product/utils/custom_error_widgets.dart';
 import '../../../../product/widgets/iconbutton_widget.dart';
-import '../../../auth/bloc/auth_bloc.dart';
 import '../../../cart/bloc/cart_bloc.dart';
 import '../../../../product/widgets/empty_info_widget.dart';
 import '../../../error/view/error_view.dart';
@@ -35,9 +35,9 @@ class _OrderHistoryState extends State<OrderHistory> {
 
   @override
   void initState() {
-    final authBloc = BlocProvider.of<AuthBloc>(context);
+    AccountBloc accountBloc = BlocProvider.of(context);
     BlocProvider.of<CartBloc>(context)
-        .add(FetchCarts(manager, scaffoldKey, authBloc));
+        .add(FetchCarts(manager, scaffoldKey, accountBloc));
     super.initState();
   }
 

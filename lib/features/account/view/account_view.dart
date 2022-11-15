@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
@@ -158,26 +159,33 @@ class _AccountViewState extends State<AccountView> {
     ];
 
     return ListTile(
-      //dense: true,
-      title: Text(actionNames[index],
-          style: Theme.of(context).textTheme.bodySmall),
-      trailing: IconButtonWidget(
-        size: 16,
-        bColor: ColorConstants.myWhite,
-        tooltip: actionNames[index],
-        iColor: ColorConstants.myMediumGrey,
-        icon: Icons.chevron_right_rounded,
-      ),
-      leading: IconButtonWidget(
-        size: 16,
-        circleRadius: 16,
-        iColor: ColorConstants.primaryColor,
-        icon: icons[index],
-        tooltip: actionNames[index],
-      ),
-      onTap: () => index == 7
-          ? context.router.replaceAll([actionRoute[index]])
-          : context.pushRoute(actionRoute[index]),
-    );
+        //dense: true,
+        title: Text(actionNames[index],
+            style: Theme.of(context).textTheme.bodySmall),
+        trailing: IconButtonWidget(
+          size: 16,
+          bColor: ColorConstants.myWhite,
+          tooltip: actionNames[index],
+          iColor: ColorConstants.myMediumGrey,
+          icon: Icons.chevron_right_rounded,
+        ),
+        leading: IconButtonWidget(
+          size: 16,
+          circleRadius: 16,
+          iColor: ColorConstants.primaryColor,
+          icon: icons[index],
+          tooltip: actionNames[index],
+        ),
+        onTap: () {
+          if (index == 7) {
+            context.read<AuthBloc>().add(AuthLogOut(manager, scaffoldKey));
+            SchedulerBinding.instance.addPostFrameCallback((_) async {
+              await context.router
+                  .pushAndPopUntil(actionRoute[index], predicate: (_) => false);
+            });
+          } else {
+            context.pushRoute(actionRoute[index]);
+          }
+        });
   }
 }

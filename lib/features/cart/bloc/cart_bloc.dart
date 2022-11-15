@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/auth/bloc/auth_bloc.dart';
+import '../../account/bloc/account_bloc.dart';
 import '../model/cart_model.dart';
 import '../service/cart_service.dart';
 
@@ -16,9 +16,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<FetchCarts>((event, emit) async {
       try {
         emit(CartLoading());
-        final state = event.authBloc.state;
-        if (state is LoginSuccess) {
-          userId = state.userId;
+        final state = event.accountBloc.state;
+        if (state is AccountLoaded) {
+          userId = state.accountModel.id;
         }
 
         final result = await CartService(event.manager, event.scaffoldKey)

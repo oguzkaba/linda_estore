@@ -1,16 +1,16 @@
 part of 'product_bloc.dart';
 
 abstract class ProductEvent extends Equatable {
-  const ProductEvent();
+  final Dio manager;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
+  const ProductEvent(this.manager, this.scaffoldKey);
 
   @override
   List<Object> get props => [];
 }
 
 class ProductFetched extends ProductEvent {
-  final Dio manager;
-  final GlobalKey<ScaffoldState>? scaffoldKey;
   final int id;
 
-  const ProductFetched(this.manager, this.scaffoldKey, this.id);
+  const ProductFetched(super.manager, super.scaffoldKey, this.id);
 }

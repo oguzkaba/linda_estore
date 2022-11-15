@@ -52,13 +52,13 @@ class _RegisterViewState extends State<RegisterView> {
               //*sign up button
               EButtonWidget(
                   text: LocaleKeys.register_buttonText.locale,
-                  onPress: () => context.router.push(const LoginView())),
+                  onPress: () => context.router.pushNamed("/login")),
               Padding(padding: context.paddingLow),
               //*signup-or-social text
               RichTextWidget(
                   actionName: LocaleKeys.register_login.locale,
                   text: LocaleKeys.register_haveAccount.locale,
-                  action: () => context.router.push(const LoginView())),
+                  action: () => context.router.pushNamed("/login")),
               const DividerWidget(),
               //*social button
               const SocialIconButtonWidget()

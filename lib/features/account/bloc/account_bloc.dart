@@ -22,8 +22,9 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       try {
         emit(AccountLoading());
         await appCacheManager.init();
-        final getBoxToken = appCacheManager.getItem("token");
-        final userId = jwtToGetUserId(LoginResponseModel(token: getBoxToken));
+        final getBoxModel = appCacheManager.getModel(CacheConstants.appCache);
+        final userId =
+            jwtToGetUserId(LoginResponseModel(token: getBoxModel?.token));
 
         final result = await AccountService(event.manager, event.scaffoldKey)
             .getAccount(id: userId);

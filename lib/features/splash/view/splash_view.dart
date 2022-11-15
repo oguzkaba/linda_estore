@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:linda_wedding_ecommerce/core/init/cache/app_cache_model.dart';
 import 'package:linda_wedding_ecommerce/features/auth/bloc/auth_bloc.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
@@ -36,17 +37,20 @@ class _SplashViewState extends State<SplashView> {
 
   Future<void> controlAuth(Duration duration) async {
     await appCacheManager.init();
-    final getBoxToken = appCacheManager.getItem("token");
+    AppCacheModel? getBoxModel =
+        appCacheManager.getModel(CacheConstants.appCache);
 
-    if (getBoxToken != null) {
+    if (getBoxModel?.token != null) {
+      debugPrint("AuthControl --> Autharized Success");
       await Future.delayed(duration).then((value) {
         BlocProvider.of<AuthBloc>(context)
-            .add(Authanticate(manager, scaffoldKey, getBoxToken));
+            .add(Authanticate(manager, scaffoldKey, getBoxModel?.token));
         context.router.push(DashboardRouter(children: const [HomeView()]));
       });
     } else {
+      debugPrint("AuthControl --> Unautharized");
       await Future.delayed(duration).then((value) {
-        context.router.replaceAll(const [LoginView()]);
+        context.router.pushNamed("/login");
       });
     }
   }
