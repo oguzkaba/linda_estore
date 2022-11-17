@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linda_wedding_ecommerce/core/init/cache/app_cache_model.dart';
 import 'package:linda_wedding_ecommerce/features/auth/bloc/auth_bloc.dart';
+import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/constants/cache/cache_constants.dart';
@@ -41,15 +42,23 @@ class _SplashViewState extends State<SplashView> {
         appCacheManager.getModel(CacheConstants.appCache);
 
     if (getBoxModel?.token != null) {
-      debugPrint("AuthControl --> Autharized Success");
       await Future.delayed(duration).then((value) {
+        debugPrint("AuthControl --> Autharized Success");
         BlocProvider.of<AuthBloc>(context)
             .add(Authanticate(manager, scaffoldKey, getBoxModel?.token));
+
+        if (getBoxModel?.favorites != null) {
+          BlocProvider.of<FavoriteBloc>(context)
+              .add(InitFavorite(getBoxModel!.favorites!));
+        } else {
+          BlocProvider.of<FavoriteBloc>(context).add(const InitFavorite([]));
+        }
         context.router.push(DashboardRouter(children: const [HomeView()]));
       });
     } else {
       debugPrint("AuthControl --> Unautharized");
       await Future.delayed(duration).then((value) {
+        BlocProvider.of<FavoriteBloc>(context).add(const InitFavorite([]));
         context.router.pushNamed("/login");
       });
     }

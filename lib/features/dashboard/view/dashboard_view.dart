@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
-import 'package:linda_wedding_ecommerce/features/favorite/cubit/favorite_cubit.dart';
+import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dart';
 
 import '../../../core/init/routes/routes.gr.dart';
 
@@ -31,53 +31,58 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FavoriteCubit, FavoriteState>(
+    return BlocBuilder<FavoriteBloc, FavoriteState>(
         builder: (context, stateFav) {
-      return AutoTabsScaffold(
-        routes: [
-          const HomeView(),
-          CartView(cartModel: null),
-          const FavoriteView(),
-          const AccountView()
-        ],
-        bottomNavigationBuilder: (_, tabs) => BottomNavigationBar(
-            onTap: tabs.setActiveIndex,
-            currentIndex: tabs.activeIndex,
-            iconSize: 24,
-            items: screens
-                .map(
-                  (e) => BottomNavigationBarItem(
-                    label: e.label,
-                    icon: e.label ==
-                                LocaleKeys.dashboard_bottomNav_bNavFav.locale &&
-                            stateFav.favList.isNotEmpty
-                        ? Stack(children: [
-                            e.icon,
-                            Positioned(
-                              right: 0,
-                              top: 0,
-                              child: CircleAvatar(
-                                  backgroundColor: tabs.activeIndex == 2
-                                      ? ColorConstants.myBlack
-                                      : ColorConstants.primaryColor,
-                                  radius: 6,
-                                  child: Center(
-                                      child: Text(
-                                          stateFav.favList.length.toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.copyWith(
-                                                  fontSize: 8,
-                                                  color: ColorConstants
-                                                      .myWhite)))),
-                            )
-                          ])
-                        : e.icon,
-                  ),
-                )
-                .toList()),
-      );
+      if (stateFav is FavoriteLoaded) {
+        return AutoTabsScaffold(
+          routes: [
+            const HomeView(),
+            CartView(cartModel: null),
+            const FavoriteView(),
+            const AccountView()
+          ],
+          bottomNavigationBuilder: (_, tabs) => BottomNavigationBar(
+              onTap: tabs.setActiveIndex,
+              currentIndex: tabs.activeIndex,
+              iconSize: 24,
+              items: screens
+                  .map(
+                    (e) => BottomNavigationBarItem(
+                      label: e.label,
+                      icon: e.label ==
+                                  LocaleKeys
+                                      .dashboard_bottomNav_bNavFav.locale &&
+                              stateFav.favList.isNotEmpty
+                          ? Stack(children: [
+                              e.icon,
+                              Positioned(
+                                right: 0,
+                                top: 0,
+                                child: CircleAvatar(
+                                    backgroundColor: tabs.activeIndex == 2
+                                        ? ColorConstants.myBlack
+                                        : ColorConstants.primaryColor,
+                                    radius: 6,
+                                    child: Center(
+                                        child: Text(
+                                            stateFav.favList.length.toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall
+                                                ?.copyWith(
+                                                    fontSize: 8,
+                                                    color: ColorConstants
+                                                        .myWhite)))),
+                              )
+                            ])
+                          : e.icon,
+                    ),
+                  )
+                  .toList()),
+        );
+      } else {
+        return const SizedBox();
+      }
     });
   }
 }

@@ -93,7 +93,11 @@ class _HomeViewState extends State<HomeView> {
             } else if (state is ProductsLoading) {
               return const SliverShimmerWidget();
             } else if (state is ProductsLoaded) {
-              return _buildGridProducts(context, state.products);
+              if (state.isFilterCat) {
+                return _buildGridProducts(context, state.productsByCat);
+              } else {
+                return _buildGridProducts(context, state.products);
+              }
             } else if (state is ProductsLoaded) {
               return _buildGridProducts(context, state.products);
             } else if (state is ProductsError) {

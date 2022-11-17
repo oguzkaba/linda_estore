@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import "../../../../core/extansions/cast_extansion.dart";
 
 import '../../model/products_model.dart';
 import '../../service/category_service.dart';
@@ -19,7 +18,10 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
         final result = await ProductService(event.manager, event.scaffoldKey)
             .fetchProductsAll();
         if (result.object != null) {
-          emit(ProductsLoaded(result.object as List<ProductsModel>));
+          emit(ProductsLoaded(
+              products: result.object as List<ProductsModel>,
+              productsByCat: const [],
+              isFilterCat: false));
         } else {
           emit(ProductsError(result.error!));
         }
@@ -43,7 +45,11 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
                 filteredList.add(element);
               }
             }
-            emit(ProductsLoaded(filteredList));
+
+            emit(ProductsLoaded(
+                products: result.object as List<ProductsModel>,
+                productsByCat: filteredList,
+                isFilterCat: true));
           } else {
             emit(ProductsError(result.error!));
           }

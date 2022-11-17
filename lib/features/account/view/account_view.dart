@@ -68,59 +68,61 @@ class _AccountViewState extends State<AccountView> {
               children: [
                 Text(LocaleKeys.account_topTitle.locale,
                     style: Theme.of(context).textTheme.headlineSmall),
-                Card(
-                  elevation: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 18.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundColor: ColorConstants.secondaryColor,
-                          child: CircleAvatar(
-                              backgroundColor: ColorConstants.secondaryColor,
-                              backgroundImage: const NetworkImage(
-                                "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
-                              ),
-                              radius: 27),
-                        ),
-                        context.emptySizedWidthBoxNormal,
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                  "${state.accountModel.name!.firstname!.toCapitalized()} ${state.accountModel.name!.lastname!.toUpperCase()}",
-                                  style:
-                                      Theme.of(context).textTheme.titleSmall),
-                              Text(state.accountModel.email!,
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium),
-                              Text(state.accountModel.phone!,
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium),
-                            ])
-                      ],
-                    ),
-                  ),
-                ),
+                _buildProfileCard(context, state),
                 context.emptySizedHeightBoxLow,
-                ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.zero,
-                  primary: true,
-                  separatorBuilder: (context, index) =>
-                      const Divider(height: 0, indent: 70, endIndent: 30),
-                  shrinkWrap: true,
-                  itemCount: 8,
-                  itemBuilder: (context, index) =>
-                      _buildListTile(context, index),
-                ),
+                _buildList(),
                 context.emptySizedHeightBoxLow,
                 Text("v.1.0.0", style: Theme.of(context).textTheme.labelSmall)
               ],
             ),
           )),
+    );
+  }
+
+  ListView _buildList() {
+    return ListView.separated(
+      physics: const BouncingScrollPhysics(),
+      padding: EdgeInsets.zero,
+      primary: true,
+      separatorBuilder: (context, index) =>
+          const Divider(height: 0, indent: 70, endIndent: 30),
+      shrinkWrap: true,
+      itemCount: 8,
+      itemBuilder: (context, index) => _buildListTile(context, index),
+    );
+  }
+
+  Card _buildProfileCard(BuildContext context, AccountLoaded state) {
+    return Card(
+      elevation: 5,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 18.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 30,
+              backgroundColor: ColorConstants.secondaryColor,
+              child: CircleAvatar(
+                  backgroundColor: ColorConstants.secondaryColor,
+                  backgroundImage: const NetworkImage(
+                    "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
+                  ),
+                  radius: 27),
+            ),
+            context.emptySizedWidthBoxNormal,
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                  "${state.accountModel.name!.firstname!.toCapitalized()} ${state.accountModel.name!.lastname!.toUpperCase()}",
+                  style: Theme.of(context).textTheme.titleSmall),
+              Text(state.accountModel.email!,
+                  style: Theme.of(context).textTheme.labelMedium),
+              Text(state.accountModel.phone!,
+                  style: Theme.of(context).textTheme.labelMedium),
+            ])
+          ],
+        ),
+      ),
     );
   }
 

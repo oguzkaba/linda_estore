@@ -6,13 +6,13 @@ import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/components/indicator/loading_indicator.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
+import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/empty_info_widget.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../product/utils/custom_error_widgets.dart';
 import '../../product/blocs/products/products_bloc.dart';
 import '../../product/model/products_model.dart';
-import '../cubit/favorite_cubit.dart';
 
 class FavoriteView extends StatefulWidget {
   const FavoriteView({super.key});
@@ -22,56 +22,58 @@ class FavoriteView extends StatefulWidget {
 }
 
 class _FavoriteViewState extends State<FavoriteView> {
+  List<ProductsModel?> products = [];
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(body:
-        BlocBuilder<FavoriteCubit, FavoriteState>(builder: (context, stateFav) {
-      return stateFav.favList.isEmpty
-          ? EmptyInfoWidget(
-              lottieSrc: "empty_fav_list",
-              text: LocaleKeys.favorites_emptyTitle.locale)
-          : Padding(
-              padding: context.paddingMedium,
-              child: Column(
-                children: [
-                  Center(
-                    child: Text(LocaleKeys.favorites_topTitle.locale,
-                        style: Theme.of(context).textTheme.headlineSmall),
-                  ),
-                  Padding(padding: context.paddingLow),
-                  BlocBuilder<ProductsBloc, ProductsState>(
-                      buildWhen: (previous, current) =>
-                          current is! ProductsByCatLoaded,
-                      builder: (context, state) {
-                        if (state is ProductsLoading) {
-                          return const LoadingIndicatorWidget(
-                              lottieName: "favorite_loading");
-                        } else if (state is ProductsLoaded) {
-                          return _buildFavList(stateFav, state.products);
-                        } else if (state is ProductsError) {
-                          CustomErrorWidgets.showError(
-                              context, state.error.toString());
-                        }
-                        return context.emptySizedHeightBoxLow;
-                      })
-                ],
-              ));
+        BlocBuilder<FavoriteBloc, FavoriteState>(builder: (context, stateFav) {
+      if (stateFav is FavoriteLoaded) {
+        return stateFav.favList.isEmpty
+            ? EmptyInfoWidget(
+                lottieSrc: "empty_fav_list",
+                text: LocaleKeys.favorites_emptyTitle.locale)
+            : Padding(
+                padding: context.paddingMedium,
+                child: Column(
+                  children: [
+                    Center(
+                      child: Text(LocaleKeys.favorites_topTitle.locale,
+                          style: Theme.of(context).textTheme.headlineSmall),
+                    ),
+                    Padding(padding: context.paddingLow),
+                    BlocBuilder<ProductsBloc, ProductsState>(
+                        builder: (context, state) {
+                      if (state is ProductsLoading) {
+                        return const LoadingIndicatorWidget(
+                            lottieName: "favorite_loading");
+                      } else if (state is ProductsLoaded) {
+                        return _buildFavList(stateFav.favList, state.products);
+                      } else if (state is ProductsError) {
+                        CustomErrorWidgets.showError(
+                            context, state.error.toString());
+                      }
+                      return context.emptySizedHeightBoxLow;
+                    })
+                  ],
+                ));
+      } else {
+        return const SizedBox();
+      }
     })));
   }
 
-  Expanded _buildFavList(
-      FavoriteState stateFav, List<ProductsModel?> products) {
+  Expanded _buildFavList(List<int> favList, List<ProductsModel?> products) {
     return Expanded(
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
-        itemCount: stateFav.favList.length,
+        itemCount: favList.length,
         itemBuilder: (context, index) => Dismissible(
           dismissThresholds: const {
             DismissDirection.endToStart: 0.6,
           },
           confirmDismiss: (direction) async =>
-              await _showDialogWidget(context, stateFav.favList[index]),
+              await _showDialogWidget(context, favList[index]),
           movementDuration: context.durationNormal,
           direction: DismissDirection.endToStart,
           background: _slideRightBackground(),
@@ -85,7 +87,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                     width: context.width * .24,
                     height: context.height / 8,
                     child: CachedNetworkImage(
-                      imageUrl: products[stateFav.favList[index] - 1]!.image!,
+                      imageUrl: products[favList[index] - 1]!.image!,
                       fit: BoxFit.contain,
                     )),
               ),
@@ -96,7 +98,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(products[stateFav.favList[index] - 1]!.title!,
+                      child: Text(products[favList[index] - 1]!.title!,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
@@ -107,7 +109,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "${products[stateFav.favList[index] - 1]!.price} ₺",
+                          "${products[favList[index] - 1]!.price} ₺",
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],
@@ -131,8 +133,9 @@ class _FavoriteViewState extends State<FavoriteView> {
           content: Text(LocaleKeys.favorites_alert_content.locale),
           actions: <Widget>[
             TextButton(
-                onPressed: () {
-                  context.read<FavoriteCubit>().toogleFavorite(index);
+                onPressed: () async {
+                  BlocProvider.of<FavoriteBloc>(context)
+                      .add(ToogleFavorite(index));
                   context.router.pop(true);
                 },
                 child: Text(LocaleKeys.favorites_alert_buttonText.locale)),

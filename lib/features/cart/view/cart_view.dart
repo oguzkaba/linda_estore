@@ -30,7 +30,6 @@ class CartView extends StatefulWidget {
 class _CartViewState extends State<CartView> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final manager = NetworkService.instance.networkManager;
-  List<ProductsModel?> products = [];
 
   @override
   void initState() {
@@ -57,13 +56,10 @@ class _CartViewState extends State<CartView> {
         if (state is ProductsLoading) {
           return const LoadingIndicatorWidget(lottieName: "cart_loading");
         } else if (state is ProductsLoaded) {
-          if (products.isEmpty) {
-            products = state.products;
-          }
           //*Total Cart Price
           for (var e in cartModel.products) {
             quantityList.value.add(e.quantity);
-            total += e.quantity * products[e.productId - 1]!.price!;
+            total += e.quantity * state.products[e.productId - 1]!.price!;
           }
           void quantityChangeNotifier(int index) {
             List<int> newQList = List.from(quantityList.value);
@@ -119,7 +115,8 @@ class _CartViewState extends State<CartView> {
                                                 width: context.width * .24,
                                                 height: context.height / 8,
                                                 child: CachedNetworkImage(
-                                                  imageUrl: products[cartModel
+                                                  imageUrl: state
+                                                      .products[cartModel
                                                               .products[index]
                                                               .productId -
                                                           1]!
@@ -136,7 +133,8 @@ class _CartViewState extends State<CartView> {
                                                   alignment:
                                                       Alignment.centerLeft,
                                                   child: Text(
-                                                      products[cartModel
+                                                      state
+                                                          .products[cartModel
                                                                   .products[
                                                                       index]
                                                                   .productId -
@@ -157,7 +155,7 @@ class _CartViewState extends State<CartView> {
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      "${products[cartModel.products[index].productId - 1]!.price} ₺",
+                                                      "${state.products[cartModel.products[index].productId - 1]!.price} ₺",
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .titleMedium,

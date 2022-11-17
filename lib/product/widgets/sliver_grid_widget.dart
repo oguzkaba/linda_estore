@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
+import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dart';
 
 import '../../core/constants/app/colors_constants.dart';
 import '../../core/init/lang/locale_keys.g.dart';
 import '../../core/init/network/service/network_service.dart';
 import '../../core/init/routes/routes.gr.dart';
-import '../../features/favorite/cubit/favorite_cubit.dart';
 import '../../features/product/model/products_model.dart';
 import 'iconbutton_widget.dart';
 
@@ -100,21 +100,25 @@ class MySliverGridWidget extends StatelessWidget {
           Positioned(
             right: 5,
             top: 10,
-            child: BlocBuilder<FavoriteCubit, FavoriteState>(
+            child: BlocBuilder<FavoriteBloc, FavoriteState>(
               builder: (context, state) {
-                return IconButtonWidget(
-                    onPress: () => context
-                        .read<FavoriteCubit>()
-                        .toogleFavorite(model[index]!.id!),
-                    icon: state.favList.contains(model[index]!.id!)
-                        ? Icons.favorite_rounded
-                        : Icons.favorite_border,
-                    size: 18,
-                    circleRadius: 18,
-                    iColor: state.favList.contains(model[index]!.id!)
-                        ? ColorConstants.primaryColor
-                        : ColorConstants.myMediumGrey,
-                    tooltip: "Favorite");
+                if (state is FavoriteLoaded) {
+                  return IconButtonWidget(
+                      onPress: () => context
+                          .read<FavoriteBloc>()
+                          .add(ToogleFavorite(model[index]!.id!)),
+                      icon: state.favList.contains(model[index]!.id!)
+                          ? Icons.favorite_rounded
+                          : Icons.favorite_border,
+                      size: 18,
+                      circleRadius: 18,
+                      iColor: state.favList.contains(model[index]!.id!)
+                          ? ColorConstants.primaryColor
+                          : ColorConstants.myMediumGrey,
+                      tooltip: "Favorite");
+                } else {
+                  return const SizedBox();
+                }
               },
             ),
           ),

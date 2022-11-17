@@ -31,7 +31,6 @@ class OrderHistory extends StatefulWidget {
 class _OrderHistoryState extends State<OrderHistory> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final manager = NetworkService.instance.networkManager;
-  List<ProductsModel?> products = [];
 
   @override
   void initState() {
@@ -90,9 +89,6 @@ class _OrderHistoryState extends State<OrderHistory> {
         if (state is ProductsLoading) {
           return const LoadingIndicatorWidget(lottieName: "cart_loading");
         } else if (state is ProductsLoaded) {
-          if (products.isEmpty) {
-            products = state.products;
-          }
           return SingleChildScrollView(
             primary: true,
             child: Padding(
@@ -181,12 +177,16 @@ class _OrderHistoryState extends State<OrderHistory> {
                                                         .length <
                                                     3
                                                 ? _buildPrdPreview(
-                                                    products[productId - 1]!
+                                                    state
+                                                        .products[
+                                                            productId - 1]!
                                                         .image!,
                                                     productId: productId)
                                                 : idx < 1
                                                     ? _buildPrdPreview(
-                                                        products[productId - 1]!
+                                                        state
+                                                            .products[
+                                                                productId - 1]!
                                                             .image!,
                                                         productId: productId)
                                                     : _buildPrdPreview(

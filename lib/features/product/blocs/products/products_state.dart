@@ -12,20 +12,16 @@ class ProductsLoading extends ProductsState {}
 
 class ProductsLoaded extends ProductsState {
   final List<ProductsModel?> products;
+  final List<ProductsModel?> productsByCat;
+  final bool isFilterCat;
 
-  const ProductsLoaded(this.products);
-
-  @override
-  List<Object> get props => [products];
-}
-
-class ProductsByCatLoaded extends ProductsState {
-  final List<ProductsModel?> products;
-
-  const ProductsByCatLoaded(this.products);
+  const ProductsLoaded(
+      {required this.products,
+      required this.productsByCat,
+      required this.isFilterCat});
 
   @override
-  List<Object> get props => [products];
+  List<Object> get props => [products, productsByCat];
 }
 
 class ProductsError extends ProductsState {

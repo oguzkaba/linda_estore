@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dart';
 
 import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
@@ -14,7 +15,6 @@ import '../../../product/utils/custom_error_widgets.dart';
 import '../../../product/widgets/export_widget.dart';
 import '../../../product/widgets/iconbutton_widget.dart';
 import '../../error/view/error_view.dart';
-import '../../favorite/cubit/favorite_cubit.dart';
 import '../blocs/product/product_bloc.dart';
 import '../model/product_model.dart';
 
@@ -76,26 +76,27 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 actions: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    child: IconButtonWidget(
-                        onPress: () => context
-                            .read<FavoriteCubit>()
-                            .toogleFavorite(widget.id),
-                        icon: context
-                                .watch<FavoriteCubit>()
-                                .state
-                                .favList
-                                .contains(state.product.id!)
-                            ? Icons.favorite_rounded
-                            : Icons.favorite_border,
-                        size: 16,
-                        iColor: context
-                                .watch<FavoriteCubit>()
-                                .state
-                                .favList
-                                .contains(state.product.id!)
-                            ? ColorConstants.primaryColor
-                            : ColorConstants.myMediumGrey,
-                        tooltip: "Favorite"),
+                    child: BlocBuilder<FavoriteBloc, FavoriteState>(
+                      builder: (context, stateFav) {
+                        if (stateFav is FavoriteLoaded) {
+                          return IconButtonWidget(
+                              onPress: () => context
+                                  .read<FavoriteBloc>()
+                                  .add(ToogleFavorite(widget.id)),
+                              icon: stateFav.favList.contains(state.product.id!)
+                                  ? Icons.favorite_rounded
+                                  : Icons.favorite_border,
+                              size: 16,
+                              iColor:
+                                  stateFav.favList.contains(state.product.id!)
+                                      ? ColorConstants.primaryColor
+                                      : ColorConstants.myMediumGrey,
+                              tooltip: "Favorite");
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),
