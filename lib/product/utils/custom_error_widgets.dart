@@ -13,17 +13,19 @@ class CustomErrorWidgets {
           Icon(Icons.error_outline_rounded,
               color: ColorConstants.myWhite, size: 20),
           context.emptySizedWidthBoxLow,
-          Text(
-            error,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall
-                ?.copyWith(color: ColorConstants.myWhite),
+          Expanded(
+            child: Text(
+              error,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: ColorConstants.myWhite),
+            ),
           ),
         ],
       ),
-      margin: EdgeInsets.only(bottom: context.height - (topMargin ?? 60)),
+      margin:
+          EdgeInsets.fromLTRB(10, 0, 10, context.height - (topMargin ?? 80)),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }

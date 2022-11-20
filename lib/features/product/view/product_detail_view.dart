@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/constants/app/image_constants.dart';
 import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dart';
 
 import '../../../core/components/indicator/loading_indicator.dart';
@@ -231,14 +232,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
       itemBuilder: ((context, index) => Card(
             child: ListTile(
               leading: CircleAvatar(
-                backgroundColor: ColorConstants.myLightGrey,
-                child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    imageUrl: reviews[index].image,
-                    placeholder: (context, url) =>
-                        const CircularProgressIndicator(),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error)),
+                backgroundImage: CachedNetworkImageProvider(
+                  ImageConstants.getAvatarUrl(index),
+                ),
               ),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

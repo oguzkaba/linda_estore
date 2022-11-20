@@ -18,8 +18,7 @@ void main() async {
   //* Update statusbar theme
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-      statusBarColor: ColorConstants.myTransparent,
-      statusBarIconBrightness: Brightness.dark,
+      statusBarColor: ColorConstants.primaryColor,
     ),
   );
 

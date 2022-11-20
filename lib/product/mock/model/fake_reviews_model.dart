@@ -18,7 +18,6 @@ class MockDataModel {
     required this.review,
     required this.rate,
     required this.ipAddress,
-    required this.image,
   });
 
   final int id;
@@ -26,7 +25,6 @@ class MockDataModel {
   final String review;
   final int rate;
   final String ipAddress;
-  final String image;
 
   factory MockDataModel.fromJson(Map<String, dynamic> json) => MockDataModel(
         id: json["id"],
@@ -34,7 +32,6 @@ class MockDataModel {
         review: json["review"],
         rate: json["rate"],
         ipAddress: json["ipAddress"],
-        image: json["image"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,6 +40,5 @@ class MockDataModel {
         "review": review,
         "rate": rate,
         "ipAddress": ipAddress,
-        "image": image,
       };
 }
