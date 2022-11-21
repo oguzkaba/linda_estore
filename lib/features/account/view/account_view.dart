@@ -38,24 +38,22 @@ class _AccountViewState extends State<AccountView> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            backgroundColor: ColorConstants.myWhite,
             body: BlocConsumer<AccountBloc, AccountState>(
                 listener: (context, state) {
-              if (state is AccountError) {
-                CustomErrorWidgets.showError(context, state.error.toString());
-              }
-            }, builder: (context, state) {
-              if (state is AccountLoading) {
-                return const LoadingIndicatorWidget(
-                    lottieName: "account_loading");
-              } else if (state is AccountLoaded) {
-                return _buildAccountLoaded(context, state);
-              } else if (state is AccountError) {
-                return Center(
-                    child: ErrorView(errorText: state.error.toString()));
-              }
-              return context.emptySizedHeightBoxLow;
-            })));
+      if (state is AccountError) {
+        CustomErrorWidgets.showError(context, state.error.toString(),
+            topMargin: 115);
+      }
+    }, builder: (context, state) {
+      if (state is AccountLoading) {
+        return const LoadingIndicatorWidget(lottieName: "account_loading");
+      } else if (state is AccountLoaded) {
+        return _buildAccountLoaded(context, state);
+      } else if (state is AccountError) {
+        return Center(child: ErrorView(errorText: state.error.toString()));
+      }
+      return context.emptySizedHeightBoxLow;
+    })));
   }
 
   SingleChildScrollView _buildAccountLoaded(
@@ -131,7 +129,7 @@ class _AccountViewState extends State<AccountView> {
       LocaleKeys.account_action_editProfile_name.locale,
       LocaleKeys.account_action_shipping.locale,
       LocaleKeys.account_action_order.locale,
-      LocaleKeys.account_action_trackOrder.locale,
+      LocaleKeys.account_action_trackOrder_title.locale,
       LocaleKeys.account_action_cards_name.locale,
       LocaleKeys.account_action_notif.locale,
       LocaleKeys.account_action_appSet.locale,

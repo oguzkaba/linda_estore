@@ -60,7 +60,6 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         } else if (state is ProductLoaded) {
           return SafeArea(
             child: Scaffold(
-              backgroundColor: ColorConstants.myWhite,
               extendBodyBehindAppBar: true,
               appBar: AppBar(
                 leading: Padding(

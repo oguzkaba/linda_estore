@@ -2,9 +2,9 @@
     "splash": {
         "appName": "LindaStore"
     },
-    "currency":"₺",
+    "currency": "₺",
     "error": {
-        "error":"Hata",
+        "error": "Hata",
         "emptyField": "*Bu alan zorunludur",
         "shortEntry": "*En az 6 karakter girilmelidir"
     },
@@ -109,7 +109,10 @@
             },
             "shipping": "Gönderim Adresi",
             "order": "Siparişler",
-            "trackOrder": "Siparişi Takip Et",
+            "trackOrder": {
+                "title": "Siparişi Takip Et",
+                "emptyTitle": "Siparişiniz Yok"
+            },
             "cards": {
                 "name": "Kartlar",
                 "buttonText": "YENİ",

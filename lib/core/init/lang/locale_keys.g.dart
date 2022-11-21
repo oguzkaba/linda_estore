@@ -93,6 +93,8 @@ abstract class  LocaleKeys {
   static const account_action_editProfile = 'account.action.editProfile';
   static const account_action_shipping = 'account.action.shipping';
   static const account_action_order = 'account.action.order';
+  static const account_action_trackOrder_title = 'account.action.trackOrder.title';
+  static const account_action_trackOrder_emptyTitle = 'account.action.trackOrder.emptyTitle';
   static const account_action_trackOrder = 'account.action.trackOrder';
   static const account_action_cards_name = 'account.action.cards.name';
   static const account_action_cards_buttonText = 'account.action.cards.buttonText';

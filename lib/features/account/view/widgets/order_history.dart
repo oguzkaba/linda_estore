@@ -45,7 +45,7 @@ class _OrderHistoryState extends State<OrderHistory> {
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
-                title: Text(LocaleKeys.account_action_trackOrder.locale,
+                title: Text(LocaleKeys.account_action_trackOrder_title.locale,
                     style: TextStyle(color: ColorConstants.myBlack)),
                 leading: Padding(
                   padding: const EdgeInsets.all(4.0),
@@ -71,8 +71,9 @@ class _OrderHistoryState extends State<OrderHistory> {
               } else if (state is CartLoaded) {
                 if (state.cartModel.isNullOrEmpty) {
                   return EmptyInfoWidget(
-                      lottieSrc: "empty_cart",
-                      text: LocaleKeys.cart_emptyTitle.locale);
+                      lottieSrc: "empty_order",
+                      underText: LocaleKeys
+                          .account_action_trackOrder_emptyTitle.locale);
                 } else {
                   return _buildCartLoaded(state.cartModel);
                 }

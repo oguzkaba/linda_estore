@@ -22,6 +22,7 @@ class AppTheme {
       );
 
   ThemeData get lightTheme => ThemeData.light().copyWith(
+        scaffoldBackgroundColor: ColorConstants.myWhite,
         textTheme: _textTheme,
         primaryTextTheme: _primaryTextTheme,
         colorScheme: _colorScheme,

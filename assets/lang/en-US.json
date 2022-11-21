@@ -4,7 +4,7 @@
     },
     "currency": "$",
     "error": {
-        "error":"Error",
+        "error": "Error",
         "emptyField": "*This field is required",
         "shortEntry": "*At least 6 charecters must be entered"
     },
@@ -109,7 +109,10 @@
             },
             "shipping": "Shipping Adress",
             "order": "Order History",
-            "trackOrder": "Track Order",
+            "trackOrder": {
+                "title": "Track Order",
+                "emptyTitle": "No Order"
+            },
             "cards": {
                 "name": "Cards",
                 "buttonText": "NEW",
