@@ -14,13 +14,13 @@ class AuthInitial extends AuthState {}
 class LoginLoading extends AuthState {}
 
 class LoginSuccess extends AuthState {
-  final String token;
+  final String? token;
   final int userId;
 
-  const LoginSuccess(this.token, this.userId);
+  const LoginSuccess({this.token, required this.userId});
 
   @override
-  List<Object> get props => [token, userId];
+  List<Object> get props => [userId];
 }
 
 class LoginError extends AuthState {
@@ -45,12 +45,13 @@ class LogOut extends AuthState {
 
 class RegisterLoading extends AuthState {}
 
-class Registered extends AuthState {
-  final AccountModel userModel;
+class RegisterSuccess extends AuthState {
+  final int userId;
 
-  const Registered(this.userModel);
+  const RegisterSuccess(this.userId);
+
   @override
-  List<Object> get props => [userModel];
+  List<Object> get props => [userId];
 }
 
 class RegisterError extends AuthState {

@@ -92,8 +92,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Padding(
+        body: SingleChildScrollView(
           padding: context.horizontalPaddingMedium,
           child: Form(
             key: _formKey,

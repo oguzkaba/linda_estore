@@ -25,6 +25,8 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   flutter_svg: ^1.1.5
   font_awesome_flutter: ^10.2.1
+  google_maps_flutter: ^2.2.1
+  google_maps_flutter_web: ^0.4.0+3
   gradient_borders: ^0.2.0
   hive_flutter: ^1.1.0
   http: ^0.13.5

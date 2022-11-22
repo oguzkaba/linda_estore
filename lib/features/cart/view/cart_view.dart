@@ -15,7 +15,6 @@ import '../../../product/widgets/ebutton_widget.dart';
 import '../../../product/widgets/iconbutton_widget.dart';
 import '../../../product/widgets/textfield_widget.dart';
 import '../../product/blocs/products/products_bloc.dart';
-import '../../product/model/products_model.dart';
 import '../model/cart_model.dart';
 import '../../../product/widgets/empty_info_widget.dart';
 

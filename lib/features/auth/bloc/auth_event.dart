@@ -26,9 +26,13 @@ class Authanticate extends AuthEvent {
 }
 
 class AuthRegister extends AuthEvent {
+  final RegisterRequestModel registerRequestModel;
+  final NetworkErrorModel? networkErrorModel;
   final BuildContext context;
 
-  const AuthRegister(super.manager, super.scaffoldKey, this.context);
+  const AuthRegister(
+      super.manager, super.scaffoldKey, this.registerRequestModel, this.context,
+      {this.networkErrorModel});
 }
 
 class AuthLoginWithGoogle extends AuthEvent {

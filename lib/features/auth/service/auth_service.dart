@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:linda_wedding_ecommerce/core/enums/api_route_enums.dart';
 import 'package:linda_wedding_ecommerce/features/auth/login/model/login_response_model.dart';
+import 'package:linda_wedding_ecommerce/features/auth/register/model/register_request_model.dart';
 import '../../../core/init/network/model/network_error_model.dart';
 import '../../../core/base/model/base_response_model.dart';
-import '../../account/model/account_model.dart';
 import '../../account/service/account_service.dart';
 import '../login/model/login_request_model.dart';
 
@@ -13,7 +13,7 @@ abstract class IAuthService {
   final GlobalKey<ScaffoldState>? scaffoldKey;
   IAuthService(this.manager, this.scaffoldKey);
   Future<BaseResponseModel> login({required LoginRequestModel model});
-  Future<BaseResponseModel> register({required AccountModel model});
+  Future<BaseResponseModel> register({required RegisterRequestModel model});
 }
 
 class AuthService extends IAuthService {
@@ -34,7 +34,8 @@ class AuthService extends IAuthService {
   }
 
   @override
-  Future<BaseResponseModel> register({required AccountModel model}) async {
+  Future<BaseResponseModel> register(
+      {required RegisterRequestModel model}) async {
     return await AccountService(super.manager, super.scaffoldKey)
         .addAccount(model: model);
   }

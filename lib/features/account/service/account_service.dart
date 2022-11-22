@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:linda_wedding_ecommerce/core/enums/api_route_enums.dart';
+import 'package:linda_wedding_ecommerce/features/auth/register/model/register_request_model.dart';
+import 'package:linda_wedding_ecommerce/features/auth/register/model/register_response_model.dart';
 
 import '../../../core/base/model/base_response_model.dart';
 import '../../../core/init/network/model/network_error_model.dart';
@@ -12,7 +14,7 @@ abstract class IAccountService {
   IAccountService(this.manager, this.scaffoldKey);
 
   Future<BaseResponseModel> getAccount({required int id});
-  Future<BaseResponseModel> addAccount({required AccountModel model});
+  Future<BaseResponseModel> addAccount({required RegisterRequestModel model});
 }
 
 class AccountService extends IAccountService {
@@ -30,12 +32,14 @@ class AccountService extends IAccountService {
   }
 
   @override
-  Future<BaseResponseModel> addAccount({required AccountModel model}) async {
+  Future<BaseResponseModel> addAccount(
+      {required RegisterRequestModel model}) async {
     try {
       Map<String, dynamic> data = model.toJson();
 
       final response = await manager.post(ApiUrlEnum.users.url, data: data);
-      return BaseResponseModel(object: accountModelFromJson(response.data));
+      return BaseResponseModel(
+          object: registerResponseModelFromJson(response.data));
     } on DioError catch (e) {
       return BaseResponseModel(
           error: NetworkErrorModel(e.message, e.response!.statusCode!));

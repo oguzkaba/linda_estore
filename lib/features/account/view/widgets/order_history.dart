@@ -19,7 +19,6 @@ import '../../../cart/bloc/cart_bloc.dart';
 import '../../../../product/widgets/empty_info_widget.dart';
 import '../../../error/view/error_view.dart';
 import '../../../product/blocs/products/products_bloc.dart';
-import '../../../product/model/products_model.dart';
 
 class OrderHistory extends StatefulWidget {
   const OrderHistory({super.key});
