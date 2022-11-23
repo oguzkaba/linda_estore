@@ -1,4 +1,6 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +34,8 @@ void main() async {
           path: ApplicationConstants.langAssetPath,
           supportedLocales: LangManager.instance.supportLocales,
           startLocale: LangManager.instance.trLocale,
-          child: const MyApp())));
+          child: DevicePreview(
+              enabled: !kReleaseMode, builder: (context) => const MyApp()))));
 }
 
 final _appRouter = AppRouter();

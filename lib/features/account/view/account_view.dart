@@ -6,6 +6,7 @@ import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 import 'package:linda_wedding_ecommerce/features/account/bloc/account_bloc.dart';
+import 'package:linda_wedding_ecommerce/features/account/model/account_model.dart';
 import 'package:linda_wedding_ecommerce/features/auth/bloc/auth_bloc.dart';
 
 import '../../../core/components/indicator/loading_indicator.dart';
@@ -68,7 +69,7 @@ class _AccountViewState extends State<AccountView> {
                     style: Theme.of(context).textTheme.headlineSmall),
                 _buildProfileCard(context, state),
                 context.emptySizedHeightBoxLow,
-                _buildList(),
+                _buildList(state.accountModel),
                 context.emptySizedHeightBoxLow,
                 Text("v.1.0.0", style: Theme.of(context).textTheme.labelSmall)
               ],
@@ -77,7 +78,7 @@ class _AccountViewState extends State<AccountView> {
     );
   }
 
-  ListView _buildList() {
+  ListView _buildList(AccountModel accountModel) {
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
       padding: EdgeInsets.zero,
@@ -86,7 +87,8 @@ class _AccountViewState extends State<AccountView> {
           const Divider(height: 0, indent: 70, endIndent: 30),
       shrinkWrap: true,
       itemCount: 8,
-      itemBuilder: (context, index) => _buildListTile(context, index),
+      itemBuilder: (context, index) =>
+          _buildListTile(context, index, accountModel),
     );
   }
 
@@ -124,7 +126,8 @@ class _AccountViewState extends State<AccountView> {
     );
   }
 
-  ListTile _buildListTile(BuildContext context, int index) {
+  ListTile _buildListTile(
+      BuildContext context, int index, AccountModel accountModel) {
     List<String> actionNames = [
       LocaleKeys.account_action_editProfile_name.locale,
       LocaleKeys.account_action_shipping.locale,
@@ -147,15 +150,15 @@ class _AccountViewState extends State<AccountView> {
       Icons.logout_rounded,
     ];
 
-    List<PageRouteInfo<dynamic>> actionRoute = const [
-      EditProfile(),
-      ShippingAdress(),
-      OrderHistory(),
-      TrackOrder(),
-      Cards(),
-      Notifications(),
-      Settings(),
-      LoginView(),
+    List<PageRouteInfo<dynamic>> actionRoute = [
+      const EditProfile(),
+      const ShippingAdress(),
+      const OrderHistory(),
+      TrackOrder(accountModel: accountModel),
+      const Cards(),
+      const Notifications(),
+      const Settings(),
+      const LoginView(),
     ];
 
     return ListTile(

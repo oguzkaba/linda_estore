@@ -15,6 +15,7 @@ import 'package:auto_route/auto_route.dart' as _i21;
 import 'package:dio/dio.dart' as _i23;
 import 'package:flutter/material.dart' as _i22;
 
+import '../../../features/account/model/account_model.dart' as _i24;
 import '../../../features/account/view/account_view.dart' as _i20;
 import '../../../features/account/view/widgets/cards.dart' as _i13;
 import '../../../features/account/view/widgets/edit_card.dart' as _i14;
@@ -29,7 +30,7 @@ import '../../../features/auth/forgot/verification/verification_view.dart'
 import '../../../features/auth/forgot/view/forgot_view.dart' as _i6;
 import '../../../features/auth/login/view/login_view.dart' as _i4;
 import '../../../features/auth/register/view/register_view.dart' as _i5;
-import '../../../features/cart/model/cart_model.dart' as _i24;
+import '../../../features/cart/model/cart_model.dart' as _i25;
 import '../../../features/cart/view/cart_view.dart' as _i18;
 import '../../../features/cart/view/widgets/checkout.dart' as _i8;
 import '../../../features/dashboard/view/dashboard_view.dart' as _i2;
@@ -151,9 +152,11 @@ class AppRouter extends _i21.RootStackRouter {
           barrierDismissible: false);
     },
     TrackOrder.name: (routeData) {
+      final args = routeData.argsAs<TrackOrderArgs>();
       return _i21.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i12.TrackOrder(),
+          child:
+              _i12.TrackOrder(key: args.key, accountModel: args.accountModel),
           transitionsBuilder: _i21.TransitionsBuilders.fadeIn,
           durationInMilliseconds: 300,
           opaque: true,
@@ -402,10 +405,26 @@ class OrderHistory extends _i21.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i12.TrackOrder]
-class TrackOrder extends _i21.PageRouteInfo<void> {
-  const TrackOrder() : super(TrackOrder.name, path: '/track-order');
+class TrackOrder extends _i21.PageRouteInfo<TrackOrderArgs> {
+  TrackOrder({_i22.Key? key, required _i24.AccountModel accountModel})
+      : super(TrackOrder.name,
+            path: '/track-order',
+            args: TrackOrderArgs(key: key, accountModel: accountModel));
 
   static const String name = 'TrackOrder';
+}
+
+class TrackOrderArgs {
+  const TrackOrderArgs({this.key, required this.accountModel});
+
+  final _i22.Key? key;
+
+  final _i24.AccountModel accountModel;
+
+  @override
+  String toString() {
+    return 'TrackOrderArgs{key: $key, accountModel: $accountModel}';
+  }
 }
 
 /// generated route for
@@ -451,7 +470,7 @@ class HomeView extends _i21.PageRouteInfo<void> {
 /// generated route for
 /// [_i18.CartView]
 class CartView extends _i21.PageRouteInfo<CartViewArgs> {
-  CartView({_i22.Key? key, _i24.CartModel? cartModel})
+  CartView({_i22.Key? key, _i25.CartModel? cartModel})
       : super(CartView.name,
             path: 'cart', args: CartViewArgs(key: key, cartModel: cartModel));
 
@@ -463,7 +482,7 @@ class CartViewArgs {
 
   final _i22.Key? key;
 
-  final _i24.CartModel? cartModel;
+  final _i25.CartModel? cartModel;
 
   @override
   String toString() {

@@ -25,5 +25,4 @@ extension Target on Object {
   bool isWeb() {
     return kIsWeb;
   }
-  // ···
 }
