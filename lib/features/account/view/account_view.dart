@@ -129,13 +129,13 @@ class _AccountViewState extends State<AccountView> {
   ListTile _buildListTile(
       BuildContext context, int index, AccountModel accountModel) {
     List<String> actionNames = [
-      LocaleKeys.account_action_editProfile_name.locale,
+      LocaleKeys.account_action_editProfile_title.locale,
       LocaleKeys.account_action_shipping.locale,
       LocaleKeys.account_action_order.locale,
       LocaleKeys.account_action_trackOrder_title.locale,
-      LocaleKeys.account_action_cards_name.locale,
+      LocaleKeys.account_action_cards_title.locale,
       LocaleKeys.account_action_notif.locale,
-      LocaleKeys.account_action_appSet.locale,
+      LocaleKeys.account_action_appSet_title.locale,
       LocaleKeys.account_action_logout.locale,
     ];
 

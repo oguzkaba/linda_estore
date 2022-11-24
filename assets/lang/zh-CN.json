@@ -101,7 +101,7 @@
     "demoMail": "demo_user@gmail.com",
     "action": {
       "editProfile": {
-        "name": "编辑个人资料",
+        "title": "编辑个人资料",
         "buttonText": "救",
         "tfieldEmailHint": "输入电子邮件",
         "tfieldPassHint": "输入密码",
@@ -114,10 +114,10 @@
         "emptyTitle": "无订单"
       },
       "cards": {
-        "name": "卡",
+        "title": "卡",
         "buttonText": "新增功能",
         "editCard": {
-          "name": "编辑卡片",
+          "title": "编辑卡片",
           "buttonText": "救",
           "button2Text": "取消",
           "tfieldCardNoHint": "卡号",
@@ -127,7 +127,32 @@
         }
       },
       "notif": "通知",
-      "appSet": "应用程序设置",
+      "appSet": {
+        "title": "设置",
+        "viewOption": {
+          "title": "查看选项",
+          "language": "语言",
+          "darkMode": "深色模式",
+          "lightMode": "灯光模式"
+        },
+        "security": {
+          "title": "安全",
+          "changePass": "更改密码",
+          "fingerprint": "使用指纹"
+        },
+        "other": {
+          "title": "其他",
+          "versionControl": "应用程序版本控制",
+          "manageAccount": "管理账户",
+          "about": "关于 LindaStore"
+        },
+        "policies": {
+          "title": "政策",
+          "priAndpol": "隐私与政策",
+          "terms": " 服务条款 ",
+          "help": "帮助与反馈"
+        }
+      },
       "logout": "登出"
     }
   }

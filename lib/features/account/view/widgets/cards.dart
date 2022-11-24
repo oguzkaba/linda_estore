@@ -24,7 +24,7 @@ class _CardsState extends State<Cards> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-          title: Text(LocaleKeys.account_action_cards_name.locale,
+          title: Text(LocaleKeys.account_action_cards_title.locale,
               style: TextStyle(color: ColorConstants.myBlack)),
           leading: Padding(
             padding: const EdgeInsets.all(4.0),

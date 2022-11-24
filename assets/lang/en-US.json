@@ -101,7 +101,7 @@
         "demoMail": "demo_user@gmail.com",
         "action": {
             "editProfile": {
-                "name": "Edit Profile",
+                "title": "Edit Profile",
                 "buttonText": "Save",
                 "tfieldEmailHint": "Enter email",
                 "tfieldPassHint": "Enter password",
@@ -114,10 +114,10 @@
                 "emptyTitle": "No Order"
             },
             "cards": {
-                "name": "Cards",
+                "title": "Cards",
                 "buttonText": "NEW",
                 "editCard": {
-                    "name": "Edit Card",
+                    "title": "Edit Card",
                     "buttonText": "Save",
                     "button2Text": "Cancel",
                     "tfieldCardNoHint": "Card Number",
@@ -127,7 +127,32 @@
                 }
             },
             "notif": "Notifications",
-            "appSet": "Application Settings",
+            "appSet": {
+                "title": "Settings",
+                "viewOption": {
+                    "title": "View",
+                    "language": "Language",
+                    "darkMode": "Dark Mode",
+                    "lightMode": "Light Mode"
+                },
+                "security": {
+                    "title": "Security",
+                    "changePass": "Change Password",
+                    "fingerprint": "Use Fingerprint"
+                },
+                "other": {
+                    "title": "Other",
+                    "versionControl": "Application Version Control",
+                    "manageAccount": "Manage Account",
+                    "about": "About LindaStore"
+                },
+                "policies": {
+                    "title": "Policies",
+                    "priAndpol": "Privacy & Policy",
+                    "terms": "Terms of Service",
+                    "help": "Help & Feedback"
+                }
+            },
             "logout": "Log Out"
         }
     }

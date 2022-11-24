@@ -23,7 +23,7 @@ class _SettingsState extends State<Settings> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-          title: Text(LocaleKeys.account_action_trackOrder_title.locale,
+          title: Text(LocaleKeys.account_action_appSet_title.locale,
               style: TextStyle(color: ColorConstants.myBlack)),
           leading: Padding(
             padding: const EdgeInsets.all(4.0),
@@ -53,50 +53,68 @@ class _SettingsState extends State<Settings> {
 
   SettingsSection _appViewOption() {
     return SettingsSection(
-      title: Text("View Option", style: Theme.of(context).textTheme.bodySmall),
+      title: Text(LocaleKeys.account_action_appSet_viewOption_title.locale,
+          style: Theme.of(context).textTheme.bodySmall),
       tiles: <SettingsTile>[
         _tileNavigation(
             icon: Icons.language,
-            title: "Language",
+            title: LocaleKeys.account_action_appSet_viewOption_language.locale,
             useTrailing: true,
             valueString: LanguageEnum.toLong(context.locale.languageCode)),
-        _tileSwitch(title: "Dark Mode", icon: Icons.dark_mode),
+        _tileSwitch(
+            title: LocaleKeys.account_action_appSet_viewOption_darkMode.locale,
+            icon: Icons.dark_mode),
       ],
     );
   }
 
   SettingsSection _appSecurity() {
     return SettingsSection(
-      title: Text("Security", style: Theme.of(context).textTheme.bodySmall),
+      title: Text(LocaleKeys.account_action_appSet_security_title.locale,
+          style: Theme.of(context).textTheme.bodySmall),
       tiles: <SettingsTile>[
         _tileNavigation(
-            title: "Change Password", icon: Icons.lock_reset_rounded),
-        _tileSwitch(title: "Use Fingerprint", icon: Icons.fingerprint_rounded),
+            title: LocaleKeys.account_action_appSet_security_changePass.locale,
+            icon: Icons.lock_reset_rounded),
+        _tileSwitch(
+            title: LocaleKeys.account_action_appSet_security_fingerprint.locale,
+            icon: Icons.fingerprint_rounded),
       ],
     );
   }
 
   SettingsSection _appOther() {
     return SettingsSection(
-      title: Text("Other", style: Theme.of(context).textTheme.bodySmall),
+      title: Text(LocaleKeys.account_action_appSet_other_title.locale,
+          style: Theme.of(context).textTheme.bodySmall),
       tiles: <SettingsTile>[
         _tileNavigation(
-            title: "Application version control", icon: Icons.upload_rounded),
+            title: LocaleKeys.account_action_appSet_other_versionControl.locale,
+            icon: Icons.upload_rounded),
         _tileNavigation(
-            title: "Manage Account", icon: Icons.manage_accounts_rounded),
-        _tileNavigation(title: "About", icon: Icons.info_rounded),
+            title: LocaleKeys.account_action_appSet_other_manageAccount.locale,
+            icon: Icons.manage_accounts_rounded),
+        _tileNavigation(
+            title: LocaleKeys.account_action_appSet_other_about.locale,
+            icon: Icons.info_rounded),
       ],
     );
   }
 
   SettingsSection _appPolicies() {
     return SettingsSection(
-      title: Text("Policies", style: Theme.of(context).textTheme.bodySmall),
+      title: Text(LocaleKeys.account_action_appSet_policies_title.locale,
+          style: Theme.of(context).textTheme.bodySmall),
       tiles: <SettingsTile>[
-        _tileNavigation(title: "Privacy & Policy", icon: Icons.description),
         _tileNavigation(
-            title: "Terms of Service", icon: Icons.checklist_rounded),
-        _tileNavigation(title: "Help & Feedback", icon: Icons.help),
+            title: LocaleKeys.account_action_appSet_policies_priAndpol.locale,
+            icon: Icons.description),
+        _tileNavigation(
+            title: LocaleKeys.account_action_appSet_policies_terms.locale,
+            icon: Icons.checklist_rounded),
+        _tileNavigation(
+            title: LocaleKeys.account_action_appSet_policies_help.locale,
+            icon: Icons.help),
       ],
     );
   }

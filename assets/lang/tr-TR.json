@@ -101,7 +101,7 @@
         "demoMail": "demo_kullanici@gmail.com",
         "action": {
             "editProfile": {
-                "name": "Profili Düzenle",
+                "title": "Profili Düzenle",
                 "buttonText": "Kaydet",
                 "tfieldEmailHint": "Email",
                 "tfieldPassHint": "Şifre",
@@ -114,10 +114,10 @@
                 "emptyTitle": "Siparişiniz Yok"
             },
             "cards": {
-                "name": "Kartlar",
+                "title": "Kartlar",
                 "buttonText": "YENİ",
                 "editCard": {
-                    "name": "Kart Düzenle",
+                    "title": "Kart Düzenle",
                     "buttonText": "Kaydet",
                     "button2Text": "Vazgeç",
                     "tfieldCardNoHint": "Kart Numarası",
@@ -127,7 +127,32 @@
                 }
             },
             "notif": "Bildirimler",
-            "appSet": "Uygulama Ayarları",
+            "appSet": {
+                "title": "Ayarlar",
+                "viewOption": {
+                    "title": "Görüntüleme",
+                    "language": "Dil",
+                    "darkMode": "Koyu Mod",
+                    "lightMode": "Açık Mod"
+                },
+                "security": {
+                    "title": "Güvenlik",
+                    "changePass": "Şifreyi Değiştir",
+                    "fingerprint": "Parmak İzi Kullan"
+                },
+                "other": {
+                    "title": "Diğer",
+                    "versionControl": "Uygulama Sürüm Kontrolü",
+                    "manageAccount": "Hesabı Yönet",
+                    "about": "LindaStore Hakkında"
+                },
+                "policies": {
+                    "title": "Politikalar",
+                    "priAndpol": "Gizlilik ve Politika",
+                    "terms": "Hizmet Koşulları",
+                    "help": "Yardım ve Geri Bildirim"
+                }
+            },
             "logout": "Oturumu Kapat"
         }
     }

@@ -101,7 +101,7 @@
     "demoMail": "demo_user@gmail.com",
     "action": {
       "editProfile": {
-        "name": "Редактировать профиль",
+        "title": "Редактировать профиль",
         "buttonText": "Спасать",
         "tfieldEmailHint": "Введите адрес электронной почты",
         "tfieldPassHint": "Введите пароль",
@@ -114,10 +114,10 @@
         "emptyTitle": "Нет заказа"
       },
       "cards": {
-        "name": "Карты",
+        "title": "Карты",
         "buttonText": "Новые функции",
         "editCard": {
-          "name": "Редактировать карточку",
+          "title": "Редактировать карточку",
           "buttonText": "Спасать",
           "button2Text": "Отмена",
           "tfieldCardNoHint": "Номер карты",
@@ -127,7 +127,32 @@
         }
       },
       "notif": "Уведомления",
-      "appSet": "Настройки приложения",
+      "appSet": {
+        "title": "Настройки",
+        "viewOption": {
+          "title": "Вариант просмотра",
+          "language": "Язык",
+          "darkMode": "Темный режим",
+          "lightMode": "Легкий режим"
+        },
+        "security": {
+          "title": "Безопасность",
+          "changePass": "Изменить пароль",
+          "fingerprint": "Использовать отпечаток пальца"
+        },
+        "other": {
+          "title": "Другое",
+          "versionControl": "Контроль версий приложения",
+          "manageAccount": "Управление аккаунтом",
+          "about": "O LindaStore"
+        },
+        "policies": {
+          "title": "Политики",
+          "priAndpol": "Конфиденциальность и политика",
+          "terms": "Условия использования",
+          "help": "Помощь и обратная связь"
+        }
+      },
       "logout": "Выходить"
     }
   }

@@ -42,7 +42,7 @@ class _EditCardState extends State<EditCard> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-            title: Text(LocaleKeys.account_action_cards_editCard_name.locale,
+            title: Text(LocaleKeys.account_action_cards_editCard_title.locale,
                 style: TextStyle(color: ColorConstants.myBlack)),
             leading: Padding(
               padding: const EdgeInsets.all(4.0),
