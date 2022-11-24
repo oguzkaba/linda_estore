@@ -7,7 +7,7 @@ class IconButtonWidget extends StatelessWidget {
   final double? circleRadius;
   final Color iColor;
   final Color? bColor;
-  final String tooltip;
+  final String? tooltip;
   final VoidCallback? onPress;
 
   const IconButtonWidget({
@@ -15,7 +15,7 @@ class IconButtonWidget extends StatelessWidget {
     required this.icon,
     this.size,
     required this.iColor,
-    required this.tooltip,
+    this.tooltip,
     this.circleRadius,
     this.onPress,
     this.bColor,

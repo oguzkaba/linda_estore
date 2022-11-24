@@ -1,13 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kartal/kartal.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
+import '../../../../core/enums/language_enum.dart';
 import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
-import '../../../../product/cubit/language_cubit.dart';
 import '../../../../product/widgets/iconbutton_widget.dart';
 import '../../../../product/widgets/language_ddbutton_widget.dart';
 
@@ -39,50 +38,101 @@ class _SettingsState extends State<Settings> {
           elevation: 0.0,
           centerTitle: true),
       body: SettingsList(
+        platform: DevicePlatform.iOS,
+        lightTheme:
+            SettingsThemeData(settingsListBackground: ColorConstants.myWhite),
         sections: [
-          _section1(context),
-          _section1(context),
-          _section1(context),
+          _appViewOption(),
+          _appSecurity(),
+          _appOther(),
+          _appPolicies()
         ],
       ),
     ));
   }
 
-  SettingsSection _section1(BuildContext context) {
+  SettingsSection _appViewOption() {
     return SettingsSection(
-      margin: EdgeInsetsDirectional.all(context.height * .02),
+      title: Text("View Option", style: Theme.of(context).textTheme.bodySmall),
       tiles: <SettingsTile>[
-        SettingsTile.navigation(
-          leading: const Icon(Icons.language),
-          value: Text("*use dropdown button to change language",
-              style: Theme.of(context)
-                  .textTheme
-                  .overline
-                  ?.copyWith(color: ColorConstants.myMediumGrey)),
-          title: Row(
-            children: [
-              Text("Current Language: ",
-                  style: Theme.of(context).textTheme.bodySmall),
-              LanguageDropDownButton(
-                alignment: Alignment.center,
-                context: context,
-              ),
-            ],
-          ),
-        ),
-        SettingsTile.switchTile(
-          onToggle: (value) {},
-          initialValue: false,
-          leading: const Icon(Icons.format_paint),
-          title: Text("Current Theme: Light",
-              style: Theme.of(context).textTheme.bodySmall),
-          description: Text("*use switch to change theme",
-              style: Theme.of(context)
-                  .textTheme
-                  .overline
-                  ?.copyWith(color: ColorConstants.myMediumGrey)),
-        ),
+        _tileNavigation(
+            icon: Icons.language,
+            title: "Language",
+            useTrailing: true,
+            valueString: LanguageEnum.toLong(context.locale.languageCode)),
+        _tileSwitch(title: "Dark Mode", icon: Icons.dark_mode),
       ],
+    );
+  }
+
+  SettingsSection _appSecurity() {
+    return SettingsSection(
+      title: Text("Security", style: Theme.of(context).textTheme.bodySmall),
+      tiles: <SettingsTile>[
+        _tileNavigation(
+            title: "Change Password", icon: Icons.lock_reset_rounded),
+        _tileSwitch(title: "Use Fingerprint", icon: Icons.fingerprint_rounded),
+      ],
+    );
+  }
+
+  SettingsSection _appOther() {
+    return SettingsSection(
+      title: Text("Other", style: Theme.of(context).textTheme.bodySmall),
+      tiles: <SettingsTile>[
+        _tileNavigation(
+            title: "Application version control", icon: Icons.upload_rounded),
+        _tileNavigation(
+            title: "Manage Account", icon: Icons.manage_accounts_rounded),
+        _tileNavigation(title: "About", icon: Icons.info_rounded),
+      ],
+    );
+  }
+
+  SettingsSection _appPolicies() {
+    return SettingsSection(
+      title: Text("Policies", style: Theme.of(context).textTheme.bodySmall),
+      tiles: <SettingsTile>[
+        _tileNavigation(title: "Privacy & Policy", icon: Icons.description),
+        _tileNavigation(
+            title: "Terms of Service", icon: Icons.checklist_rounded),
+        _tileNavigation(title: "Help & Feedback", icon: Icons.help),
+      ],
+    );
+  }
+
+  SettingsTile _tileSwitch(
+      {Function(bool)? toogle, required String title, required IconData icon}) {
+    return SettingsTile.switchTile(
+      onToggle: toogle,
+      initialValue: false,
+      leading:
+          IconButtonWidget(icon: icon, iColor: ColorConstants.primaryColor),
+      title: Text(title, style: Theme.of(context).textTheme.bodySmall),
+    );
+  }
+
+  SettingsTile _tileNavigation(
+      {Function(BuildContext)? press,
+      String? valueString,
+      bool? useTrailing,
+      required String title,
+      required IconData icon}) {
+    return SettingsTile.navigation(
+      onPressed: press,
+      trailing: useTrailing == null || useTrailing == false
+          ? null
+          : const LanguageDropDownButton(dropIcon: Icon(Icons.arrow_drop_down)),
+      leading:
+          IconButtonWidget(icon: icon, iColor: ColorConstants.primaryColor),
+      value: valueString == null
+          ? null
+          : Text(valueString,
+              style: Theme.of(context)
+                  .textTheme
+                  .overline
+                  ?.copyWith(color: ColorConstants.myMediumGrey)),
+      title: Text(title, style: Theme.of(context).textTheme.bodySmall),
     );
   }
 }

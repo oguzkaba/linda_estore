@@ -1,9 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/product/cubit/language_cubit.dart';
 import 'package:linda_wedding_ecommerce/product/widgets/language_ddbutton_widget.dart';
 
 import '../../core/extansions/asset_extansion.dart';
@@ -28,7 +25,7 @@ class AuthTopWidget extends StatelessWidget {
       visible: !context.isKeyBoardOpen,
       child: Column(
         children: [
-          LanguageDropDownButton(context: context),
+          const LanguageDropDownButton(),
           Text(title, style: Theme.of(context).textTheme.headlineSmall),
           Text(subTitle,
               textAlign: TextAlign.center,
