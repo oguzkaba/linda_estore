@@ -19,6 +19,7 @@ import '../../../cart/bloc/cart_bloc.dart';
 import '../../../../product/widgets/empty_info_widget.dart';
 import '../../../error/view/error_view.dart';
 import '../../../product/blocs/products/products_bloc.dart';
+import '../../../product/model/products_model.dart';
 
 class OrderHistory extends StatefulWidget {
   const OrderHistory({super.key});
@@ -86,131 +87,121 @@ class _OrderHistoryState extends State<OrderHistory> {
 
   Widget _buildCartLoaded(List<CartModel> cartModel) =>
       BlocBuilder<ProductsBloc, ProductsState>(builder: (context, state) {
-        if (state is ProductsLoading) {
-          return const LoadingIndicatorWidget(lottieName: "cart_loading");
-        } else if (state is ProductsLoaded) {
-          return SingleChildScrollView(
-            primary: true,
-            child: Padding(
-              padding: context.paddingMedium,
-              child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: cartModel.length,
-                  itemBuilder: (context, index) => Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          context.emptySizedHeightBoxLow,
-                          Text(cartModel[index].date.toString(),
-                              style: Theme.of(context).textTheme.labelMedium),
-                          GestureDetector(
-                            onTap: () {
-                              context.router.push(DashboardRouter(children: [
-                                CartView(cartModel: cartModel[index])
-                              ]));
-                            },
-                            child: Card(
-                                margin: const EdgeInsets.only(top: 10),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8.0, horizontal: 18),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+        return state.maybeWhen(
+            loading: () =>
+                const LoadingIndicatorWidget(lottieName: "cart_loading"),
+            loaded: (products, productsByCat, isFilterCat) =>
+                _buildProdLoaded(context, cartModel, products),
+            error: (error) =>
+                Center(child: ErrorView(errorText: error.toString())),
+            orElse: () => EmptyInfoWidget(
+                lottieSrc: "empty_cart",
+                text: LocaleKeys.cart_emptyTitle.locale));
+      });
+
+  SingleChildScrollView _buildProdLoaded(BuildContext context,
+      List<CartModel> cartModel, List<ProductsModel?> products) {
+    return SingleChildScrollView(
+      primary: true,
+      child: Padding(
+        padding: context.paddingMedium,
+        child: ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: cartModel.length,
+            itemBuilder: (context, index) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    context.emptySizedHeightBoxLow,
+                    Text(cartModel[index].date.toString(),
+                        style: Theme.of(context).textTheme.labelMedium),
+                    GestureDetector(
+                      onTap: () {
+                        context.router.push(DashboardRouter(
+                            children: [CartView(cartModel: cartModel[index])]));
+                      },
+                      child: Card(
+                          margin: const EdgeInsets.only(top: 10),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 18),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Expanded(
-                                        flex: 3,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                                "ORDER-O00000${cartModel[index].id}",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall),
-                                            context.emptySizedHeightBoxLow,
-                                            Text(
-                                                "TOTAL", //TODO total order price
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleSmall),
-                                            context.emptySizedHeightBoxNormal,
-                                            const EButtonWidget(
-                                              text: "Delivered",
-                                              bRadius: 5,
-                                              width: 100,
-                                              height: 30,
-                                            ) //TODO order state
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: GridView.builder(
-                                          itemCount: cartModel[index]
-                                                      .products
-                                                      .length ==
-                                                  1
-                                              ? 1
-                                              : 2,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          shrinkWrap: true,
-                                          gridDelegate:
-                                              SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: cartModel[index]
-                                                        .products
-                                                        .length ==
-                                                    1
-                                                ? 1
-                                                : 2,
-                                            childAspectRatio: 1.0,
-                                            mainAxisSpacing: 10.0,
-                                            crossAxisSpacing: 10.0,
-                                          ),
-                                          itemBuilder: (context, idx) {
-                                            final productId = cartModel[index]
-                                                .products[idx]
-                                                .productId;
-                                            return cartModel[index]
-                                                        .products
-                                                        .length <
-                                                    3
-                                                ? _buildPrdPreview(
-                                                    state
-                                                        .products[
-                                                            productId - 1]!
-                                                        .image!,
-                                                    productId: productId)
-                                                : idx < 1
-                                                    ? _buildPrdPreview(
-                                                        state
-                                                            .products[
-                                                                productId - 1]!
-                                                            .image!,
-                                                        productId: productId)
-                                                    : _buildPrdPreview(
-                                                        "+ ${cartModel[index].products.length - 1}",
-                                                        more: true,
-                                                        cartModel:
-                                                            cartModel[index]);
-                                          },
-                                        ),
-                                      )
+                                      Text("ORDER-O00000${cartModel[index].id}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall),
+                                      context.emptySizedHeightBoxLow,
+                                      Text("TOTAL", //TODO total order price
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall),
+                                      context.emptySizedHeightBoxNormal,
+                                      const EButtonWidget(
+                                        text: "Delivered",
+                                        bRadius: 5,
+                                        width: 100,
+                                        height: 30,
+                                      ) //TODO order state
                                     ],
                                   ),
-                                )),
-                          ),
-                        ],
-                      )),
-            ),
-          );
-        } else if (state is ProductsError) {
-          return Center(child: ErrorView(errorText: state.error.toString()));
-        }
-        return EmptyInfoWidget(
-            lottieSrc: "empty_cart", text: LocaleKeys.cart_emptyTitle.locale);
-      });
+                                ),
+                                Expanded(
+                                  child: GridView.builder(
+                                    itemCount:
+                                        cartModel[index].products.length == 1
+                                            ? 1
+                                            : 2,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount:
+                                          cartModel[index].products.length == 1
+                                              ? 1
+                                              : 2,
+                                      childAspectRatio: 1.0,
+                                      mainAxisSpacing: 10.0,
+                                      crossAxisSpacing: 10.0,
+                                    ),
+                                    itemBuilder: (context, idx) {
+                                      final productId = cartModel[index]
+                                          .products[idx]
+                                          .productId;
+                                      return cartModel[index].products.length <
+                                              3
+                                          ? _buildPrdPreview(
+                                              products[productId - 1]!.image!,
+                                              productId: productId)
+                                          : idx < 1
+                                              ? _buildPrdPreview(
+                                                  products[productId - 1]!
+                                                      .image!,
+                                                  productId: productId)
+                                              : _buildPrdPreview(
+                                                  "+ ${cartModel[index].products.length - 1}",
+                                                  more: true,
+                                                  cartModel: cartModel[index]);
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
+                          )),
+                    ),
+                  ],
+                )),
+      ),
+    );
+  }
 
   GestureDetector _buildPrdPreview(String text,
       {CartModel? cartModel, int? productId, bool more = false}) {

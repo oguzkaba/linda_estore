@@ -11,6 +11,7 @@ import 'package:linda_wedding_ecommerce/product/widgets/empty_info_widget.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../product/utils/custom_error_widgets.dart';
+import '../../error/view/error_view.dart';
 import '../../product/blocs/products/products_bloc.dart';
 import '../../product/model/products_model.dart';
 
@@ -43,16 +44,15 @@ class _FavoriteViewState extends State<FavoriteView> {
                     Padding(padding: context.paddingLow),
                     BlocBuilder<ProductsBloc, ProductsState>(
                         builder: (context, state) {
-                      if (state is ProductsLoading) {
-                        return const LoadingIndicatorWidget(
-                            lottieName: "favorite_loading");
-                      } else if (state is ProductsLoaded) {
-                        return _buildFavList(stateFav.favList, state.products);
-                      } else if (state is ProductsError) {
-                        CustomErrorWidgets.showError(
-                            context, state.error.toString());
-                      }
-                      return context.emptySizedHeightBoxLow;
+                      return state.when(
+                          initial: () => const LoadingIndicatorWidget(
+                              lottieName: "favorite_loading"),
+                          loading: () => const LoadingIndicatorWidget(
+                              lottieName: "favorite_loading"),
+                          loaded: (products, productsByCat, isFilterCat) =>
+                              _buildFavList(stateFav.favList, products),
+                          error: (error) => Center(
+                              child: ErrorView(errorText: error.toString())));
                     })
                   ],
                 ));

@@ -1,21 +1,13 @@
 part of 'products_bloc.dart';
 
-abstract class ProductsEvent extends Equatable {
-  final Dio manager;
-  final GlobalKey<ScaffoldState>? scaffoldKey;
-  const ProductsEvent(this.manager, this.scaffoldKey);
+@freezed
+abstract class ProductsEvent with _$ProductsEvent {
+  const factory ProductsEvent.fetch(
+      {required Dio manager,
+      required GlobalKey<ScaffoldState>? scaffoldKey}) = _ProductsFetched;
 
-  @override
-  List<Object> get props => [];
-}
-
-class ProductsFetched extends ProductsEvent {
-  const ProductsFetched(super.manager, super.scaffoldKey);
-}
-
-class ProductsByCategoryFetched extends ProductsEvent {
-  final String categoryName;
-
-  const ProductsByCategoryFetched(
-      super.manager, super.scaffoldKey, this.categoryName);
+  const factory ProductsEvent.fetchByCat(
+      {required Dio manager,
+      required GlobalKey<ScaffoldState>? scaffoldKey,
+      required String categoryName}) = _ProductsByCategoryFetched;
 }

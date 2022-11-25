@@ -33,8 +33,8 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     BlocProvider.of<CategoriesBloc>(context)
         .add((CategoriesFetched(0, manager, _scaffoldKey)));
-    BlocProvider.of<ProductsBloc>(context)
-        .add((ProductsFetched(manager, _scaffoldKey)));
+    BlocProvider.of<ProductsBloc>(context).add(
+        (ProductsEvent.fetch(manager: manager, scaffoldKey: _scaffoldKey)));
 
     super.initState();
   }
@@ -69,43 +69,36 @@ class _HomeViewState extends State<HomeView> {
           titleSpacing: 4,
           title: BlocBuilder<ProductsBloc, ProductsState>(
               builder: (context, state) {
-            if (state is ProductsLoaded) {
-              productsListforSearch = state.products;
-              return SizedBox(
-                  height: 30,
-                  child: SearchBarWidget(
-                      products: productsListforSearch.map((e) => e!).toList()));
-            }
-            return Container();
+            return state.maybeWhen(
+                loaded: (products, productsByCat, isFilterCat) {
+                  productsListforSearch = products;
+                  return SizedBox(
+                      height: 30,
+                      child: SearchBarWidget(
+                          products:
+                              productsListforSearch.map((e) => e!).toList()));
+                },
+                orElse: () => const SizedBox());
           }),
           bottom: _buildSliverAppBarBottom,
         ),
         BlocConsumer<ProductsBloc, ProductsState>(
           listener: (context, state) {
-            if (state is ProductsError) {
-              CustomErrorWidgets.showError(context, state.error.toString(),
-                  topMargin: 115);
-            }
+            state.whenOrNull(
+                error: (error) => CustomErrorWidgets.showError(
+                    context, error.toString(),
+                    topMargin: 115));
           },
           builder: (context, state) {
-            if (state is ProductsInitial) {
-              return const SliverShimmerWidget();
-            } else if (state is ProductsLoading) {
-              return const SliverShimmerWidget();
-            } else if (state is ProductsLoaded) {
-              if (state.isFilterCat) {
-                return _buildGridProducts(context, state.productsByCat);
-              } else {
-                return _buildGridProducts(context, state.products);
-              }
-            } else if (state is ProductsLoaded) {
-              return _buildGridProducts(context, state.products);
-            } else if (state is ProductsError) {
-              return SliverToBoxAdapter(
-                  child: ErrorView(errorText: LocaleKeys.error_error.locale));
-            } else {
-              return SliverToBoxAdapter(child: context.emptySizedHeightBoxLow);
-            }
+            return state.when(
+                initial: () => const SliverShimmerWidget(),
+                loading: () => const SliverShimmerWidget(),
+                loaded: (products, productsByCat, isFilterCat) => isFilterCat
+                    ? _buildGridProducts(context, productsByCat)
+                    : _buildGridProducts(context, products),
+                error: (error) => SliverToBoxAdapter(
+                    child:
+                        ErrorView(errorText: LocaleKeys.error_error.locale)));
           },
         )
       ]);
@@ -140,11 +133,13 @@ class _HomeViewState extends State<HomeView> {
         indicatorSize: TabBarIndicatorSize.label,
         onTap: (value) {
           if (value == 0) {
-            BlocProvider.of<ProductsBloc>(context)
-                .add((ProductsFetched(manager, _scaffoldKey)));
+            BlocProvider.of<ProductsBloc>(context).add((ProductsEvent.fetch(
+                manager: manager, scaffoldKey: _scaffoldKey)));
           } else {
-            BlocProvider.of<ProductsBloc>(context).add(
-                ProductsByCategoryFetched(manager, _scaffoldKey, model[value]));
+            BlocProvider.of<ProductsBloc>(context).add(ProductsEvent.fetchByCat(
+                manager: manager,
+                scaffoldKey: _scaffoldKey,
+                categoryName: model[value]));
           }
         },
         isScrollable: true,
