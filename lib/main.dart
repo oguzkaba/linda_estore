@@ -20,7 +20,7 @@ void main() async {
   //* Update statusbar theme
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-      statusBarColor: ColorConstants.primaryColor,
+      statusBarColor: ColorConstants.myWhite,
     ),
   );
 
@@ -35,7 +35,7 @@ void main() async {
           supportedLocales: LangManager.instance.supportLocales,
           startLocale: LangManager.instance.trLocale,
           child: DevicePreview(
-              enabled: !kReleaseMode, builder: (context) => const MyApp()))));
+              enabled: kReleaseMode, builder: (context) => const MyApp()))));
 }
 
 final _appRouter = AppRouter();

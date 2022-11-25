@@ -9,11 +9,7 @@ import '../../model/account_model.dart';
 class TrackOrder extends StatefulWidget {
   final AccountModel accountModel;
   const TrackOrder({super.key, required this.accountModel});
-  static const CameraPosition kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+
   @override
   State<TrackOrder> createState() => _TrackOrderState();
 }
@@ -22,9 +18,7 @@ class _TrackOrderState extends State<TrackOrder> {
   Completer<GoogleMapController> controller = Completer();
 
   static const CameraPosition kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
+      target: LatLng(37.42796133580664, -122.085749655962), zoom: 14);
   final Set<Polygon> polygon = {};
   final List<LatLng> point = [];
 
@@ -57,7 +51,6 @@ class _TrackOrderState extends State<TrackOrder> {
   @override
   Widget build(BuildContext context) {
     const CameraPosition myLocation = CameraPosition(
-        bearing: 192.8334901395799,
         //*Since the data from the backend service is indian ocean
         // target: LatLng(widget.accountModel.address!.geolocation!.lat!.toDouble,
         //     widget.accountModel.address!.geolocation!.long!.toDouble),
@@ -79,7 +72,7 @@ class _TrackOrderState extends State<TrackOrder> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: (() async => _goToTheLake(myLocation)),
-        label: const Text('My Adress Location'),
+        label: const Text('My Location'),
         icon: const Icon(Icons.location_on),
       ),
     ));

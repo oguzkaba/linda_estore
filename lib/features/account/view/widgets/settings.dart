@@ -38,7 +38,7 @@ class _SettingsState extends State<Settings> {
           elevation: 0.0,
           centerTitle: true),
       body: SettingsList(
-        platform: DevicePlatform.iOS,
+        //platform: DevicePlatform.iOS,
         lightTheme:
             SettingsThemeData(settingsListBackground: ColorConstants.myWhite),
         sections: [
