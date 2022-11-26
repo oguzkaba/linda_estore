@@ -19,31 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
     AppCacheManager appCacheManager = AppCacheManager(CacheConstants.appCache);
     on<AuthLogin>((event, emit) async {
-      try {
-        emit(LoginLoading());
-        final result = await AuthService(event.manager, event.scaffoldKey)
-            .login(model: event.loginRequestModel);
-
-        if (result.object != null) {
-          //Save token
-          await appCacheManager.init();
-          await appCacheManager.clear();
-          final loginModel = result.object as LoginResponseModel;
-          final userId = jwtToGetUserId(loginModel);
-
-          AppCacheModel appCacheModel =
-              const AppCacheModel().copyWith(token: loginModel.token!);
-
-          await appCacheManager.setModel(
-              CacheConstants.appCache, appCacheModel);
-
-          emit(LoginSuccess(token: loginModel.token, userId: userId));
-        } else {
-          emit(LoginError(result.error!));
-        }
-      } catch (e) {
-        emit(LoginError(e));
-      }
+      _handleLogin(event, null, emit, appCacheManager);
     });
 
     on<AuthRegister>((event, emit) async {
@@ -65,14 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
           emit(const RegisterSuccess(1));
 
-          // ignore: use_build_context_synchronously
-          add(AuthLogin(
-              event.manager,
-              event.scaffoldKey,
-              LoginRequestModel(
-                  username: event.registerRequestModel.username!,
-                  password: event.registerRequestModel.password!),
-              event.context));
+          _handleLogin(null, event, emit, appCacheManager);
         } else {
           emit(RegisterError(resultRegister.error!));
         }
@@ -101,5 +70,46 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(LoginError(e));
       }
     });
+  }
+
+  Future<void> _handleLogin(
+    AuthLogin? eventLog,
+    AuthRegister? eventReg,
+    Emitter<AuthState> emit,
+    AppCacheManager appCacheManager,
+  ) async {
+    try {
+      emit(LoginLoading());
+      if (eventLog != null) {
+        final result = await AuthService(eventLog.manager, eventLog.scaffoldKey)
+            .login(model: eventLog.loginRequestModel);
+      } else if (eventReg != null) {
+        final result = await AuthService(eventReg.manager, eventReg.scaffoldKey)
+            .login(
+                model: LoginRequestModel(
+                    username: eventReg.registerRequestModel.username!,
+                    password: eventReg.registerRequestModel.password!));
+
+        if (result.object != null) {
+          //Save token
+          await appCacheManager.init();
+          await appCacheManager.clear();
+          final loginModel = result.object as LoginResponseModel;
+          final userId = jwtToGetUserId(loginModel);
+
+          AppCacheModel appCacheModel =
+              const AppCacheModel().copyWith(token: loginModel.token!);
+
+          await appCacheManager.setModel(
+              CacheConstants.appCache, appCacheModel);
+
+          emit(LoginSuccess(token: loginModel.token, userId: userId));
+        } else {
+          emit(LoginError(result.error!));
+        }
+      }
+    } catch (e) {
+      emit(LoginError(e));
+    }
   }
 }
