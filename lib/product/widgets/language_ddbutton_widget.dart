@@ -38,7 +38,6 @@ class LanguageDropDownButton extends StatelessWidget {
                     LangManager.instance.zhLocale.languageCode, "flag/china"),
               ],
               onChanged: (dynamic value) {
-                debugPrint(value.toString());
                 context.read<LanguageCubit>().changeLanguage(
                     context, value.languageCode, value.countryCode);
               },

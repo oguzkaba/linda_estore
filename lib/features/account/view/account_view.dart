@@ -182,10 +182,13 @@ class _AccountViewState extends State<AccountView> {
         onTap: () {
           if (index == 7) {
             context.read<AuthBloc>().add(AuthLogOut(manager, scaffoldKey));
-            SchedulerBinding.instance.addPostFrameCallback((_) async {
-              await context.router
-                  .pushAndPopUntil(actionRoute[index], predicate: (_) => false);
-            });
+            Future.delayed(context.durationLow).whenComplete(() => context
+                .router
+                .pushAndPopUntil(actionRoute[index], predicate: (_) => false));
+            // SchedulerBinding.instance.addPostFrameCallback((_) async {
+            //   await context.router
+            //       .pushAndPopUntil(actionRoute[index], predicate: (_) => false);
+            // });
           } else {
             context.pushRoute(actionRoute[index]);
           }

@@ -6,7 +6,7 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(const LoginState(false));
 
-  void toogleSuffixIcon(bool value) {
+  Future<void> toogleSuffixIcon(bool value) async {
     emit(LoginState(value));
   }
 }

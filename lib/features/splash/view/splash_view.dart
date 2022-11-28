@@ -58,7 +58,7 @@ class _SplashViewState extends State<SplashView> {
     } else {
       debugPrint("AuthControl --> Unautharized");
       await Future.delayed(duration).then((value) {
-        BlocProvider.of<FavoriteBloc>(context).add(const InitFavorite([]));
+        //BlocProvider.of<FavoriteBloc>(context).add(const InitFavorite([]));
         context.router.pushNamed("/login");
       });
     }

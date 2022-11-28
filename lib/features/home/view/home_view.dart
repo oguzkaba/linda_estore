@@ -31,6 +31,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void initState() {
+    debugPrint("Home init method..............");
     BlocProvider.of<CategoriesBloc>(context)
         .add((CategoriesFetched(0, manager, _scaffoldKey)));
     BlocProvider.of<ProductsBloc>(context).add(

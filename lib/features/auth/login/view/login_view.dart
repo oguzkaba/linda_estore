@@ -120,10 +120,6 @@ class _LoginViewState extends State<LoginView> {
                         context, state.error.toString());
                   }
                 }, builder: (context, state) {
-                  if (state is LoginSuccess) {
-                    context.router
-                        .push(DashboardRouter(children: const [HomeView()]));
-                  }
                   return EButtonWidget(
                       text: state is LoginLoading
                           ? null
@@ -140,6 +136,10 @@ class _LoginViewState extends State<LoginView> {
                                       password: passwordController.text.trim(),
                                     ),
                                     context));
+                                Future.delayed(context.durationLow)
+                                    .whenComplete(() => context.router.push(
+                                        DashboardRouter(
+                                            children: const [HomeView()])));
                               }
                             });
                 }),
