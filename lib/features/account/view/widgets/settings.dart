@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:linda_wedding_ecommerce/core/init/themes/cubit/theme_cubit.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
@@ -38,11 +40,9 @@ class _SettingsState extends State<Settings> {
           elevation: 0.0,
           centerTitle: true),
       body: SettingsList(
-        platform: DevicePlatform.iOS,
-        lightTheme:
-            SettingsThemeData(settingsListBackground: ColorConstants.myWhite),
+        platform: DevicePlatform.device,
         sections: [
-          _appViewOption(),
+          _appViewOption(context),
           _appSecurity(),
           _appOther(),
           _appPolicies()
@@ -51,7 +51,7 @@ class _SettingsState extends State<Settings> {
     ));
   }
 
-  SettingsSection _appViewOption() {
+  SettingsSection _appViewOption(BuildContext context) {
     return SettingsSection(
       title: Text(LocaleKeys.account_action_appSet_viewOption_title.locale,
           style: Theme.of(context).textTheme.bodySmall),
@@ -62,6 +62,9 @@ class _SettingsState extends State<Settings> {
             useTrailing: true,
             valueString: LanguageEnum.toLong(context.locale.languageCode)),
         _tileSwitch(
+            value: context.watch<ThemeCubit>().state.isDark ? true : false,
+            toogle: (value) =>
+                context.read<ThemeCubit>().changeTheme(context, value),
             title: LocaleKeys.account_action_appSet_viewOption_darkMode.locale,
             icon: Icons.dark_mode),
       ],
@@ -77,6 +80,7 @@ class _SettingsState extends State<Settings> {
             title: LocaleKeys.account_action_appSet_security_changePass.locale,
             icon: Icons.lock_reset_rounded),
         _tileSwitch(
+            value: false,
             title: LocaleKeys.account_action_appSet_security_fingerprint.locale,
             icon: Icons.fingerprint_rounded),
       ],
@@ -120,10 +124,13 @@ class _SettingsState extends State<Settings> {
   }
 
   SettingsTile _tileSwitch(
-      {Function(bool)? toogle, required String title, required IconData icon}) {
+      {Function(bool)? toogle,
+      required String title,
+      required IconData icon,
+      required bool value}) {
     return SettingsTile.switchTile(
       onToggle: toogle,
-      initialValue: false,
+      initialValue: value,
       leading:
           IconButtonWidget(icon: icon, iColor: ColorConstants.primaryColor),
       title: Text(title, style: Theme.of(context).textTheme.bodySmall),

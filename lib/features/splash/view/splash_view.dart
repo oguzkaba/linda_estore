@@ -3,17 +3,18 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linda_wedding_ecommerce/core/init/cache/app_cache_model.dart';
-import 'package:linda_wedding_ecommerce/features/auth/bloc/auth_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/constants/cache/cache_constants.dart';
 import '../../../core/extansions/string_extansion.dart';
 import '../../../core/init/cache/app_cache_manager.dart';
+import '../../../core/init/cache/app_cache_model.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../core/init/network/service/network_service.dart';
 import '../../../core/init/routes/routes.gr.dart';
+import '../../../core/init/themes/cubit/theme_cubit.dart';
+import '../../auth/bloc/auth_bloc.dart';
+import '../../favorite/bloc/favorite_bloc.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -29,7 +30,6 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   void initState() {
-    //appCacheManager.clear();
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controlAuth(const Duration(seconds: 3));
@@ -44,21 +44,22 @@ class _SplashViewState extends State<SplashView> {
     if (getBoxModel?.token != null) {
       await Future.delayed(duration).then((value) {
         debugPrint("AuthControl --> Autharized Success");
-        BlocProvider.of<AuthBloc>(context)
-            .add(Authanticate(manager, scaffoldKey, getBoxModel?.token));
+        context
+            .read<ThemeCubit>()
+            .changeTheme(context, getBoxModel!.isDark ?? false);
 
-        if (getBoxModel?.favorites != null) {
-          BlocProvider.of<FavoriteBloc>(context)
-              .add(InitFavorite(getBoxModel!.favorites!));
-        } else {
-          BlocProvider.of<FavoriteBloc>(context).add(const InitFavorite([]));
-        }
+        BlocProvider.of<AuthBloc>(context).add(
+            Authanticate(manager, scaffoldKey, context, getBoxModel.token));
+
+        BlocProvider.of<FavoriteBloc>(context)
+            .add(InitFavorite(getBoxModel.favorites ?? []));
+
         context.router.push(DashboardRouter(children: const [HomeView()]));
       });
     } else {
       debugPrint("AuthControl --> Unautharized");
       await Future.delayed(duration).then((value) {
-        //BlocProvider.of<FavoriteBloc>(context).add(const InitFavorite([]));
+        BlocProvider.of<FavoriteBloc>(context).add(const InitFavorite([]));
         context.router.pushNamed("/login");
       });
     }

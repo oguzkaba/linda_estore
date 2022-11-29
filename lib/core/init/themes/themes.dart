@@ -11,28 +11,28 @@ class AppTheme {
   AppTheme._init();
 
   ThemeData get darkTheme => ThemeData.dark().copyWith(
-        //TODO dark theme edit
-        textTheme: _textTheme,
-        primaryTextTheme: _primaryTextTheme,
-        colorScheme: _colorScheme,
-        appBarTheme: _appBarTheme,
-        bottomNavigationBarTheme: _bottomNavBarTheme,
-        expansionTileTheme: _expansionTileTheme,
-        inputDecorationTheme: _inputTheme,
-      );
+      //TODO dark theme edit
+      textTheme: _textThemeDark,
+      primaryTextTheme: _primaryTextTheme,
+      colorScheme: _colorScheme,
+      appBarTheme: _appBarThemeDark,
+      bottomNavigationBarTheme: _bottomNavBarThemeDark,
+      expansionTileTheme: _expansionTileTheme,
+      inputDecorationTheme: _inputTheme,
+      scaffoldBackgroundColor: ColorConstants.myDark);
 
   ThemeData get lightTheme => ThemeData.light().copyWith(
         scaffoldBackgroundColor: ColorConstants.myWhite,
-        textTheme: _textTheme,
+        textTheme: _textThemeLight,
         primaryTextTheme: _primaryTextTheme,
         colorScheme: _colorScheme,
-        appBarTheme: _appBarTheme,
-        bottomNavigationBarTheme: _bottomNavBarTheme,
+        appBarTheme: _appBarThemeLight,
+        bottomNavigationBarTheme: _bottomNavBarThemeLight,
         expansionTileTheme: _expansionTileTheme,
         inputDecorationTheme: _inputTheme,
       );
 
-  TextTheme get _textTheme => ThemeData.light()
+  TextTheme get _textThemeLight => ThemeData.light()
       .textTheme
       .copyWith(
         headlineSmall: TextStyle(
@@ -47,6 +47,26 @@ class AppTheme {
         labelSmall: TextStyle(color: ColorConstants.myLightGrey),
         bodySmall: TextStyle(
             fontWeight: FontWeight.bold, color: ColorConstants.myDark),
+      )
+      .apply(
+        fontFamily: "Montserrat",
+      );
+
+  TextTheme get _textThemeDark => ThemeData.dark()
+      .textTheme
+      .copyWith(
+        headlineSmall: TextStyle(
+            color: ColorConstants.myWhite, fontWeight: FontWeight.bold),
+        titleSmall: TextStyle(
+            color: ColorConstants.primaryColor, fontWeight: FontWeight.bold),
+        titleMedium: TextStyle(
+            color: ColorConstants.primaryColor, fontWeight: FontWeight.bold),
+        labelLarge: TextStyle(color: ColorConstants.myLightGrey),
+        labelMedium: TextStyle(
+            color: ColorConstants.myLightGrey, fontWeight: FontWeight.bold),
+        labelSmall: TextStyle(color: ColorConstants.myLightGrey),
+        bodySmall: TextStyle(
+            fontWeight: FontWeight.bold, color: ColorConstants.myWhite),
       )
       .apply(
         fontFamily: "Montserrat",
@@ -70,7 +90,7 @@ class AppTheme {
         childrenPadding: EdgeInsets.zero,
       );
 
-  BottomNavigationBarThemeData get _bottomNavBarTheme =>
+  BottomNavigationBarThemeData get _bottomNavBarThemeLight =>
       BottomNavigationBarThemeData(
         backgroundColor: ColorConstants.myWhite,
         selectedLabelStyle:
@@ -80,11 +100,30 @@ class AppTheme {
         type: BottomNavigationBarType.fixed,
       );
 
-  AppBarTheme get _appBarTheme => AppBarTheme(
+  BottomNavigationBarThemeData get _bottomNavBarThemeDark =>
+      BottomNavigationBarThemeData(
+        backgroundColor: ColorConstants.myDark,
+        selectedLabelStyle:
+            TextStyle(fontSize: 10, color: ColorConstants.myWhite),
+        unselectedLabelStyle:
+            TextStyle(fontSize: 10, color: ColorConstants.myLightGrey),
+        type: BottomNavigationBarType.fixed,
+      );
+
+  AppBarTheme get _appBarThemeLight => AppBarTheme(
       toolbarHeight: 40,
       iconTheme: IconThemeData(color: ColorConstants.primaryColor),
       actionsIconTheme: IconThemeData(color: ColorConstants.primaryColor),
       backgroundColor: ColorConstants.myWhite,
+      titleTextStyle: TextStyle(
+          color: ColorConstants.primaryColor,
+          fontSize: 16,
+          fontWeight: FontWeight.bold));
+  AppBarTheme get _appBarThemeDark => AppBarTheme(
+      toolbarHeight: 40,
+      iconTheme: IconThemeData(color: ColorConstants.primaryColor),
+      actionsIconTheme: IconThemeData(color: ColorConstants.primaryColor),
+      backgroundColor: ColorConstants.myMediumGrey,
       titleTextStyle: TextStyle(
           color: ColorConstants.primaryColor,
           fontSize: 16,

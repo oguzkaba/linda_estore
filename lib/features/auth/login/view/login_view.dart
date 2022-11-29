@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dart';
 
 import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
@@ -78,6 +79,7 @@ class _LoginViewState extends State<LoginView> {
   void initState() {
     unameController = TextEditingController();
     passwordController = TextEditingController();
+    // BlocProvider.of<FavoriteBloc>(context).add(const InitFavorite([]));
     super.initState();
   }
 
@@ -136,10 +138,6 @@ class _LoginViewState extends State<LoginView> {
                                       password: passwordController.text.trim(),
                                     ),
                                     context));
-                                Future.delayed(context.durationLow)
-                                    .whenComplete(() => context.router.push(
-                                        DashboardRouter(
-                                            children: const [HomeView()])));
                               }
                             });
                 }),

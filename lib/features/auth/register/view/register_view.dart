@@ -99,9 +99,6 @@ class _RegisterViewState extends State<RegisterView> {
                         context, state.error.toString());
                   }
                 }, builder: (context, state) {
-                  if (state is LoginSuccess) {
-                    context.router.push(const LoginView());
-                  }
                   return EButtonWidget(
                       text: state is RegisterLoading
                           ? null
@@ -115,8 +112,8 @@ class _RegisterViewState extends State<RegisterView> {
                                     scaffoldKey,
                                     //?In the backend, because of the problem of
                                     //?adding new users, demo data was used (it can be edited as needed).
-                                    registerRequestModel,
                                     context,
+                                    registerRequestModel,
                                   ));
                             }
                       // }

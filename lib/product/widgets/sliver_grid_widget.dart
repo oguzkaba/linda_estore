@@ -9,6 +9,7 @@ import '../../core/constants/app/colors_constants.dart';
 import '../../core/init/lang/locale_keys.g.dart';
 import '../../core/init/network/service/network_service.dart';
 import '../../core/init/routes/routes.gr.dart';
+import '../../core/init/themes/cubit/theme_cubit.dart';
 import '../../features/product/model/products_model.dart';
 import 'iconbutton_widget.dart';
 
@@ -49,14 +50,19 @@ class MySliverGridWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(5),
             margin: const EdgeInsets.all(5),
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.05),
-                spreadRadius: 3,
-                blurRadius: 1,
-                offset: const Offset(0, 0.2), // changes position of shadow
-              ),
-            ], color: Colors.white, borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.05),
+                    spreadRadius: 3,
+                    blurRadius: 1,
+                    offset: const Offset(0, 0.2), // changes position of shadow
+                  ),
+                ],
+                color: context.watch<ThemeCubit>().state.isDark
+                    ? ColorConstants.myMediumGrey
+                    : ColorConstants.myWhite,
+                borderRadius: BorderRadius.circular(10)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -114,7 +120,9 @@ class MySliverGridWidget extends StatelessWidget {
                       circleRadius: 18,
                       iColor: state.favList.contains(model[index]!.id!)
                           ? ColorConstants.primaryColor
-                          : ColorConstants.myMediumGrey,
+                          : context.watch<ThemeCubit>().state.isDark
+                              ? ColorConstants.myWhite
+                              : ColorConstants.myMediumGrey,
                       tooltip: "Favorite");
                 } else {
                   return const SizedBox();

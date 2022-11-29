@@ -17,6 +17,7 @@ class AppCacheModelAdapter extends TypeAdapter<AppCacheModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return AppCacheModel(
+      isDark: fields[2] as bool?,
       token: fields[0] as String?,
       favorites: (fields[1] as List?)?.cast<int>(),
     );
@@ -25,11 +26,13 @@ class AppCacheModelAdapter extends TypeAdapter<AppCacheModel> {
   @override
   void write(BinaryWriter writer, AppCacheModel obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.token)
       ..writeByte(1)
-      ..write(obj.favorites);
+      ..write(obj.favorites)
+      ..writeByte(2)
+      ..write(obj.isDark);
   }
 
   @override

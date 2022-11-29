@@ -1,11 +1,13 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../extansions/asset_extansion.dart';
+import '../../init/themes/cubit/theme_cubit.dart';
 
 class LoadingIndicatorWidget extends StatelessWidget {
   final String lottieName;
@@ -16,8 +18,6 @@ class LoadingIndicatorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: ColorConstants.myWhite,
-        body: Center(child: Lottie.asset(lottieName.toLottie)));
+    return Scaffold(body: Center(child: Lottie.asset(lottieName.toLottie)));
   }
 }

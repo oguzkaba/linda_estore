@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'core/init/themes/cubit/theme_cubit.dart';
 import 'core/base/provider/wrap_bloc_provider.dart';
 import 'core/constants/app/application_constants.dart';
 import 'core/constants/app/colors_constants.dart';
 import 'core/init/lang/lang_manager.dart';
 import 'core/init/observer/observer.dart';
 import 'core/init/routes/routes.gr.dart';
-import 'core/init/themes/themes.dart';
 
 void main() async {
   //* observe bloc logs
@@ -49,11 +49,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routerDelegate: _appRouter.delegate(),
       routeInformationParser: _appRouter.defaultRouteParser(),
-      //themeMode: ThemeMode.light,
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
       supportedLocales: context.supportedLocales,
-      theme: AppTheme.instance.lightTheme,
+      theme: context.watch<ThemeCubit>().state.appTheme,
     );
   }
 }

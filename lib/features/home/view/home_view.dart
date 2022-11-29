@@ -7,6 +7,7 @@ import 'package:linda_wedding_ecommerce/features/error/view/error_view.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../core/init/lang/translate_remote_entry.dart';
 import '../../../core/init/network/service/network_service.dart';
+import '../../../core/init/themes/cubit/theme_cubit.dart';
 import '../../../product/widgets/iconbutton_widget.dart';
 import '../../../product/widgets/search_bar_widget.dart';
 import '../../../product/widgets/sliver_grid_widget.dart';
@@ -46,6 +47,9 @@ class _HomeViewState extends State<HomeView> {
       key: _scaffoldKey,
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: context.watch<ThemeCubit>().state.isDark
+              ? ColorConstants.myDark
+              : Colors.grey[50],
           body: _buildBody,
         ),
       ),

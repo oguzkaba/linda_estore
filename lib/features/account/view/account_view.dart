@@ -2,17 +2,20 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 import 'package:linda_wedding_ecommerce/features/account/bloc/account_bloc.dart';
 import 'package:linda_wedding_ecommerce/features/account/model/account_model.dart';
 import 'package:linda_wedding_ecommerce/features/auth/bloc/auth_bloc.dart';
+import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dart';
 
 import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/init/network/service/network_service.dart';
 import '../../../core/init/routes/routes.gr.dart';
+import '../../../core/init/themes/cubit/theme_cubit.dart';
 import '../../../product/utils/custom_error_widgets.dart';
 import '../../../product/widgets/iconbutton_widget.dart';
 import '../../error/view/error_view.dart';
@@ -37,6 +40,8 @@ class _AccountViewState extends State<AccountView> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = context.watch<ThemeCubit>().state.isDark;
+
     return SafeArea(
         child: Scaffold(
             body: BlocConsumer<AccountBloc, AccountState>(
@@ -92,12 +97,35 @@ class _AccountViewState extends State<AccountView> {
     );
   }
 
-  Card _buildProfileCard(BuildContext context, AccountLoaded state) {
-    return Card(
-      elevation: 5,
+  Container _buildProfileCard(BuildContext context, AccountLoaded state) {
+    return Container(
+      margin: context.verticalPaddingMedium,
+      padding: context.horizontalPaddingMedium,
+      decoration: BoxDecoration(
+          color: context.watch<ThemeCubit>().state.isDark
+              ? ColorConstants.myDark
+              : ColorConstants.myWhite,
+          boxShadow: [
+            BoxShadow(
+              color: context.watch<ThemeCubit>().state.isDark
+                  ? ColorConstants.myMediumGrey
+                  : ColorConstants.myLightGrey,
+              offset: const Offset(0.0, 1.0), //(x,y)
+              blurRadius: 6.0,
+            ),
+          ],
+          border: GradientBoxBorder(
+              gradient: LinearGradient(colors: [
+                ColorConstants.primaryColor,
+                ColorConstants.secondaryColor,
+                ColorConstants.primaryColor,
+              ]),
+              width: 2),
+          borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 18.0),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
@@ -167,7 +195,9 @@ class _AccountViewState extends State<AccountView> {
             style: Theme.of(context).textTheme.bodySmall),
         trailing: IconButtonWidget(
           size: 16,
-          bColor: ColorConstants.myWhite,
+          bColor: context.watch<ThemeCubit>().state.isDark
+              ? ColorConstants.myDark
+              : ColorConstants.myWhite,
           tooltip: actionNames[index],
           iColor: ColorConstants.myMediumGrey,
           icon: Icons.chevron_right_rounded,
@@ -181,7 +211,10 @@ class _AccountViewState extends State<AccountView> {
         ),
         onTap: () {
           if (index == 7) {
-            context.read<AuthBloc>().add(AuthLogOut(manager, scaffoldKey));
+            context
+                .read<AuthBloc>()
+                .add(AuthLogOut(manager, scaffoldKey, context));
+            context.read<FavoriteBloc>().add(const InitFavorite([]));
             Future.delayed(context.durationLow).whenComplete(() => context
                 .router
                 .pushAndPopUntil(actionRoute[index], predicate: (_) => false));

@@ -12,17 +12,16 @@ class AppCacheModel extends Equatable {
   final String? token;
   @HiveField(1)
   final List<int>? favorites;
+  @HiveField(2)
+  final bool? isDark;
 
-  const AppCacheModel({this.token, this.favorites});
+  const AppCacheModel({this.isDark, this.token, this.favorites});
 
-  AppCacheModel copyWith({
-    String? token,
-    List<int>? favorites,
-  }) =>
+  AppCacheModel copyWith({String? token, List<int>? favorites, bool? isDark}) =>
       AppCacheModel(
-        token: token ?? this.token,
-        favorites: favorites ?? this.favorites,
-      );
+          token: token ?? this.token,
+          favorites: favorites ?? this.favorites,
+          isDark: isDark ?? this.isDark);
 
   @override
   List<Object?> get props => [token, favorites];

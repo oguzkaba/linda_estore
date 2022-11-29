@@ -1,17 +1,20 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linda_wedding_ecommerce/core/init/cache/app_cache_manager.dart';
-import 'package:linda_wedding_ecommerce/core/init/cache/app_cache_model.dart';
-import 'package:linda_wedding_ecommerce/core/init/routes/routes.gr.dart';
-import 'package:linda_wedding_ecommerce/features/auth/login/model/login_response_model.dart';
-import 'package:linda_wedding_ecommerce/features/auth/register/model/register_request_model.dart';
-import 'package:linda_wedding_ecommerce/product/utils/json_decoder_util.dart';
+import 'package:kartal/kartal.dart';
+
 import '../../../core/base/model/base_response_model.dart';
 import '../../../core/constants/cache/cache_constants.dart';
+import '../../../core/init/cache/app_cache_manager.dart';
+import '../../../core/init/cache/app_cache_model.dart';
 import '../../../core/init/network/model/network_error_model.dart';
+import '../../../core/init/routes/routes.gr.dart';
+import '../../../product/utils/json_decoder_util.dart';
 import '../login/model/login_request_model.dart';
+import '../login/model/login_response_model.dart';
+import '../register/model/register_request_model.dart';
 import '../service/auth_service.dart';
 
 part 'auth_event.dart';
@@ -113,6 +116,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await appCacheManager.setModel(CacheConstants.appCache, appCacheModel);
 
         emit(LoginSuccess(token: loginModel.token, userId: userId));
+
+        Future.delayed(event.context.durationLow)
+            .then((value) => event.context.router.pushAndPopUntil(
+                  DashboardRouter(children: const [HomeView()]),
+                  predicate: (_) => false,
+                ));
       } else {
         emit(LoginError(result!.error!));
       }

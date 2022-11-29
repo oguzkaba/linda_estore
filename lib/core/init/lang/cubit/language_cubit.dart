@@ -2,7 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/init/lang/lang_manager.dart';
+import '../lang_manager.dart';
+
 part 'language_state.dart';
 
 class LanguageCubit extends Cubit<LanguageState> {

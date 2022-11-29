@@ -12,9 +12,10 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   FavoriteBloc() : super(FavoriteInitial()) {
     on<ToogleFavorite>((event, emit) async {
       late List<int> tempList;
+
       AppCacheManager appCacheManager =
           AppCacheManager(CacheConstants.appCache);
-
+      await appCacheManager.init();
       Future<List<int>> saveFav(String action) async {
         AppCacheModel getBoxModel =
             appCacheManager.getModel(CacheConstants.appCache)!;
