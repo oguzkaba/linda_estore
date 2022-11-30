@@ -1,24 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
-import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
-import 'package:linda_wedding_ecommerce/features/account/bloc/account_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/account/model/account_model.dart';
-import 'package:linda_wedding_ecommerce/features/auth/bloc/auth_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dart';
 
 import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
+import '../../../core/extansions/string_extansion.dart';
+import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../core/init/network/service/network_service.dart';
 import '../../../core/init/routes/routes.gr.dart';
 import '../../../core/init/themes/cubit/theme_cubit.dart';
 import '../../../product/utils/custom_error_widgets.dart';
 import '../../../product/widgets/iconbutton_widget.dart';
+import '../../auth/bloc/auth_bloc.dart';
 import '../../error/view/error_view.dart';
+import '../../favorite/bloc/favorite_bloc.dart';
+import '../bloc/account_bloc.dart';
+import '../model/account_model.dart';
 
 class AccountView extends StatefulWidget {
   const AccountView({super.key});
@@ -34,36 +33,33 @@ class _AccountViewState extends State<AccountView> {
   @override
   void initState() {
     BlocProvider.of<AccountBloc>(context)
-        .add(AccountFetch(manager, scaffoldKey));
+        .add(AccountEvent.fetch(manager: manager, scaffoldKey: scaffoldKey));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = context.watch<ThemeCubit>().state.isDark;
-
     return SafeArea(
         child: Scaffold(
             body: BlocConsumer<AccountBloc, AccountState>(
                 listener: (context, state) {
-      if (state is AccountError) {
-        CustomErrorWidgets.showError(context, state.error.toString(),
-            topMargin: 115);
-      }
+      state.whenOrNull(
+          error: (error) => CustomErrorWidgets.showError(
+              context, error.toString(),
+              topMargin: 115));
     }, builder: (context, state) {
-      if (state is AccountLoading) {
-        return const LoadingIndicatorWidget(lottieName: "account_loading");
-      } else if (state is AccountLoaded) {
-        return _buildAccountLoaded(context, state);
-      } else if (state is AccountError) {
-        return Center(child: ErrorView(errorText: state.error.toString()));
-      }
-      return context.emptySizedHeightBoxLow;
+      return state.when(
+          initial: () =>
+              const LoadingIndicatorWidget(lottieName: "account_loading"),
+          loading: () =>
+              const LoadingIndicatorWidget(lottieName: "account_loading"),
+          loaded: (accountModel) => _buildAccountLoaded(context, accountModel),
+          error: (error) => ErrorView(errorText: error.toString()));
     })));
   }
 
   SingleChildScrollView _buildAccountLoaded(
-      BuildContext context, AccountLoaded state) {
+      BuildContext context, AccountModel accountModel) {
     return SingleChildScrollView(
       child: Padding(
           padding: context.paddingMedium,
@@ -72,9 +68,9 @@ class _AccountViewState extends State<AccountView> {
               children: [
                 Text(LocaleKeys.account_topTitle.locale,
                     style: Theme.of(context).textTheme.headlineSmall),
-                _buildProfileCard(context, state),
+                _buildProfileCard(context, accountModel),
                 context.emptySizedHeightBoxLow,
-                _buildList(state.accountModel),
+                _buildList(accountModel),
                 context.emptySizedHeightBoxLow,
                 Text("v.1.0.0", style: Theme.of(context).textTheme.labelSmall)
               ],
@@ -97,7 +93,7 @@ class _AccountViewState extends State<AccountView> {
     );
   }
 
-  Container _buildProfileCard(BuildContext context, AccountLoaded state) {
+  Container _buildProfileCard(BuildContext context, AccountModel accountModel) {
     return Container(
       margin: context.verticalPaddingMedium,
       padding: context.horizontalPaddingMedium,
@@ -141,11 +137,11 @@ class _AccountViewState extends State<AccountView> {
             context.emptySizedWidthBoxNormal,
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                  "${state.accountModel.name!.firstname!.toCapitalized()} ${state.accountModel.name!.lastname!.toUpperCase()}",
+                  "${accountModel.name!.firstname!.toCapitalized()} ${accountModel.name!.lastname!.toUpperCase()}",
                   style: Theme.of(context).textTheme.titleSmall),
-              Text(state.accountModel.email!,
+              Text(accountModel.email!,
                   style: Theme.of(context).textTheme.labelMedium),
-              Text(state.accountModel.phone!,
+              Text(accountModel.phone!,
                   style: Theme.of(context).textTheme.labelMedium),
             ])
           ],
@@ -214,14 +210,12 @@ class _AccountViewState extends State<AccountView> {
             context
                 .read<AuthBloc>()
                 .add(AuthLogOut(manager, scaffoldKey, context));
-            context.read<FavoriteBloc>().add(const InitFavorite([]));
+            context
+                .read<FavoriteBloc>()
+                .add(const FavoriteEvent.init(favList: []));
             Future.delayed(context.durationLow).whenComplete(() => context
                 .router
                 .pushAndPopUntil(actionRoute[index], predicate: (_) => false));
-            // SchedulerBinding.instance.addPostFrameCallback((_) async {
-            //   await context.router
-            //       .pushAndPopUntil(actionRoute[index], predicate: (_) => false);
-            // });
           } else {
             context.pushRoute(actionRoute[index]);
           }

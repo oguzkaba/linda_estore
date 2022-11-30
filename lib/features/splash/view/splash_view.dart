@@ -52,14 +52,15 @@ class _SplashViewState extends State<SplashView> {
             Authanticate(manager, scaffoldKey, context, getBoxModel.token));
 
         BlocProvider.of<FavoriteBloc>(context)
-            .add(InitFavorite(getBoxModel.favorites ?? []));
+            .add(FavoriteEvent.init(favList: getBoxModel.favorites ?? []));
 
         context.router.push(DashboardRouter(children: const [HomeView()]));
       });
     } else {
       debugPrint("AuthControl --> Unautharized");
       await Future.delayed(duration).then((value) {
-        BlocProvider.of<FavoriteBloc>(context).add(const InitFavorite([]));
+        BlocProvider.of<FavoriteBloc>(context)
+            .add(const FavoriteEvent.init(favList: []));
         context.router.pushNamed("/login");
       });
     }

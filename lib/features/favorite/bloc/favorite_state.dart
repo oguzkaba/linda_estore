@@ -1,28 +1,10 @@
 part of 'favorite_bloc.dart';
 
-abstract class FavoriteState extends Equatable {
-  const FavoriteState();
-
-  @override
-  List<Object> get props => [];
-}
-
-class FavoriteInitial extends FavoriteState {}
-
-class FavoriteLoading extends FavoriteState {}
-
-class FavoriteLoaded extends FavoriteState {
-  final List<int> favList;
-  const FavoriteLoaded(this.favList);
-
-  @override
-  List<Object> get props => [favList];
-}
-
-class FavoriteError extends FavoriteState {
-  final Object error;
-  const FavoriteError(this.error);
-
-  @override
-  List<Object> get props => [error];
+@freezed
+abstract class FavoriteState with _$FavoriteState {
+  const factory FavoriteState.initial() = _FavoriteInitial;
+  const factory FavoriteState.loading() = _FavoriteLoading;
+  const factory FavoriteState.loaded({required List<int> favList}) =
+      _FavoriteLoaded;
+  const factory FavoriteState.error({required Object error}) = _FavoriteError;
 }

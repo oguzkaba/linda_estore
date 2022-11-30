@@ -1,16 +1,17 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:linda_wedding_ecommerce/core/init/cache/app_cache_model.dart';
 
 import '../../../core/constants/cache/cache_constants.dart';
 import '../../../core/init/cache/app_cache_manager.dart';
 
+part 'favorite_bloc.freezed.dart';
 part 'favorite_event.dart';
 part 'favorite_state.dart';
 
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
-  FavoriteBloc() : super(FavoriteInitial()) {
-    on<ToogleFavorite>((event, emit) async {
+  FavoriteBloc() : super(const _FavoriteInitial()) {
+    on<_ToogleFavorite>((event, emit) async {
       late List<int> tempList;
 
       AppCacheManager appCacheManager =
@@ -36,25 +37,25 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
         if (getBoxModel.favorites != null) {
           if (getBoxModel.favorites!.contains(event.index)) {
             var a = await saveFav("remove");
-            emit(FavoriteLoaded([...a]));
+            emit(_FavoriteLoaded(favList: [...a]));
           } else {
             var a = await saveFav("add");
-            emit(FavoriteLoaded([...a]));
+            emit(_FavoriteLoaded(favList: [...a]));
           }
         } else {
           List<int> firsAddFavList = [event.index];
           AppCacheModel newModel =
               getBoxModel.copyWith(favorites: firsAddFavList);
           await appCacheManager.setModel(CacheConstants.appCache, newModel);
-          emit(FavoriteLoaded(newModel.favorites!));
+          emit(_FavoriteLoaded(favList: newModel.favorites!));
         }
       } catch (e) {
-        emit(FavoriteError(e));
+        emit(_FavoriteError(error: e));
       }
     });
 
-    on<InitFavorite>((event, emit) async {
-      emit(FavoriteLoaded(event.favList));
+    on<_InitFavorite>((event, emit) async {
+      emit(_FavoriteLoaded(favList: event.favList));
     });
   }
 }

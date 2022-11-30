@@ -3,23 +3,23 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
-import 'package:linda_wedding_ecommerce/core/init/routes/routes.gr.dart';
-import 'package:linda_wedding_ecommerce/features/account/bloc/account_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/cart/model/cart_model.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/ebutton_widget.dart';
 
 import '../../../../core/components/indicator/loading_indicator.dart';
 import '../../../../core/constants/app/colors_constants.dart';
+import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/network/service/network_service.dart';
+import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../product/utils/custom_error_widgets.dart';
+import '../../../../product/widgets/ebutton_widget.dart';
+import '../../../../product/widgets/empty_info_widget.dart';
 import '../../../../product/widgets/iconbutton_widget.dart';
 import '../../../cart/bloc/cart_bloc.dart';
-import '../../../../product/widgets/empty_info_widget.dart';
+import '../../../cart/model/cart_model.dart';
 import '../../../error/view/error_view.dart';
 import '../../../product/blocs/products/products_bloc.dart';
 import '../../../product/model/products_model.dart';
+import '../../bloc/account_bloc.dart';
 
 class OrderHistory extends StatefulWidget {
   const OrderHistory({super.key});
@@ -35,8 +35,8 @@ class _OrderHistoryState extends State<OrderHistory> {
   @override
   void initState() {
     AccountBloc accountBloc = BlocProvider.of(context);
-    BlocProvider.of<CartBloc>(context)
-        .add(FetchCarts(manager, scaffoldKey, accountBloc));
+    BlocProvider.of<CartBloc>(context).add(CartEvent.fetch(
+        manager: manager, scaffoldKey: scaffoldKey, accountBloc: accountBloc));
     super.initState();
   }
 
@@ -60,28 +60,25 @@ class _OrderHistoryState extends State<OrderHistory> {
                 elevation: 0.0,
                 centerTitle: true),
             body: BlocConsumer<CartBloc, CartState>(listener: (context, state) {
-              if (state is CartError) {
-                CustomErrorWidgets.showError(context, state.error.toString(),
-                    topMargin: 115);
-              }
+              state.whenOrNull(
+                  error: (error) => CustomErrorWidgets.showError(
+                      context, error.toString(),
+                      topMargin: 115));
             }, builder: (context, state) {
-              if (state is CartLoading) {
-                return const LoadingIndicatorWidget(
-                    lottieName: "order_loading");
-              } else if (state is CartLoaded) {
-                if (state.cartModel.isNullOrEmpty) {
-                  return EmptyInfoWidget(
-                      lottieSrc: "empty_order",
-                      underText: LocaleKeys
-                          .account_action_trackOrder_emptyTitle.locale);
-                } else {
-                  return _buildCartLoaded(state.cartModel);
-                }
-              } else if (state is CartError) {
-                return Center(
-                    child: ErrorView(errorText: state.error.toString()));
-              }
-              return const LoadingIndicatorWidget(lottieName: "cart_loading");
+              return state.maybeWhen(
+                initial: () =>
+                    const LoadingIndicatorWidget(lottieName: "order_loading"),
+                loading: () =>
+                    const LoadingIndicatorWidget(lottieName: "order_loading"),
+                loaded: (cartModel) => cartModel.isNullOrEmpty
+                    ? EmptyInfoWidget(
+                        lottieSrc: "empty_order",
+                        underText: LocaleKeys
+                            .account_action_trackOrder_emptyTitle.locale)
+                    : _buildCartLoaded(cartModel),
+                error: (error) => ErrorView(errorText: error.toString()),
+                orElse: () => context.emptySizedHeightBoxLow,
+              );
             })));
   }
 

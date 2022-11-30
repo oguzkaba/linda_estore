@@ -108,25 +108,22 @@ class MySliverGridWidget extends StatelessWidget {
             top: 10,
             child: BlocBuilder<FavoriteBloc, FavoriteState>(
               builder: (context, state) {
-                if (state is FavoriteLoaded) {
-                  return IconButtonWidget(
-                      onPress: () => context
-                          .read<FavoriteBloc>()
-                          .add(ToogleFavorite(model[index]!.id!)),
-                      icon: state.favList.contains(model[index]!.id!)
-                          ? Icons.favorite_rounded
-                          : Icons.favorite_border,
-                      size: 18,
-                      circleRadius: 18,
-                      iColor: state.favList.contains(model[index]!.id!)
-                          ? ColorConstants.primaryColor
-                          : context.watch<ThemeCubit>().state.isDark
-                              ? ColorConstants.myWhite
-                              : ColorConstants.myMediumGrey,
-                      tooltip: "Favorite");
-                } else {
-                  return const SizedBox();
-                }
+                return state.maybeWhen(
+                    orElse: () => context.emptySizedHeightBoxLow,
+                    loaded: (favList) => IconButtonWidget(
+                        onPress: () => context.read<FavoriteBloc>().add(
+                            FavoriteEvent.toogle(index: model[index]!.id!)),
+                        icon: favList.contains(model[index]!.id!)
+                            ? Icons.favorite_rounded
+                            : Icons.favorite_border,
+                        size: 18,
+                        circleRadius: 18,
+                        iColor: favList.contains(model[index]!.id!)
+                            ? ColorConstants.primaryColor
+                            : context.watch<ThemeCubit>().state.isDark
+                                ? ColorConstants.myWhite
+                                : ColorConstants.myMediumGrey,
+                        tooltip: "Favorite"));
               },
             ),
           ),

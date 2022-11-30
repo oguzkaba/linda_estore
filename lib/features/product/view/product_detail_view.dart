@@ -4,11 +4,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/constants/app/image_constants.dart';
-import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dart';
 
 import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
+import '../../../core/constants/app/image_constants.dart';
 import '../../../core/extansions/string_extansion.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../product/mock/model/fake_reviews_model.dart';
@@ -16,6 +15,7 @@ import '../../../product/utils/custom_error_widgets.dart';
 import '../../../product/widgets/export_widget.dart';
 import '../../../product/widgets/iconbutton_widget.dart';
 import '../../error/view/error_view.dart';
+import '../../favorite/bloc/favorite_bloc.dart';
 import '../blocs/product/product_bloc.dart';
 import '../model/product_model.dart';
 
@@ -35,8 +35,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   ValueNotifier<bool> showReviews = ValueNotifier(false);
   @override
   void initState() {
-    BlocProvider.of<ProductBloc>(context)
-        .add(ProductFetched(widget.manager, widget.scaffoldKey, widget.id));
+    BlocProvider.of<ProductBloc>(context).add(ProductEvent.fetch(
+        manager: widget.manager,
+        scaffoldKey: widget.scaffoldKey,
+        id: widget.id));
     super.initState();
   }
 
@@ -49,175 +51,170 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProductBloc, ProductState>(
-      listener: (BuildContext context, Object? state) {
-        if (state is ProductError) {
-          CustomErrorWidgets.showError(context, state.error.toString());
-        }
+      listener: (BuildContext context, state) {
+        state.whenOrNull(
+            error: (error) =>
+                CustomErrorWidgets.showError(context, error.toString()));
       },
       builder: (context, state) {
-        if (state is ProductLoading) {
-          return const LoadingIndicatorWidget(lottieName: "product_loading");
-        } else if (state is ProductLoaded) {
-          return SafeArea(
-            child: Scaffold(
-              extendBodyBehindAppBar: true,
-              appBar: AppBar(
-                leading: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0),
-                  child: IconButtonWidget(
-                      size: 16,
-                      onPress: () => context.router.pop(),
-                      icon: Icons.chevron_left_rounded,
-                      iColor: ColorConstants.myMediumGrey,
-                      tooltip: "Back"),
-                ),
-                backgroundColor: Colors.transparent,
-                elevation: 0.0,
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    child: BlocBuilder<FavoriteBloc, FavoriteState>(
-                      builder: (context, stateFav) {
-                        if (stateFav is FavoriteLoaded) {
-                          return IconButtonWidget(
-                              onPress: () => context
-                                  .read<FavoriteBloc>()
-                                  .add(ToogleFavorite(widget.id)),
-                              icon: stateFav.favList.contains(state.product.id!)
-                                  ? Icons.favorite_rounded
-                                  : Icons.favorite_border,
-                              size: 16,
-                              iColor:
-                                  stateFav.favList.contains(state.product.id!)
-                                      ? ColorConstants.primaryColor
-                                      : ColorConstants.myMediumGrey,
-                              tooltip: "Favorite");
-                        } else {
-                          return const SizedBox();
-                        }
-                      },
-                    ),
-                  ),
-                ],
+        return state.when(
+            initial: () =>
+                const LoadingIndicatorWidget(lottieName: "product_loading"),
+            loading: () =>
+                const LoadingIndicatorWidget(lottieName: "product_loading"),
+            loaded: (product, reviews) =>
+                _buildProductLoaded(context, product, reviews),
+            error: (error) => ErrorView(errorText: error.toString()));
+      },
+    );
+  }
+
+  SafeArea _buildProductLoaded(
+      BuildContext context, ProductModel product, List<MockDataModel> reviews) {
+    return SafeArea(
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            child: IconButtonWidget(
+                size: 16,
+                onPress: () => context.router.pop(),
+                icon: Icons.chevron_left_rounded,
+                iColor: ColorConstants.myMediumGrey,
+                tooltip: "Back"),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              child: BlocBuilder<FavoriteBloc, FavoriteState>(
+                builder: (context, stateFav) {
+                  return stateFav.maybeWhen(
+                      orElse: () => context.emptySizedHeightBoxLow,
+                      loaded: (favList) => IconButtonWidget(
+                          onPress: () => context
+                              .read<FavoriteBloc>()
+                              .add(FavoriteEvent.toogle(index: widget.id)),
+                          icon: favList.contains(product.id!)
+                              ? Icons.favorite_rounded
+                              : Icons.favorite_border,
+                          size: 16,
+                          iColor: favList.contains(product.id!)
+                              ? ColorConstants.primaryColor
+                              : ColorConstants.myMediumGrey,
+                          tooltip: "Favorite"));
+                },
               ),
-              body: SingleChildScrollView(
-                  child: Padding(
-                padding: context.paddingNormal,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            ),
+          ],
+        ),
+        body: SingleChildScrollView(
+            child: Padding(
+          padding: context.paddingNormal,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: CachedNetworkImage(
+                    imageUrl: product.image!, height: context.height * .5),
+              ),
+              Padding(padding: context.paddingLow),
+              Text(product.title!,
+                  style: Theme.of(context).textTheme.titleSmall),
+              Padding(padding: context.paddingLow),
+              GestureDetector(
+                onTap: () => showReviews.value = true,
+                child: Row(
                   children: [
-                    Center(
-                      child: CachedNetworkImage(
-                          imageUrl: state.product.image!,
-                          height: context.height * .5),
+                    Row(
+                      children: [
+                        for (var i = 0; i < 5; i++)
+                          Icon(Icons.star,
+                              color: i < product.rating!.rate
+                                  ? ColorConstants.myYellow
+                                  : ColorConstants.myLightGrey,
+                              size: 16),
+                      ],
                     ),
-                    Padding(padding: context.paddingLow),
-                    Text(state.product.title!,
-                        style: Theme.of(context).textTheme.titleSmall),
-                    Padding(padding: context.paddingLow),
-                    GestureDetector(
-                      onTap: () => showReviews.value = true,
-                      child: Row(
-                        children: [
-                          Row(
-                            children: [
-                              for (var i = 0; i < 5; i++)
-                                Icon(Icons.star,
-                                    color: i < state.product.rating!.rate
-                                        ? ColorConstants.myYellow
-                                        : ColorConstants.myLightGrey,
-                                    size: 16),
-                            ],
-                          ),
-                          Text(
-                              " ( ${state.product.rating!.count} ${LocaleKeys.home_productDet_review.locale}) ",
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.bodySmall),
-                        ],
-                      ),
-                    ),
-                    Padding(padding: context.paddingNormal),
-                    Text(LocaleKeys.home_productDet_details.locale,
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium
-                            ?.copyWith(decoration: TextDecoration.underline)),
-                    Padding(padding: context.paddingLow),
-                    Text(state.product.description!,
+                    Text(
+                        " ( ${product.rating!.count} ${LocaleKeys.home_productDet_review.locale}) ",
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 3,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(fontWeight: FontWeight.normal)),
-                    Padding(padding: context.paddingNormal),
-                    Text(LocaleKeys.home_productDet_color.locale,
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium
-                            ?.copyWith(decoration: TextDecoration.underline)),
-                    Padding(padding: context.paddingLow),
-                    Row(
-                      children: [
-                        _buildColorOption(ColorConstants.myBlack,
-                            selected: true),
-                        context.emptySizedWidthBoxLow,
-                        _buildColorOption(ColorConstants.myRed),
-                        context.emptySizedWidthBoxLow,
-                        _buildColorOption(ColorConstants.myBlue),
-                        context.emptySizedWidthBoxLow,
-                        _buildColorOption(ColorConstants.myYellow)
-                      ],
-                    ),
-                    Padding(padding: context.paddingNormal),
-                    Text(LocaleKeys.home_productDet_size.locale,
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium
-                            ?.copyWith(decoration: TextDecoration.underline)),
-                    Padding(padding: context.paddingLow),
-                    Row(
-                      children: [
-                        _buildSizeOption("S"),
-                        context.emptySizedWidthBoxLow,
-                        _buildSizeOption("M", selected: true),
-                        context.emptySizedWidthBoxLow,
-                        _buildSizeOption("L"),
-                        context.emptySizedWidthBoxLow,
-                        _buildSizeOption("XL")
-                      ],
-                    ),
-                    Padding(padding: context.paddingNormal),
-                    GestureDetector(
-                      onTap: () => showReviews.value = !showReviews.value,
-                      child: Text(LocaleKeys.home_productDet_reviews.locale,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(decoration: TextDecoration.underline)),
-                    ),
-                    Padding(padding: context.paddingLow),
-                    ValueListenableBuilder(
-                        valueListenable: showReviews,
-                        builder: (context, value, child) => showReviews.value
-                            ? _buildReviewsList(state.reviews)
-                            : context.emptySizedHeightBoxLow)
+                        style: Theme.of(context).textTheme.bodySmall),
                   ],
                 ),
-              )),
-              bottomNavigationBar: _buildBottomWidget(context, state.product),
-            ),
-          );
-        } else if (state is ProductError) {
-          return ErrorView(errorText: state.error.toString());
-        } else {
-          return Container(
-              color: ColorConstants.myWhite,
-              width: double.infinity,
-              height: double.infinity,
-              child: const Center(child: CircularProgressIndicator()));
-        }
-      },
+              ),
+              Padding(padding: context.paddingNormal),
+              Text(LocaleKeys.home_productDet_details.locale,
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium
+                      ?.copyWith(decoration: TextDecoration.underline)),
+              Padding(padding: context.paddingLow),
+              Text(product.description!,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(fontWeight: FontWeight.normal)),
+              Padding(padding: context.paddingNormal),
+              Text(LocaleKeys.home_productDet_color.locale,
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium
+                      ?.copyWith(decoration: TextDecoration.underline)),
+              Padding(padding: context.paddingLow),
+              Row(
+                children: [
+                  _buildColorOption(ColorConstants.myBlack, selected: true),
+                  context.emptySizedWidthBoxLow,
+                  _buildColorOption(ColorConstants.myRed),
+                  context.emptySizedWidthBoxLow,
+                  _buildColorOption(ColorConstants.myBlue),
+                  context.emptySizedWidthBoxLow,
+                  _buildColorOption(ColorConstants.myYellow)
+                ],
+              ),
+              Padding(padding: context.paddingNormal),
+              Text(LocaleKeys.home_productDet_size.locale,
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium
+                      ?.copyWith(decoration: TextDecoration.underline)),
+              Padding(padding: context.paddingLow),
+              Row(
+                children: [
+                  _buildSizeOption("S"),
+                  context.emptySizedWidthBoxLow,
+                  _buildSizeOption("M", selected: true),
+                  context.emptySizedWidthBoxLow,
+                  _buildSizeOption("L"),
+                  context.emptySizedWidthBoxLow,
+                  _buildSizeOption("XL")
+                ],
+              ),
+              Padding(padding: context.paddingNormal),
+              GestureDetector(
+                onTap: () => showReviews.value = !showReviews.value,
+                child: Text(LocaleKeys.home_productDet_reviews.locale,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelMedium
+                        ?.copyWith(decoration: TextDecoration.underline)),
+              ),
+              Padding(padding: context.paddingLow),
+              ValueListenableBuilder(
+                  valueListenable: showReviews,
+                  builder: (context, value, child) => showReviews.value
+                      ? _buildReviewsList(reviews)
+                      : context.emptySizedHeightBoxLow)
+            ],
+          ),
+        )),
+        bottomNavigationBar: _buildBottomWidget(context, product),
+      ),
     );
   }
 

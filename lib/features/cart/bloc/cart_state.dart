@@ -1,49 +1,13 @@
 part of 'cart_bloc.dart';
 
-abstract class CartState extends Equatable {
-  const CartState();
-
-  @override
-  List<Object> get props => [];
-}
-
-//*Multiple Carts
-class CartInitial extends CartState {}
-
-class CartLoading extends CartState {}
-
-class CartLoaded extends CartState {
-  final List<CartModel> cartModel;
-
-  const CartLoaded(this.cartModel);
-
-  @override
-  List<Object> get props => [cartModel];
-}
-
-class CartAdd extends CartState {
-  final List<CartModel> cartsModel;
-
-  const CartAdd(this.cartsModel);
-
-  @override
-  List<Object> get props => [cartsModel];
-}
-
-class CartRemove extends CartState {
-  final List<CartModel> cartsModel;
-
-  const CartRemove(this.cartsModel);
-
-  @override
-  List<Object> get props => [cartsModel];
-}
-
-class CartError extends CartState {
-  final Object error;
-
-  const CartError(this.error);
-
-  @override
-  List<Object> get props => [error];
+@freezed
+abstract class CartState with _$CartState {
+  const factory CartState.initial() = _CartInitial;
+  const factory CartState.loading() = _CartLoading;
+  const factory CartState.loaded({required List<CartModel> cartModel}) =
+      _CartLoaded;
+  const factory CartState.add({required List<CartModel> cartModel}) = _CartAdd;
+  const factory CartState.remove({required List<CartModel> cartModel}) =
+      _CartRemove;
+  const factory CartState.error({required Object error}) = _CartError;
 }

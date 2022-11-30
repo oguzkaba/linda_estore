@@ -2,6 +2,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kartal/kartal.dart';
 
 import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
@@ -33,56 +34,54 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<FavoriteBloc, FavoriteState>(
         builder: (context, stateFav) {
-      if (stateFav is FavoriteLoaded) {
-        return AutoTabsScaffold(
-          routes: [
-            const HomeView(),
-            CartView(cartModel: null),
-            const FavoriteView(),
-            const AccountView()
-          ],
-          bottomNavigationBuilder: (_, tabs) => BottomNavigationBar(
-              onTap: tabs.setActiveIndex,
-              currentIndex: tabs.activeIndex,
-              iconSize: 24,
-              items: screens
-                  .map(
-                    (e) => BottomNavigationBarItem(
-                      label: e.label,
-                      icon: e.label ==
-                                  LocaleKeys
-                                      .dashboard_bottomNav_bNavFav.locale &&
-                              stateFav.favList.isNotEmpty
-                          ? Stack(children: [
-                              e.icon,
-                              Positioned(
-                                right: 0,
-                                top: 0,
-                                child: CircleAvatar(
-                                    backgroundColor: tabs.activeIndex == 2
-                                        ? ColorConstants.myBlack
-                                        : ColorConstants.primaryColor,
-                                    radius: 6,
-                                    child: Center(
-                                        child: Text(
-                                            stateFav.favList.length.toString(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall
-                                                ?.copyWith(
-                                                    fontSize: 8,
-                                                    color: ColorConstants
-                                                        .myWhite)))),
-                              )
-                            ])
-                          : e.icon,
-                    ),
-                  )
-                  .toList()),
-        );
-      } else {
-        return const SizedBox();
-      }
+      return stateFav.maybeWhen(
+          orElse: () => context.emptySizedHeightBoxLow,
+          loaded: (favList) => AutoTabsScaffold(
+                routes: [
+                  const HomeView(),
+                  CartView(cartModel: null),
+                  const FavoriteView(),
+                  const AccountView()
+                ],
+                bottomNavigationBuilder: (_, tabs) => BottomNavigationBar(
+                    onTap: tabs.setActiveIndex,
+                    currentIndex: tabs.activeIndex,
+                    iconSize: 24,
+                    items: screens
+                        .map(
+                          (e) => BottomNavigationBarItem(
+                            label: e.label,
+                            icon: e.label ==
+                                        LocaleKeys.dashboard_bottomNav_bNavFav
+                                            .locale &&
+                                    favList.isNotEmpty
+                                ? Stack(children: [
+                                    e.icon,
+                                    Positioned(
+                                      right: 0,
+                                      top: 0,
+                                      child: CircleAvatar(
+                                          backgroundColor: tabs.activeIndex == 2
+                                              ? ColorConstants.myBlack
+                                              : ColorConstants.primaryColor,
+                                          radius: 6,
+                                          child: Center(
+                                              child: Text(
+                                                  favList.length.toString(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall
+                                                      ?.copyWith(
+                                                          fontSize: 8,
+                                                          color: ColorConstants
+                                                              .myWhite)))),
+                                    )
+                                  ])
+                                : e.icon,
+                          ),
+                        )
+                        .toList()),
+              ));
     });
   }
 }

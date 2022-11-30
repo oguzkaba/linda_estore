@@ -1,16 +1,9 @@
 part of 'categories_bloc.dart';
 
-abstract class CategoriesEvent extends Equatable {
-  final Dio manager;
-  final GlobalKey<ScaffoldState>? scaffoldKey;
-  const CategoriesEvent(this.manager, this.scaffoldKey);
-
-  @override
-  List<Object> get props => [];
-}
-
-class CategoriesFetched extends CategoriesEvent {
-  final int selectedCat;
-
-  const CategoriesFetched(this.selectedCat, super.manager, super.scaffoldKey);
+@freezed
+abstract class CategoriesEvent with _$CategoriesEvent {
+  const factory CategoriesEvent.fetch(
+      {required Dio manager,
+      required GlobalKey<ScaffoldState>? scaffoldKey,
+      required int selectedCat}) = _CategoriesFetch;
 }

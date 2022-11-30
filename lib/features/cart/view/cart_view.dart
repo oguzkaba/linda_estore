@@ -33,9 +33,6 @@ class _CartViewState extends State<CartView> {
 
   @override
   void initState() {
-    // final authBloc = BlocProvider.of<AuthBloc>(context);
-    // BlocProvider.of<CartBloc>(context)
-    //     .add(FetchCarts(manager, scaffoldKey, authBloc));
     super.initState();
   }
 

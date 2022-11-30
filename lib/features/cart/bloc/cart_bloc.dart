@@ -1,36 +1,38 @@
 import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../account/bloc/account_bloc.dart';
 import '../model/cart_model.dart';
 import '../service/cart_service.dart';
 
+part 'cart_bloc.freezed.dart';
 part 'cart_event.dart';
 part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
   int? userId;
 
-  CartBloc() : super(CartInitial()) {
-    on<FetchCarts>((event, emit) async {
+  CartBloc() : super(const _CartInitial()) {
+    on<_FetchCart>((event, emit) async {
       try {
-        emit(CartLoading());
+        emit(const _CartLoading());
         final state = event.accountBloc.state;
-        if (state is AccountLoaded) {
-          userId = state.accountModel.id;
-        }
+
+        state.whenOrNull(
+          loaded: (accountModel) => userId = accountModel.id,
+        );
 
         final result = await CartService(event.manager, event.scaffoldKey)
             .fetchCartByUserId(userId: userId!);
 
         if (result.object != null) {
-          emit(CartLoaded(result.object as List<CartModel>));
+          emit(_CartLoaded(cartModel: result.object as List<CartModel>));
         } else {
-          emit(CartError(result.error!));
+          emit(_CartError(error: result.error!));
         }
       } catch (e) {
-        emit(CartError(e));
+        emit(_CartError(error: e));
       }
     });
 

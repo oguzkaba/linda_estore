@@ -1,29 +1,10 @@
 part of 'account_bloc.dart';
 
-abstract class AccountState extends Equatable {
-  const AccountState();
-
-  @override
-  List<Object> get props => [];
-}
-
-class AccountInitial extends AccountState {}
-
-class AccountLoading extends AccountState {}
-
-class AccountLoaded extends AccountState {
-  final AccountModel accountModel;
-
-  const AccountLoaded(this.accountModel);
-  @override
-  List<Object> get props => [accountModel];
-}
-
-class AccountError extends AccountState {
-  final Object error;
-
-  const AccountError(this.error);
-
-  @override
-  List<Object> get props => [error];
+@freezed
+abstract class AccountState with _$AccountState {
+  const factory AccountState.initial() = _AccountInitial;
+  const factory AccountState.loading() = _AccountLoading;
+  const factory AccountState.loaded({required AccountModel accountModel}) =
+      _AccountLoaded;
+  const factory AccountState.error({required Object error}) = _AccountError;
 }

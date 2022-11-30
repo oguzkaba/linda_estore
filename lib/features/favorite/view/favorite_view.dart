@@ -10,7 +10,6 @@ import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dar
 import 'package:linda_wedding_ecommerce/product/widgets/empty_info_widget.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
-import '../../../product/utils/custom_error_widgets.dart';
 import '../../error/view/error_view.dart';
 import '../../product/blocs/products/products_bloc.dart';
 import '../../product/model/products_model.dart';
@@ -28,8 +27,9 @@ class _FavoriteViewState extends State<FavoriteView> {
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(body:
         BlocBuilder<FavoriteBloc, FavoriteState>(builder: (context, stateFav) {
-      if (stateFav is FavoriteLoaded) {
-        return stateFav.favList.isEmpty
+      return stateFav.maybeWhen(
+        orElse: () => context.emptySizedHeightBoxLow,
+        loaded: (favList) => favList.isEmpty
             ? EmptyInfoWidget(
                 lottieSrc: "empty_fav_list",
                 text: LocaleKeys.favorites_emptyTitle.locale)
@@ -50,15 +50,13 @@ class _FavoriteViewState extends State<FavoriteView> {
                           loading: () => const LoadingIndicatorWidget(
                               lottieName: "favorite_loading"),
                           loaded: (products, productsByCat, isFilterCat) =>
-                              _buildFavList(stateFav.favList, products),
+                              _buildFavList(favList, products),
                           error: (error) => Center(
                               child: ErrorView(errorText: error.toString())));
                     })
                   ],
-                ));
-      } else {
-        return const SizedBox();
-      }
+                )),
+      );
     })));
   }
 
@@ -135,7 +133,7 @@ class _FavoriteViewState extends State<FavoriteView> {
             TextButton(
                 onPressed: () async {
                   BlocProvider.of<FavoriteBloc>(context)
-                      .add(ToogleFavorite(index));
+                      .add(FavoriteEvent.toogle(index: index));
                   context.router.pop(true);
                 },
                 child: Text(LocaleKeys.favorites_alert_buttonText.locale)),

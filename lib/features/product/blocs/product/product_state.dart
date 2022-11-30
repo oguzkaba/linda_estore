@@ -1,33 +1,11 @@
 part of 'product_bloc.dart';
 
-abstract class ProductState extends Equatable {
-  const ProductState();
-  @override
-  List<Object> get props => [];
-}
-
-class ProductInitial extends ProductState {}
-
-class ProductLoading extends ProductState {}
-
-class ProductLoaded extends ProductState {
-  final ProductModel product;
-  final List<MockDataModel> reviews;
-
-  const ProductLoaded(this.product, this.reviews);
-
-  @override
-  String toString() => 'SearchStateSuccess { items: $product }';
-
-  @override
-  List<Object> get props => [product, reviews];
-}
-
-class ProductError extends ProductState {
-  final Object error;
-
-  const ProductError(this.error);
-
-  @override
-  List<Object> get props => [error];
+@freezed
+abstract class ProductState with _$ProductState {
+  const factory ProductState.initial() = _ProductInitial;
+  const factory ProductState.loading() = _ProductLoading;
+  const factory ProductState.loaded(
+      {required ProductModel product,
+      required List<MockDataModel> reviews}) = _ProductLoaded;
+  const factory ProductState.error({required Object error}) = _ProductError;
 }

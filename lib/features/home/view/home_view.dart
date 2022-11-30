@@ -33,8 +33,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     debugPrint("Home init method..............");
-    BlocProvider.of<CategoriesBloc>(context)
-        .add((CategoriesFetched(0, manager, _scaffoldKey)));
+    BlocProvider.of<CategoriesBloc>(context).add((CategoriesEvent.fetch(
+        manager: manager, scaffoldKey: _scaffoldKey, selectedCat: 0)));
     BlocProvider.of<ProductsBloc>(context).add(
         (ProductsEvent.fetch(manager: manager, scaffoldKey: _scaffoldKey)));
 
@@ -112,20 +112,17 @@ class _HomeViewState extends State<HomeView> {
       preferredSize: const Size.fromHeight(35.0),
       child: BlocConsumer<CategoriesBloc, CategoriesState>(
           listener: (context, state) {
-        if (state is CategoriesError) {
-          CustomErrorWidgets.showError(context, state.error.toString(),
-              topMargin: 115);
-        }
+        state.whenOrNull(
+            error: (error) => CustomErrorWidgets.showError(
+                context, error.toString(),
+                topMargin: 115));
       }, builder: (context, state) {
-        if (state is CategoriesInitial) {
-          return _buildLoadingWidget(context);
-        } else if (state is CategoriesLoading) {
-          return _buildLoadingWidget(context);
-        } else if (state is CategoriesLoaded) {
-          return _buildCatogoriesTab(context, state.categories);
-        } else {
-          return context.emptySizedHeightBoxLow;
-        }
+        return state.when(
+            initial: () => _buildLoadingWidget(context),
+            loading: () => _buildLoadingWidget(context),
+            loaded: (categories, selectedCat) =>
+                _buildCatogoriesTab(context, categories),
+            error: (error) => ErrorView(errorText: error.toString()));
       }));
 
   DefaultTabController _buildCatogoriesTab(BuildContext context, List model) {

@@ -1,20 +1,9 @@
 part of 'favorite_bloc.dart';
 
-abstract class FavoriteEvent extends Equatable {
-  const FavoriteEvent();
+@freezed
+abstract class FavoriteEvent with _$FavoriteEvent {
+  const factory FavoriteEvent.toogle({required int index}) = _ToogleFavorite;
 
-  @override
-  List<Object> get props => [];
-}
-
-class InitFavorite extends FavoriteEvent {
-  final List<int> favList;
-
-  const InitFavorite(this.favList);
-}
-
-class ToogleFavorite extends FavoriteEvent {
-  final int index;
-
-  const ToogleFavorite(this.index);
+  const factory FavoriteEvent.init({required List<int> favList}) =
+      _InitFavorite;
 }
