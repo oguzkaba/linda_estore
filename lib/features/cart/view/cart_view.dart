@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
+import 'package:linda_wedding_ecommerce/features/cart/bloc/cart_bloc.dart';
 import 'package:linda_wedding_ecommerce/features/error/view/error_view.dart';
 import 'package:linda_wedding_ecommerce/features/product/model/products_model.dart';
+import 'package:linda_wedding_ecommerce/product/utils/dialog_widget.dart';
 
 import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
@@ -100,7 +102,15 @@ class _CartViewState extends State<CartView> {
                                 DismissDirection.endToStart: 0.6
                               },
                               confirmDismiss: (direction) async =>
-                                  await _showDialogWidget(context, index),
+                                  await CustomDialogWidget.show(
+                                context: context,
+                                title: LocaleKeys.cart_alert_title.locale,
+                                content: LocaleKeys.cart_alert_content.locale,
+                                press: () {
+                                  context.router.pop(true);
+                                  quantityList.value.removeAt(index);
+                                },
+                              ),
                               movementDuration: context.durationNormal,
                               direction: DismissDirection.endToStart,
                               background: _slideRightBackground(),
@@ -254,30 +264,6 @@ class _CartViewState extends State<CartView> {
                 ),
                 persistentFooterAlignment: AlignmentDirectional.center,
                 persistentFooterButtons: [_buildBottomWidget(context, total)]));
-  }
-
-  Future<bool?> _showDialogWidget(BuildContext context, int index) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(LocaleKeys.cart_alert_title.locale),
-          content: Text(LocaleKeys.cart_alert_content.locale),
-          actions: <Widget>[
-            TextButton(
-                onPressed: () {
-                  context.router.pop(true);
-                  quantityList.value.removeAt(index);
-                },
-                child: Text(LocaleKeys.cart_alert_buttonText.locale)),
-            TextButton(
-              onPressed: () => context.router.pop(false),
-              child: Text(LocaleKeys.cart_alert_button2Text.locale),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   Container _slideRightBackground() {

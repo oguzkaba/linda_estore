@@ -7,7 +7,6 @@ import '../../../../core/extansions/string_extansion.dart';
 
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/network/service/network_service.dart';
-import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../product/utils/custom_error_widgets.dart';
 import '../../../../product/widgets/auth_top_widget.dart';
 import '../../../../product/widgets/divider_widget.dart';
@@ -100,22 +99,22 @@ class _RegisterViewState extends State<RegisterView> {
                   }
                 }, builder: (context, state) {
                   return EButtonWidget(
-                      text: state is RegisterLoading
-                          ? null
-                          : LocaleKeys.register_buttonText.locale,
-                      onPress: state is RegisterLoading
-                          ? null
-                          : () {
-                              //if (_formKey.currentState!.validate()) {
-                              context.read<AuthBloc>().add(AuthRegister(
-                                    manager,
-                                    scaffoldKey,
-                                    //?In the backend, because of the problem of
-                                    //?adding new users, demo data was used (it can be edited as needed).
-                                    context,
-                                    registerRequestModel,
-                                  ));
-                            }
+                      loading: state is LoginLoading ||
+                          state is LoginSuccess ||
+                          state is RegisterLoading ||
+                          state is RegisterSuccess,
+                      text: LocaleKeys.register_buttonText.locale,
+                      onPress: () {
+                        //if (_formKey.currentState!.validate()) {
+                        context.read<AuthBloc>().add(AuthRegister(
+                              manager,
+                              scaffoldKey,
+                              //?In the backend, because of the problem of
+                              //?adding new users, demo data was used (it can be edited as needed).
+                              context,
+                              registerRequestModel,
+                            ));
+                      }
                       // }
                       );
                 }),

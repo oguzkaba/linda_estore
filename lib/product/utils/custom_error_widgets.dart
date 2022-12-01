@@ -7,7 +7,7 @@ class CustomErrorWidgets {
       {double? topMargin}) {
     final snackBar = SnackBar(
       behavior: SnackBarBehavior.floating,
-      backgroundColor: ColorConstants.myRed,
+      backgroundColor: ColorConstants.myLightRed,
       content: Row(
         children: [
           Icon(Icons.error_outline_rounded,
@@ -19,7 +19,7 @@ class CustomErrorWidgets {
               style: Theme.of(context)
                   .textTheme
                   .bodySmall
-                  ?.copyWith(color: ColorConstants.myWhite),
+                  ?.copyWith(color: ColorConstants.myDarkRed),
             ),
           ),
         ],

@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dart';
 
 import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
@@ -123,23 +122,20 @@ class _LoginViewState extends State<LoginView> {
                   }
                 }, builder: (context, state) {
                   return EButtonWidget(
-                      text: state is LoginLoading
-                          ? null
-                          : LocaleKeys.login_buttonText.locale,
-                      onPress: state is LoginLoading
-                          ? null
-                          : () {
-                              if (_formKey.currentState!.validate()) {
-                                context.read<AuthBloc>().add(AuthLogin(
-                                    manager,
-                                    scaffoldKey,
-                                    LoginRequestModel(
-                                      username: unameController.text.trim(),
-                                      password: passwordController.text.trim(),
-                                    ),
-                                    context));
-                              }
-                            });
+                      loading: state is LoginLoading || state is LoginSuccess,
+                      text: LocaleKeys.login_buttonText.locale,
+                      onPress: () {
+                        if (_formKey.currentState!.validate()) {
+                          context.read<AuthBloc>().add(AuthLogin(
+                              manager,
+                              scaffoldKey,
+                              LoginRequestModel(
+                                username: unameController.text.trim(),
+                                password: passwordController.text.trim(),
+                              ),
+                              context));
+                        }
+                      });
                 }),
 
                 Padding(padding: context.paddingLow),

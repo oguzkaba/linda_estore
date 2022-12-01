@@ -11,16 +11,18 @@ class EButtonWidget extends StatelessWidget {
   final Color? bgColor;
   final bool useBorder;
   final double? bRadius;
+  final bool loading;
   const EButtonWidget({
     Key? key,
-    this.onPress,
     required this.text,
+    this.onPress,
     this.width,
     this.height,
     this.tColor,
     this.bgColor,
     this.useBorder = false,
     this.bRadius,
+    this.loading = false,
   }) : super(key: key);
 
   @override
@@ -32,13 +34,16 @@ class EButtonWidget extends StatelessWidget {
           onPressed: onPress ?? () {},
           style: ElevatedButton.styleFrom(
               elevation: 0,
-              shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                      color: ColorConstants.primaryColor,
-                      style: useBorder ? BorderStyle.solid : BorderStyle.none),
-                  borderRadius: BorderRadius.circular(bRadius ?? 10)),
+              shape: loading
+                  ? const CircleBorder()
+                  : RoundedRectangleBorder(
+                      side: BorderSide(
+                          color: ColorConstants.primaryColor,
+                          style:
+                              useBorder ? BorderStyle.solid : BorderStyle.none),
+                      borderRadius: BorderRadius.circular(bRadius ?? 10)),
               backgroundColor: bgColor ?? ColorConstants.primaryColor),
-          child: text == null
+          child: loading
               ? Center(
                   child: SizedBox(
                       height: 24,

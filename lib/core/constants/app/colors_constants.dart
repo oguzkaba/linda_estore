@@ -5,7 +5,9 @@ class ColorConstants {
   static Color primaryColor = "c347ff".toColor;
   static Color secondaryColor = "e7b7ff".toColor;
   static Color myYellow = "ffc107".toColor;
-  static Color myRed = "ff3d00".toColor;
+  static Color myLightRed = "ffb7b7".toColor;
+  static Color myRed = "ff0a0a".toColor;
+  static Color myDarkRed = "b80000".toColor;
   static Color myDark = "393939".toColor;
   static Color myWhite = "ffffff".toColor;
   static Color myBlack = "000000".toColor;

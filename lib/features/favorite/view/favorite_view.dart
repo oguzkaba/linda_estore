@@ -10,6 +10,7 @@ import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dar
 import 'package:linda_wedding_ecommerce/product/widgets/empty_info_widget.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
+import '../../../product/utils/dialog_widget.dart';
 import '../../error/view/error_view.dart';
 import '../../product/blocs/products/products_bloc.dart';
 import '../../product/model/products_model.dart';
@@ -70,8 +71,16 @@ class _FavoriteViewState extends State<FavoriteView> {
           dismissThresholds: const {
             DismissDirection.endToStart: 0.6,
           },
-          confirmDismiss: (direction) async =>
-              await _showDialogWidget(context, favList[index]),
+          confirmDismiss: (direction) async => await CustomDialogWidget.show(
+            context: context,
+            title: LocaleKeys.favorites_alert_title.locale,
+            content: LocaleKeys.favorites_alert_content.locale,
+            press: () {
+              BlocProvider.of<FavoriteBloc>(context)
+                  .add(FavoriteEvent.toogle(index: favList[index]));
+              context.router.pop(true);
+            },
+          ),
           movementDuration: context.durationNormal,
           direction: DismissDirection.endToStart,
           background: _slideRightBackground(),

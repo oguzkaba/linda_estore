@@ -20,6 +20,13 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  late bool isDark;
+  @override
+  void didChangeDependencies() {
+    isDark = context.watch<ThemeCubit>().state.isDark;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,14 +46,24 @@ class _SettingsState extends State<Settings> {
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           centerTitle: true),
-      body: SettingsList(
-        platform: DevicePlatform.device,
-        sections: [
-          _appViewOption(context),
-          _appSecurity(),
-          _appOther(),
-          _appPolicies()
-        ],
+      body: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) => SettingsList(
+          brightness: state.isDark ? Brightness.dark : Brightness.light,
+          lightTheme: SettingsThemeData(
+              settingsListBackground: ColorConstants.myWhite,
+              trailingTextColor: ColorConstants.myDarkRed,
+              settingsSectionBackground: ColorConstants.myLightGrey),
+          darkTheme: SettingsThemeData(
+              trailingTextColor: ColorConstants.myDarkRed,
+              settingsSectionBackground: ColorConstants.myDark),
+          platform: DevicePlatform.iOS,
+          sections: [
+            _appViewOption(context),
+            _appSecurity(),
+            _appOther(),
+            _appPolicies()
+          ],
+        ),
       ),
     ));
   }
@@ -62,10 +79,12 @@ class _SettingsState extends State<Settings> {
             useTrailing: true,
             valueString: LanguageEnum.toLong(context.locale.languageCode)),
         _tileSwitch(
-            value: context.watch<ThemeCubit>().state.isDark ? true : false,
+            value: isDark ? true : false,
             toogle: (value) =>
                 context.read<ThemeCubit>().changeTheme(context, value),
-            title: LocaleKeys.account_action_appSet_viewOption_darkMode.locale,
+            title: isDark
+                ? LocaleKeys.account_action_appSet_viewOption_lightMode.locale
+                : LocaleKeys.account_action_appSet_viewOption_darkMode.locale,
             icon: Icons.dark_mode),
       ],
     );
@@ -131,8 +150,11 @@ class _SettingsState extends State<Settings> {
     return SettingsTile.switchTile(
       onToggle: toogle,
       initialValue: value,
-      leading:
-          IconButtonWidget(icon: icon, iColor: ColorConstants.primaryColor),
+      leading: IconButtonWidget(
+          icon: icon,
+          iColor: ColorConstants.primaryColor,
+          size: 14,
+          circleRadius: 16),
       title: Text(title, style: Theme.of(context).textTheme.bodySmall),
     );
   }
@@ -148,8 +170,11 @@ class _SettingsState extends State<Settings> {
       trailing: useTrailing == null || useTrailing == false
           ? null
           : const LanguageDropDownButton(dropIcon: Icon(Icons.arrow_drop_down)),
-      leading:
-          IconButtonWidget(icon: icon, iColor: ColorConstants.primaryColor),
+      leading: IconButtonWidget(
+          icon: icon,
+          iColor: ColorConstants.primaryColor,
+          size: 14,
+          circleRadius: 16),
       value: valueString == null
           ? null
           : Text(valueString,
