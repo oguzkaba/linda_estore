@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 
-import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
-import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
-import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dart';
+import '../../../core/constants/app/colors_constants.dart';
+import '../../../core/extansions/string_extansion.dart';
+import '../../../core/init/lang/locale_keys.g.dart';
+import '../../favorite/bloc/favorite_bloc.dart';
 
 import '../../../core/init/routes/routes.gr.dart';
 

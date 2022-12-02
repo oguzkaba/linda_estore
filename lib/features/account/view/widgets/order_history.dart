@@ -54,7 +54,7 @@ class _OrderHistoryState extends State<OrderHistory> {
                       onPress: () => context.router.pop(),
                       icon: Icons.chevron_left_rounded,
                       iColor: ColorConstants.myMediumGrey,
-                      tooltip: "Back"),
+                      tooltip: 'Back'),
                 ),
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
@@ -67,12 +67,12 @@ class _OrderHistoryState extends State<OrderHistory> {
             }, builder: (context, state) {
               return state.maybeWhen(
                 initial: () =>
-                    const LoadingIndicatorWidget(lottieName: "order_loading"),
+                    const LoadingIndicatorWidget(lottieName: 'order_loading'),
                 loading: () =>
-                    const LoadingIndicatorWidget(lottieName: "order_loading"),
+                    const LoadingIndicatorWidget(lottieName: 'order_loading'),
                 loaded: (cartModel) => cartModel.isNullOrEmpty
                     ? EmptyInfoWidget(
-                        lottieSrc: "empty_order",
+                        lottieSrc: 'empty_order',
                         underText: LocaleKeys
                             .account_action_trackOrder_emptyTitle.locale)
                     : _buildCartLoaded(cartModel),
@@ -86,13 +86,13 @@ class _OrderHistoryState extends State<OrderHistory> {
       BlocBuilder<ProductsBloc, ProductsState>(builder: (context, state) {
         return state.maybeWhen(
             loading: () =>
-                const LoadingIndicatorWidget(lottieName: "cart_loading"),
+                const LoadingIndicatorWidget(lottieName: 'cart_loading'),
             loaded: (products, productsByCat, isFilterCat) =>
                 _buildProdLoaded(context, cartModel, products),
             error: (error) =>
                 Center(child: ErrorView(errorText: error.toString())),
             orElse: () => EmptyInfoWidget(
-                lottieSrc: "empty_cart",
+                lottieSrc: 'empty_cart',
                 text: LocaleKeys.cart_emptyTitle.locale));
       });
 
@@ -131,18 +131,18 @@ class _OrderHistoryState extends State<OrderHistory> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text("ORDER-O00000${cartModel[index].id}",
+                                      Text('ORDER-O00000${cartModel[index].id}',
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall),
                                       context.emptySizedHeightBoxLow,
-                                      Text("TOTAL", //TODO total order price
+                                      Text('TOTAL', //TODO total order price
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall),
                                       context.emptySizedHeightBoxNormal,
                                       const EButtonWidget(
-                                        text: "Delivered",
+                                        text: 'Delivered',
                                         bRadius: 5,
                                         width: 100,
                                         height: 30,
@@ -184,7 +184,7 @@ class _OrderHistoryState extends State<OrderHistory> {
                                                       .image!,
                                                   productId: productId)
                                               : _buildPrdPreview(
-                                                  "+ ${cartModel[index].products.length - 1}",
+                                                  '+ ${cartModel[index].products.length - 1}',
                                                   more: true,
                                                   cartModel: cartModel[index]);
                                     },

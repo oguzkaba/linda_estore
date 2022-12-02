@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
-import '../../core/extansions/string_extansion.dart';
 
+import '../../core/constants/app/colors_constants.dart';
+import '../../core/extansions/string_extansion.dart';
 import '../../core/init/lang/locale_keys.g.dart';
 
 class CustomDialogWidget {
@@ -13,7 +13,7 @@ class CustomDialogWidget {
       required VoidCallback press}) {
     return showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return AlertDialog(
           title: Text(title, style: Theme.of(context).textTheme.titleSmall),
           content: Text(content, style: Theme.of(context).textTheme.bodySmall),
@@ -24,7 +24,7 @@ class CustomDialogWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall
-                        ?.copyWith(color: ColorConstants.primaryColor))),
+                        ?.copyWith(color: ColorConstants.myRed))),
             TextButton(
               onPressed: () => context.router.pop(false),
               child: Text(LocaleKeys.cart_alert_button2Text.locale,

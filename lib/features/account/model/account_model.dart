@@ -34,23 +34,23 @@ class AccountModel {
   String toRawJson() => json.encode(toJson());
 
   factory AccountModel.fromJson(Map<String, dynamic> json) => AccountModel(
-        address: Address.fromJson(json["address"]),
-        id: json["id"],
-        email: json["email"],
-        username: json["username"],
-        password: json["password"],
-        name: Name.fromJson(json["name"]),
-        phone: json["phone"],
+        address: Address.fromJson(json['address']),
+        id: json['id'],
+        email: json['email'],
+        username: json['username'],
+        password: json['password'],
+        name: Name.fromJson(json['name']),
+        phone: json['phone'],
       );
 
   Map<String, dynamic> toJson() => {
-        "address": address?.toJson(),
-        "id": id,
-        "email": email,
-        "accountname": username,
-        "password": password,
-        "name": name?.toJson(),
-        "phone": phone,
+        'address': address?.toJson(),
+        'id': id,
+        'email': email,
+        'accountname': username,
+        'password': password,
+        'name': name?.toJson(),
+        'phone': phone,
       };
 }
 
@@ -74,19 +74,19 @@ class Address {
   String toRawJson() => json.encode(toJson());
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
-        geolocation: Geolocation.fromJson(json["geolocation"]),
-        city: json["city"],
-        street: json["street"],
-        number: json["number"],
-        zipcode: json["zipcode"],
+        geolocation: Geolocation.fromJson(json['geolocation']),
+        city: json['city'],
+        street: json['street'],
+        number: json['number'],
+        zipcode: json['zipcode'],
       );
 
   Map<String, dynamic> toJson() => {
-        "geolocation": geolocation?.toJson(),
-        "city": city,
-        "street": street,
-        "number": number,
-        "zipcode": zipcode,
+        'geolocation': geolocation?.toJson(),
+        'city': city,
+        'street': street,
+        'number': number,
+        'zipcode': zipcode,
       };
 }
 
@@ -105,13 +105,13 @@ class Geolocation {
   String toRawJson() => json.encode(toJson());
 
   factory Geolocation.fromJson(Map<String, dynamic> json) => Geolocation(
-        lat: json["lat"],
-        long: json["long"],
+        lat: json['lat'],
+        long: json['long'],
       );
 
   Map<String, dynamic> toJson() => {
-        "lat": lat,
-        "long": long,
+        'lat': lat,
+        'long': long,
       };
 }
 
@@ -129,12 +129,12 @@ class Name {
   String toRawJson() => json.encode(toJson());
 
   factory Name.fromJson(Map<String, dynamic> json) => Name(
-        firstname: json["firstname"],
-        lastname: json["lastname"],
+        firstname: json['firstname'],
+        lastname: json['lastname'],
       );
 
   Map<String, dynamic> toJson() => {
-        "firstname": firstname,
-        "lastname": lastname,
+        'firstname': firstname,
+        'lastname': lastname,
       };
 }

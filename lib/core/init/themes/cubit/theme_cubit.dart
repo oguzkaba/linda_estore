@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linda_wedding_ecommerce/core/init/themes/themes.dart';
+import '../themes.dart';
 
 import '../../../constants/cache/cache_constants.dart';
 import '../../cache/app_cache_manager.dart';

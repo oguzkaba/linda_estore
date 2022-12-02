@@ -106,7 +106,7 @@ class _LoginViewState extends State<LoginView> {
                     ctx: context,
                     title: LocaleKeys.login_topTitle.locale,
                     subTitle: LocaleKeys.login_topMessage.locale,
-                    image: "auth"),
+                    image: 'auth'),
 
                 Padding(padding: context.paddingLow),
                 _buildUnameInput(),
@@ -168,7 +168,7 @@ class _LoginViewState extends State<LoginView> {
         suffixOnPress: () =>
             context.read<LoginCubit>().toogleSuffixIcon(!visibility),
         obscureText: visibility ? false : true,
-        labelText: "Password",
+        labelText: 'Password',
         hintText: LocaleKeys.login_tfieldPassHint.locale);
   }
 
@@ -178,7 +178,7 @@ class _LoginViewState extends State<LoginView> {
         actionType: TextInputAction.next,
         controller: unameController,
         pIcon: Icons.person_outlined,
-        labelText: "UserName",
+        labelText: 'UserName',
         hintText: LocaleKeys.login_tfieldUnameHint.locale);
   }
 

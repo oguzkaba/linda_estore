@@ -15,16 +15,16 @@ class SocialIconButtonWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButtonWidget(
-          tooltip: "Google",
+          tooltip: 'Google',
           icon: FontAwesomeIcons.google,
           iColor: ColorConstants.myRed,
         ),
         IconButtonWidget(
-            tooltip: "Apple",
+            tooltip: 'Apple',
             icon: FontAwesomeIcons.apple,
             iColor: ColorConstants.myMediumGrey),
         IconButtonWidget(
-          tooltip: "Facebook",
+          tooltip: 'Facebook',
           icon: FontAwesomeIcons.facebookF,
           iColor: ColorConstants.myBlue,
         ),

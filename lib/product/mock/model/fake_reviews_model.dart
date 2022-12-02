@@ -27,18 +27,18 @@ class MockDataModel {
   final String ipAddress;
 
   factory MockDataModel.fromJson(Map<String, dynamic> json) => MockDataModel(
-        id: json["id"],
-        fullName: json["fullName"],
-        review: json["review"],
-        rate: json["rate"],
-        ipAddress: json["ipAddress"],
+        id: json['id'],
+        fullName: json['fullName'],
+        review: json['review'],
+        rate: json['rate'],
+        ipAddress: json['ipAddress'],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "fullName": fullName,
-        "review": review,
-        "rate": rate,
-        "ipAddress": ipAddress,
+        'id': id,
+        'fullName': fullName,
+        'review': review,
+        'rate': rate,
+        'ipAddress': ipAddress,
       };
 }

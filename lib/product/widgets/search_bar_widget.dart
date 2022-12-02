@@ -1,9 +1,9 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
-import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
+
 import '../../core/constants/app/colors_constants.dart';
+import '../../core/extansions/string_extansion.dart';
+import '../../core/init/lang/locale_keys.g.dart';
 import '../../core/init/network/service/network_service.dart';
 import '../../core/init/routes/routes.gr.dart';
 import '../../features/product/model/products_model.dart';
@@ -24,21 +24,19 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     return SizedBox(
       height: 30,
       child: Autocomplete<ProductsModel>(
-        optionsBuilder: (TextEditingValue textEditingValue) {
+        optionsBuilder: (textEditingValue) {
           if (textEditingValue.text == '') return [];
           return widget.products
               .map((e) => e)
               .toList()
-              .where((ProductsModel product) => product.title!
+              .where((product) => product.title!
                   .toLowerCase()
                   .contains(textEditingValue.text.toLowerCase()))
               .toList();
         },
-        displayStringForOption: (ProductsModel option) => option.title!,
-        fieldViewBuilder: (BuildContext context,
-                TextEditingController fieldTextEditingController,
-                FocusNode fieldFocusNode,
-                VoidCallback onFieldSubmitted) =>
+        displayStringForOption: (option) => option.title!,
+        fieldViewBuilder: (context, fieldTextEditingController, fieldFocusNode,
+                onFieldSubmitted) =>
             TextFieldWidget(
           //*TODO: Add function
           onSubmitted: (val) => null,
@@ -54,12 +52,10 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           controller: fieldTextEditingController,
           fieldFocusNode: fieldFocusNode,
         ),
-        onSelected: (ProductsModel selection) {
+        onSelected: (selection) async {
           _selectedProduct(context, selection);
         },
-        optionsViewBuilder: (BuildContext context,
-            AutocompleteOnSelected<ProductsModel> onSelected,
-            Iterable<ProductsModel> options) {
+        optionsViewBuilder: (context, onSelected, options) {
           return Material(
             animationDuration: context.durationLow,
             child: Container(
@@ -81,7 +77,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                 shrinkWrap: true,
                 padding: const EdgeInsets.all(10.0),
                 itemCount: options.length,
-                itemBuilder: (BuildContext context, int index) {
+                itemBuilder: (context, index) {
                   final ProductsModel option = options.elementAt(index);
 
                   return GestureDetector(
@@ -92,7 +88,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                       leading:
                           Image.network(option.image!, fit: BoxFit.fitWidth),
                       isThreeLine: false,
-                      trailing: Text("${option.price} ₺",
+                      trailing: Text('${option.price} ₺',
                           style: Theme.of(context).textTheme.bodySmall),
                       subtitle: Text(option.description!,
                           overflow: TextOverflow.ellipsis),
@@ -110,7 +106,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     );
   }
 
-  void _selectedProduct(BuildContext context, ProductsModel selection) {
+  Future<void> _selectedProduct(context, selection) async {
     context.router.push(ProductDetailView(
         id: selection.id!, manager: NetworkService.instance.networkManager));
   }
@@ -127,7 +123,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
   void _closeSearch(TextEditingController fieldTextEditingController) {
     return setState(() {
-      fieldTextEditingController.text = "";
+      fieldTextEditingController.text = '';
       _isChange = false;
     });
   }

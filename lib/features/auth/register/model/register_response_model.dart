@@ -19,10 +19,10 @@ class RegisterResponseModel {
 
   factory RegisterResponseModel.fromJson(Map<String, dynamic> json) =>
       RegisterResponseModel(
-        id: json["id"],
+        id: json['id'],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+        'id': id,
       };
 }

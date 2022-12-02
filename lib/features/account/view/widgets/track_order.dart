@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:linda_wedding_ecommerce/core/constants/app/colors_constants.dart';
-import 'package:linda_wedding_ecommerce/core/constants/app/geo_coordinat_constants.dart';
+
+import '../../../../core/constants/app/colors_constants.dart';
+import '../../../../core/constants/app/geo_coordinat_constants.dart';
 import '../../model/account_model.dart';
 
 class TrackOrder extends StatefulWidget {
@@ -62,11 +63,11 @@ class _TrackOrderState extends State<TrackOrder> {
       body: GoogleMap(
         polygons: polygon,
         markers: <Marker>{
-          Marker(markerId: const MarkerId("1"), position: myLocation.target)
+          Marker(markerId: const MarkerId('1'), position: myLocation.target)
         },
         mapType: MapType.normal,
         initialCameraPosition: kGooglePlex,
-        onMapCreated: (GoogleMapController gmController) {
+        onMapCreated: (gmController) {
           controller.complete(gmController);
         },
       ),

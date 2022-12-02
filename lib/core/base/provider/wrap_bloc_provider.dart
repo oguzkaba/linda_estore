@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linda_wedding_ecommerce/core/init/themes/cubit/theme_cubit.dart';
 
 import '../../../features/account/bloc/account_bloc.dart';
 import '../../../features/auth/bloc/auth_bloc.dart';
@@ -11,6 +10,7 @@ import '../../../features/product/blocs/categories/categories_bloc.dart';
 import '../../../features/product/blocs/product/product_bloc.dart';
 import '../../../features/product/blocs/products/products_bloc.dart';
 import '../../init/lang/cubit/language_cubit.dart';
+import '../../init/themes/cubit/theme_cubit.dart';
 
 class WrapBlocProvider extends StatelessWidget {
   final Widget child;

@@ -43,7 +43,7 @@ class _SplashViewState extends State<SplashView> {
 
     if (getBoxModel?.token != null) {
       await Future.delayed(duration).then((value) {
-        debugPrint("AuthControl --> Autharized Success");
+        debugPrint('AuthControl --> Autharized Success');
         context
             .read<ThemeCubit>()
             .changeTheme(context, getBoxModel!.isDark ?? false);
@@ -57,11 +57,11 @@ class _SplashViewState extends State<SplashView> {
         context.router.push(DashboardRouter(children: const [HomeView()]));
       });
     } else {
-      debugPrint("AuthControl --> Unautharized");
+      debugPrint('AuthControl --> Unautharized');
       await Future.delayed(duration).then((value) {
         BlocProvider.of<FavoriteBloc>(context)
             .add(const FavoriteEvent.init(favList: []));
-        context.router.pushNamed("/login");
+        context.router.pushNamed('/login');
       });
     }
   }

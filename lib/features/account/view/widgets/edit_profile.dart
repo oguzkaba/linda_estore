@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
+import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../product/widgets/ebutton_widget.dart';
 import '../../../../product/widgets/iconbutton_widget.dart';
@@ -33,7 +33,7 @@ class _EditProfileState extends State<EditProfile> {
                       onPress: () => context.router.pop(),
                       icon: Icons.chevron_left_rounded,
                       iColor: ColorConstants.myMediumGrey,
-                      tooltip: "Back"),
+                      tooltip: 'Back'),
                 ),
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
@@ -50,7 +50,7 @@ class _EditProfileState extends State<EditProfile> {
                         child: CircleAvatar(
                             backgroundColor: ColorConstants.secondaryColor,
                             backgroundImage: const NetworkImage(
-                              "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
+                              'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
                             ),
                             radius: 65)),
                     Positioned(
@@ -61,7 +61,7 @@ class _EditProfileState extends State<EditProfile> {
                           icon: Icons.camera_alt_rounded,
                           iColor: ColorConstants.myWhite,
                           bColor: ColorConstants.primaryColor,
-                          tooltip: "Back"),
+                          tooltip: 'Back'),
                     ),
                   ]),
                   Padding(padding: context.verticalPaddingMedium),

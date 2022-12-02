@@ -2,13 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:linda_wedding_ecommerce/core/init/themes/cubit/theme_cubit.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/enums/language_enum.dart';
 import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
+import '../../../../core/init/themes/cubit/theme_cubit.dart';
 import '../../../../product/widgets/iconbutton_widget.dart';
 import '../../../../product/widgets/language_ddbutton_widget.dart';
 
@@ -20,42 +20,25 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  late bool isDark;
-  @override
-  void didChangeDependencies() {
-    isDark = context.watch<ThemeCubit>().state.isDark;
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-          title: Text(LocaleKeys.account_action_appSet_title.locale,
-              style: TextStyle(color: ColorConstants.myBlack)),
-          leading: Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: IconButtonWidget(
-                size: 16,
-                onPress: () => context.router.pop(),
-                icon: Icons.chevron_left_rounded,
-                iColor: ColorConstants.myMediumGrey,
-                tooltip: "Back"),
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          centerTitle: true),
-      body: BlocBuilder<ThemeCubit, ThemeState>(
-        builder: (context, state) => SettingsList(
-          brightness: state.isDark ? Brightness.dark : Brightness.light,
-          lightTheme: SettingsThemeData(
-              settingsListBackground: ColorConstants.myWhite,
-              trailingTextColor: ColorConstants.myDarkRed,
-              settingsSectionBackground: ColorConstants.myLightGrey),
-          darkTheme: SettingsThemeData(
-              trailingTextColor: ColorConstants.myDarkRed,
-              settingsSectionBackground: ColorConstants.myDark),
+      child: Scaffold(
+        appBar: AppBar(
+            title: Text(LocaleKeys.account_action_appSet_title.locale),
+            leading: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: IconButtonWidget(
+                  size: 16,
+                  onPress: () => context.router.pop(),
+                  icon: Icons.chevron_left_rounded,
+                  iColor: ColorConstants.myMediumGrey,
+                  tooltip: 'Back'),
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+            centerTitle: true),
+        body: SettingsList(
           platform: DevicePlatform.iOS,
           sections: [
             _appViewOption(context),
@@ -65,7 +48,7 @@ class _SettingsState extends State<Settings> {
           ],
         ),
       ),
-    ));
+    );
   }
 
   SettingsSection _appViewOption(BuildContext context) {
@@ -79,10 +62,10 @@ class _SettingsState extends State<Settings> {
             useTrailing: true,
             valueString: LanguageEnum.toLong(context.locale.languageCode)),
         _tileSwitch(
-            value: isDark ? true : false,
+            value: context.watch<ThemeCubit>().state.isDark ? true : false,
             toogle: (value) =>
                 context.read<ThemeCubit>().changeTheme(context, value),
-            title: isDark
+            title: context.watch<ThemeCubit>().state.isDark
                 ? LocaleKeys.account_action_appSet_viewOption_lightMode.locale
                 : LocaleKeys.account_action_appSet_viewOption_darkMode.locale,
             icon: Icons.dark_mode),

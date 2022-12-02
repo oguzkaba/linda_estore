@@ -17,7 +17,7 @@ class ErrorView extends StatelessWidget {
         children: [
           Text(errorText, style: Theme.of(context).textTheme.headlineSmall),
           SizedBox(height: context.height * .2),
-          Lottie.asset("error".toLottie, height: context.height * .3),
+          Lottie.asset('error'.toLottie, height: context.height * .3),
         ],
       ),
     );

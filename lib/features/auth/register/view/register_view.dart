@@ -2,9 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/features/auth/register/model/register_request_model.dart';
-import '../../../../core/extansions/string_extansion.dart';
 
+import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/network/service/network_service.dart';
 import '../../../../product/utils/custom_error_widgets.dart';
@@ -16,6 +15,7 @@ import '../../../../product/widgets/social_button_widget.dart';
 import '../../../../product/widgets/textfield_widget.dart';
 import '../../bloc/auth_bloc.dart';
 import '../../login/bloc/cubit/login_cubit.dart';
+import '../model/register_request_model.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -77,7 +77,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ctx: context,
                     title: LocaleKeys.register_topTitle.locale,
                     subTitle: LocaleKeys.register_topMessage.locale,
-                    image: "auth"),
+                    image: 'auth'),
                 Padding(padding: context.paddingLow),
                 _buildInput(LocaleKeys.register_tfieldNameHint.locale,
                     Icons.person_outlined),
@@ -123,7 +123,7 @@ class _RegisterViewState extends State<RegisterView> {
                 RichTextWidget(
                     actionName: LocaleKeys.register_login.locale,
                     text: LocaleKeys.register_haveAccount.locale,
-                    action: () => context.router.pushNamed("/login")),
+                    action: () => context.router.pushNamed('/login')),
                 const DividerWidget(),
                 //*social button
                 const SocialIconButtonWidget()

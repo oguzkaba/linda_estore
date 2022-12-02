@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
+import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../product/widgets/export_widget.dart';
 import '../../../../product/widgets/iconbutton_widget.dart';
@@ -32,7 +32,7 @@ class _CheckoutState extends State<Checkout> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text("Checkout",
+            title: Text('Checkout',
                 style: TextStyle(color: ColorConstants.myBlack)),
             leading: Padding(
               padding: const EdgeInsets.all(4.0),
@@ -41,7 +41,7 @@ class _CheckoutState extends State<Checkout> {
                   onPress: () => context.router.pop(),
                   icon: Icons.chevron_left_rounded,
                   iColor: ColorConstants.myMediumGrey,
-                  tooltip: "Back"),
+                  tooltip: 'Back'),
             ),
             backgroundColor: Colors.transparent,
             elevation: 0.0,
@@ -49,7 +49,7 @@ class _CheckoutState extends State<Checkout> {
         body: Stepper(
           controlsBuilder: (context, details) =>
               context.emptySizedHeightBoxHigh,
-          currentStep: 2,
+          currentStep: 0,
           elevation: 1,
           type: StepperType.horizontal,
           steps: [
@@ -94,7 +94,7 @@ class _CheckoutState extends State<Checkout> {
   Step _buildPaymentStep(BuildContext context) {
     return Step(
         state: StepState.indexed,
-        title: const Text(""),
+        title: const Text(''),
         content: Column(
           children: [
             CreditCardForm(
@@ -110,21 +110,21 @@ class _CheckoutState extends State<Checkout> {
               expiryDate: expiryDate,
               themeColor: ColorConstants.primaryColor,
               cardNumberDecoration: customInputDecoration(
-                  "XXXX XXXX XXXX XXXX",
+                  'XXXX XXXX XXXX XXXX',
                   LocaleKeys
                       .account_action_cards_editCard_tfieldCardNoHint.locale,
                   Icons.credit_card_rounded),
               expiryDateDecoration: customInputDecoration(
-                  "MM/YY",
+                  'MM/YY',
                   LocaleKeys
                       .account_action_cards_editCard_tfieldDateHint.locale,
                   Icons.date_range_rounded),
               cvvCodeDecoration: customInputDecoration(
-                  "XXX",
+                  'XXX',
                   LocaleKeys.account_action_cards_editCard_tfieldCVVHint.locale,
                   Icons.password_rounded),
               cardHolderDecoration: customInputDecoration(
-                  "",
+                  '',
                   LocaleKeys.account_action_cards_editCard_tfieldCardHolderHint
                       .locale,
                   Icons.abc_rounded),
@@ -142,64 +142,64 @@ class _CheckoutState extends State<Checkout> {
                 ),
                 context.emptySizedWidthBoxLow,
                 Text(
-                  "Save this card details",
+                  'Save this card details',
                   style: Theme.of(context).textTheme.bodySmall,
                 )
               ]),
             )
           ],
         ),
-        label: const Text("Payment"));
+        label: const Text('Payment'));
   }
 
   Step _buildAddressStep(BuildContext context) {
     return Step(
-        state: StepState.complete,
-        title: const Text(""),
+        state: StepState.indexed,
+        title: const Text(''),
         content: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _buildListTile(context,
-                title: "Home", subTitle: "76614 Gulseth Lane", selected: true),
+                title: 'Home', subTitle: '76614 Gulseth Lane', selected: true),
             _buildListTile(context,
-                title: "Work",
-                subTitle: "555 Pierstorff Junction",
+                title: 'Work',
+                subTitle: '555 Pierstorff Junction',
                 selected: false),
             _buildListTile(context,
-                title: "Other",
-                subTitle: "3848 Farmco Crossing",
+                title: 'Other',
+                subTitle: '3848 Farmco Crossing',
                 selected: false),
           ],
         ),
-        isActive: true,
-        label: const Text("Address"));
+        isActive: false,
+        label: const Text('Address'));
   }
 
   Step _buildDeliveryStep(BuildContext context) {
     return Step(
-        state: StepState.complete,
-        title: const Text(""),
+        state: StepState.indexed,
+        title: const Text(''),
         content: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _buildListTile(context,
-                title: "Standart Delivery",
-                subTitle: "Order will be delivered between 3-5 business days",
+                title: 'Standart Delivery',
+                subTitle: 'Order will be delivered between 3-5 business days',
                 selected: true),
             _buildListTile(context,
-                title: "Next Day Delivery",
+                title: 'Next Day Delivery',
                 subTitle:
-                    "Place your order before 6pm and your items will be delivered the next day",
+                    'Place your order before 6pm and your items will be delivered the next day',
                 selected: false),
             _buildListTile(context,
-                title: "Nominated Delivery",
+                title: 'Nominated Delivery',
                 subTitle:
-                    "Pick a particular date from the calendar and order will be delivered on selected",
+                    'Pick a particular date from the calendar and order will be delivered on selected',
                 selected: false)
           ],
         ),
         isActive: true,
-        label: const Text("Delivery"));
+        label: const Text('Delivery'));
   }
 
   Widget _buildListTile(BuildContext context,

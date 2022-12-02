@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
-import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
+import '../../../../core/extansions/string_extansion.dart';
+import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../product/widgets/auth_top_widget.dart';
 import '../../../../product/widgets/richtext_widget.dart';
@@ -69,7 +69,7 @@ class _EmailVerificationViewState extends State<EmailVerificationView> {
                   ctx: context,
                   title: LocaleKeys.verification_topTitle.locale,
                   subTitle: LocaleKeys.verification_topMessage.locale,
-                  image: "auth"),
+                  image: 'auth'),
               Pinput(
                 controller: controller,
                 focusNode: focusNode,

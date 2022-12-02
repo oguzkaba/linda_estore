@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
-import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
-import 'package:linda_wedding_ecommerce/features/error/view/error_view.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../core/constants/app/colors_constants.dart';
+import '../../../core/extansions/string_extansion.dart';
+import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../core/init/lang/translate_remote_entry.dart';
 import '../../../core/init/network/service/network_service.dart';
 import '../../../core/init/themes/cubit/theme_cubit.dart';
+import '../../../product/utils/custom_error_widgets.dart';
 import '../../../product/widgets/iconbutton_widget.dart';
 import '../../../product/widgets/search_bar_widget.dart';
 import '../../../product/widgets/sliver_grid_widget.dart';
 import '../../../product/widgets/sliver_shimmer_widget.dart';
-import '../../../core/constants/app/colors_constants.dart';
-import '../../../product/utils/custom_error_widgets.dart';
+import '../../error/view/error_view.dart';
 import '../../product/blocs/categories/categories_bloc.dart';
 import '../../product/blocs/products/products_bloc.dart';
 import '../../product/model/products_model.dart';
@@ -32,7 +33,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void initState() {
-    debugPrint("Home init method..............");
+    debugPrint('Home init method..............');
     BlocProvider.of<CategoriesBloc>(context).add((CategoriesEvent.fetch(
         manager: manager, scaffoldKey: _scaffoldKey, selectedCat: 0)));
     BlocProvider.of<ProductsBloc>(context).add(
@@ -69,7 +70,7 @@ class _HomeViewState extends State<HomeView> {
                 size: 16,
                 icon: Icons.add_alert_rounded,
                 iColor: ColorConstants.primaryColor,
-                tooltip: "alert")
+                tooltip: 'alert')
           ],
           titleSpacing: 4,
           title: BlocBuilder<ProductsBloc, ProductsState>(

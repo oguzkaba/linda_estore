@@ -51,7 +51,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProductBloc, ProductState>(
-      listener: (BuildContext context, state) {
+      listener: (context, state) {
         state.whenOrNull(
             error: (error) =>
                 CustomErrorWidgets.showError(context, error.toString()));
@@ -59,9 +59,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
       builder: (context, state) {
         return state.when(
             initial: () =>
-                const LoadingIndicatorWidget(lottieName: "product_loading"),
+                const LoadingIndicatorWidget(lottieName: 'product_loading'),
             loading: () =>
-                const LoadingIndicatorWidget(lottieName: "product_loading"),
+                const LoadingIndicatorWidget(lottieName: 'product_loading'),
             loaded: (product, reviews) =>
                 _buildProductLoaded(context, product, reviews),
             error: (error) => ErrorView(errorText: error.toString()));
@@ -82,7 +82,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 onPress: () => context.router.pop(),
                 icon: Icons.chevron_left_rounded,
                 iColor: ColorConstants.myMediumGrey,
-                tooltip: "Back"),
+                tooltip: 'Back'),
           ),
           backgroundColor: Colors.transparent,
           elevation: 0.0,
@@ -104,7 +104,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                           iColor: favList.contains(product.id!)
                               ? ColorConstants.primaryColor
                               : ColorConstants.myMediumGrey,
-                          tooltip: "Favorite"));
+                          tooltip: 'Favorite'));
                 },
               ),
             ),
@@ -139,7 +139,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       ],
                     ),
                     Text(
-                        " ( ${product.rating!.count} ${LocaleKeys.home_productDet_review.locale}) ",
+                        ' ( ${product.rating!.count} ${LocaleKeys.home_productDet_review.locale}) ',
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodySmall),
                   ],
@@ -186,13 +186,13 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               Padding(padding: context.paddingLow),
               Row(
                 children: [
-                  _buildSizeOption("S"),
+                  _buildSizeOption('S'),
                   context.emptySizedWidthBoxLow,
-                  _buildSizeOption("M", selected: true),
+                  _buildSizeOption('M', selected: true),
                   context.emptySizedWidthBoxLow,
-                  _buildSizeOption("L"),
+                  _buildSizeOption('L'),
                   context.emptySizedWidthBoxLow,
-                  _buildSizeOption("XL")
+                  _buildSizeOption('XL')
                 ],
               ),
               Padding(padding: context.paddingNormal),
@@ -282,7 +282,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 Text(
-                  "${product.price} ${LocaleKeys.currency.locale}",
+                  '${product.price} ${LocaleKeys.currency.locale}',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ],

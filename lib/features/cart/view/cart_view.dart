@@ -3,23 +3,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
-import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
-import 'package:linda_wedding_ecommerce/features/cart/bloc/cart_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/error/view/error_view.dart';
-import 'package:linda_wedding_ecommerce/features/product/model/products_model.dart';
-import 'package:linda_wedding_ecommerce/product/utils/dialog_widget.dart';
 
 import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
+import '../../../core/extansions/string_extansion.dart';
+import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../core/init/network/service/network_service.dart';
 import '../../../core/init/routes/routes.gr.dart';
+import '../../../product/utils/dialog_widget.dart';
 import '../../../product/widgets/ebutton_widget.dart';
+import '../../../product/widgets/empty_info_widget.dart';
 import '../../../product/widgets/iconbutton_widget.dart';
 import '../../../product/widgets/textfield_widget.dart';
+import '../../error/view/error_view.dart';
 import '../../product/blocs/products/products_bloc.dart';
+import '../../product/model/products_model.dart';
 import '../model/cart_model.dart';
-import '../../../product/widgets/empty_info_widget.dart';
 
 class CartView extends StatefulWidget {
   final CartModel? cartModel;
@@ -44,7 +43,7 @@ class _CartViewState extends State<CartView> {
     return SafeArea(
         child: (widget.cartModel == null)
             ? EmptyInfoWidget(
-                lottieSrc: "empty_cart",
+                lottieSrc: 'empty_cart',
                 text: LocaleKeys.cart_emptyTitle.locale)
             : _buildCartLoaded(widget.cartModel!));
   }
@@ -53,13 +52,13 @@ class _CartViewState extends State<CartView> {
       BlocBuilder<ProductsBloc, ProductsState>(builder: (context, state) {
         return state.maybeWhen(
             loading: () =>
-                const LoadingIndicatorWidget(lottieName: "cart_loading"),
+                const LoadingIndicatorWidget(lottieName: 'cart_loading'),
             loaded: (products, productsByCat, isFilterCat) =>
                 _buildProdLoaded(context, cartModel, products),
             error: (error) =>
                 Center(child: ErrorView(errorText: error.toString())),
             orElse: () => EmptyInfoWidget(
-                lottieSrc: "empty_cart",
+                lottieSrc: 'empty_cart',
                 text: LocaleKeys.cart_emptyTitle.locale));
       });
 
@@ -80,7 +79,7 @@ class _CartViewState extends State<CartView> {
         valueListenable: quantityList,
         builder: (context, value, child) => quantityList.value.isEmpty
             ? EmptyInfoWidget(
-                lottieSrc: "empty_cart",
+                lottieSrc: 'empty_cart',
                 text: LocaleKeys.cart_emptyTitle.locale)
             : Scaffold(
                 body: SingleChildScrollView(
@@ -165,7 +164,7 @@ class _CartViewState extends State<CartView> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "${products[cartModel.products[index].productId - 1]!.price} ₺",
+                                                '${products[cartModel.products[index].productId - 1]!.price} ₺',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleMedium,
@@ -191,7 +190,7 @@ class _CartViewState extends State<CartView> {
                                                       icon: Icons.remove,
                                                       iColor: ColorConstants
                                                           .myBlack,
-                                                      tooltip: "Remove"),
+                                                      tooltip: 'Remove'),
                                                   Text(
                                                     cartModel.products[index]
                                                         .quantity
@@ -209,7 +208,7 @@ class _CartViewState extends State<CartView> {
                                                       icon: Icons.add,
                                                       iColor: ColorConstants
                                                           .myBlack,
-                                                      tooltip: "Add")
+                                                      tooltip: 'Add')
                                                 ],
                                               )
                                             ],
@@ -233,7 +232,7 @@ class _CartViewState extends State<CartView> {
                                     Text(LocaleKeys.cart_subTotal.locale),
                                     const Expanded(child: Divider()),
                                     Text(
-                                        "${(total * .82).toStringAsFixed(2)} ₺",
+                                        '${(total * .82).toStringAsFixed(2)} ₺',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall)
@@ -244,7 +243,7 @@ class _CartViewState extends State<CartView> {
                                     Text(LocaleKeys.cart_tax.locale),
                                     const Expanded(child: Divider()),
                                     Text(
-                                        "${(total * .18).toStringAsFixed(2)} ₺",
+                                        '${(total * .18).toStringAsFixed(2)} ₺',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall)
@@ -299,7 +298,7 @@ class _CartViewState extends State<CartView> {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 Text(
-                  "${total.toStringAsFixed(2)} ₺",
+                  '${total.toStringAsFixed(2)} ₺',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ],

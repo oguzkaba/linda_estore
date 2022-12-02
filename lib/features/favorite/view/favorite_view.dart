@@ -3,17 +3,17 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/components/indicator/loading_indicator.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
-import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
-import 'package:linda_wedding_ecommerce/features/favorite/bloc/favorite_bloc.dart';
-import 'package:linda_wedding_ecommerce/product/widgets/empty_info_widget.dart';
 
+import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
+import '../../../core/extansions/string_extansion.dart';
+import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../product/utils/dialog_widget.dart';
+import '../../../product/widgets/empty_info_widget.dart';
 import '../../error/view/error_view.dart';
 import '../../product/blocs/products/products_bloc.dart';
 import '../../product/model/products_model.dart';
+import '../bloc/favorite_bloc.dart';
 
 class FavoriteView extends StatefulWidget {
   const FavoriteView({super.key});
@@ -32,7 +32,7 @@ class _FavoriteViewState extends State<FavoriteView> {
         orElse: () => context.emptySizedHeightBoxLow,
         loaded: (favList) => favList.isEmpty
             ? EmptyInfoWidget(
-                lottieSrc: "empty_fav_list",
+                lottieSrc: 'empty_fav_list',
                 text: LocaleKeys.favorites_emptyTitle.locale)
             : Padding(
                 padding: context.paddingMedium,
@@ -47,9 +47,9 @@ class _FavoriteViewState extends State<FavoriteView> {
                         builder: (context, state) {
                       return state.when(
                           initial: () => const LoadingIndicatorWidget(
-                              lottieName: "favorite_loading"),
+                              lottieName: 'favorite_loading'),
                           loading: () => const LoadingIndicatorWidget(
-                              lottieName: "favorite_loading"),
+                              lottieName: 'favorite_loading'),
                           loaded: (products, productsByCat, isFilterCat) =>
                               _buildFavList(favList, products),
                           error: (error) => Center(
@@ -116,7 +116,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "${products[favList[index] - 1]!.price} ₺",
+                          '${products[favList[index] - 1]!.price} ₺',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],
@@ -128,31 +128,6 @@ class _FavoriteViewState extends State<FavoriteView> {
           ),
         ),
       ),
-    );
-  }
-
-  Future<bool?> _showDialogWidget(BuildContext context, int index) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(LocaleKeys.favorites_alert_title.locale),
-          content: Text(LocaleKeys.favorites_alert_content.locale),
-          actions: <Widget>[
-            TextButton(
-                onPressed: () async {
-                  BlocProvider.of<FavoriteBloc>(context)
-                      .add(FavoriteEvent.toogle(index: index));
-                  context.router.pop(true);
-                },
-                child: Text(LocaleKeys.favorites_alert_buttonText.locale)),
-            TextButton(
-              onPressed: () => context.router.pop(false),
-              child: Text(LocaleKeys.favorites_alert_button2Text.locale),
-            ),
-          ],
-        );
-      },
     );
   }
 

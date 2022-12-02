@@ -11,7 +11,7 @@ class MockDataService {
 
   MockDataService._init();
   Future<List<MockDataModel>> readLocalJson() async {
-    String response = await rootBundle.loadString("mock_reviews".toJSON);
+    String response = await rootBundle.loadString('mock_reviews'.toJSON);
     var data = mockDataModelFromJson(response);
     return data;
   }

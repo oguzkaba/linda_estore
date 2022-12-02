@@ -2,11 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:linda_wedding_ecommerce/core/constants/cache/cache_constants.dart';
-import 'package:linda_wedding_ecommerce/core/init/cache/app_cache_manager.dart';
-import 'package:linda_wedding_ecommerce/features/auth/login/model/login_response_model.dart';
 
+import '../../../core/constants/cache/cache_constants.dart';
+import '../../../core/init/cache/app_cache_manager.dart';
 import '../../../product/utils/json_decoder_util.dart';
+import '../../auth/login/model/login_response_model.dart';
 import '../model/account_model.dart';
 import '../service/account_service.dart';
 

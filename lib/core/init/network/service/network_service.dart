@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 
 class NetworkService {
   static NetworkService? _instance;
+
   static NetworkService get instance {
     _instance ??= NetworkService._init();
     return _instance!;
@@ -23,7 +24,7 @@ class NetworkService {
         sendTimeout: _timeout,
         //connectTimeout: _timeout,
         headers: {
-          HttpHeaders.contentTypeHeader: "application/json",
+          HttpHeaders.contentTypeHeader: 'application/json',
         }),
   );
 }

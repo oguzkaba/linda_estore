@@ -29,21 +29,21 @@ class RegisterRequestModel {
 
   factory RegisterRequestModel.fromJson(Map<String, dynamic> json) =>
       RegisterRequestModel(
-        email: json["email"],
-        username: json["username"],
-        password: json["password"],
-        name: Name.fromJson(json["name"]),
-        address: Address.fromJson(json["address"]),
-        phone: json["phone"],
+        email: json['email'],
+        username: json['username'],
+        password: json['password'],
+        name: Name.fromJson(json['name']),
+        address: Address.fromJson(json['address']),
+        phone: json['phone'],
       );
 
   Map<String, dynamic> toJson() => {
-        "email": email,
-        "username": username,
-        "password": password,
-        "name": name?.toJson(),
-        "address": address?.toJson(),
-        "phone": phone,
+        'email': email,
+        'username': username,
+        'password': password,
+        'name': name?.toJson(),
+        'address': address?.toJson(),
+        'phone': phone,
       };
 }
 
@@ -63,19 +63,19 @@ class Address {
   final Geolocation? geolocation;
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
-        city: json["city"],
-        street: json["street"],
-        number: json["number"],
-        zipcode: json["zipcode"],
-        geolocation: Geolocation.fromJson(json["geolocation"]),
+        city: json['city'],
+        street: json['street'],
+        number: json['number'],
+        zipcode: json['zipcode'],
+        geolocation: Geolocation.fromJson(json['geolocation']),
       );
 
   Map<String, dynamic> toJson() => {
-        "city": city,
-        "street": street,
-        "number": number,
-        "zipcode": zipcode,
-        "geolocation": geolocation?.toJson(),
+        'city': city,
+        'street': street,
+        'number': number,
+        'zipcode': zipcode,
+        'geolocation': geolocation?.toJson(),
       };
 }
 
@@ -89,13 +89,13 @@ class Geolocation {
   final String? long;
 
   factory Geolocation.fromJson(Map<String, dynamic> json) => Geolocation(
-        lat: json["lat"],
-        long: json["long"],
+        lat: json['lat'],
+        long: json['long'],
       );
 
   Map<String, dynamic> toJson() => {
-        "lat": lat,
-        "long": long,
+        'lat': lat,
+        'long': long,
       };
 }
 
@@ -109,12 +109,12 @@ class Name {
   final String? lastname;
 
   factory Name.fromJson(Map<String, dynamic> json) => Name(
-        firstname: json["firstname"],
-        lastname: json["lastname"],
+        firstname: json['firstname'],
+        lastname: json['lastname'],
       );
 
   Map<String, dynamic> toJson() => {
-        "firstname": firstname,
-        "lastname": lastname,
+        'firstname': firstname,
+        'lastname': lastname,
       };
 }

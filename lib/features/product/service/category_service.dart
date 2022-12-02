@@ -1,9 +1,10 @@
 import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:linda_wedding_ecommerce/core/enums/api_route_enums.dart';
 
 import '../../../core/base/model/base_response_model.dart';
+import '../../../core/enums/api_route_enums.dart';
 import '../../../core/init/network/model/network_error_model.dart';
 import '../model/categories_model.dart';
 import '../model/products_model.dart';

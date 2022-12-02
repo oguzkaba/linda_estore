@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
-import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
+
 import '../../core/constants/app/colors_constants.dart';
+import '../../core/extansions/string_extansion.dart';
+import '../../core/init/lang/locale_keys.g.dart';
 
 class TextFieldWidget extends StatefulWidget {
   final String? labelText;
@@ -66,7 +67,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       obscureText: widget.obscureText ?? false,
       decoration: InputDecoration(
         contentPadding: context.horizontalPaddingMedium,
-        hintText: widget.hintText ?? "",
+        hintText: widget.hintText ?? '',
         hintStyle: widget.hintStyle ??
             Theme.of(context)
                 .textTheme

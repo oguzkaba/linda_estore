@@ -19,7 +19,7 @@ class SliverShimmerWidget extends StatelessWidget {
           childAspectRatio: 0.9),
       delegate: SliverChildBuilderDelegate(
         childCount: 8,
-        (BuildContext context, int index) {
+        (context, index) {
           return Shimmer.fromColors(
               direction: ShimmerDirection.ttb,
               baseColor: ColorConstants.shimmerBase,

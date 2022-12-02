@@ -29,13 +29,13 @@ class LanguageDropDownButton extends StatelessWidget {
               value: context.locale,
               items: <DropdownMenuItem<Locale>>[
                 _buildMenuItem(context, LangManager.instance.trLocale,
-                    LangManager.instance.trLocale.languageCode, "flag/turkey"),
+                    LangManager.instance.trLocale.languageCode, 'flag/turkey'),
                 _buildMenuItem(context, LangManager.instance.enLocale,
-                    LangManager.instance.enLocale.languageCode, "flag/usa"),
+                    LangManager.instance.enLocale.languageCode, 'flag/usa'),
                 _buildMenuItem(context, LangManager.instance.ruLocale,
-                    LangManager.instance.ruLocale.languageCode, "flag/russia"),
+                    LangManager.instance.ruLocale.languageCode, 'flag/russia'),
                 _buildMenuItem(context, LangManager.instance.zhLocale,
-                    LangManager.instance.zhLocale.languageCode, "flag/china"),
+                    LangManager.instance.zhLocale.languageCode, 'flag/china'),
               ],
               onChanged: (dynamic value) {
                 context.read<LanguageCubit>().changeLanguage(

@@ -18,7 +18,8 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
 
         if (result.object != null) {
           List categoryList = result.object as List;
-          categoryList.insert(0, "All");
+
+          categoryList.insert(0, 'All');
           emit(_CategoriesLoaded(categoryList, event.selectedCat));
         } else {
           emit(_CategoriesError(error: result.error!));

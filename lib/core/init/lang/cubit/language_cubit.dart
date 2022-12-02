@@ -7,7 +7,7 @@ import '../lang_manager.dart';
 part 'language_state.dart';
 
 class LanguageCubit extends Cubit<LanguageState> {
-  LanguageCubit() : super(const LanguageState("TR", "tr"));
+  LanguageCubit() : super(const LanguageState('TR', 'tr'));
   Locale appLocale = LangManager.instance.trLocale;
 
   Future<void> changeLanguage(

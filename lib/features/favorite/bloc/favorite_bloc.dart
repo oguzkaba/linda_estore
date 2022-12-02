@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:linda_wedding_ecommerce/core/init/cache/app_cache_model.dart';
 
 import '../../../core/constants/cache/cache_constants.dart';
 import '../../../core/init/cache/app_cache_manager.dart';
+import '../../../core/init/cache/app_cache_model.dart';
 
 part 'favorite_bloc.freezed.dart';
 part 'favorite_event.dart';
@@ -21,7 +21,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
         AppCacheModel getBoxModel =
             appCacheManager.getModel(CacheConstants.appCache)!;
         tempList = [...getBoxModel.favorites!];
-        action == "add"
+        action == 'add'
             ? tempList.add(event.index)
             : tempList.remove(event.index);
 
@@ -36,10 +36,10 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
             appCacheManager.getModel(CacheConstants.appCache)!;
         if (getBoxModel.favorites != null) {
           if (getBoxModel.favorites!.contains(event.index)) {
-            var a = await saveFav("remove");
+            var a = await saveFav('remove');
             emit(_FavoriteLoaded(favList: [...a]));
           } else {
-            var a = await saveFav("add");
+            var a = await saveFav('add');
             emit(_FavoriteLoaded(favList: [...a]));
           }
         } else {

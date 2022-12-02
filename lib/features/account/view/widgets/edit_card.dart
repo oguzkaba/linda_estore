@@ -1,14 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
-import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/extansions/asset_extansion.dart';
+import '../../../../core/extansions/string_extansion.dart';
+import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../product/widgets/ebutton_widget.dart';
 import '../../../../product/widgets/iconbutton_widget.dart';
 
@@ -51,7 +50,7 @@ class _EditCardState extends State<EditCard> {
                   onPress: () => context.router.pop(),
                   icon: Icons.chevron_left_rounded,
                   iColor: ColorConstants.myMediumGrey,
-                  tooltip: "Back"),
+                  tooltip: 'Back'),
             ),
             backgroundColor: Colors.transparent,
             elevation: 0.0,
@@ -76,7 +75,7 @@ class _EditCardState extends State<EditCard> {
                 isHolderNameVisible: true,
                 cardBgColor: ColorConstants.myBlack,
                 isSwipeGestureEnabled: true,
-                onCreditCardWidgetChange: (CreditCardBrand creditCardBrand) {},
+                onCreditCardWidgetChange: (creditCardBrand) {},
                 customCardTypeIcons: <CustomCardTypeIcon>[
                   CustomCardTypeIcon(
                     cardType: CardType.mastercard,
@@ -127,23 +126,23 @@ class _EditCardState extends State<EditCard> {
                     expiryDate: expiryDate,
                     themeColor: ColorConstants.primaryColor,
                     cardNumberDecoration: customInputDecoration(
-                        "XXXX XXXX XXXX XXXX",
+                        'XXXX XXXX XXXX XXXX',
                         LocaleKeys
                             .account_action_cards_editCard_tfieldCardNoHint
                             .locale,
                         Icons.credit_card_rounded),
                     expiryDateDecoration: customInputDecoration(
-                        "MM/YY",
+                        'MM/YY',
                         LocaleKeys.account_action_cards_editCard_tfieldDateHint
                             .locale,
                         Icons.date_range_rounded),
                     cvvCodeDecoration: customInputDecoration(
-                        "XXX",
+                        'XXX',
                         LocaleKeys
                             .account_action_cards_editCard_tfieldCVVHint.locale,
                         Icons.password_rounded),
                     cardHolderDecoration: customInputDecoration(
-                        "",
+                        '',
                         LocaleKeys
                             .account_action_cards_editCard_tfieldCardHolderHint
                             .locale,

@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
-import 'package:linda_wedding_ecommerce/core/init/lang/locale_keys.g.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
+import '../../../../core/extansions/string_extansion.dart';
+import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../product/widgets/auth_top_widget.dart';
 import '../../../../product/widgets/ebutton_widget.dart';
@@ -31,7 +31,7 @@ class _ForgotViewState extends State<ForgotView> {
                   ctx: context,
                   title: LocaleKeys.forgot_topTitle.locale,
                   subTitle: LocaleKeys.forgot_topMessage.locale,
-                  image: "auth"),
+                  image: 'auth'),
               Padding(padding: context.paddingLow),
               _buildInput(),
               //*confirm button
@@ -47,7 +47,7 @@ class _ForgotViewState extends State<ForgotView> {
                   bgColor: ColorConstants.myWhite,
                   tColor: ColorConstants.primaryColor,
                   useBorder: true,
-                  onPress: () => context.router.pushNamed("/login")),
+                  onPress: () => context.router.pushNamed('/login')),
             ],
           ),
         ),

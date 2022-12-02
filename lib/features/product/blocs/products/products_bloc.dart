@@ -40,7 +40,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
 
           if (result.object != null) {
             List<ProductsModel> filteredList = [];
-            for (var element in result.object as List<ProductsModel>) {
+            for (final element in result.object as List<ProductsModel>) {
               //todo kontrol
               if (element.category == event.categoryName) {
                 filteredList.add(element);

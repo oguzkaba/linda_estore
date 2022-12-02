@@ -2,10 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/extansions/string_extansion.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/extansions/asset_extansion.dart';
+import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../product/widgets/ebutton_widget.dart';
@@ -33,7 +33,7 @@ class _CardsState extends State<Cards> {
                 onPress: () => context.router.pop(),
                 icon: Icons.chevron_left_rounded,
                 iColor: ColorConstants.myMediumGrey,
-                tooltip: "Back"),
+                tooltip: 'Back'),
           ),
           backgroundColor: Colors.transparent,
           elevation: 0.0,
@@ -43,18 +43,18 @@ class _CardsState extends State<Cards> {
             right: (context.width - 420) / 2,
             left: (context.width - 420) / 2,
             child:
-                _buildCard("A Bank", "45421414141414", ColorConstants.myDark)),
+                _buildCard('A Bank', '45421414141414', ColorConstants.myDark)),
         Positioned(
           right: (context.width - 420) / 2,
           left: (context.width - 420) / 2,
           top: 60,
-          child: _buildCard("B Bank", "55421414141414", ColorConstants.myBlue),
+          child: _buildCard('B Bank', '55421414141414', ColorConstants.myBlue),
         ),
         Positioned(
           right: (context.width - 420) / 2,
           left: (context.width - 420) / 2,
           top: 120,
-          child: _buildCard("C Bank", "34421414141414", ColorConstants.myBlack),
+          child: _buildCard('C Bank', '34421414141414', ColorConstants.myBlack),
         ),
       ]),
       bottomNavigationBar: Container(

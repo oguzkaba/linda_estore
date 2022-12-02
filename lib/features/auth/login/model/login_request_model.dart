@@ -13,12 +13,12 @@ class LoginRequestModel {
 
   factory LoginRequestModel.fromJson(Map<String, dynamic> json) =>
       LoginRequestModel(
-        username: json["username"],
-        password: json["password"],
+        username: json['username'],
+        password: json['password'],
       );
 
   Map<String, dynamic> toJson() => {
-        "username": username,
-        "password": password,
+        'username': username,
+        'password': password,
       };
 }

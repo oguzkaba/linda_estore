@@ -29,33 +29,33 @@ class ProductModel {
   final Rating? rating;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-        id: json["id"],
-        title: json["title"],
-        price: json["price"].toDouble(),
-        description: json["description"],
-        category: json["category"],
-        image: json["image"],
-        rating: Rating.fromJson(json["rating"]),
+        id: json['id'],
+        title: json['title'],
+        price: json['price'].toDouble(),
+        description: json['description'],
+        category: json['category'],
+        image: json['image'],
+        rating: Rating.fromJson(json['rating']),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "price": price,
-        "description": description,
-        "category": category,
-        "image": image,
-        "rating": rating?.toJson(),
+        'id': id,
+        'title': title,
+        'price': price,
+        'description': description,
+        'category': category,
+        'image': image,
+        'rating': rating?.toJson(),
       };
 
   ProductModel fromJson(Map<String, dynamic> json) => ProductModel(
-        id: json["id"],
-        title: json["title"],
-        price: json["price"].toDouble(),
-        description: json["description"],
-        category: json["category"],
-        image: json["image"],
-        rating: Rating.fromJson(json["rating"]),
+        id: json['id'],
+        title: json['title'],
+        price: json['price'].toDouble(),
+        description: json['description'],
+        category: json['category'],
+        image: json['image'],
+        rating: Rating.fromJson(json['rating']),
       );
 }
 
@@ -69,12 +69,12 @@ class Rating {
   final int count;
 
   factory Rating.fromJson(Map<String, dynamic> json) => Rating(
-        rate: json["rate"].toDouble(),
-        count: json["count"],
+        rate: json['rate'].toDouble(),
+        count: json['count'],
       );
 
   Map<String, dynamic> toJson() => {
-        "rate": rate,
-        "count": count,
+        'rate': rate,
+        'count': count,
       };
 }

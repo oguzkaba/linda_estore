@@ -12,6 +12,7 @@ class AppTheme {
 
   ThemeData get darkTheme => ThemeData.dark().copyWith(
       //TODO dark theme edit
+      brightness: Brightness.dark,
       textTheme: _textThemeDark,
       primaryTextTheme: _primaryTextTheme,
       colorScheme: _colorScheme,
@@ -22,6 +23,7 @@ class AppTheme {
       scaffoldBackgroundColor: ColorConstants.myDark);
 
   ThemeData get lightTheme => ThemeData.light().copyWith(
+        brightness: Brightness.light,
         scaffoldBackgroundColor: ColorConstants.myWhite,
         textTheme: _textThemeLight,
         primaryTextTheme: _primaryTextTheme,
@@ -49,7 +51,7 @@ class AppTheme {
             fontWeight: FontWeight.bold, color: ColorConstants.myDark),
       )
       .apply(
-        fontFamily: "Montserrat",
+        fontFamily: 'Montserrat',
       );
 
   TextTheme get _textThemeDark => ThemeData.dark()
@@ -69,11 +71,11 @@ class AppTheme {
             fontWeight: FontWeight.bold, color: ColorConstants.myWhite),
       )
       .apply(
-        fontFamily: "Montserrat",
+        fontFamily: 'Montserrat',
       );
 
   TextTheme get _primaryTextTheme => ThemeData.light().textTheme.apply(
-        fontFamily: "Montserrat",
+        fontFamily: 'Montserrat',
       );
 
   InputDecorationTheme get _inputTheme =>
@@ -119,6 +121,7 @@ class AppTheme {
           color: ColorConstants.primaryColor,
           fontSize: 16,
           fontWeight: FontWeight.bold));
+
   AppBarTheme get _appBarThemeDark => AppBarTheme(
       toolbarHeight: 40,
       iconTheme: IconThemeData(color: ColorConstants.primaryColor),

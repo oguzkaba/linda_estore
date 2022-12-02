@@ -19,13 +19,13 @@ class EmptyInfoWidget extends StatelessWidget {
           padding: context.paddingMedium,
           child: Column(
             children: [
-              Text(text ?? "",
+              Text(text ?? '',
                   style: Theme.of(context).textTheme.headlineSmall),
               SizedBox(
                 height: context.height * .7,
                 child: Lottie.asset(lottieSrc.toLottie),
               ),
-              Text(underText ?? "",
+              Text(underText ?? '',
                   style: Theme.of(context).textTheme.bodySmall),
             ],
           ),

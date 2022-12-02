@@ -19,10 +19,10 @@ class LoginResponseModel {
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) =>
       LoginResponseModel(
-        token: json["token"],
+        token: json['token'],
       );
 
   Map<String, dynamic> toJson() => {
-        "token": token,
+        'token': token,
       };
 }
