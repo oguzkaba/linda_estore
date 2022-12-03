@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../core/constants/cache/cache_constants.dart';
 import '../../../core/init/cache/app_cache_manager.dart';
-import '../../../product/utils/json_decoder_util.dart';
+import '../../../core/utils/json_decoder_util.dart';
 import '../../auth/login/model/login_response_model.dart';
 import '../model/account_model.dart';
 import '../service/account_service.dart';

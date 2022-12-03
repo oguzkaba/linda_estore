@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../core/constants/app/colors_constants.dart';
+import '../../constants/app/colors_constants.dart';
 
 class SliverShimmerWidget extends StatelessWidget {
   const SliverShimmerWidget({super.key});

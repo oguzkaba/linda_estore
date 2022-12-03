@@ -8,8 +8,8 @@ import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/extansions/asset_extansion.dart';
 import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
-import '../../../../product/widgets/ebutton_widget.dart';
-import '../../../../product/widgets/iconbutton_widget.dart';
+import '../../../../core/widgets/button/ebutton_widget.dart';
+import '../../../../core/widgets/button/iconbutton_widget.dart';
 
 class EditCard extends StatefulWidget {
   const EditCard({super.key});

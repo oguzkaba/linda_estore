@@ -6,16 +6,15 @@ import 'package:kartal/kartal.dart';
 import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/network/service/network_service.dart';
-import '../../../../product/utils/custom_error_widgets.dart';
-import '../../../../product/widgets/auth_top_widget.dart';
-import '../../../../product/widgets/divider_widget.dart';
-import '../../../../product/widgets/ebutton_widget.dart';
-import '../../../../product/widgets/richtext_widget.dart';
-import '../../../../product/widgets/social_button_widget.dart';
-import '../../../../product/widgets/textfield_widget.dart';
+import '../../../../core/mock/model/user/const_user_model.dart';
+import '../../../../core/utils/custom_error_widgets.dart';
+import '../../../../core/widgets/button/button.dart';
+import '../../../../core/widgets/divider/divider_widget.dart';
+import '../../../../core/widgets/text/text.dart';
+import '../../../../core/widgets/textfield/textfield_widget.dart';
+import '../../../../core/widgets/top/auth_top_widget.dart';
 import '../../bloc/auth_bloc.dart';
-import '../../login/bloc/cubit/login_cubit.dart';
-import '../model/register_request_model.dart';
+import '../../login/bloc/cubit/component_cubit.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -31,20 +30,6 @@ class _RegisterViewState extends State<RegisterView> {
   late final TextEditingController unameController;
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
-  //?In the backend, because of the problem of adding new users,
-  //? demo data was used (it can be edited as needed).
-  var registerRequestModel = RegisterRequestModel(
-      email: 'John@gmail.com',
-      username: 'johnd',
-      password: 'm38rmF\$',
-      name: Name(firstname: 'John', lastname: 'Doe'),
-      address: Address(
-          city: 'kilcoole',
-          street: '7835 new road',
-          number: 3,
-          zipcode: '12926-3874',
-          geolocation: Geolocation(lat: '-37.3159', long: '81.1496')),
-      phone: '1-570-236-7033');
 
   @override
   void initState() {
@@ -93,10 +78,10 @@ class _RegisterViewState extends State<RegisterView> {
                 Padding(padding: context.paddingLow),
                 //*sign up button
                 BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
-                  if (state is RegisterError) {
-                    CustomErrorWidgets.showError(
-                        context, state.error.toString());
-                  }
+                  state.whenOrNull(
+                    regError: (error) =>
+                        CustomErrorWidgets.showError(context, error.toString()),
+                  );
                 }, builder: (context, state) {
                   return EButtonWidget(
                       loading: state is LoginLoading ||
@@ -106,13 +91,13 @@ class _RegisterViewState extends State<RegisterView> {
                       text: LocaleKeys.register_buttonText.locale,
                       onPress: () {
                         //if (_formKey.currentState!.validate()) {
-                        context.read<AuthBloc>().add(AuthRegister(
-                              manager,
-                              scaffoldKey,
+                        context.read<AuthBloc>().add(AuthEvent.register(
+                              manager: manager,
+                              scaffoldKey: scaffoldKey,
                               //?In the backend, because of the problem of
                               //?adding new users, demo data was used (it can be edited as needed).
-                              context,
-                              registerRequestModel,
+                              context: context,
+                              registerRequestModel: constUserModel,
                             ));
                       }
                       // }

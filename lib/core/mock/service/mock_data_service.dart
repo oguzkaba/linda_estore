@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
-import '../../../core/extansions/asset_extansion.dart';
-import '../model/fake_reviews_model.dart';
+import '../../extansions/asset_extansion.dart';
+import '../model/review/fake_reviews_model.dart';
 
 class MockDataService {
   static MockDataService? _instance;

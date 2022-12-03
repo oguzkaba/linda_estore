@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../core/constants/app/colors_constants.dart';
+import '../../constants/app/colors_constants.dart';
 import 'iconbutton_widget.dart';
 
 class SocialIconButtonWidget extends StatelessWidget {

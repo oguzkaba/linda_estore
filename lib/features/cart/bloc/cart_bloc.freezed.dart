@@ -728,7 +728,7 @@ mixin _$CartState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_CartInitial value) initial,
-    required TResult Function(_CartLoading value) loading,
+    required TResult Function(CartLoading value) loading,
     required TResult Function(_CartLoaded value) loaded,
     required TResult Function(_CartAdd value) add,
     required TResult Function(_CartRemove value) remove,
@@ -738,7 +738,7 @@ mixin _$CartState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_CartInitial value)? initial,
-    TResult? Function(_CartLoading value)? loading,
+    TResult? Function(CartLoading value)? loading,
     TResult? Function(_CartLoaded value)? loaded,
     TResult? Function(_CartAdd value)? add,
     TResult? Function(_CartRemove value)? remove,
@@ -748,7 +748,7 @@ mixin _$CartState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_CartInitial value)? initial,
-    TResult Function(_CartLoading value)? loading,
+    TResult Function(CartLoading value)? loading,
     TResult Function(_CartLoaded value)? loaded,
     TResult Function(_CartAdd value)? add,
     TResult Function(_CartRemove value)? remove,
@@ -857,7 +857,7 @@ class _$_CartInitial implements _CartInitial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_CartInitial value) initial,
-    required TResult Function(_CartLoading value) loading,
+    required TResult Function(CartLoading value) loading,
     required TResult Function(_CartLoaded value) loaded,
     required TResult Function(_CartAdd value) add,
     required TResult Function(_CartRemove value) remove,
@@ -870,7 +870,7 @@ class _$_CartInitial implements _CartInitial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_CartInitial value)? initial,
-    TResult? Function(_CartLoading value)? loading,
+    TResult? Function(CartLoading value)? loading,
     TResult? Function(_CartLoaded value)? loaded,
     TResult? Function(_CartAdd value)? add,
     TResult? Function(_CartRemove value)? remove,
@@ -883,7 +883,7 @@ class _$_CartInitial implements _CartInitial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_CartInitial value)? initial,
-    TResult Function(_CartLoading value)? loading,
+    TResult Function(CartLoading value)? loading,
     TResult Function(_CartLoaded value)? loaded,
     TResult Function(_CartAdd value)? add,
     TResult Function(_CartRemove value)? remove,
@@ -902,25 +902,25 @@ abstract class _CartInitial implements CartState {
 }
 
 /// @nodoc
-abstract class _$$_CartLoadingCopyWith<$Res> {
-  factory _$$_CartLoadingCopyWith(
-          _$_CartLoading value, $Res Function(_$_CartLoading) then) =
-      __$$_CartLoadingCopyWithImpl<$Res>;
+abstract class _$$CartLoadingCopyWith<$Res> {
+  factory _$$CartLoadingCopyWith(
+          _$CartLoading value, $Res Function(_$CartLoading) then) =
+      __$$CartLoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_CartLoadingCopyWithImpl<$Res>
-    extends _$CartStateCopyWithImpl<$Res, _$_CartLoading>
-    implements _$$_CartLoadingCopyWith<$Res> {
-  __$$_CartLoadingCopyWithImpl(
-      _$_CartLoading _value, $Res Function(_$_CartLoading) _then)
+class __$$CartLoadingCopyWithImpl<$Res>
+    extends _$CartStateCopyWithImpl<$Res, _$CartLoading>
+    implements _$$CartLoadingCopyWith<$Res> {
+  __$$CartLoadingCopyWithImpl(
+      _$CartLoading _value, $Res Function(_$CartLoading) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_CartLoading implements _CartLoading {
-  const _$_CartLoading();
+class _$CartLoading implements CartLoading {
+  const _$CartLoading();
 
   @override
   String toString() {
@@ -930,7 +930,7 @@ class _$_CartLoading implements _CartLoading {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_CartLoading);
+        (other.runtimeType == runtimeType && other is _$CartLoading);
   }
 
   @override
@@ -983,7 +983,7 @@ class _$_CartLoading implements _CartLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_CartInitial value) initial,
-    required TResult Function(_CartLoading value) loading,
+    required TResult Function(CartLoading value) loading,
     required TResult Function(_CartLoaded value) loaded,
     required TResult Function(_CartAdd value) add,
     required TResult Function(_CartRemove value) remove,
@@ -996,7 +996,7 @@ class _$_CartLoading implements _CartLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_CartInitial value)? initial,
-    TResult? Function(_CartLoading value)? loading,
+    TResult? Function(CartLoading value)? loading,
     TResult? Function(_CartLoaded value)? loaded,
     TResult? Function(_CartAdd value)? add,
     TResult? Function(_CartRemove value)? remove,
@@ -1009,7 +1009,7 @@ class _$_CartLoading implements _CartLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_CartInitial value)? initial,
-    TResult Function(_CartLoading value)? loading,
+    TResult Function(CartLoading value)? loading,
     TResult Function(_CartLoaded value)? loaded,
     TResult Function(_CartAdd value)? add,
     TResult Function(_CartRemove value)? remove,
@@ -1023,8 +1023,8 @@ class _$_CartLoading implements _CartLoading {
   }
 }
 
-abstract class _CartLoading implements CartState {
-  const factory _CartLoading() = _$_CartLoading;
+abstract class CartLoading implements CartState {
+  const factory CartLoading() = _$CartLoading;
 }
 
 /// @nodoc
@@ -1142,7 +1142,7 @@ class _$_CartLoaded implements _CartLoaded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_CartInitial value) initial,
-    required TResult Function(_CartLoading value) loading,
+    required TResult Function(CartLoading value) loading,
     required TResult Function(_CartLoaded value) loaded,
     required TResult Function(_CartAdd value) add,
     required TResult Function(_CartRemove value) remove,
@@ -1155,7 +1155,7 @@ class _$_CartLoaded implements _CartLoaded {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_CartInitial value)? initial,
-    TResult? Function(_CartLoading value)? loading,
+    TResult? Function(CartLoading value)? loading,
     TResult? Function(_CartLoaded value)? loaded,
     TResult? Function(_CartAdd value)? add,
     TResult? Function(_CartRemove value)? remove,
@@ -1168,7 +1168,7 @@ class _$_CartLoaded implements _CartLoaded {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_CartInitial value)? initial,
-    TResult Function(_CartLoading value)? loading,
+    TResult Function(CartLoading value)? loading,
     TResult Function(_CartLoaded value)? loaded,
     TResult Function(_CartAdd value)? add,
     TResult Function(_CartRemove value)? remove,
@@ -1306,7 +1306,7 @@ class _$_CartAdd implements _CartAdd {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_CartInitial value) initial,
-    required TResult Function(_CartLoading value) loading,
+    required TResult Function(CartLoading value) loading,
     required TResult Function(_CartLoaded value) loaded,
     required TResult Function(_CartAdd value) add,
     required TResult Function(_CartRemove value) remove,
@@ -1319,7 +1319,7 @@ class _$_CartAdd implements _CartAdd {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_CartInitial value)? initial,
-    TResult? Function(_CartLoading value)? loading,
+    TResult? Function(CartLoading value)? loading,
     TResult? Function(_CartLoaded value)? loaded,
     TResult? Function(_CartAdd value)? add,
     TResult? Function(_CartRemove value)? remove,
@@ -1332,7 +1332,7 @@ class _$_CartAdd implements _CartAdd {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_CartInitial value)? initial,
-    TResult Function(_CartLoading value)? loading,
+    TResult Function(CartLoading value)? loading,
     TResult Function(_CartLoaded value)? loaded,
     TResult Function(_CartAdd value)? add,
     TResult Function(_CartRemove value)? remove,
@@ -1471,7 +1471,7 @@ class _$_CartRemove implements _CartRemove {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_CartInitial value) initial,
-    required TResult Function(_CartLoading value) loading,
+    required TResult Function(CartLoading value) loading,
     required TResult Function(_CartLoaded value) loaded,
     required TResult Function(_CartAdd value) add,
     required TResult Function(_CartRemove value) remove,
@@ -1484,7 +1484,7 @@ class _$_CartRemove implements _CartRemove {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_CartInitial value)? initial,
-    TResult? Function(_CartLoading value)? loading,
+    TResult? Function(CartLoading value)? loading,
     TResult? Function(_CartLoaded value)? loaded,
     TResult? Function(_CartAdd value)? add,
     TResult? Function(_CartRemove value)? remove,
@@ -1497,7 +1497,7 @@ class _$_CartRemove implements _CartRemove {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_CartInitial value)? initial,
-    TResult Function(_CartLoading value)? loading,
+    TResult Function(CartLoading value)? loading,
     TResult Function(_CartLoaded value)? loaded,
     TResult Function(_CartAdd value)? add,
     TResult Function(_CartRemove value)? remove,
@@ -1627,7 +1627,7 @@ class _$_CartError implements _CartError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_CartInitial value) initial,
-    required TResult Function(_CartLoading value) loading,
+    required TResult Function(CartLoading value) loading,
     required TResult Function(_CartLoaded value) loaded,
     required TResult Function(_CartAdd value) add,
     required TResult Function(_CartRemove value) remove,
@@ -1640,7 +1640,7 @@ class _$_CartError implements _CartError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_CartInitial value)? initial,
-    TResult? Function(_CartLoading value)? loading,
+    TResult? Function(CartLoading value)? loading,
     TResult? Function(_CartLoaded value)? loaded,
     TResult? Function(_CartAdd value)? add,
     TResult? Function(_CartRemove value)? remove,
@@ -1653,7 +1653,7 @@ class _$_CartError implements _CartError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_CartInitial value)? initial,
-    TResult Function(_CartLoading value)? loading,
+    TResult Function(CartLoading value)? loading,
     TResult Function(_CartLoaded value)? loaded,
     TResult Function(_CartAdd value)? add,
     TResult Function(_CartRemove value)? remove,

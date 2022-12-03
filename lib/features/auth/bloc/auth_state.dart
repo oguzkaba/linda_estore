@@ -1,57 +1,15 @@
 part of 'auth_bloc.dart';
 
-abstract class AuthState extends Equatable {
-  const AuthState();
+@freezed
+abstract class AuthState with _$AuthState {
+  const factory AuthState.initial() = AuthInitial;
+  const factory AuthState.loginLoading() = LoginLoading;
+  const factory AuthState.loginSuccess(
+      {required String? token, required int userId}) = LoginSuccess;
+  const factory AuthState.loginError({required Object error}) = LoginError;
 
-  @override
-  List<Object> get props => [];
-}
+  const factory AuthState.regLoading() = RegisterLoading;
+  const factory AuthState.regSuccess({required int userId}) = RegisterSuccess;
 
-class AuthInitial extends AuthState {}
-
-//*Login
-
-class LoginLoading extends AuthState {}
-
-class LoginSuccess extends AuthState {
-  final String? token;
-  final int userId;
-
-  const LoginSuccess({this.token, required this.userId});
-
-  @override
-  List<Object> get props => [userId];
-}
-
-class LoginError extends AuthState {
-  final Object error;
-
-  const LoginError(this.error);
-
-  @override
-  List<Object> get props => [error];
-}
-
-///
-///
-//*Register
-
-class RegisterLoading extends AuthState {}
-
-class RegisterSuccess extends AuthState {
-  final int userId;
-
-  const RegisterSuccess(this.userId);
-
-  @override
-  List<Object> get props => [userId];
-}
-
-class RegisterError extends AuthState {
-  final Object error;
-
-  const RegisterError(this.error);
-
-  @override
-  List<Object> get props => [error];
+  const factory AuthState.regError({required Object error}) = RegisterError;
 }

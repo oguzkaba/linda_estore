@@ -6,9 +6,9 @@ import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/routes/routes.gr.dart';
-import '../../../../product/widgets/auth_top_widget.dart';
-import '../../../../product/widgets/ebutton_widget.dart';
-import '../../../../product/widgets/textfield_widget.dart';
+import '../../../../core/widgets/top/auth_top_widget.dart';
+import '../../../../core/widgets/button/ebutton_widget.dart';
+import '../../../../core/widgets/textfield/textfield_widget.dart';
 
 class ForgotView extends StatefulWidget {
   const ForgotView({super.key});

@@ -7,8 +7,8 @@ import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/routes/routes.gr.dart';
-import '../../../../product/widgets/auth_top_widget.dart';
-import '../../../../product/widgets/richtext_widget.dart';
+import '../../../../core/widgets/text/text.dart';
+import '../../../../core/widgets/top/auth_top_widget.dart';
 
 class EmailVerificationView extends StatefulWidget {
   const EmailVerificationView({super.key});

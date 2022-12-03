@@ -16,7 +16,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(const _CartInitial()) {
     on<_FetchCart>((event, emit) async {
       try {
-        emit(const _CartLoading());
+        emit(const CartLoading());
         final state = event.accountBloc.state;
 
         state.whenOrNull(
@@ -31,6 +31,22 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         } else {
           emit(_CartError(error: result.error!));
         }
+      } catch (e) {
+        emit(_CartError(error: e));
+      }
+    });
+
+    on<_AddToCart>((event, emit) async {
+      emit(const CartLoading());
+      try {
+        await Future.delayed(Duration(milliseconds: 500));
+        emit(_CartLoaded(cartModel: [
+          CartModel(
+              id: 5,
+              userId: 1,
+              date: DateTime.now(),
+              products: [Product(productId: event.productId, quantity: 1)])
+        ]));
       } catch (e) {
         emit(_CartError(error: e));
       }

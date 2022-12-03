@@ -9,8 +9,8 @@ import '../../../../core/enums/language_enum.dart';
 import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/themes/cubit/theme_cubit.dart';
-import '../../../../product/widgets/iconbutton_widget.dart';
-import '../../../../product/widgets/language_ddbutton_widget.dart';
+import '../../../../core/widgets/button/iconbutton_widget.dart';
+import '../../../../core/widgets/dropdown/language_ddbutton_widget.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});

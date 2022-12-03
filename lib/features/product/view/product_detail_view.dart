@@ -4,16 +4,17 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/features/cart/bloc/cart_bloc.dart';
+import 'package:linda_wedding_ecommerce/features/cart/model/cart_model.dart';
 
-import '../../../core/components/indicator/loading_indicator.dart';
+import '../../../core/widgets/button/button.dart';
+import '../../../core/widgets/loading/loading.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/constants/app/image_constants.dart';
 import '../../../core/extansions/string_extansion.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
-import '../../../product/mock/model/fake_reviews_model.dart';
-import '../../../product/utils/custom_error_widgets.dart';
-import '../../../product/widgets/export_widget.dart';
-import '../../../product/widgets/iconbutton_widget.dart';
+import '../../../core/mock/model/review/fake_reviews_model.dart';
+import '../../../core/utils/custom_error_widgets.dart';
 import '../../error/view/error_view.dart';
 import '../../favorite/bloc/favorite_bloc.dart';
 import '../blocs/product/product_bloc.dart';
@@ -220,7 +221,6 @@ class _ProductDetailViewState extends State<ProductDetailView> {
 
   ListView _buildReviewsList(List<MockDataModel> reviews) {
     return ListView.builder(
-      //*TODO long wait for load data--(lazyload require)
       itemCount: reviews.length,
       padding: EdgeInsets.zero,
       shrinkWrap: true,
@@ -287,8 +287,25 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 ),
               ],
             ),
-            EButtonWidget(
-                text: LocaleKeys.home_productDet_buttonText.locale, width: 125)
+            BlocBuilder<CartBloc, CartState>(builder: (context, stateCart) {
+              return EButtonWidget(
+                  //TODO control add to cart
+                  loading: stateCart is CartLoading,
+                  text: stateCart.maybeWhen(
+                    loaded: (cartModel) =>
+                        cartModel.last.products.first.productId == widget.id
+                            ? "Sepette"
+                            : LocaleKeys.home_productDet_buttonText.locale,
+                    orElse: () => LocaleKeys.home_productDet_buttonText.locale,
+                  ),
+                  onPress: () {
+                    context.read<CartBloc>().add(CartEvent.add(
+                        manager: widget.manager,
+                        scaffoldKey: widget.scaffoldKey,
+                        productId: widget.id));
+                  },
+                  width: 125);
+            })
           ],
         ),
       ),

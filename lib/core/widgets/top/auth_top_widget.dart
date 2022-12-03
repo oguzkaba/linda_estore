@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
 
-import '../../core/extansions/asset_extansion.dart';
-import 'language_ddbutton_widget.dart';
+import '../../extansions/asset_extansion.dart';
+import '../dropdown/language_ddbutton_widget.dart';
 
 class AuthTopWidget extends StatelessWidget {
   final String title;

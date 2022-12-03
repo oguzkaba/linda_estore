@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 import 'package:kartal/kartal.dart';
 
-import '../../core/constants/app/colors_constants.dart';
-import '../../core/extansions/string_extansion.dart';
-import '../../core/init/lang/locale_keys.g.dart';
+import '../../constants/app/colors_constants.dart';
+import '../../extansions/string_extansion.dart';
+import '../../init/lang/locale_keys.g.dart';
 
 class TextFieldWidget extends StatefulWidget {
   final String? labelText;

@@ -4,20 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 
-import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/extansions/string_extansion.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../core/init/network/service/network_service.dart';
 import '../../../core/init/routes/routes.gr.dart';
-import '../../../product/utils/dialog_widget.dart';
-import '../../../product/widgets/ebutton_widget.dart';
-import '../../../product/widgets/empty_info_widget.dart';
-import '../../../product/widgets/iconbutton_widget.dart';
-import '../../../product/widgets/textfield_widget.dart';
+import '../../../core/utils/custom_error_widgets.dart';
+import '../../../core/utils/dialog_widget.dart';
+import '../../../core/widgets/button/ebutton_widget.dart';
+import '../../../core/widgets/info/empty_info_widget.dart';
+import '../../../core/widgets/button/iconbutton_widget.dart';
+import '../../../core/widgets/loading/loading.dart';
+import '../../../core/widgets/textfield/textfield_widget.dart';
 import '../../error/view/error_view.dart';
 import '../../product/blocs/products/products_bloc.dart';
 import '../../product/model/products_model.dart';
+import '../bloc/cart_bloc.dart';
 import '../model/cart_model.dart';
 
 class CartView extends StatefulWidget {
@@ -41,11 +43,27 @@ class _CartViewState extends State<CartView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: (widget.cartModel == null)
+        child: BlocConsumer<CartBloc, CartState>(listener: (context, state) {
+      state.whenOrNull(
+          error: (error) => CustomErrorWidgets.showError(
+              context, error.toString(),
+              topMargin: 115));
+    }, builder: (context, state) {
+      return state.maybeWhen(
+        initial: () =>
+            const LoadingIndicatorWidget(lottieName: 'order_loading'),
+        loading: () =>
+            const LoadingIndicatorWidget(lottieName: 'order_loading'),
+        loaded: (cartModel) => cartModel.isNullOrEmpty
             ? EmptyInfoWidget(
-                lottieSrc: 'empty_cart',
-                text: LocaleKeys.cart_emptyTitle.locale)
-            : _buildCartLoaded(widget.cartModel!));
+                lottieSrc: 'empty_order',
+                underText:
+                    LocaleKeys.account_action_trackOrder_emptyTitle.locale)
+            : _buildCartLoaded(cartModel.last),
+        error: (error) => ErrorView(errorText: error.toString()),
+        orElse: () => context.emptySizedHeightBoxLow,
+      );
+    }));
   }
 
   Widget _buildCartLoaded(CartModel cartModel) =>

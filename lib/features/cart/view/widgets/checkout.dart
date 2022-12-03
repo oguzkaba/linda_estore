@@ -7,8 +7,7 @@ import 'package:kartal/kartal.dart';
 import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
-import '../../../../product/widgets/export_widget.dart';
-import '../../../../product/widgets/iconbutton_widget.dart';
+import '../../../../core/widgets/button/button.dart';
 
 class Checkout extends StatefulWidget {
   const Checkout({super.key});

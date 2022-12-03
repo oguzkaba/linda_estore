@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../features/account/bloc/account_bloc.dart';
 import '../../../features/auth/bloc/auth_bloc.dart';
-import '../../../features/auth/login/bloc/cubit/login_cubit.dart';
+import '../../../features/auth/login/bloc/cubit/component_cubit.dart';
 import '../../../features/cart/bloc/cart_bloc.dart';
 import '../../../features/favorite/bloc/favorite_bloc.dart';
 import '../../../features/product/blocs/categories/categories_bloc.dart';

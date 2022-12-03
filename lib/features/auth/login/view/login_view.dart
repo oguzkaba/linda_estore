@@ -7,15 +7,16 @@ import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/network/service/network_service.dart';
 import '../../../../core/init/routes/routes.gr.dart';
-import '../../../../product/utils/custom_error_widgets.dart';
-import '../../../../product/widgets/auth_top_widget.dart';
-import '../../../../product/widgets/divider_widget.dart';
-import '../../../../product/widgets/ebutton_widget.dart';
-import '../../../../product/widgets/richtext_widget.dart';
-import '../../../../product/widgets/social_button_widget.dart';
-import '../../../../product/widgets/textfield_widget.dart';
+import '../../../../core/utils/custom_error_widgets.dart';
+import '../../../../core/widgets/button/button.dart';
+import '../../../../core/widgets/divider/divider_widget.dart';
+import '../../../../core/widgets/text/text.dart';
+import '../../../../core/widgets/textfield/textfield_widget.dart';
+import '../../../../core/widgets/top/auth_top_widget.dart';
+
+import '../../../favorite/bloc/favorite_bloc.dart';
 import '../../bloc/auth_bloc.dart';
-import '../bloc/cubit/login_cubit.dart';
+import '../bloc/cubit/component_cubit.dart';
 import '../model/login_request_model.dart';
 
 /*
@@ -78,7 +79,7 @@ class _LoginViewState extends State<LoginView> {
   void initState() {
     unameController = TextEditingController();
     passwordController = TextEditingController();
-    // BlocProvider.of<FavoriteBloc>(context).add(const InitFavorite([]));
+    BlocProvider.of<FavoriteBloc>(context).add(FavoriteEvent.init(favList: []));
     super.initState();
   }
 
@@ -121,21 +122,7 @@ class _LoginViewState extends State<LoginView> {
                         context, state.error.toString());
                   }
                 }, builder: (context, state) {
-                  return EButtonWidget(
-                      loading: state is LoginLoading || state is LoginSuccess,
-                      text: LocaleKeys.login_buttonText.locale,
-                      onPress: () {
-                        if (_formKey.currentState!.validate()) {
-                          context.read<AuthBloc>().add(AuthLogin(
-                              manager,
-                              scaffoldKey,
-                              LoginRequestModel(
-                                username: unameController.text.trim(),
-                                password: passwordController.text.trim(),
-                              ),
-                              context));
-                        }
-                      });
+                  return _buildButton(state, context);
                 }),
 
                 Padding(padding: context.paddingLow),
@@ -153,6 +140,24 @@ class _LoginViewState extends State<LoginView> {
         ),
       ),
     );
+  }
+
+  EButtonWidget _buildButton(AuthState state, BuildContext context) {
+    return EButtonWidget(
+        loading: state is LoginLoading || state is LoginSuccess,
+        text: LocaleKeys.login_buttonText.locale,
+        onPress: () {
+          if (_formKey.currentState!.validate()) {
+            context.read<AuthBloc>().add(AuthEvent.login(
+                manager: manager,
+                scaffoldKey: scaffoldKey,
+                loginRequestModel: LoginRequestModel(
+                  username: unameController.text.trim(),
+                  password: passwordController.text.trim(),
+                ),
+                context: context));
+          }
+        });
   }
 
   Widget _buildPassInput(BuildContext context) {

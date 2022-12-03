@@ -48,8 +48,10 @@ class _SplashViewState extends State<SplashView> {
             .read<ThemeCubit>()
             .changeTheme(context, getBoxModel!.isDark ?? false);
 
-        BlocProvider.of<AuthBloc>(context).add(
-            Authanticate(manager, scaffoldKey, context, getBoxModel.token));
+        BlocProvider.of<AuthBloc>(context).add(AuthEvent.authanticate(
+            manager: manager,
+            scaffoldKey: scaffoldKey,
+            token: getBoxModel.token));
 
         BlocProvider.of<FavoriteBloc>(context)
             .add(FavoriteEvent.init(favList: getBoxModel.favorites ?? []));

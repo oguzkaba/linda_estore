@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../../../../product/mock/model/fake_reviews_model.dart';
-import '../../../../product/mock/service/mock_data_service.dart';
+import '../../../../core/mock/model/review/fake_reviews_model.dart';
+import '../../../../core/mock/service/mock_data_service.dart';
 
 import '../../model/product_model.dart';
 import '../../service/product_service.dart';

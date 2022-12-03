@@ -1,17 +1,18 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 
-import '../../core/constants/app/colors_constants.dart';
-import '../../core/extansions/string_extansion.dart';
-import '../../core/init/lang/locale_keys.g.dart';
-import '../../core/init/network/service/network_service.dart';
-import '../../core/init/routes/routes.gr.dart';
-import '../../core/init/themes/cubit/theme_cubit.dart';
-import '../../features/favorite/bloc/favorite_bloc.dart';
-import '../../features/product/model/products_model.dart';
-import 'iconbutton_widget.dart';
+import '../../constants/app/colors_constants.dart';
+import '../../extansions/string_extansion.dart';
+import '../../init/lang/locale_keys.g.dart';
+import '../../init/network/service/network_service.dart';
+import '../../init/routes/routes.gr.dart';
+import '../../init/themes/cubit/theme_cubit.dart';
+import '../../../features/favorite/bloc/favorite_bloc.dart';
+import '../../../features/product/model/products_model.dart';
+import '../button/iconbutton_widget.dart';
 
 class MySliverGridWidget extends StatelessWidget {
   final List<ProductsModel?> model;
@@ -66,8 +67,10 @@ class MySliverGridWidget extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Image.network(model[index]!.image!,
-                    fit: BoxFit.contain, height: context.height * .15),
+                CachedNetworkImage(
+                    imageUrl: model[index]!.image!,
+                    fit: BoxFit.contain,
+                    height: context.height * .15),
                 Text(model[index]!.title!,
                     maxLines: context.isSmallScreen ? 1 : 2,
                     overflow: TextOverflow.ellipsis,

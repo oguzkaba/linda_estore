@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/constants/app/colors_constants.dart';
-import '../../core/extansions/string_extansion.dart';
-import '../../core/init/lang/locale_keys.g.dart';
+import '../constants/app/colors_constants.dart';
+import '../extansions/string_extansion.dart';
+import '../init/lang/locale_keys.g.dart';
 
 class CustomDialogWidget {
   static Future<bool?> show(

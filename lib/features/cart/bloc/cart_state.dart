@@ -3,7 +3,7 @@ part of 'cart_bloc.dart';
 @freezed
 abstract class CartState with _$CartState {
   const factory CartState.initial() = _CartInitial;
-  const factory CartState.loading() = _CartLoading;
+  const factory CartState.loading() = CartLoading;
   const factory CartState.loaded({required List<CartModel> cartModel}) =
       _CartLoaded;
   const factory CartState.add({required List<CartModel> cartModel}) = _CartAdd;

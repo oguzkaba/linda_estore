@@ -4,15 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:kartal/kartal.dart';
 
-import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/extansions/string_extansion.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../core/init/network/service/network_service.dart';
 import '../../../core/init/routes/routes.gr.dart';
 import '../../../core/init/themes/cubit/theme_cubit.dart';
-import '../../../product/utils/custom_error_widgets.dart';
-import '../../../product/widgets/iconbutton_widget.dart';
+import '../../../core/utils/custom_error_widgets.dart';
+import '../../../core/widgets/button/iconbutton_widget.dart';
+import '../../../core/widgets/loading/loading.dart';
 import '../../auth/bloc/auth_bloc.dart';
 import '../../error/view/error_view.dart';
 import '../../favorite/bloc/favorite_bloc.dart';
@@ -207,9 +207,8 @@ class _AccountViewState extends State<AccountView> {
         ),
         onTap: () {
           if (index == 7) {
-            context
-                .read<AuthBloc>()
-                .add(AuthLogOut(manager, scaffoldKey, context));
+            context.read<AuthBloc>().add(
+                AuthEvent.logout(manager: manager, scaffoldKey: scaffoldKey));
             context
                 .read<FavoriteBloc>()
                 .add(const FavoriteEvent.init(favList: []));

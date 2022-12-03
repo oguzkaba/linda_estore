@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kartal/kartal.dart';
 
 import '../../../core/base/model/base_response_model.dart';
@@ -11,12 +11,13 @@ import '../../../core/init/cache/app_cache_manager.dart';
 import '../../../core/init/cache/app_cache_model.dart';
 import '../../../core/init/network/model/network_error_model.dart';
 import '../../../core/init/routes/routes.gr.dart';
-import '../../../product/utils/json_decoder_util.dart';
+import '../../../core/utils/json_decoder_util.dart';
 import '../login/model/login_request_model.dart';
 import '../login/model/login_response_model.dart';
 import '../register/model/register_request_model.dart';
 import '../service/auth_service.dart';
 
+part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -45,29 +46,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           //?final registerModel = resultRegister.object as RegisterResponseModel;
           //?final userId = registerModel.id!;
 
-          emit(const RegisterSuccess(1));
+          emit(const RegisterSuccess(userId: 1));
 
           await _handleLogin(
               event: event, emit: emit, appCacheManager: appCacheManager);
         } else {
-          emit(RegisterError(resultRegister.error!));
+          emit(RegisterError(error: resultRegister.error!));
         }
       } catch (e) {
-        emit(RegisterError(e));
+        emit(RegisterError(error: e));
       }
     });
 
-    on<Authanticate>((event, emit) async {
+    on<_Authanticate>((event, emit) async {
       try {
         emit(LoginLoading());
         final userId = jwtToGetUserId(LoginResponseModel(token: event.token));
         emit(LoginSuccess(token: event.token!, userId: userId));
       } catch (e) {
-        emit(LoginError(e));
+        emit(LoginError(error: e));
       }
     });
 
-    on<AuthLogOut>((event, emit) async {
+    on<_AuthLogOut>((event, emit) async {
       try {
         //Delete token
         await appCacheManager.init();
@@ -75,12 +76,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         emit(AuthInitial());
       } catch (e) {
-        emit(LoginError(e));
+        emit(LoginError(error: e));
       }
     });
   }
 
-  Future<BaseResponseModel?> _loginResult({required AuthEvent event}) async {
+  Future<BaseResponseModel?> _loginResult({required _$AuthEvent event}) async {
     if (event is AuthLogin) {
       final result = await AuthService(event.manager, event.scaffoldKey)
           .login(model: event.loginRequestModel);
@@ -117,16 +118,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         emit(LoginSuccess(token: loginModel.token, userId: userId));
 
-        Future.delayed(event.context.durationLow)
-            .then((value) => event.context.router.pushAndPopUntil(
+        Future.delayed(event.context!.durationLow)
+            .then((value) => event.context!.router.pushAndPopUntil(
                   DashboardRouter(children: const [HomeView()]),
                   predicate: (_) => false,
                 ));
       } else {
-        emit(LoginError(result!.error!));
+        emit(LoginError(error: result!.error!));
       }
     } catch (e) {
-      emit(LoginError(e));
+      emit(LoginError(error: e));
     }
   }
 }

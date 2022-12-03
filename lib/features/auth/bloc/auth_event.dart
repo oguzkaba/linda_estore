@@ -1,57 +1,49 @@
 part of 'auth_bloc.dart';
 
-abstract class AuthEvent extends Equatable {
-  final Dio manager;
-  final GlobalKey<ScaffoldState>? scaffoldKey;
-  final BuildContext context;
+@freezed
+abstract class AuthEvent with _$AuthEvent {
+  const factory AuthEvent.authanticate(
+      {required Dio manager,
+      required GlobalKey<ScaffoldState>? scaffoldKey,
+      BuildContext? context,
+      required String? token}) = _Authanticate;
 
-  const AuthEvent(this.manager, this.scaffoldKey, this.context);
+  const factory AuthEvent.login(
+      {required Dio manager,
+      required GlobalKey<ScaffoldState>? scaffoldKey,
+      BuildContext? context,
+      required LoginRequestModel loginRequestModel,
+      NetworkErrorModel? networkErrorModel}) = AuthLogin;
 
-  @override
-  List<Object> get props => [];
-}
+  const factory AuthEvent.register(
+      {required Dio manager,
+      required GlobalKey<ScaffoldState>? scaffoldKey,
+      BuildContext? context,
+      required RegisterRequestModel registerRequestModel,
+      NetworkErrorModel? networkErrorModel}) = AuthRegister;
 
-class AuthLogin extends AuthEvent {
-  final LoginRequestModel loginRequestModel;
-  final NetworkErrorModel? networkErrorModel;
+  const factory AuthEvent.loginWithGoogle(
+      {required Dio manager,
+      required GlobalKey<ScaffoldState>? scaffoldKey,
+      BuildContext? context}) = _AuthLoginWithGoogle;
 
-  const AuthLogin(
-      super.manager, super.scaffoldKey, this.loginRequestModel, super.context,
-      {this.networkErrorModel});
-}
+  const factory AuthEvent.loginWithApple(
+      {required Dio manager,
+      required GlobalKey<ScaffoldState>? scaffoldKey,
+      BuildContext? context}) = _AuthLoginWithApple;
 
-class Authanticate extends AuthEvent {
-  final String? token;
+  const factory AuthEvent.loginWithFacebook(
+      {required Dio manager,
+      required GlobalKey<ScaffoldState>? scaffoldKey,
+      BuildContext? context}) = _AuthLoginWithFacebook;
 
-  const Authanticate(
-      super.manager, super.scaffoldKey, super.context, this.token);
-}
+  const factory AuthEvent.logout(
+      {required Dio manager,
+      required GlobalKey<ScaffoldState>? scaffoldKey,
+      BuildContext? context}) = _AuthLogOut;
 
-class AuthRegister extends AuthEvent {
-  final RegisterRequestModel registerRequestModel;
-  final NetworkErrorModel? networkErrorModel;
-
-  const AuthRegister(super.manager, super.scaffoldKey, super.context,
-      this.registerRequestModel,
-      {this.networkErrorModel});
-}
-
-class AuthLoginWithGoogle extends AuthEvent {
-  const AuthLoginWithGoogle(super.manager, super.scaffoldKey, super.context);
-}
-
-class AuthLoginWithApple extends AuthEvent {
-  const AuthLoginWithApple(super.manager, super.scaffoldKey, super.context);
-}
-
-class AuthLoginWithFacebook extends AuthEvent {
-  const AuthLoginWithFacebook(super.manager, super.scaffoldKey, super.context);
-}
-
-class AuthLogOut extends AuthEvent {
-  const AuthLogOut(super.manager, super.scaffoldKey, super.context);
-}
-
-class AuthDeleteAccount extends AuthEvent {
-  const AuthDeleteAccount(super.manager, super.scaffoldKey, super.context);
+  const factory AuthEvent.deleteAccount(
+      {required Dio manager,
+      required GlobalKey<ScaffoldState>? scaffoldKey,
+      BuildContext? context}) = _AuthDeleteAccount;
 }

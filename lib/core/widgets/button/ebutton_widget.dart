@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/app/colors_constants.dart';
+import '../../constants/app/colors_constants.dart';
 
 class EButtonWidget extends StatelessWidget {
   final VoidCallback? onPress;

@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 
-import '../../../core/components/indicator/loading_indicator.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/extansions/string_extansion.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
-import '../../../product/utils/dialog_widget.dart';
-import '../../../product/widgets/empty_info_widget.dart';
+import '../../../core/utils/dialog_widget.dart';
+import '../../../core/widgets/info/empty_info_widget.dart';
+import '../../../core/widgets/loading/loading.dart';
 import '../../error/view/error_view.dart';
 import '../../product/blocs/products/products_bloc.dart';
 import '../../product/model/products_model.dart';

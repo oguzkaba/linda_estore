@@ -18,7 +18,6 @@ dependencies:
   device_preview: ^1.1.0
   dio: ^4.0.6
   easy_localization: ^3.0.1
-  equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1

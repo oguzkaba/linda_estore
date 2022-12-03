@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/constants/app/colors_constants.dart';
+import '../../constants/app/colors_constants.dart';
 
 class RichTextWidget extends StatelessWidget {
   final String text;
