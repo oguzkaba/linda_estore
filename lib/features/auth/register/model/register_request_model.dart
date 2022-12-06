@@ -2,7 +2,11 @@
 //
 //     final registerRequestModel = registerRequestModelFromJson(jsonString);
 
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
+
+part 'register_request_model.freezed.dart';
+part 'register_request_model.g.dart';
 
 RegisterRequestModel registerRequestModelFromJson(String str) =>
     RegisterRequestModel.fromJson(json.decode(str));
@@ -10,111 +14,52 @@ RegisterRequestModel registerRequestModelFromJson(String str) =>
 String registerRequestModelToJson(RegisterRequestModel data) =>
     json.encode(data.toJson());
 
-class RegisterRequestModel {
-  RegisterRequestModel({
-    this.email,
-    this.username,
-    this.password,
-    this.name,
-    this.address,
-    this.phone,
-  });
-
-  final String? email;
-  final String? username;
-  final String? password;
-  final Name? name;
-  final Address? address;
-  final String? phone;
+@freezed
+abstract class RegisterRequestModel with _$RegisterRequestModel {
+  const factory RegisterRequestModel({
+    required String email,
+    required String username,
+    required String password,
+    required Name name,
+    required Address address,
+    required String phone,
+  }) = _RegisterRequestModel;
 
   factory RegisterRequestModel.fromJson(Map<String, dynamic> json) =>
-      RegisterRequestModel(
-        email: json['email'],
-        username: json['username'],
-        password: json['password'],
-        name: Name.fromJson(json['name']),
-        address: Address.fromJson(json['address']),
-        phone: json['phone'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'email': email,
-        'username': username,
-        'password': password,
-        'name': name?.toJson(),
-        'address': address?.toJson(),
-        'phone': phone,
-      };
+      _$RegisterRequestModelFromJson(json);
 }
 
-class Address {
-  Address({
-    this.city,
-    this.street,
-    this.number,
-    this.zipcode,
-    this.geolocation,
-  });
+@freezed
+abstract class Address with _$Address {
+  const factory Address({
+    required String city,
+    required String street,
+    required int number,
+    required String zipcode,
+    required Geolocation geolocation,
+  }) = _Address;
 
-  final String? city;
-  final String? street;
-  final int? number;
-  final String? zipcode;
-  final Geolocation? geolocation;
-
-  factory Address.fromJson(Map<String, dynamic> json) => Address(
-        city: json['city'],
-        street: json['street'],
-        number: json['number'],
-        zipcode: json['zipcode'],
-        geolocation: Geolocation.fromJson(json['geolocation']),
-      );
-
-  Map<String, dynamic> toJson() => {
-        'city': city,
-        'street': street,
-        'number': number,
-        'zipcode': zipcode,
-        'geolocation': geolocation?.toJson(),
-      };
+  factory Address.fromJson(Map<String, dynamic> json) =>
+      _$AddressFromJson(json);
 }
 
-class Geolocation {
-  Geolocation({
-    this.lat,
-    this.long,
-  });
+@freezed
+abstract class Geolocation with _$Geolocation {
+  const factory Geolocation({
+    required String lat,
+    required String long,
+  }) = _Geolocation;
 
-  final String? lat;
-  final String? long;
-
-  factory Geolocation.fromJson(Map<String, dynamic> json) => Geolocation(
-        lat: json['lat'],
-        long: json['long'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'lat': lat,
-        'long': long,
-      };
+  factory Geolocation.fromJson(Map<String, dynamic> json) =>
+      _$GeolocationFromJson(json);
 }
 
-class Name {
-  Name({
-    this.firstname,
-    this.lastname,
-  });
+@freezed
+abstract class Name with _$Name {
+  const factory Name({
+    required String firstname,
+    required String lastname,
+  }) = _Name;
 
-  final String? firstname;
-  final String? lastname;
-
-  factory Name.fromJson(Map<String, dynamic> json) => Name(
-        firstname: json['firstname'],
-        lastname: json['lastname'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'firstname': firstname,
-        'lastname': lastname,
-      };
+  factory Name.fromJson(Map<String, dynamic> json) => _$NameFromJson(json);
 }

@@ -2,7 +2,11 @@
 //
 //     final loginResponseModel = loginResponseModelFromJson(jsonString);
 
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
+
+part 'login_response_model.freezed.dart';
+part 'login_response_model.g.dart';
 
 LoginResponseModel loginResponseModelFromJson(String str) =>
     LoginResponseModel.fromJson(json.decode(str));
@@ -10,19 +14,12 @@ LoginResponseModel loginResponseModelFromJson(String str) =>
 String loginResponseModelToJson(LoginResponseModel data) =>
     json.encode(data.toJson());
 
-class LoginResponseModel {
-  LoginResponseModel({
-    this.token,
-  });
-
-  final String? token;
+@freezed
+abstract class LoginResponseModel with _$LoginResponseModel {
+  const factory LoginResponseModel({
+    required String token,
+  }) = _LoginResponseModel;
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) =>
-      LoginResponseModel(
-        token: json['token'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'token': token,
-      };
+      _$LoginResponseModelFromJson(json);
 }

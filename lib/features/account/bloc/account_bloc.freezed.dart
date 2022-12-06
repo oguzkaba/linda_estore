@@ -552,6 +552,8 @@ abstract class _$$_AccountLoadedCopyWith<$Res> {
       __$$_AccountLoadedCopyWithImpl<$Res>;
   @useResult
   $Res call({AccountModel accountModel});
+
+  $AccountModelCopyWith<$Res> get accountModel;
 }
 
 /// @nodoc
@@ -573,6 +575,14 @@ class __$$_AccountLoadedCopyWithImpl<$Res>
           : accountModel // ignore: cast_nullable_to_non_nullable
               as AccountModel,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AccountModelCopyWith<$Res> get accountModel {
+    return $AccountModelCopyWith<$Res>(_value.accountModel, (value) {
+      return _then(_value.copyWith(accountModel: value));
+    });
   }
 }
 

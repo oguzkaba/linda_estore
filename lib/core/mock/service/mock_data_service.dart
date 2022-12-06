@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import '../../extansions/asset_extansion.dart';
-import '../model/review/fake_reviews_model.dart';
+import '../model/review/mock_reviews_model.dart';
 
 class MockDataService {
   static MockDataService? _instance;
@@ -10,9 +10,9 @@ class MockDataService {
   }
 
   MockDataService._init();
-  Future<List<MockDataModel>> readLocalJson() async {
+  Future<List<MockReviewsModel>> readLocalJson() async {
     String response = await rootBundle.loadString('mock_reviews'.toJSON);
-    var data = mockDataModelFromJson(response);
+    var data = mockReviewsModelFromJson(response);
     return data;
   }
 }

@@ -18,7 +18,7 @@ import '../../../core/widgets/loading/loading.dart';
 import '../../../core/widgets/textfield/textfield_widget.dart';
 import '../../error/view/error_view.dart';
 import '../../product/blocs/products/products_bloc.dart';
-import '../../product/model/products_model.dart';
+import '../../product/model/products/products_model.dart';
 import '../bloc/cart_bloc.dart';
 import '../model/cart_model.dart';
 

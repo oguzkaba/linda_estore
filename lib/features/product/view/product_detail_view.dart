@@ -4,21 +4,20 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/features/cart/bloc/cart_bloc.dart';
-import 'package:linda_wedding_ecommerce/features/cart/model/cart_model.dart';
 
-import '../../../core/widgets/button/button.dart';
-import '../../../core/widgets/loading/loading.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/constants/app/image_constants.dart';
 import '../../../core/extansions/string_extansion.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
-import '../../../core/mock/model/review/fake_reviews_model.dart';
+import '../../../core/mock/model/review/mock_reviews_model.dart';
 import '../../../core/utils/custom_error_widgets.dart';
+import '../../../core/widgets/button/button.dart';
+import '../../../core/widgets/loading/loading.dart';
+import '../../cart/bloc/cart_bloc.dart';
 import '../../error/view/error_view.dart';
 import '../../favorite/bloc/favorite_bloc.dart';
 import '../blocs/product/product_bloc.dart';
-import '../model/product_model.dart';
+import '../model/product/product_model.dart';
 
 class ProductDetailView extends StatefulWidget {
   final int id;
@@ -70,8 +69,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
     );
   }
 
-  SafeArea _buildProductLoaded(
-      BuildContext context, ProductModel product, List<MockDataModel> reviews) {
+  SafeArea _buildProductLoaded(BuildContext context, ProductModel product,
+      List<MockReviewsModel> reviews) {
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
@@ -219,7 +218,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
     );
   }
 
-  ListView _buildReviewsList(List<MockDataModel> reviews) {
+  ListView _buildReviewsList(List<MockReviewsModel> reviews) {
     return ListView.builder(
       itemCount: reviews.length,
       padding: EdgeInsets.zero,

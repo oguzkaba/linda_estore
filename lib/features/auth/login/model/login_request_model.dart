@@ -1,24 +1,26 @@
 // To parse this JSON data, do
 //
-//     final loginRequestModel = loginRequestModelFromMap(jsonString);
+//     final loginRequestModel = loginRequestModelFromJson(jsonString);
 
-class LoginRequestModel {
-  LoginRequestModel({
-    required this.username,
-    required this.password,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'dart:convert';
 
-  final String username;
-  final String password;
+part 'login_request_model.freezed.dart';
+part 'login_request_model.g.dart';
+
+LoginRequestModel loginRequestModelFromJson(String str) =>
+    LoginRequestModel.fromJson(json.decode(str));
+
+String loginRequestModelToJson(LoginRequestModel data) =>
+    json.encode(data.toJson());
+
+@freezed
+abstract class LoginRequestModel with _$LoginRequestModel {
+  const factory LoginRequestModel({
+    required String username,
+    required String password,
+  }) = _LoginRequestModel;
 
   factory LoginRequestModel.fromJson(Map<String, dynamic> json) =>
-      LoginRequestModel(
-        username: json['username'],
-        password: json['password'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'username': username,
-        'password': password,
-      };
+      _$LoginRequestModelFromJson(json);
 }

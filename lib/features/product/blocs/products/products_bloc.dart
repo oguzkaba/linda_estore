@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../model/products_model.dart';
+import '../../model/products/products_model.dart';
 import '../../service/category_service.dart';
 import '../../service/product_service.dart';
 

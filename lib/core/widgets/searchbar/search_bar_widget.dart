@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
-import '../../../features/product/model/products_model.dart';
+import '../../../features/product/model/products/products_model.dart';
 import '../../constants/app/colors_constants.dart';
 import '../../extansions/string_extansion.dart';
 import '../../init/lang/locale_keys.g.dart';

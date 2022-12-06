@@ -12,7 +12,7 @@ import '../../../core/widgets/info/empty_info_widget.dart';
 import '../../../core/widgets/loading/loading.dart';
 import '../../error/view/error_view.dart';
 import '../../product/blocs/products/products_bloc.dart';
-import '../../product/model/products_model.dart';
+import '../../product/model/products/products_model.dart';
 import '../bloc/favorite_bloc.dart';
 
 class FavoriteView extends StatefulWidget {

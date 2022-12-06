@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import '../../../core/base/model/base_response_model.dart';
 import '../../../core/enums/api_route_enums.dart';
 import '../../../core/init/network/model/network_error_model.dart';
-import '../model/product_model.dart';
-import '../model/products_model.dart';
+import '../model/product/product_model.dart';
+import '../model/products/products_model.dart';
 
 abstract class IProductService {
   final Dio manager;

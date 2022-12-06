@@ -61,7 +61,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<_Authanticate>((event, emit) async {
       try {
         emit(LoginLoading());
-        final userId = jwtToGetUserId(LoginResponseModel(token: event.token));
+        final userId = jwtToGetUserId(LoginResponseModel(token: event.token!));
         emit(LoginSuccess(token: event.token!, userId: userId));
       } catch (e) {
         emit(LoginError(error: e));
@@ -89,8 +89,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else if (event is AuthRegister) {
       final result = await AuthService(event.manager, event.scaffoldKey).login(
           model: LoginRequestModel(
-              username: event.registerRequestModel.username!,
-              password: event.registerRequestModel.password!));
+              username: event.registerRequestModel.username,
+              password: event.registerRequestModel.password));
       return result;
     }
     return null;
@@ -112,7 +112,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final userId = jwtToGetUserId(loginModel);
 
         AppCacheModel appCacheModel =
-            const AppCacheModel().copyWith(token: loginModel.token!);
+            const AppCacheModel().copyWith(token: loginModel.token);
 
         await appCacheManager.setModel(CacheConstants.appCache, appCacheModel);
 

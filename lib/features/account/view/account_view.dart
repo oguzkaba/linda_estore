@@ -137,11 +137,11 @@ class _AccountViewState extends State<AccountView> {
             context.emptySizedWidthBoxNormal,
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                  "${accountModel.name!.firstname!.toCapitalized()} ${accountModel.name!.lastname!.toUpperCase()}",
+                  "${accountModel.name.firstname.toCapitalized()} ${accountModel.name.lastname.toUpperCase()}",
                   style: Theme.of(context).textTheme.titleSmall),
-              Text(accountModel.email!,
+              Text(accountModel.email,
                   style: Theme.of(context).textTheme.labelMedium),
-              Text(accountModel.phone!,
+              Text(accountModel.phone,
                   style: Theme.of(context).textTheme.labelMedium),
             ])
           ],

@@ -524,6 +524,8 @@ abstract class _$$AuthLoginCopyWith<$Res> implements $AuthEventCopyWith<$Res> {
       BuildContext? context,
       LoginRequestModel loginRequestModel,
       NetworkErrorModel? networkErrorModel});
+
+  $LoginRequestModelCopyWith<$Res> get loginRequestModel;
 }
 
 /// @nodoc
@@ -565,6 +567,14 @@ class __$$AuthLoginCopyWithImpl<$Res>
           : networkErrorModel // ignore: cast_nullable_to_non_nullable
               as NetworkErrorModel?,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LoginRequestModelCopyWith<$Res> get loginRequestModel {
+    return $LoginRequestModelCopyWith<$Res>(_value.loginRequestModel, (value) {
+      return _then(_value.copyWith(loginRequestModel: value));
+    });
   }
 }
 
@@ -832,6 +842,8 @@ abstract class _$$AuthRegisterCopyWith<$Res>
       BuildContext? context,
       RegisterRequestModel registerRequestModel,
       NetworkErrorModel? networkErrorModel});
+
+  $RegisterRequestModelCopyWith<$Res> get registerRequestModel;
 }
 
 /// @nodoc
@@ -873,6 +885,15 @@ class __$$AuthRegisterCopyWithImpl<$Res>
           : networkErrorModel // ignore: cast_nullable_to_non_nullable
               as NetworkErrorModel?,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RegisterRequestModelCopyWith<$Res> get registerRequestModel {
+    return $RegisterRequestModelCopyWith<$Res>(_value.registerRequestModel,
+        (value) {
+      return _then(_value.copyWith(registerRequestModel: value));
+    });
   }
 }
 

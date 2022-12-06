@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:linda_wedding_ecommerce/features/auth/register/model/register_request_model.dart';
 
 import '../../../core/base/model/base_response_model.dart';
 import '../../../core/enums/api_route_enums.dart';
 import '../../../core/init/network/model/network_error_model.dart';
-import '../../auth/register/model/register_request_model.dart';
 import '../../auth/register/model/register_response_model.dart';
 import '../model/account_model.dart';
 

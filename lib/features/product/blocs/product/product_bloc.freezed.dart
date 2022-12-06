@@ -275,7 +275,8 @@ mixin _$ProductState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ProductModel product, List<MockDataModel> reviews)
+    required TResult Function(
+            ProductModel product, List<MockReviewsModel> reviews)
         loaded,
     required TResult Function(Object error) error,
   }) =>
@@ -284,7 +285,7 @@ mixin _$ProductState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ProductModel product, List<MockDataModel> reviews)?
+    TResult? Function(ProductModel product, List<MockReviewsModel> reviews)?
         loaded,
     TResult? Function(Object error)? error,
   }) =>
@@ -293,7 +294,8 @@ mixin _$ProductState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ProductModel product, List<MockDataModel> reviews)? loaded,
+    TResult Function(ProductModel product, List<MockReviewsModel> reviews)?
+        loaded,
     TResult Function(Object error)? error,
     required TResult orElse(),
   }) =>
@@ -383,7 +385,8 @@ class _$_ProductInitial implements _ProductInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ProductModel product, List<MockDataModel> reviews)
+    required TResult Function(
+            ProductModel product, List<MockReviewsModel> reviews)
         loaded,
     required TResult Function(Object error) error,
   }) {
@@ -395,7 +398,7 @@ class _$_ProductInitial implements _ProductInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ProductModel product, List<MockDataModel> reviews)?
+    TResult? Function(ProductModel product, List<MockReviewsModel> reviews)?
         loaded,
     TResult? Function(Object error)? error,
   }) {
@@ -407,7 +410,8 @@ class _$_ProductInitial implements _ProductInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ProductModel product, List<MockDataModel> reviews)? loaded,
+    TResult Function(ProductModel product, List<MockReviewsModel> reviews)?
+        loaded,
     TResult Function(Object error)? error,
     required TResult orElse(),
   }) {
@@ -499,7 +503,8 @@ class _$_ProductLoading implements _ProductLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ProductModel product, List<MockDataModel> reviews)
+    required TResult Function(
+            ProductModel product, List<MockReviewsModel> reviews)
         loaded,
     required TResult Function(Object error) error,
   }) {
@@ -511,7 +516,7 @@ class _$_ProductLoading implements _ProductLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ProductModel product, List<MockDataModel> reviews)?
+    TResult? Function(ProductModel product, List<MockReviewsModel> reviews)?
         loaded,
     TResult? Function(Object error)? error,
   }) {
@@ -523,7 +528,8 @@ class _$_ProductLoading implements _ProductLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ProductModel product, List<MockDataModel> reviews)? loaded,
+    TResult Function(ProductModel product, List<MockReviewsModel> reviews)?
+        loaded,
     TResult Function(Object error)? error,
     required TResult orElse(),
   }) {
@@ -581,7 +587,7 @@ abstract class _$$_ProductLoadedCopyWith<$Res> {
           _$_ProductLoaded value, $Res Function(_$_ProductLoaded) then) =
       __$$_ProductLoadedCopyWithImpl<$Res>;
   @useResult
-  $Res call({ProductModel product, List<MockDataModel> reviews});
+  $Res call({ProductModel product, List<MockReviewsModel> reviews});
 }
 
 /// @nodoc
@@ -606,7 +612,7 @@ class __$$_ProductLoadedCopyWithImpl<$Res>
       reviews: null == reviews
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
-              as List<MockDataModel>,
+              as List<MockReviewsModel>,
     ));
   }
 }
@@ -615,14 +621,14 @@ class __$$_ProductLoadedCopyWithImpl<$Res>
 
 class _$_ProductLoaded implements _ProductLoaded {
   const _$_ProductLoaded(
-      {required this.product, required final List<MockDataModel> reviews})
+      {required this.product, required final List<MockReviewsModel> reviews})
       : _reviews = reviews;
 
   @override
   final ProductModel product;
-  final List<MockDataModel> _reviews;
+  final List<MockReviewsModel> _reviews;
   @override
-  List<MockDataModel> get reviews {
+  List<MockReviewsModel> get reviews {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_reviews);
   }
@@ -656,7 +662,8 @@ class _$_ProductLoaded implements _ProductLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ProductModel product, List<MockDataModel> reviews)
+    required TResult Function(
+            ProductModel product, List<MockReviewsModel> reviews)
         loaded,
     required TResult Function(Object error) error,
   }) {
@@ -668,7 +675,7 @@ class _$_ProductLoaded implements _ProductLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ProductModel product, List<MockDataModel> reviews)?
+    TResult? Function(ProductModel product, List<MockReviewsModel> reviews)?
         loaded,
     TResult? Function(Object error)? error,
   }) {
@@ -680,7 +687,8 @@ class _$_ProductLoaded implements _ProductLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ProductModel product, List<MockDataModel> reviews)? loaded,
+    TResult Function(ProductModel product, List<MockReviewsModel> reviews)?
+        loaded,
     TResult Function(Object error)? error,
     required TResult orElse(),
   }) {
@@ -731,10 +739,10 @@ class _$_ProductLoaded implements _ProductLoaded {
 abstract class _ProductLoaded implements ProductState {
   const factory _ProductLoaded(
       {required final ProductModel product,
-      required final List<MockDataModel> reviews}) = _$_ProductLoaded;
+      required final List<MockReviewsModel> reviews}) = _$_ProductLoaded;
 
   ProductModel get product;
-  List<MockDataModel> get reviews;
+  List<MockReviewsModel> get reviews;
   @JsonKey(ignore: true)
   _$$_ProductLoadedCopyWith<_$_ProductLoaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -804,7 +812,8 @@ class _$_ProductError implements _ProductError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ProductModel product, List<MockDataModel> reviews)
+    required TResult Function(
+            ProductModel product, List<MockReviewsModel> reviews)
         loaded,
     required TResult Function(Object error) error,
   }) {
@@ -816,7 +825,7 @@ class _$_ProductError implements _ProductError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ProductModel product, List<MockDataModel> reviews)?
+    TResult? Function(ProductModel product, List<MockReviewsModel> reviews)?
         loaded,
     TResult? Function(Object error)? error,
   }) {
@@ -828,7 +837,8 @@ class _$_ProductError implements _ProductError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ProductModel product, List<MockDataModel> reviews)? loaded,
+    TResult Function(ProductModel product, List<MockReviewsModel> reviews)?
+        loaded,
     TResult Function(Object error)? error,
     required TResult orElse(),
   }) {

@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import '../../extansions/string_extansion.dart';
 import 'locale_keys.g.dart';
 
-translateCategory(String catName) {
+String translateCategory(String catName) {
   switch (catName) {
     case 'All':
       return LocaleKeys.home_category_catAll.locale;
@@ -13,7 +15,7 @@ translateCategory(String catName) {
       return LocaleKeys.home_category_catMen.locale;
     case "Women's clothing":
       return LocaleKeys.home_category_catWom.locale;
-
     default:
+      return "";
   }
 }

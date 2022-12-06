@@ -5,6 +5,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/extansions/string_extansion.dart';
+import '../../../core/init/lang/cubit/language_cubit.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../core/init/lang/translate_remote_entry.dart';
 import '../../../core/init/network/service/network_service.dart';
@@ -17,7 +18,7 @@ import '../../../core/widgets/searchbar/search_bar_widget.dart';
 import '../../error/view/error_view.dart';
 import '../../product/blocs/categories/categories_bloc.dart';
 import '../../product/blocs/products/products_bloc.dart';
-import '../../product/model/products_model.dart';
+import '../../product/model/products/products_model.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -151,8 +152,13 @@ class _HomeViewState extends State<HomeView> {
             .map((e) => Container(
                   padding: const EdgeInsets.symmetric(vertical: 9),
                   decoration: null,
-                  child: Text(translateCategory(e.toString().toCapitalized()),
-                      style: const TextStyle(fontSize: 12)),
+                  child: BlocBuilder<LanguageCubit, LanguageState>(
+                    builder: (context, state) {
+                      return Text(
+                          translateCategory(e.toString().toCapitalized()),
+                          style: const TextStyle(fontSize: 12));
+                    },
+                  ),
                 ))
             .toList(),
       ),

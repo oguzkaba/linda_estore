@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../../../../core/mock/model/review/fake_reviews_model.dart';
-import '../../../../core/mock/service/mock_data_service.dart';
 
-import '../../model/product_model.dart';
+import '../../../../core/mock/model/review/mock_reviews_model.dart';
+import '../../../../core/mock/service/mock_data_service.dart';
+import '../../model/product/product_model.dart';
 import '../../service/product_service.dart';
 
 part 'product_bloc.freezed.dart';
@@ -19,7 +19,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         emit(const _ProductLoading());
         final result = await ProductService(event.manager, event.scaffoldKey)
             .fetchProductById(id: event.id);
-        final reviews = await MockDataService.instance.readLocalJson();
+        final List<MockReviewsModel> reviews =
+            await MockDataService.instance.readLocalJson();
         if (result.object != null) {
           emit(_ProductLoaded(
               product: result.object as ProductModel, reviews: reviews));

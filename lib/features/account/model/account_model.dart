@@ -2,139 +2,64 @@
 //
 //     final accountModel = accountModelFromJson(jsonString);
 
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
+
+part 'account_model.freezed.dart';
+part 'account_model.g.dart';
 
 AccountModel accountModelFromJson(String str) =>
     AccountModel.fromJson(json.decode(str));
 
 String accountModelToJson(AccountModel data) => json.encode(data.toJson());
 
-class AccountModel {
-  AccountModel({
-    this.address,
-    this.id,
-    this.email,
-    this.username,
-    this.password,
-    this.name,
-    this.phone,
-  });
+@freezed
+abstract class AccountModel with _$AccountModel {
+  const factory AccountModel({
+    required Address address,
+    required int id,
+    required String email,
+    required String username,
+    required String password,
+    required Name name,
+    required String phone,
+  }) = _AccountModel;
 
-  final Address? address;
-  final int? id;
-  final String? email;
-  final String? username;
-  final String? password;
-  final Name? name;
-  final String? phone;
-
-  factory AccountModel.fromRawJson(String str) =>
-      AccountModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory AccountModel.fromJson(Map<String, dynamic> json) => AccountModel(
-        address: Address.fromJson(json['address']),
-        id: json['id'],
-        email: json['email'],
-        username: json['username'],
-        password: json['password'],
-        name: Name.fromJson(json['name']),
-        phone: json['phone'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'address': address?.toJson(),
-        'id': id,
-        'email': email,
-        'accountname': username,
-        'password': password,
-        'name': name?.toJson(),
-        'phone': phone,
-      };
+  factory AccountModel.fromJson(Map<String, dynamic> json) =>
+      _$AccountModelFromJson(json);
 }
 
-class Address {
-  Address({
-    this.geolocation,
-    this.city,
-    this.street,
-    this.number,
-    this.zipcode,
-  });
+@freezed
+abstract class Address with _$Address {
+  const factory Address({
+    required Geolocation geolocation,
+    required String city,
+    required String street,
+    required int number,
+    required String zipcode,
+  }) = _Address;
 
-  final Geolocation? geolocation;
-  final String? city;
-  final String? street;
-  final int? number;
-  final String? zipcode;
-
-  factory Address.fromRawJson(String str) => Address.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Address.fromJson(Map<String, dynamic> json) => Address(
-        geolocation: Geolocation.fromJson(json['geolocation']),
-        city: json['city'],
-        street: json['street'],
-        number: json['number'],
-        zipcode: json['zipcode'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'geolocation': geolocation?.toJson(),
-        'city': city,
-        'street': street,
-        'number': number,
-        'zipcode': zipcode,
-      };
+  factory Address.fromJson(Map<String, dynamic> json) =>
+      _$AddressFromJson(json);
 }
 
-class Geolocation {
-  Geolocation({
-    this.lat,
-    this.long,
-  });
+@freezed
+abstract class Geolocation with _$Geolocation {
+  const factory Geolocation({
+    required String lat,
+    required String long,
+  }) = _Geolocation;
 
-  final String? lat;
-  final String? long;
-
-  factory Geolocation.fromRawJson(String str) =>
-      Geolocation.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Geolocation.fromJson(Map<String, dynamic> json) => Geolocation(
-        lat: json['lat'],
-        long: json['long'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'lat': lat,
-        'long': long,
-      };
+  factory Geolocation.fromJson(Map<String, dynamic> json) =>
+      _$GeolocationFromJson(json);
 }
 
-class Name {
-  Name({
-    this.firstname,
-    this.lastname,
-  });
+@freezed
+abstract class Name with _$Name {
+  const factory Name({
+    required String firstname,
+    required String lastname,
+  }) = _Name;
 
-  final String? firstname;
-  final String? lastname;
-
-  factory Name.fromRawJson(String str) => Name.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Name.fromJson(Map<String, dynamic> json) => Name(
-        firstname: json['firstname'],
-        lastname: json['lastname'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'firstname': firstname,
-        'lastname': lastname,
-      };
+  factory Name.fromJson(Map<String, dynamic> json) => _$NameFromJson(json);
 }
