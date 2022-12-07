@@ -15,10 +15,15 @@ import '../../../core/init/routes/routes.gr.dart';
 class Dashboard extends StatelessWidget {
   Dashboard({Key? key}) : super(key: key);
 
-  BottomNavigationBarItem _buildNavBarItem(String label, IconData icon,
+  NavigationDestination _buildNavBarItem(
+      String label, IconData icon, IconData selectedIcon,
       {Widget? badgeWidget}) {
-    return BottomNavigationBarItem(
-        label: label, icon: badgeWidget == null ? Icon(icon) : badgeWidget);
+    return NavigationDestination(
+        selectedIcon: badgeWidget == null ? Icon(selectedIcon) : badgeWidget,
+        label: label,
+        icon: badgeWidget == null
+            ? Icon(icon, color: ColorConstants.myMediumGrey)
+            : badgeWidget);
   }
 
   @override
@@ -34,81 +39,61 @@ class Dashboard extends StatelessWidget {
                   const FavoriteView(),
                   const AccountView()
                 ],
-                bottomNavigationBuilder: (_, tabs) => BottomNavigationBar(
-                  onTap: tabs.setActiveIndex,
-                  currentIndex: tabs.activeIndex,
-                  iconSize: 24,
-                  items: [
+                bottomNavigationBuilder: (context, tabsRouter) => NavigationBar(
+                  selectedIndex: tabsRouter.activeIndex,
+                  height: 50,
+                  onDestinationSelected: (value) =>
+                      tabsRouter.setActiveIndex(value),
+                  destinations: [
                     _buildNavBarItem(
                         LocaleKeys.dashboard_bottomNav_bNavHome.locale,
-                        Icons.home_rounded),
+                        Icons.home_outlined,
+                        Icons.home_filled),
                     _buildNavBarItem(
                         LocaleKeys.dashboard_bottomNav_bNavCart.locale,
+                        Icons.shopping_basket_outlined,
                         Icons.shopping_basket_rounded),
                     _buildNavBarItem(
                         badgeWidget: favList.isNotEmpty
-                            ? Stack(children: [
-                                Icon(Icons.favorite_rounded),
-                                Positioned(
-                                  right: 0,
-                                  top: 0,
-                                  child: CircleAvatar(
-                                      backgroundColor: tabs.activeIndex == 2
-                                          ? ColorConstants.myBlack
-                                          : ColorConstants.primaryColor,
-                                      radius: 6,
-                                      child: Center(
-                                          child: Text(favList.length.toString(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall
-                                                  ?.copyWith(
-                                                      fontSize: 8,
-                                                      color: ColorConstants
-                                                          .myWhite)))),
-                                )
-                              ])
+                            ? _buildBadge(tabsRouter, favList, context)
                             : null,
                         LocaleKeys.dashboard_bottomNav_bNavFav.locale,
+                        Icons.favorite_border_rounded,
                         Icons.favorite_rounded),
                     _buildNavBarItem(
                         LocaleKeys.dashboard_bottomNav_bNavAcc.locale,
+                        Icons.person_outline,
                         Icons.person),
                   ],
-
-                  // screens
-                  //     .map(
-                  //       (e) => BottomNavigationBarItem(
-                  //         label: e.label,
-                  //         icon: e.label ==
-                  //                     LocaleKeys.dashboard_bottomNav_bNavFav
-                  //                         .locale &&
-                  //                 favList.isNotEmpty
-                  //             ? Stack(children: [
-                  //                 e.icon,
-                  //                 Positioned(
-                  //                   right: 0,
-                  //                   top: 0,
-                  //                   child: CircleAvatar(
-                  //                       backgroundColor: tabs.activeIndex == 2
-                  //                           ? ColorConstants.myBlack
-                  //                           : ColorConstants.primaryColor,
-                  //                       radius: 6,
-                  //                       child: Center(
-                  //                           child: Text(
-                  //                               favList.length.toString(),
-                  //                               style: Theme.of(context)
-                  //                                   .textTheme
-                  //                                   .bodySmall
-                  //                                   ?.copyWith(
-                  //                                       fontSize: 8,
-                  //                                       color: ColorConstants
-                  //                                           .myWhite)))),
-                  //                 )
-                  //               ])
-                  //             : e.icon,
                 ),
+                //bottomNavigationBuilder: (_, tabs) => _buildBottomNavBar(tabs, favList, context),
               ));
     });
+  }
+
+  Stack _buildBadge(
+      TabsRouter tabsRouter, List<int> favList, BuildContext context) {
+    return Stack(children: [
+      Icon(
+          tabsRouter.activeIndex == 2
+              ? Icons.favorite_rounded
+              : Icons.favorite_border_rounded,
+          color: tabsRouter.activeIndex == 2
+              ? ColorConstants.primaryColor
+              : ColorConstants.myMediumGrey),
+      Positioned(
+        right: 0,
+        top: 0,
+        child: CircleAvatar(
+            backgroundColor: tabsRouter.activeIndex == 2
+                ? ColorConstants.myBlack
+                : ColorConstants.primaryColor,
+            radius: 6,
+            child: Center(
+                child: Text(favList.length.toString(),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 8, color: ColorConstants.myWhite)))),
+      )
+    ]);
   }
 }

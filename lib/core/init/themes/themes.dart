@@ -17,7 +17,7 @@ class AppTheme {
       primaryTextTheme: _primaryTextTheme,
       colorScheme: _colorScheme,
       appBarTheme: _appBarThemeDark,
-      bottomNavigationBarTheme: _bottomNavBarThemeDark,
+      navigationBarTheme: _bottomNavBarThemeDark,
       expansionTileTheme: _expansionTileTheme,
       inputDecorationTheme: _inputTheme,
       scaffoldBackgroundColor: ColorConstants.myDark);
@@ -29,7 +29,7 @@ class AppTheme {
         primaryTextTheme: _primaryTextTheme,
         colorScheme: _colorScheme,
         appBarTheme: _appBarThemeLight,
-        bottomNavigationBarTheme: _bottomNavBarThemeLight,
+        navigationBarTheme: _bottomNavBarThemeLight,
         expansionTileTheme: _expansionTileTheme,
         inputDecorationTheme: _inputTheme,
       );
@@ -92,28 +92,33 @@ class AppTheme {
         childrenPadding: EdgeInsets.zero,
       );
 
-  BottomNavigationBarThemeData get _bottomNavBarThemeLight =>
-      BottomNavigationBarThemeData(
-        backgroundColor: ColorConstants.myWhite,
-        selectedLabelStyle:
-            TextStyle(fontSize: 10, color: ColorConstants.myDark),
-        unselectedLabelStyle:
-            TextStyle(fontSize: 10, color: ColorConstants.myLightGrey),
-        type: BottomNavigationBarType.fixed,
-      );
+  NavigationBarThemeData get _bottomNavBarThemeLight => NavigationBarThemeData(
+      backgroundColor: ColorConstants.myWhite,
+      elevation: 10,
+      height: 40,
+      indicatorShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5))),
+      iconTheme: MaterialStateProperty.resolveWith(
+          (states) => IconThemeData(color: ColorConstants.primaryColor)),
+      labelTextStyle: MaterialStateTextStyle.resolveWith(
+        (states) => TextStyle(
+            fontSize: 10,
+            color: ColorConstants.myMediumGrey,
+            fontWeight: FontWeight.bold),
+      ));
 
-  BottomNavigationBarThemeData get _bottomNavBarThemeDark =>
-      BottomNavigationBarThemeData(
-        backgroundColor: ColorConstants.myDark,
-        selectedLabelStyle:
-            TextStyle(fontSize: 10, color: ColorConstants.myWhite),
-        unselectedLabelStyle:
-            TextStyle(fontSize: 10, color: ColorConstants.myLightGrey),
-        type: BottomNavigationBarType.fixed,
-      );
+  NavigationBarThemeData get _bottomNavBarThemeDark => NavigationBarThemeData(
+      backgroundColor: ColorConstants.myDark,
+      elevation: 10,
+      indicatorShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5))),
+      iconTheme: MaterialStateProperty.resolveWith(
+          (states) => IconThemeData(color: ColorConstants.primaryColor)),
+      labelTextStyle: MaterialStateTextStyle.resolveWith(
+        (states) => TextStyle(fontSize: 10, color: ColorConstants.myLightGrey),
+      ));
 
   AppBarTheme get _appBarThemeLight => AppBarTheme(
-      toolbarHeight: 40,
       iconTheme: IconThemeData(color: ColorConstants.primaryColor),
       actionsIconTheme: IconThemeData(color: ColorConstants.primaryColor),
       backgroundColor: ColorConstants.myWhite,
