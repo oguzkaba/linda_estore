@@ -93,9 +93,8 @@ class AppTheme {
       );
 
   NavigationBarThemeData get _bottomNavBarThemeLight => NavigationBarThemeData(
-      backgroundColor: ColorConstants.myWhite,
-      elevation: 10,
-      height: 40,
+      backgroundColor: Colors.grey[100],
+      surfaceTintColor: ColorConstants.myTransparent,
       indicatorShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(5))),
       iconTheme: MaterialStateProperty.resolveWith(
@@ -108,7 +107,7 @@ class AppTheme {
       ));
 
   NavigationBarThemeData get _bottomNavBarThemeDark => NavigationBarThemeData(
-      backgroundColor: ColorConstants.myDark,
+      backgroundColor: ColorConstants.myDark.withOpacity(.8),
       elevation: 10,
       indicatorShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(5))),

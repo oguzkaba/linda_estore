@@ -42,6 +42,7 @@ class Dashboard extends StatelessWidget {
                 bottomNavigationBuilder: (context, tabsRouter) => NavigationBar(
                   selectedIndex: tabsRouter.activeIndex,
                   height: 50,
+                  elevation: 20,
                   onDestinationSelected: (value) =>
                       tabsRouter.setActiveIndex(value),
                   destinations: [

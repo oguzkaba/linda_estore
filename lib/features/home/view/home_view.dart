@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/init/routes/routes.gr.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
@@ -51,7 +53,7 @@ class _HomeViewState extends State<HomeView> {
         child: Scaffold(
           backgroundColor: context.watch<ThemeCubit>().state.isDark
               ? ColorConstants.myDark
-              : Colors.grey[50],
+              : Colors.grey[100],
           body: _buildBody,
         ),
       ),
@@ -66,12 +68,20 @@ class _HomeViewState extends State<HomeView> {
           snap: false,
           floating: true,
           actions: [
-            IconButtonWidget(
-                circleRadius: 16,
-                size: 16,
-                icon: Icons.add_alert_rounded,
-                iColor: ColorConstants.primaryColor,
-                tooltip: 'alert')
+            Stack(children: [
+              IconButtonWidget(
+                  onPress: () => context.router.push(Notifications()),
+                  circleRadius: 16,
+                  size: 16,
+                  icon: Icons.add_alert_rounded,
+                  iColor: ColorConstants.primaryColor,
+                  tooltip: 'alert'),
+              Positioned(
+                  right: 8,
+                  top: 6,
+                  child: CircleAvatar(
+                      radius: 4, backgroundColor: ColorConstants.myRed))
+            ])
           ],
           titleSpacing: 4,
           title: BlocBuilder<ProductsBloc, ProductsState>(
