@@ -14,4 +14,6 @@ abstract class CartEvent with _$CartEvent {
       {required Dio manager,
       required GlobalKey<ScaffoldState>? scaffoldKey,
       required int productId}) = _RemoveToCart;
+  const factory CartEvent.checkout({required CheckoutStateEnum checkoutState}) =
+      _CheckoutToCart;
 }

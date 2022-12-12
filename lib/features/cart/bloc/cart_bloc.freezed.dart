@@ -16,9 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CartEvent {
-  Dio get manager => throw _privateConstructorUsedError;
-  GlobalKey<ScaffoldState>? get scaffoldKey =>
-      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Dio manager,
@@ -30,6 +27,7 @@ mixin _$CartEvent {
     required TResult Function(
             Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
         remove,
+    required TResult Function(CheckoutStateEnum checkoutState) checkout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,6 +41,7 @@ mixin _$CartEvent {
     TResult? Function(
             Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
         remove,
+    TResult? Function(CheckoutStateEnum checkoutState)? checkout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,6 +55,7 @@ mixin _$CartEvent {
     TResult Function(
             Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
         remove,
+    TResult Function(CheckoutStateEnum checkoutState)? checkout,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -64,6 +64,7 @@ mixin _$CartEvent {
     required TResult Function(_FetchCart value) fetch,
     required TResult Function(_AddToCart value) add,
     required TResult Function(_RemoveToCart value) remove,
+    required TResult Function(_CheckoutToCart value) checkout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -71,6 +72,7 @@ mixin _$CartEvent {
     TResult? Function(_FetchCart value)? fetch,
     TResult? Function(_AddToCart value)? add,
     TResult? Function(_RemoveToCart value)? remove,
+    TResult? Function(_CheckoutToCart value)? checkout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -78,12 +80,9 @@ mixin _$CartEvent {
     TResult Function(_FetchCart value)? fetch,
     TResult Function(_AddToCart value)? add,
     TResult Function(_RemoveToCart value)? remove,
+    TResult Function(_CheckoutToCart value)? checkout,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $CartEventCopyWith<CartEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -91,8 +90,6 @@ mixin _$CartEvent {
 abstract class $CartEventCopyWith<$Res> {
   factory $CartEventCopyWith(CartEvent value, $Res Function(CartEvent) then) =
       _$CartEventCopyWithImpl<$Res, CartEvent>;
-  @useResult
-  $Res call({Dio manager, GlobalKey<ScaffoldState>? scaffoldKey});
 }
 
 /// @nodoc
@@ -104,32 +101,13 @@ class _$CartEventCopyWithImpl<$Res, $Val extends CartEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? manager = null,
-    Object? scaffoldKey = freezed,
-  }) {
-    return _then(_value.copyWith(
-      manager: null == manager
-          ? _value.manager
-          : manager // ignore: cast_nullable_to_non_nullable
-              as Dio,
-      scaffoldKey: freezed == scaffoldKey
-          ? _value.scaffoldKey
-          : scaffoldKey // ignore: cast_nullable_to_non_nullable
-              as GlobalKey<ScaffoldState>?,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_FetchCartCopyWith<$Res> implements $CartEventCopyWith<$Res> {
+abstract class _$$_FetchCartCopyWith<$Res> {
   factory _$$_FetchCartCopyWith(
           _$_FetchCart value, $Res Function(_$_FetchCart) then) =
       __$$_FetchCartCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
       {Dio manager,
@@ -223,6 +201,7 @@ class _$_FetchCart implements _FetchCart {
     required TResult Function(
             Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
         remove,
+    required TResult Function(CheckoutStateEnum checkoutState) checkout,
   }) {
     return fetch(manager, scaffoldKey, accountBloc);
   }
@@ -239,6 +218,7 @@ class _$_FetchCart implements _FetchCart {
     TResult? Function(
             Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
         remove,
+    TResult? Function(CheckoutStateEnum checkoutState)? checkout,
   }) {
     return fetch?.call(manager, scaffoldKey, accountBloc);
   }
@@ -255,6 +235,7 @@ class _$_FetchCart implements _FetchCart {
     TResult Function(
             Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
         remove,
+    TResult Function(CheckoutStateEnum checkoutState)? checkout,
     required TResult orElse(),
   }) {
     if (fetch != null) {
@@ -269,6 +250,7 @@ class _$_FetchCart implements _FetchCart {
     required TResult Function(_FetchCart value) fetch,
     required TResult Function(_AddToCart value) add,
     required TResult Function(_RemoveToCart value) remove,
+    required TResult Function(_CheckoutToCart value) checkout,
   }) {
     return fetch(this);
   }
@@ -279,6 +261,7 @@ class _$_FetchCart implements _FetchCart {
     TResult? Function(_FetchCart value)? fetch,
     TResult? Function(_AddToCart value)? add,
     TResult? Function(_RemoveToCart value)? remove,
+    TResult? Function(_CheckoutToCart value)? checkout,
   }) {
     return fetch?.call(this);
   }
@@ -289,6 +272,7 @@ class _$_FetchCart implements _FetchCart {
     TResult Function(_FetchCart value)? fetch,
     TResult Function(_AddToCart value)? add,
     TResult Function(_RemoveToCart value)? remove,
+    TResult Function(_CheckoutToCart value)? checkout,
     required TResult orElse(),
   }) {
     if (fetch != null) {
@@ -304,23 +288,19 @@ abstract class _FetchCart implements CartEvent {
       required final GlobalKey<ScaffoldState>? scaffoldKey,
       required final AccountBloc accountBloc}) = _$_FetchCart;
 
-  @override
   Dio get manager;
-  @override
   GlobalKey<ScaffoldState>? get scaffoldKey;
   AccountBloc get accountBloc;
-  @override
   @JsonKey(ignore: true)
   _$$_FetchCartCopyWith<_$_FetchCart> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_AddToCartCopyWith<$Res> implements $CartEventCopyWith<$Res> {
+abstract class _$$_AddToCartCopyWith<$Res> {
   factory _$$_AddToCartCopyWith(
           _$_AddToCart value, $Res Function(_$_AddToCart) then) =
       __$$_AddToCartCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
       {Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId});
@@ -411,6 +391,7 @@ class _$_AddToCart implements _AddToCart {
     required TResult Function(
             Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
         remove,
+    required TResult Function(CheckoutStateEnum checkoutState) checkout,
   }) {
     return add(manager, scaffoldKey, productId);
   }
@@ -427,6 +408,7 @@ class _$_AddToCart implements _AddToCart {
     TResult? Function(
             Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
         remove,
+    TResult? Function(CheckoutStateEnum checkoutState)? checkout,
   }) {
     return add?.call(manager, scaffoldKey, productId);
   }
@@ -443,6 +425,7 @@ class _$_AddToCart implements _AddToCart {
     TResult Function(
             Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
         remove,
+    TResult Function(CheckoutStateEnum checkoutState)? checkout,
     required TResult orElse(),
   }) {
     if (add != null) {
@@ -457,6 +440,7 @@ class _$_AddToCart implements _AddToCart {
     required TResult Function(_FetchCart value) fetch,
     required TResult Function(_AddToCart value) add,
     required TResult Function(_RemoveToCart value) remove,
+    required TResult Function(_CheckoutToCart value) checkout,
   }) {
     return add(this);
   }
@@ -467,6 +451,7 @@ class _$_AddToCart implements _AddToCart {
     TResult? Function(_FetchCart value)? fetch,
     TResult? Function(_AddToCart value)? add,
     TResult? Function(_RemoveToCart value)? remove,
+    TResult? Function(_CheckoutToCart value)? checkout,
   }) {
     return add?.call(this);
   }
@@ -477,6 +462,7 @@ class _$_AddToCart implements _AddToCart {
     TResult Function(_FetchCart value)? fetch,
     TResult Function(_AddToCart value)? add,
     TResult Function(_RemoveToCart value)? remove,
+    TResult Function(_CheckoutToCart value)? checkout,
     required TResult orElse(),
   }) {
     if (add != null) {
@@ -492,24 +478,19 @@ abstract class _AddToCart implements CartEvent {
       required final GlobalKey<ScaffoldState>? scaffoldKey,
       required final int productId}) = _$_AddToCart;
 
-  @override
   Dio get manager;
-  @override
   GlobalKey<ScaffoldState>? get scaffoldKey;
   int get productId;
-  @override
   @JsonKey(ignore: true)
   _$$_AddToCartCopyWith<_$_AddToCart> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_RemoveToCartCopyWith<$Res>
-    implements $CartEventCopyWith<$Res> {
+abstract class _$$_RemoveToCartCopyWith<$Res> {
   factory _$$_RemoveToCartCopyWith(
           _$_RemoveToCart value, $Res Function(_$_RemoveToCart) then) =
       __$$_RemoveToCartCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
       {Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId});
@@ -600,6 +581,7 @@ class _$_RemoveToCart implements _RemoveToCart {
     required TResult Function(
             Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
         remove,
+    required TResult Function(CheckoutStateEnum checkoutState) checkout,
   }) {
     return remove(manager, scaffoldKey, productId);
   }
@@ -616,6 +598,7 @@ class _$_RemoveToCart implements _RemoveToCart {
     TResult? Function(
             Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
         remove,
+    TResult? Function(CheckoutStateEnum checkoutState)? checkout,
   }) {
     return remove?.call(manager, scaffoldKey, productId);
   }
@@ -632,6 +615,7 @@ class _$_RemoveToCart implements _RemoveToCart {
     TResult Function(
             Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
         remove,
+    TResult Function(CheckoutStateEnum checkoutState)? checkout,
     required TResult orElse(),
   }) {
     if (remove != null) {
@@ -646,6 +630,7 @@ class _$_RemoveToCart implements _RemoveToCart {
     required TResult Function(_FetchCart value) fetch,
     required TResult Function(_AddToCart value) add,
     required TResult Function(_RemoveToCart value) remove,
+    required TResult Function(_CheckoutToCart value) checkout,
   }) {
     return remove(this);
   }
@@ -656,6 +641,7 @@ class _$_RemoveToCart implements _RemoveToCart {
     TResult? Function(_FetchCart value)? fetch,
     TResult? Function(_AddToCart value)? add,
     TResult? Function(_RemoveToCart value)? remove,
+    TResult? Function(_CheckoutToCart value)? checkout,
   }) {
     return remove?.call(this);
   }
@@ -666,6 +652,7 @@ class _$_RemoveToCart implements _RemoveToCart {
     TResult Function(_FetchCart value)? fetch,
     TResult Function(_AddToCart value)? add,
     TResult Function(_RemoveToCart value)? remove,
+    TResult Function(_CheckoutToCart value)? checkout,
     required TResult orElse(),
   }) {
     if (remove != null) {
@@ -681,14 +668,176 @@ abstract class _RemoveToCart implements CartEvent {
       required final GlobalKey<ScaffoldState>? scaffoldKey,
       required final int productId}) = _$_RemoveToCart;
 
-  @override
   Dio get manager;
-  @override
   GlobalKey<ScaffoldState>? get scaffoldKey;
   int get productId;
-  @override
   @JsonKey(ignore: true)
   _$$_RemoveToCartCopyWith<_$_RemoveToCart> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_CheckoutToCartCopyWith<$Res> {
+  factory _$$_CheckoutToCartCopyWith(
+          _$_CheckoutToCart value, $Res Function(_$_CheckoutToCart) then) =
+      __$$_CheckoutToCartCopyWithImpl<$Res>;
+  @useResult
+  $Res call({CheckoutStateEnum checkoutState});
+}
+
+/// @nodoc
+class __$$_CheckoutToCartCopyWithImpl<$Res>
+    extends _$CartEventCopyWithImpl<$Res, _$_CheckoutToCart>
+    implements _$$_CheckoutToCartCopyWith<$Res> {
+  __$$_CheckoutToCartCopyWithImpl(
+      _$_CheckoutToCart _value, $Res Function(_$_CheckoutToCart) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? checkoutState = null,
+  }) {
+    return _then(_$_CheckoutToCart(
+      checkoutState: null == checkoutState
+          ? _value.checkoutState
+          : checkoutState // ignore: cast_nullable_to_non_nullable
+              as CheckoutStateEnum,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_CheckoutToCart implements _CheckoutToCart {
+  const _$_CheckoutToCart({required this.checkoutState});
+
+  @override
+  final CheckoutStateEnum checkoutState;
+
+  @override
+  String toString() {
+    return 'CartEvent.checkout(checkoutState: $checkoutState)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_CheckoutToCart &&
+            (identical(other.checkoutState, checkoutState) ||
+                other.checkoutState == checkoutState));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, checkoutState);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_CheckoutToCartCopyWith<_$_CheckoutToCart> get copyWith =>
+      __$$_CheckoutToCartCopyWithImpl<_$_CheckoutToCart>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Dio manager,
+            GlobalKey<ScaffoldState>? scaffoldKey, AccountBloc accountBloc)
+        fetch,
+    required TResult Function(
+            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
+        add,
+    required TResult Function(
+            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
+        remove,
+    required TResult Function(CheckoutStateEnum checkoutState) checkout,
+  }) {
+    return checkout(checkoutState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Dio manager, GlobalKey<ScaffoldState>? scaffoldKey,
+            AccountBloc accountBloc)?
+        fetch,
+    TResult? Function(
+            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
+        add,
+    TResult? Function(
+            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
+        remove,
+    TResult? Function(CheckoutStateEnum checkoutState)? checkout,
+  }) {
+    return checkout?.call(checkoutState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Dio manager, GlobalKey<ScaffoldState>? scaffoldKey,
+            AccountBloc accountBloc)?
+        fetch,
+    TResult Function(
+            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
+        add,
+    TResult Function(
+            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
+        remove,
+    TResult Function(CheckoutStateEnum checkoutState)? checkout,
+    required TResult orElse(),
+  }) {
+    if (checkout != null) {
+      return checkout(checkoutState);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_FetchCart value) fetch,
+    required TResult Function(_AddToCart value) add,
+    required TResult Function(_RemoveToCart value) remove,
+    required TResult Function(_CheckoutToCart value) checkout,
+  }) {
+    return checkout(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_FetchCart value)? fetch,
+    TResult? Function(_AddToCart value)? add,
+    TResult? Function(_RemoveToCart value)? remove,
+    TResult? Function(_CheckoutToCart value)? checkout,
+  }) {
+    return checkout?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_FetchCart value)? fetch,
+    TResult Function(_AddToCart value)? add,
+    TResult Function(_RemoveToCart value)? remove,
+    TResult Function(_CheckoutToCart value)? checkout,
+    required TResult orElse(),
+  }) {
+    if (checkout != null) {
+      return checkout(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CheckoutToCart implements CartEvent {
+  const factory _CheckoutToCart(
+      {required final CheckoutStateEnum checkoutState}) = _$_CheckoutToCart;
+
+  CheckoutStateEnum get checkoutState;
+  @JsonKey(ignore: true)
+  _$$_CheckoutToCartCopyWith<_$_CheckoutToCart> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -701,6 +850,7 @@ mixin _$CartState {
     required TResult Function(List<CartModel> cartModel) loaded,
     required TResult Function(List<CartModel> cartModel) add,
     required TResult Function(List<CartModel> cartModel) remove,
+    required TResult Function(CheckoutStateEnum checkoutState) checkout,
     required TResult Function(Object error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -711,6 +861,7 @@ mixin _$CartState {
     TResult? Function(List<CartModel> cartModel)? loaded,
     TResult? Function(List<CartModel> cartModel)? add,
     TResult? Function(List<CartModel> cartModel)? remove,
+    TResult? Function(CheckoutStateEnum checkoutState)? checkout,
     TResult? Function(Object error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -721,6 +872,7 @@ mixin _$CartState {
     TResult Function(List<CartModel> cartModel)? loaded,
     TResult Function(List<CartModel> cartModel)? add,
     TResult Function(List<CartModel> cartModel)? remove,
+    TResult Function(CheckoutStateEnum checkoutState)? checkout,
     TResult Function(Object error)? error,
     required TResult orElse(),
   }) =>
@@ -732,6 +884,7 @@ mixin _$CartState {
     required TResult Function(_CartLoaded value) loaded,
     required TResult Function(_CartAdd value) add,
     required TResult Function(_CartRemove value) remove,
+    required TResult Function(_CartCheckout value) checkout,
     required TResult Function(_CartError value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -742,6 +895,7 @@ mixin _$CartState {
     TResult? Function(_CartLoaded value)? loaded,
     TResult? Function(_CartAdd value)? add,
     TResult? Function(_CartRemove value)? remove,
+    TResult? Function(_CartCheckout value)? checkout,
     TResult? Function(_CartError value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -752,6 +906,7 @@ mixin _$CartState {
     TResult Function(_CartLoaded value)? loaded,
     TResult Function(_CartAdd value)? add,
     TResult Function(_CartRemove value)? remove,
+    TResult Function(_CartCheckout value)? checkout,
     TResult Function(_CartError value)? error,
     required TResult orElse(),
   }) =>
@@ -818,6 +973,7 @@ class _$_CartInitial implements _CartInitial {
     required TResult Function(List<CartModel> cartModel) loaded,
     required TResult Function(List<CartModel> cartModel) add,
     required TResult Function(List<CartModel> cartModel) remove,
+    required TResult Function(CheckoutStateEnum checkoutState) checkout,
     required TResult Function(Object error) error,
   }) {
     return initial();
@@ -831,6 +987,7 @@ class _$_CartInitial implements _CartInitial {
     TResult? Function(List<CartModel> cartModel)? loaded,
     TResult? Function(List<CartModel> cartModel)? add,
     TResult? Function(List<CartModel> cartModel)? remove,
+    TResult? Function(CheckoutStateEnum checkoutState)? checkout,
     TResult? Function(Object error)? error,
   }) {
     return initial?.call();
@@ -844,6 +1001,7 @@ class _$_CartInitial implements _CartInitial {
     TResult Function(List<CartModel> cartModel)? loaded,
     TResult Function(List<CartModel> cartModel)? add,
     TResult Function(List<CartModel> cartModel)? remove,
+    TResult Function(CheckoutStateEnum checkoutState)? checkout,
     TResult Function(Object error)? error,
     required TResult orElse(),
   }) {
@@ -861,6 +1019,7 @@ class _$_CartInitial implements _CartInitial {
     required TResult Function(_CartLoaded value) loaded,
     required TResult Function(_CartAdd value) add,
     required TResult Function(_CartRemove value) remove,
+    required TResult Function(_CartCheckout value) checkout,
     required TResult Function(_CartError value) error,
   }) {
     return initial(this);
@@ -874,6 +1033,7 @@ class _$_CartInitial implements _CartInitial {
     TResult? Function(_CartLoaded value)? loaded,
     TResult? Function(_CartAdd value)? add,
     TResult? Function(_CartRemove value)? remove,
+    TResult? Function(_CartCheckout value)? checkout,
     TResult? Function(_CartError value)? error,
   }) {
     return initial?.call(this);
@@ -887,6 +1047,7 @@ class _$_CartInitial implements _CartInitial {
     TResult Function(_CartLoaded value)? loaded,
     TResult Function(_CartAdd value)? add,
     TResult Function(_CartRemove value)? remove,
+    TResult Function(_CartCheckout value)? checkout,
     TResult Function(_CartError value)? error,
     required TResult orElse(),
   }) {
@@ -944,6 +1105,7 @@ class _$CartLoading implements CartLoading {
     required TResult Function(List<CartModel> cartModel) loaded,
     required TResult Function(List<CartModel> cartModel) add,
     required TResult Function(List<CartModel> cartModel) remove,
+    required TResult Function(CheckoutStateEnum checkoutState) checkout,
     required TResult Function(Object error) error,
   }) {
     return loading();
@@ -957,6 +1119,7 @@ class _$CartLoading implements CartLoading {
     TResult? Function(List<CartModel> cartModel)? loaded,
     TResult? Function(List<CartModel> cartModel)? add,
     TResult? Function(List<CartModel> cartModel)? remove,
+    TResult? Function(CheckoutStateEnum checkoutState)? checkout,
     TResult? Function(Object error)? error,
   }) {
     return loading?.call();
@@ -970,6 +1133,7 @@ class _$CartLoading implements CartLoading {
     TResult Function(List<CartModel> cartModel)? loaded,
     TResult Function(List<CartModel> cartModel)? add,
     TResult Function(List<CartModel> cartModel)? remove,
+    TResult Function(CheckoutStateEnum checkoutState)? checkout,
     TResult Function(Object error)? error,
     required TResult orElse(),
   }) {
@@ -987,6 +1151,7 @@ class _$CartLoading implements CartLoading {
     required TResult Function(_CartLoaded value) loaded,
     required TResult Function(_CartAdd value) add,
     required TResult Function(_CartRemove value) remove,
+    required TResult Function(_CartCheckout value) checkout,
     required TResult Function(_CartError value) error,
   }) {
     return loading(this);
@@ -1000,6 +1165,7 @@ class _$CartLoading implements CartLoading {
     TResult? Function(_CartLoaded value)? loaded,
     TResult? Function(_CartAdd value)? add,
     TResult? Function(_CartRemove value)? remove,
+    TResult? Function(_CartCheckout value)? checkout,
     TResult? Function(_CartError value)? error,
   }) {
     return loading?.call(this);
@@ -1013,6 +1179,7 @@ class _$CartLoading implements CartLoading {
     TResult Function(_CartLoaded value)? loaded,
     TResult Function(_CartAdd value)? add,
     TResult Function(_CartRemove value)? remove,
+    TResult Function(_CartCheckout value)? checkout,
     TResult Function(_CartError value)? error,
     required TResult orElse(),
   }) {
@@ -1103,6 +1270,7 @@ class _$_CartLoaded implements _CartLoaded {
     required TResult Function(List<CartModel> cartModel) loaded,
     required TResult Function(List<CartModel> cartModel) add,
     required TResult Function(List<CartModel> cartModel) remove,
+    required TResult Function(CheckoutStateEnum checkoutState) checkout,
     required TResult Function(Object error) error,
   }) {
     return loaded(cartModel);
@@ -1116,6 +1284,7 @@ class _$_CartLoaded implements _CartLoaded {
     TResult? Function(List<CartModel> cartModel)? loaded,
     TResult? Function(List<CartModel> cartModel)? add,
     TResult? Function(List<CartModel> cartModel)? remove,
+    TResult? Function(CheckoutStateEnum checkoutState)? checkout,
     TResult? Function(Object error)? error,
   }) {
     return loaded?.call(cartModel);
@@ -1129,6 +1298,7 @@ class _$_CartLoaded implements _CartLoaded {
     TResult Function(List<CartModel> cartModel)? loaded,
     TResult Function(List<CartModel> cartModel)? add,
     TResult Function(List<CartModel> cartModel)? remove,
+    TResult Function(CheckoutStateEnum checkoutState)? checkout,
     TResult Function(Object error)? error,
     required TResult orElse(),
   }) {
@@ -1146,6 +1316,7 @@ class _$_CartLoaded implements _CartLoaded {
     required TResult Function(_CartLoaded value) loaded,
     required TResult Function(_CartAdd value) add,
     required TResult Function(_CartRemove value) remove,
+    required TResult Function(_CartCheckout value) checkout,
     required TResult Function(_CartError value) error,
   }) {
     return loaded(this);
@@ -1159,6 +1330,7 @@ class _$_CartLoaded implements _CartLoaded {
     TResult? Function(_CartLoaded value)? loaded,
     TResult? Function(_CartAdd value)? add,
     TResult? Function(_CartRemove value)? remove,
+    TResult? Function(_CartCheckout value)? checkout,
     TResult? Function(_CartError value)? error,
   }) {
     return loaded?.call(this);
@@ -1172,6 +1344,7 @@ class _$_CartLoaded implements _CartLoaded {
     TResult Function(_CartLoaded value)? loaded,
     TResult Function(_CartAdd value)? add,
     TResult Function(_CartRemove value)? remove,
+    TResult Function(_CartCheckout value)? checkout,
     TResult Function(_CartError value)? error,
     required TResult orElse(),
   }) {
@@ -1267,6 +1440,7 @@ class _$_CartAdd implements _CartAdd {
     required TResult Function(List<CartModel> cartModel) loaded,
     required TResult Function(List<CartModel> cartModel) add,
     required TResult Function(List<CartModel> cartModel) remove,
+    required TResult Function(CheckoutStateEnum checkoutState) checkout,
     required TResult Function(Object error) error,
   }) {
     return add(cartModel);
@@ -1280,6 +1454,7 @@ class _$_CartAdd implements _CartAdd {
     TResult? Function(List<CartModel> cartModel)? loaded,
     TResult? Function(List<CartModel> cartModel)? add,
     TResult? Function(List<CartModel> cartModel)? remove,
+    TResult? Function(CheckoutStateEnum checkoutState)? checkout,
     TResult? Function(Object error)? error,
   }) {
     return add?.call(cartModel);
@@ -1293,6 +1468,7 @@ class _$_CartAdd implements _CartAdd {
     TResult Function(List<CartModel> cartModel)? loaded,
     TResult Function(List<CartModel> cartModel)? add,
     TResult Function(List<CartModel> cartModel)? remove,
+    TResult Function(CheckoutStateEnum checkoutState)? checkout,
     TResult Function(Object error)? error,
     required TResult orElse(),
   }) {
@@ -1310,6 +1486,7 @@ class _$_CartAdd implements _CartAdd {
     required TResult Function(_CartLoaded value) loaded,
     required TResult Function(_CartAdd value) add,
     required TResult Function(_CartRemove value) remove,
+    required TResult Function(_CartCheckout value) checkout,
     required TResult Function(_CartError value) error,
   }) {
     return add(this);
@@ -1323,6 +1500,7 @@ class _$_CartAdd implements _CartAdd {
     TResult? Function(_CartLoaded value)? loaded,
     TResult? Function(_CartAdd value)? add,
     TResult? Function(_CartRemove value)? remove,
+    TResult? Function(_CartCheckout value)? checkout,
     TResult? Function(_CartError value)? error,
   }) {
     return add?.call(this);
@@ -1336,6 +1514,7 @@ class _$_CartAdd implements _CartAdd {
     TResult Function(_CartLoaded value)? loaded,
     TResult Function(_CartAdd value)? add,
     TResult Function(_CartRemove value)? remove,
+    TResult Function(_CartCheckout value)? checkout,
     TResult Function(_CartError value)? error,
     required TResult orElse(),
   }) {
@@ -1432,6 +1611,7 @@ class _$_CartRemove implements _CartRemove {
     required TResult Function(List<CartModel> cartModel) loaded,
     required TResult Function(List<CartModel> cartModel) add,
     required TResult Function(List<CartModel> cartModel) remove,
+    required TResult Function(CheckoutStateEnum checkoutState) checkout,
     required TResult Function(Object error) error,
   }) {
     return remove(cartModel);
@@ -1445,6 +1625,7 @@ class _$_CartRemove implements _CartRemove {
     TResult? Function(List<CartModel> cartModel)? loaded,
     TResult? Function(List<CartModel> cartModel)? add,
     TResult? Function(List<CartModel> cartModel)? remove,
+    TResult? Function(CheckoutStateEnum checkoutState)? checkout,
     TResult? Function(Object error)? error,
   }) {
     return remove?.call(cartModel);
@@ -1458,6 +1639,7 @@ class _$_CartRemove implements _CartRemove {
     TResult Function(List<CartModel> cartModel)? loaded,
     TResult Function(List<CartModel> cartModel)? add,
     TResult Function(List<CartModel> cartModel)? remove,
+    TResult Function(CheckoutStateEnum checkoutState)? checkout,
     TResult Function(Object error)? error,
     required TResult orElse(),
   }) {
@@ -1475,6 +1657,7 @@ class _$_CartRemove implements _CartRemove {
     required TResult Function(_CartLoaded value) loaded,
     required TResult Function(_CartAdd value) add,
     required TResult Function(_CartRemove value) remove,
+    required TResult Function(_CartCheckout value) checkout,
     required TResult Function(_CartError value) error,
   }) {
     return remove(this);
@@ -1488,6 +1671,7 @@ class _$_CartRemove implements _CartRemove {
     TResult? Function(_CartLoaded value)? loaded,
     TResult? Function(_CartAdd value)? add,
     TResult? Function(_CartRemove value)? remove,
+    TResult? Function(_CartCheckout value)? checkout,
     TResult? Function(_CartError value)? error,
   }) {
     return remove?.call(this);
@@ -1501,6 +1685,7 @@ class _$_CartRemove implements _CartRemove {
     TResult Function(_CartLoaded value)? loaded,
     TResult Function(_CartAdd value)? add,
     TResult Function(_CartRemove value)? remove,
+    TResult Function(_CartCheckout value)? checkout,
     TResult Function(_CartError value)? error,
     required TResult orElse(),
   }) {
@@ -1518,6 +1703,171 @@ abstract class _CartRemove implements CartState {
   List<CartModel> get cartModel;
   @JsonKey(ignore: true)
   _$$_CartRemoveCopyWith<_$_CartRemove> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_CartCheckoutCopyWith<$Res> {
+  factory _$$_CartCheckoutCopyWith(
+          _$_CartCheckout value, $Res Function(_$_CartCheckout) then) =
+      __$$_CartCheckoutCopyWithImpl<$Res>;
+  @useResult
+  $Res call({CheckoutStateEnum checkoutState});
+}
+
+/// @nodoc
+class __$$_CartCheckoutCopyWithImpl<$Res>
+    extends _$CartStateCopyWithImpl<$Res, _$_CartCheckout>
+    implements _$$_CartCheckoutCopyWith<$Res> {
+  __$$_CartCheckoutCopyWithImpl(
+      _$_CartCheckout _value, $Res Function(_$_CartCheckout) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? checkoutState = null,
+  }) {
+    return _then(_$_CartCheckout(
+      checkoutState: null == checkoutState
+          ? _value.checkoutState
+          : checkoutState // ignore: cast_nullable_to_non_nullable
+              as CheckoutStateEnum,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_CartCheckout implements _CartCheckout {
+  const _$_CartCheckout({required this.checkoutState});
+
+  @override
+  final CheckoutStateEnum checkoutState;
+
+  @override
+  String toString() {
+    return 'CartState.checkout(checkoutState: $checkoutState)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_CartCheckout &&
+            (identical(other.checkoutState, checkoutState) ||
+                other.checkoutState == checkoutState));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, checkoutState);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_CartCheckoutCopyWith<_$_CartCheckout> get copyWith =>
+      __$$_CartCheckoutCopyWithImpl<_$_CartCheckout>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<CartModel> cartModel) loaded,
+    required TResult Function(List<CartModel> cartModel) add,
+    required TResult Function(List<CartModel> cartModel) remove,
+    required TResult Function(CheckoutStateEnum checkoutState) checkout,
+    required TResult Function(Object error) error,
+  }) {
+    return checkout(checkoutState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(List<CartModel> cartModel)? loaded,
+    TResult? Function(List<CartModel> cartModel)? add,
+    TResult? Function(List<CartModel> cartModel)? remove,
+    TResult? Function(CheckoutStateEnum checkoutState)? checkout,
+    TResult? Function(Object error)? error,
+  }) {
+    return checkout?.call(checkoutState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<CartModel> cartModel)? loaded,
+    TResult Function(List<CartModel> cartModel)? add,
+    TResult Function(List<CartModel> cartModel)? remove,
+    TResult Function(CheckoutStateEnum checkoutState)? checkout,
+    TResult Function(Object error)? error,
+    required TResult orElse(),
+  }) {
+    if (checkout != null) {
+      return checkout(checkoutState);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CartInitial value) initial,
+    required TResult Function(CartLoading value) loading,
+    required TResult Function(_CartLoaded value) loaded,
+    required TResult Function(_CartAdd value) add,
+    required TResult Function(_CartRemove value) remove,
+    required TResult Function(_CartCheckout value) checkout,
+    required TResult Function(_CartError value) error,
+  }) {
+    return checkout(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_CartInitial value)? initial,
+    TResult? Function(CartLoading value)? loading,
+    TResult? Function(_CartLoaded value)? loaded,
+    TResult? Function(_CartAdd value)? add,
+    TResult? Function(_CartRemove value)? remove,
+    TResult? Function(_CartCheckout value)? checkout,
+    TResult? Function(_CartError value)? error,
+  }) {
+    return checkout?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CartInitial value)? initial,
+    TResult Function(CartLoading value)? loading,
+    TResult Function(_CartLoaded value)? loaded,
+    TResult Function(_CartAdd value)? add,
+    TResult Function(_CartRemove value)? remove,
+    TResult Function(_CartCheckout value)? checkout,
+    TResult Function(_CartError value)? error,
+    required TResult orElse(),
+  }) {
+    if (checkout != null) {
+      return checkout(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CartCheckout implements CartState {
+  const factory _CartCheckout(
+      {required final CheckoutStateEnum checkoutState}) = _$_CartCheckout;
+
+  CheckoutStateEnum get checkoutState;
+  @JsonKey(ignore: true)
+  _$$_CartCheckoutCopyWith<_$_CartCheckout> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1588,6 +1938,7 @@ class _$_CartError implements _CartError {
     required TResult Function(List<CartModel> cartModel) loaded,
     required TResult Function(List<CartModel> cartModel) add,
     required TResult Function(List<CartModel> cartModel) remove,
+    required TResult Function(CheckoutStateEnum checkoutState) checkout,
     required TResult Function(Object error) error,
   }) {
     return error(this.error);
@@ -1601,6 +1952,7 @@ class _$_CartError implements _CartError {
     TResult? Function(List<CartModel> cartModel)? loaded,
     TResult? Function(List<CartModel> cartModel)? add,
     TResult? Function(List<CartModel> cartModel)? remove,
+    TResult? Function(CheckoutStateEnum checkoutState)? checkout,
     TResult? Function(Object error)? error,
   }) {
     return error?.call(this.error);
@@ -1614,6 +1966,7 @@ class _$_CartError implements _CartError {
     TResult Function(List<CartModel> cartModel)? loaded,
     TResult Function(List<CartModel> cartModel)? add,
     TResult Function(List<CartModel> cartModel)? remove,
+    TResult Function(CheckoutStateEnum checkoutState)? checkout,
     TResult Function(Object error)? error,
     required TResult orElse(),
   }) {
@@ -1631,6 +1984,7 @@ class _$_CartError implements _CartError {
     required TResult Function(_CartLoaded value) loaded,
     required TResult Function(_CartAdd value) add,
     required TResult Function(_CartRemove value) remove,
+    required TResult Function(_CartCheckout value) checkout,
     required TResult Function(_CartError value) error,
   }) {
     return error(this);
@@ -1644,6 +1998,7 @@ class _$_CartError implements _CartError {
     TResult? Function(_CartLoaded value)? loaded,
     TResult? Function(_CartAdd value)? add,
     TResult? Function(_CartRemove value)? remove,
+    TResult? Function(_CartCheckout value)? checkout,
     TResult? Function(_CartError value)? error,
   }) {
     return error?.call(this);
@@ -1657,6 +2012,7 @@ class _$_CartError implements _CartError {
     TResult Function(_CartLoaded value)? loaded,
     TResult Function(_CartAdd value)? add,
     TResult Function(_CartRemove value)? remove,
+    TResult Function(_CartCheckout value)? checkout,
     TResult Function(_CartError value)? error,
     required TResult orElse(),
   }) {

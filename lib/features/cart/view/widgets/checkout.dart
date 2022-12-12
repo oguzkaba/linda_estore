@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/enums/checkout_enums.dart';
+import 'package:linda_wedding_ecommerce/features/cart/bloc/cart_bloc.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/extansions/string_extansion.dart';
@@ -45,17 +48,23 @@ class _CheckoutState extends State<Checkout> {
             backgroundColor: Colors.transparent,
             elevation: 0.0,
             centerTitle: true),
-        body: Stepper(
-          controlsBuilder: (context, details) =>
-              context.emptySizedHeightBoxHigh,
-          currentStep: 0,
-          elevation: 1,
-          type: StepperType.horizontal,
-          steps: [
-            _buildDeliveryStep(context),
-            _buildAddressStep(context),
-            _buildPaymentStep(context),
-          ],
+        body: BlocBuilder<CartBloc, CartState>(
+          builder: (context, state) {
+            state.whenOrNull(
+                checkout: (checkoutState) => Stepper(
+                      controlsBuilder: (context, details) =>
+                          context.emptySizedHeightBoxHigh,
+                      currentStep: checkoutState.idx,
+                      elevation: 1,
+                      type: StepperType.horizontal,
+                      steps: [
+                        _buildDeliveryStep(context),
+                        _buildAddressStep(context),
+                        _buildPaymentStep(context),
+                      ],
+                    ));
+            return context.emptySizedHeightBoxHigh;
+          },
         ),
         bottomNavigationBar: Container(
             padding: const EdgeInsets.all(8),
@@ -82,7 +91,8 @@ class _CheckoutState extends State<Checkout> {
               ),
               context.emptySizedWidthBoxLow,
               EButtonWidget(
-                onPress: () {},
+                onPress: () => context.read<CartBloc>().add(CartEvent.checkout(
+                    checkoutState: CheckoutStateEnum.delivery)),
                 text: 'Continue',
                 height: 40,
                 width: 125,

@@ -130,8 +130,8 @@ class _CartViewState extends State<CartView> {
                               ),
                               movementDuration: context.durationNormal,
                               direction: DismissDirection.endToStart,
-                              background: _slideRightBackground(),
-                              //secondaryBackground: _slideLeftBackground(),
+                              background: _slideLeftBackground(),
+                              //secondaryBackground: _slideRightBackground(),
                               key: UniqueKey(),
                               child: GestureDetector(
                                 onTap: () =>
@@ -283,7 +283,7 @@ class _CartViewState extends State<CartView> {
                 persistentFooterButtons: [_buildBottomWidget(context, total)]));
   }
 
-  Container _slideRightBackground() {
+  Container _slideLeftBackground() {
     return Container(
       color: ColorConstants.myRed,
       child: Align(

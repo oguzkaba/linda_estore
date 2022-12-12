@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../../core/enums/checkout_enums.dart';
 import '../../account/bloc/account_bloc.dart';
 import '../model/cart_model.dart';
 import '../service/cart_service.dart';
@@ -12,7 +13,6 @@ part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
   int? userId;
-
   CartBloc() : super(const _CartInitial()) {
     on<_FetchCart>((event, emit) async {
       try {
@@ -52,11 +52,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       }
     });
 
-    // @override
-    // // ignore: unused_element
-    // Future<void> close() {
-    //   streamSubscription.cancel();
-    //   return super.close();
-    // }
+    on<_CheckoutToCart>((event, emit) async {
+      emit(const CartLoading());
+      try {
+        await Future.delayed(Duration(milliseconds: 500));
+        emit(_CartCheckout(checkoutState: event.checkoutState));
+      } catch (e) {
+        emit(_CartError(error: e));
+      }
+    });
   }
 }

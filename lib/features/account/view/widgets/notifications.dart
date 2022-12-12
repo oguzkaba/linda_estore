@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:kartal/kartal.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/constants/app/image_constants.dart';
@@ -58,12 +59,32 @@ class _NotificationsState extends State<Notifications> {
       padding: EdgeInsets.zero,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: ((context, index) => Card(
+      itemBuilder: ((context, index) => Dismissible(
+          dismissThresholds: const {DismissDirection.startToEnd: 0.6},
+          confirmDismiss: (direction) async =>
+              await Future.delayed(context.durationLow)
+                  .whenComplete(() => notifications.removeAt(index)),
+          movementDuration: context.durationNormal,
+          direction: DismissDirection.startToEnd,
+          background: _slideRightBackground(),
+          //secondaryBackground: _slideLeftBackground(),
+          key: UniqueKey(),
+          child: Card(
             child: ListTile(
-              leading: CircleAvatar(
-                backgroundImage: CachedNetworkImageProvider(
-                  ImageConstants.getAvatarUrl(index),
-                ),
+              leading: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                      width: 8,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: ColorConstants.myRed)),
+                  context.emptySizedWidthBoxLow,
+                  CircleAvatar(
+                    backgroundImage: CachedNetworkImageProvider(
+                      ImageConstants.getAvatarUrl(index),
+                    ),
+                  ),
+                ],
               ),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,7 +95,26 @@ class _NotificationsState extends State<Notifications> {
               ),
               subtitle: Text(notifications[index]['content'].toString()),
             ),
-          )),
+          ))),
+    );
+  }
+
+  Container _slideRightBackground() {
+    return Container(
+      color: ColorConstants.myBlue,
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            context.emptySizedWidthBoxNormal,
+            Icon(
+              Icons.mark_chat_read_rounded,
+              color: ColorConstants.myWhite,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
