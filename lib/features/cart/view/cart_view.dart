@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/enums/checkout_enums.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/extansions/string_extansion.dart';
@@ -324,7 +325,11 @@ class _CartViewState extends State<CartView> {
             EButtonWidget(
                 text: LocaleKeys.cart_buttonText.locale,
                 width: 150,
-                onPress: () => context.router.push(const Checkout()))
+                onPress: () {
+                  context.read<CartBloc>().add(CartEvent.checkout(
+                      checkoutState: CheckoutStateEnum.delivery));
+                  context.router.push(const Checkout());
+                })
           ],
         ));
   }

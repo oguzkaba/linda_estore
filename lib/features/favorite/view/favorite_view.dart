@@ -7,9 +7,12 @@ import 'package:kartal/kartal.dart';
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/extansions/string_extansion.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
+import '../../../core/init/network/service/network_service.dart';
 import '../../../core/utils/dialog_widget.dart';
+import '../../../core/widgets/button/button.dart';
 import '../../../core/widgets/info/empty_info_widget.dart';
 import '../../../core/widgets/loading/loading.dart';
+import '../../cart/bloc/cart_bloc.dart';
 import '../../error/view/error_view.dart';
 import '../../product/blocs/products/products_bloc.dart';
 import '../../product/model/products/products_model.dart';
@@ -23,6 +26,8 @@ class FavoriteView extends StatefulWidget {
 }
 
 class _FavoriteViewState extends State<FavoriteView> {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final manager = NetworkService.instance.networkManager;
   List<ProductsModel?> products = [];
   @override
   Widget build(BuildContext context) {
@@ -119,6 +124,15 @@ class _FavoriteViewState extends State<FavoriteView> {
                           '${products[favList[index] - 1]!.price} ₺',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
+                        IconButtonWidget(
+                            iColor: ColorConstants.primaryColor,
+                            icon: Icons.shopping_basket_rounded,
+                            onPress: () => context.read<CartBloc>().add(
+                                CartEvent.add(
+                                    manager: manager,
+                                    scaffoldKey: scaffoldKey,
+                                    productId:
+                                        products[favList[index] - 1]!.id!)))
                       ],
                     ),
                   ],

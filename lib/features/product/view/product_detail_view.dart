@@ -7,13 +7,16 @@ import 'package:kartal/kartal.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/constants/app/image_constants.dart';
+import '../../../core/enums/checkout_enums.dart';
 import '../../../core/extansions/string_extansion.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
+import '../../../core/init/routes/routes.gr.dart';
 import '../../../core/mock/model/review/mock_reviews_model.dart';
 import '../../../core/utils/custom_error_widgets.dart';
 import '../../../core/widgets/button/button.dart';
 import '../../../core/widgets/loading/loading.dart';
 import '../../cart/bloc/cart_bloc.dart';
+import '../../cart/model/cart_model.dart';
 import '../../error/view/error_view.dart';
 import '../../favorite/bloc/favorite_bloc.dart';
 import '../blocs/product/product_bloc.dart';
@@ -32,6 +35,8 @@ class ProductDetailView extends StatefulWidget {
 }
 
 class _ProductDetailViewState extends State<ProductDetailView> {
+  List<CartModel> cModel = [];
+
   ValueNotifier<bool> showReviews = ValueNotifier(false);
   @override
   void initState() {
@@ -288,20 +293,35 @@ class _ProductDetailViewState extends State<ProductDetailView> {
             ),
             BlocBuilder<CartBloc, CartState>(builder: (context, stateCart) {
               return EButtonWidget(
-                  //TODO control add to cart
                   loading: stateCart is CartLoading,
                   text: stateCart.maybeWhen(
-                    loaded: (cartModel) =>
-                        cartModel.last.products.first.productId == widget.id
-                            ? "Sepette"
-                            : LocaleKeys.home_productDet_buttonText.locale,
+                    loaded: (cartModel) {
+                      cModel = cartModel;
+                      return cModel.last.products.first.productId == widget.id
+                          ? LocaleKeys.cart_buttonText.locale
+                          : LocaleKeys.home_productDet_buttonText.locale;
+                    },
                     orElse: () => LocaleKeys.home_productDet_buttonText.locale,
                   ),
                   onPress: () {
-                    context.read<CartBloc>().add(CartEvent.add(
-                        manager: widget.manager,
-                        scaffoldKey: widget.scaffoldKey,
-                        productId: widget.id));
+                    stateCart.maybeWhen(
+                      loaded: (cartModel) {
+                        if (cModel.last.products.first.productId == widget.id) {
+                          context.read<CartBloc>().add(CartEvent.checkout(
+                              checkoutState: CheckoutStateEnum.delivery));
+                          context.router.push(const Checkout());
+                        } else {
+                          context.read<CartBloc>().add(CartEvent.add(
+                              manager: widget.manager,
+                              scaffoldKey: widget.scaffoldKey,
+                              productId: widget.id));
+                        }
+                      },
+                      orElse: () => context.read<CartBloc>().add(CartEvent.add(
+                          manager: widget.manager,
+                          scaffoldKey: widget.scaffoldKey,
+                          productId: widget.id)),
+                    );
                   },
                   width: 125);
             })

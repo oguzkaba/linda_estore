@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import '../../extansions/string_extansion.dart';
 import 'locale_keys.g.dart';
 

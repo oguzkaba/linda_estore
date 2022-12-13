@@ -4,13 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/enums/checkout_enums.dart';
-import 'package:linda_wedding_ecommerce/features/cart/bloc/cart_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
+import '../../../../core/enums/checkout_enums.dart';
+import '../../../../core/extansions/asset_extansion.dart';
 import '../../../../core/extansions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
+import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../core/widgets/button/button.dart';
+import '../../../../core/widgets/loading/loading.dart';
+import '../../bloc/cart_bloc.dart';
 
 class Checkout extends StatefulWidget {
   const Checkout({super.key});
@@ -28,6 +32,7 @@ class _CheckoutState extends State<Checkout> {
   bool useGlassMorphism = false;
   bool useBackgroundImage = false;
   OutlineInputBorder? border;
+  CheckoutStateEnum cState = CheckoutStateEnum.delivery;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -50,20 +55,27 @@ class _CheckoutState extends State<Checkout> {
             centerTitle: true),
         body: BlocBuilder<CartBloc, CartState>(
           builder: (context, state) {
-            state.whenOrNull(
-                checkout: (checkoutState) => Stepper(
-                      controlsBuilder: (context, details) =>
-                          context.emptySizedHeightBoxHigh,
-                      currentStep: checkoutState.idx,
-                      elevation: 1,
-                      type: StepperType.horizontal,
-                      steps: [
-                        _buildDeliveryStep(context),
-                        _buildAddressStep(context),
-                        _buildPaymentStep(context),
-                      ],
-                    ));
-            return context.emptySizedHeightBoxHigh;
+            return state.maybeWhen(
+              loading: () =>
+                  const LoadingIndicatorWidget(lottieName: 'cart_loading'),
+              checkout: (checkoutState) {
+                cState = checkoutState;
+                return Stepper(
+                  controlsBuilder: (context, details) =>
+                      context.emptySizedHeightBoxHigh,
+                  currentStep: cState.idx,
+                  elevation: 1,
+                  type: StepperType.horizontal,
+                  steps: [
+                    _buildDeliveryStep(context),
+                    _buildAddressStep(context),
+                    _buildPaymentStep(context),
+                    _buildCompleteStep(context),
+                  ],
+                );
+              },
+              orElse: () => context.emptySizedHeightBoxHigh,
+            );
           },
         ),
         bottomNavigationBar: Container(
@@ -81,7 +93,8 @@ class _CheckoutState extends State<Checkout> {
             height: 60,
             child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               EButtonWidget(
-                onPress: () => context.router.pop(),
+                onPress: () => context.router
+                    .push(DashboardRouter(children: [CartView()])),
                 text: 'Cancel',
                 height: 40,
                 width: 125,
@@ -91,8 +104,23 @@ class _CheckoutState extends State<Checkout> {
               ),
               context.emptySizedWidthBoxLow,
               EButtonWidget(
-                onPress: () => context.read<CartBloc>().add(CartEvent.checkout(
-                    checkoutState: CheckoutStateEnum.delivery)),
+                onPress: () {
+                  switch (cState) {
+                    case CheckoutStateEnum.delivery:
+                      context.read<CartBloc>().add(CartEvent.checkout(
+                          checkoutState: CheckoutStateEnum.adress));
+                      break;
+                    case CheckoutStateEnum.adress:
+                      context.read<CartBloc>().add(CartEvent.checkout(
+                          checkoutState: CheckoutStateEnum.payment));
+                      break;
+                    case CheckoutStateEnum.payment:
+                      context.read<CartBloc>().add(CartEvent.checkout(
+                          checkoutState: CheckoutStateEnum.success));
+                      break;
+                    default:
+                  }
+                },
                 text: 'Continue',
                 height: 40,
                 width: 125,
@@ -102,7 +130,8 @@ class _CheckoutState extends State<Checkout> {
 
   Step _buildPaymentStep(BuildContext context) {
     return Step(
-        state: StepState.indexed,
+        isActive: cState.idx == 2,
+        state: cState.idx > 2 ? StepState.complete : StepState.indexed,
         title: const Text(''),
         content: Column(
           children: [
@@ -163,7 +192,8 @@ class _CheckoutState extends State<Checkout> {
 
   Step _buildAddressStep(BuildContext context) {
     return Step(
-        state: StepState.indexed,
+        isActive: cState.idx == 1,
+        state: cState.idx > 1 ? StepState.complete : StepState.indexed,
         title: const Text(''),
         content: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -180,13 +210,13 @@ class _CheckoutState extends State<Checkout> {
                 selected: false),
           ],
         ),
-        isActive: false,
         label: const Text('Address'));
   }
 
   Step _buildDeliveryStep(BuildContext context) {
     return Step(
-        state: StepState.indexed,
+        isActive: cState.idx == 0,
+        state: cState.idx > 0 ? StepState.complete : StepState.indexed,
         title: const Text(''),
         content: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -207,8 +237,16 @@ class _CheckoutState extends State<Checkout> {
                 selected: false)
           ],
         ),
-        isActive: true,
         label: const Text('Delivery'));
+  }
+
+  Step _buildCompleteStep(BuildContext context) {
+    return Step(
+        state: cState.idx == 3 ? StepState.complete : StepState.indexed,
+        title: const Text(''),
+        content: Center(child: Lottie.asset('payment'.toLottie, repeat: false)),
+        isActive: cState.idx == 3,
+        label: const Text('Success'));
   }
 
   Widget _buildListTile(BuildContext context,
