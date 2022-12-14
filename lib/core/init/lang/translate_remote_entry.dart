@@ -1,4 +1,4 @@
-import '../../extansions/string_extansion.dart';
+import '../../extensions/string_extansion.dart';
 import 'locale_keys.g.dart';
 
 String translateCategory(String catName) {

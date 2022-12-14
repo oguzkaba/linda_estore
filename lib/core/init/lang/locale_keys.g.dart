@@ -1,8 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-// ignore_for_file: constant_identifier_names
-
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const splash_appName = 'splash.appName';
   static const splash = 'splash';
   static const currency = 'currency';
@@ -75,6 +73,38 @@ abstract class LocaleKeys {
   static const cart_alert_buttonText = 'cart.alert.buttonText';
   static const cart_alert_button2Text = 'cart.alert.button2Text';
   static const cart_alert = 'cart.alert';
+  static const cart_checkout_title = 'cart.checkout.title';
+  static const cart_checkout_delivery_title = 'cart.checkout.delivery.title';
+  static const cart_checkout_delivery_opt1_title = 'cart.checkout.delivery.opt1.title';
+  static const cart_checkout_delivery_opt1_content = 'cart.checkout.delivery.opt1.content';
+  static const cart_checkout_delivery_opt1 = 'cart.checkout.delivery.opt1';
+  static const cart_checkout_delivery_opt2_title = 'cart.checkout.delivery.opt2.title';
+  static const cart_checkout_delivery_opt2_content = 'cart.checkout.delivery.opt2.content';
+  static const cart_checkout_delivery_opt2 = 'cart.checkout.delivery.opt2';
+  static const cart_checkout_delivery_opt3_title = 'cart.checkout.delivery.opt3.title';
+  static const cart_checkout_delivery_opt3_content = 'cart.checkout.delivery.opt3.content';
+  static const cart_checkout_delivery_opt3 = 'cart.checkout.delivery.opt3';
+  static const cart_checkout_delivery = 'cart.checkout.delivery';
+  static const cart_checkout_adress_title = 'cart.checkout.adress.title';
+  static const cart_checkout_adress_opt1_title = 'cart.checkout.adress.opt1.title';
+  static const cart_checkout_adress_opt1_content = 'cart.checkout.adress.opt1.content';
+  static const cart_checkout_adress_opt1 = 'cart.checkout.adress.opt1';
+  static const cart_checkout_adress_opt2_title = 'cart.checkout.adress.opt2.title';
+  static const cart_checkout_adress_opt2_content = 'cart.checkout.adress.opt2.content';
+  static const cart_checkout_adress_opt2 = 'cart.checkout.adress.opt2';
+  static const cart_checkout_adress_opt3_title = 'cart.checkout.adress.opt3.title';
+  static const cart_checkout_adress_opt3_content = 'cart.checkout.adress.opt3.content';
+  static const cart_checkout_adress_opt3 = 'cart.checkout.adress.opt3';
+  static const cart_checkout_adress = 'cart.checkout.adress';
+  static const cart_checkout_payment_title = 'cart.checkout.payment.title';
+  static const cart_checkout_payment_saveCard = 'cart.checkout.payment.saveCard';
+  static const cart_checkout_payment = 'cart.checkout.payment';
+  static const cart_checkout_success_title = 'cart.checkout.success.title';
+  static const cart_checkout_success_message = 'cart.checkout.success.message';
+  static const cart_checkout_success = 'cart.checkout.success';
+  static const cart_checkout_buttonText = 'cart.checkout.buttonText';
+  static const cart_checkout_button2Text = 'cart.checkout.button2Text';
+  static const cart_checkout = 'cart.checkout';
   static const cart = 'cart';
   static const favorites_topTitle = 'favorites.topTitle';
   static const favorites_emptyTitle = 'favorites.emptyTitle';
@@ -87,83 +117,51 @@ abstract class LocaleKeys {
   static const account_topTitle = 'account.topTitle';
   static const account_demoUser = 'account.demoUser';
   static const account_demoMail = 'account.demoMail';
-  static const account_action_editProfile_title =
-      'account.action.editProfile.title';
-  static const account_action_editProfile_buttonText =
-      'account.action.editProfile.buttonText';
-  static const account_action_editProfile_tfieldEmailHint =
-      'account.action.editProfile.tfieldEmailHint';
-  static const account_action_editProfile_tfieldPassHint =
-      'account.action.editProfile.tfieldPassHint';
-  static const account_action_editProfile_tfieldPass2Hint =
-      'account.action.editProfile.tfieldPass2Hint';
+  static const account_action_editProfile_title = 'account.action.editProfile.title';
+  static const account_action_editProfile_buttonText = 'account.action.editProfile.buttonText';
+  static const account_action_editProfile_tfieldEmailHint = 'account.action.editProfile.tfieldEmailHint';
+  static const account_action_editProfile_tfieldPassHint = 'account.action.editProfile.tfieldPassHint';
+  static const account_action_editProfile_tfieldPass2Hint = 'account.action.editProfile.tfieldPass2Hint';
   static const account_action_editProfile = 'account.action.editProfile';
   static const account_action_shipping = 'account.action.shipping';
   static const account_action_order = 'account.action.order';
-  static const account_action_trackOrder_title =
-      'account.action.trackOrder.title';
-  static const account_action_trackOrder_emptyTitle =
-      'account.action.trackOrder.emptyTitle';
+  static const account_action_trackOrder_title = 'account.action.trackOrder.title';
+  static const account_action_trackOrder_emptyTitle = 'account.action.trackOrder.emptyTitle';
   static const account_action_trackOrder = 'account.action.trackOrder';
   static const account_action_cards_title = 'account.action.cards.title';
-  static const account_action_cards_buttonText =
-      'account.action.cards.buttonText';
-  static const account_action_cards_editCard_title =
-      'account.action.cards.editCard.title';
-  static const account_action_cards_editCard_buttonText =
-      'account.action.cards.editCard.buttonText';
-  static const account_action_cards_editCard_button2Text =
-      'account.action.cards.editCard.button2Text';
-  static const account_action_cards_editCard_tfieldCardNoHint =
-      'account.action.cards.editCard.tfieldCardNoHint';
-  static const account_action_cards_editCard_tfieldDateHint =
-      'account.action.cards.editCard.tfieldDateHint';
-  static const account_action_cards_editCard_tfieldCVVHint =
-      'account.action.cards.editCard.tfieldCVVHint';
-  static const account_action_cards_editCard_tfieldCardHolderHint =
-      'account.action.cards.editCard.tfieldCardHolderHint';
+  static const account_action_cards_buttonText = 'account.action.cards.buttonText';
+  static const account_action_cards_editCard_title = 'account.action.cards.editCard.title';
+  static const account_action_cards_editCard_buttonText = 'account.action.cards.editCard.buttonText';
+  static const account_action_cards_editCard_button2Text = 'account.action.cards.editCard.button2Text';
+  static const account_action_cards_editCard_tfieldCardNoHint = 'account.action.cards.editCard.tfieldCardNoHint';
+  static const account_action_cards_editCard_tfieldDateHint = 'account.action.cards.editCard.tfieldDateHint';
+  static const account_action_cards_editCard_tfieldCVVHint = 'account.action.cards.editCard.tfieldCVVHint';
+  static const account_action_cards_editCard_tfieldCardHolderHint = 'account.action.cards.editCard.tfieldCardHolderHint';
   static const account_action_cards_editCard = 'account.action.cards.editCard';
   static const account_action_cards = 'account.action.cards';
   static const account_action_notif = 'account.action.notif';
   static const account_action_appSet_title = 'account.action.appSet.title';
-  static const account_action_appSet_viewOption_title =
-      'account.action.appSet.viewOption.title';
-  static const account_action_appSet_viewOption_language =
-      'account.action.appSet.viewOption.language';
-  static const account_action_appSet_viewOption_darkMode =
-      'account.action.appSet.viewOption.darkMode';
-  static const account_action_appSet_viewOption_lightMode =
-      'account.action.appSet.viewOption.lightMode';
-  static const account_action_appSet_viewOption =
-      'account.action.appSet.viewOption';
-  static const account_action_appSet_security_title =
-      'account.action.appSet.security.title';
-  static const account_action_appSet_security_changePass =
-      'account.action.appSet.security.changePass';
-  static const account_action_appSet_security_fingerprint =
-      'account.action.appSet.security.fingerprint';
-  static const account_action_appSet_security =
-      'account.action.appSet.security';
-  static const account_action_appSet_other_title =
-      'account.action.appSet.other.title';
-  static const account_action_appSet_other_versionControl =
-      'account.action.appSet.other.versionControl';
-  static const account_action_appSet_other_manageAccount =
-      'account.action.appSet.other.manageAccount';
-  static const account_action_appSet_other_about =
-      'account.action.appSet.other.about';
-  static const account_action_appSet_policies_title =
-      'account.action.appSet.policies.title';
-  static const account_action_appSet_policies_priAndpol =
-      'account.action.appSet.policies.priAndpol';
-  static const account_action_appSet_policies_terms =
-      'account.action.appSet.policies.terms';
-  static const account_action_appSet_policies_help =
-      'account.action.appSet.policies.help';
-  static const account_action_appSet_policies =
-      'account.action.appSet.policies';
+  static const account_action_appSet_viewOption_title = 'account.action.appSet.viewOption.title';
+  static const account_action_appSet_viewOption_language = 'account.action.appSet.viewOption.language';
+  static const account_action_appSet_viewOption_darkMode = 'account.action.appSet.viewOption.darkMode';
+  static const account_action_appSet_viewOption_lightMode = 'account.action.appSet.viewOption.lightMode';
+  static const account_action_appSet_viewOption = 'account.action.appSet.viewOption';
+  static const account_action_appSet_security_title = 'account.action.appSet.security.title';
+  static const account_action_appSet_security_changePass = 'account.action.appSet.security.changePass';
+  static const account_action_appSet_security_fingerprint = 'account.action.appSet.security.fingerprint';
+  static const account_action_appSet_security = 'account.action.appSet.security';
+  static const account_action_appSet_other_title = 'account.action.appSet.other.title';
+  static const account_action_appSet_other_versionControl = 'account.action.appSet.other.versionControl';
+  static const account_action_appSet_other_manageAccount = 'account.action.appSet.other.manageAccount';
+  static const account_action_appSet_other_about = 'account.action.appSet.other.about';
+  static const account_action_appSet_policies_title = 'account.action.appSet.policies.title';
+  static const account_action_appSet_policies_priAndpol = 'account.action.appSet.policies.priAndpol';
+  static const account_action_appSet_policies_terms = 'account.action.appSet.policies.terms';
+  static const account_action_appSet_policies_help = 'account.action.appSet.policies.help';
+  static const account_action_appSet_policies = 'account.action.appSet.policies';
   static const account_action_appSet = 'account.action.appSet';
   static const account_action_logout = 'account.action.logout';
   static const account_action = 'account.action';
   static const account = 'account';
+
 }

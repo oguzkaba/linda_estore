@@ -6,7 +6,7 @@ import 'package:settings_ui/settings_ui.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/enums/language_enum.dart';
-import '../../../../core/extansions/string_extansion.dart';
+import '../../../../core/extensions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/themes/cubit/theme_cubit.dart';
 import '../../../../core/widgets/button/iconbutton_widget.dart';

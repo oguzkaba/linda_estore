@@ -83,6 +83,49 @@
             "content": "Are you sure you want to delete this product?",
             "buttonText": "Delete",
             "button2Text": "Cancel"
+        },
+        "checkout": {
+            "title": "Checkout",
+            "delivery": {
+                "title": "Delivery",
+                "opt1": {
+                    "title": "Standart Delivery",
+                    "content": "Order will be delivered between 3-5 business days"
+                },
+                "opt2": {
+                    "title": "Next Day Delivery",
+                    "content": "Place your order before 6pm and your items will be delivered the next day"
+                },
+                "opt3": {
+                    "title": "Nominated Delivery",
+                    "content": "Pick a particular date from the calendar and order will be delivered on selected"
+                }
+            },
+            "adress": {
+                "title": "Adress",
+                "opt1": {
+                    "title": "Home",
+                    "content": "76614 Gulseth Lane"
+                },
+                "opt2": {
+                    "title": "Work",
+                    "content": "555 Pierstorff Junction"
+                },
+                "opt3": {
+                    "title": "Other",
+                    "content": "3848 Farmco Crossing"
+                }
+            },
+            "payment": {
+                "title": "Payment",
+                "saveCard": "Save this card details"
+            },
+            "success": {
+                "title": "Success",
+                "message": "Payment Successful"
+            },
+            "buttonText": "Continue",
+            "button2Text": "Cancel"
         }
     },
     "favorites": {

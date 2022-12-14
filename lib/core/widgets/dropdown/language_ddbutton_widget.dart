@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 
 import '../../enums/language_enum.dart';
-import '../../extansions/asset_extansion.dart';
+import '../../extensions/asset_extansion.dart';
 import '../../init/lang/cubit/language_cubit.dart';
 import '../../init/lang/lang_manager.dart';
 

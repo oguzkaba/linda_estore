@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../core/extansions/asset_extansion.dart';
+import '../../../core/extensions/asset_extansion.dart';
 
 class ErrorView extends StatelessWidget {
   final String errorText;

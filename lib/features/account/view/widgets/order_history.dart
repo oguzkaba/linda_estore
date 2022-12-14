@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
-import '../../../../core/extansions/string_extansion.dart';
+import '../../../../core/extensions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/network/service/network_service.dart';
 import '../../../../core/init/routes/routes.gr.dart';
@@ -114,8 +114,8 @@ class _OrderHistoryState extends State<OrderHistory> {
                         style: Theme.of(context).textTheme.labelMedium),
                     GestureDetector(
                       onTap: () {
-                        context.router.push(DashboardRouter(
-                            children: [CartView(cartModel: cartModel[index])]));
+                        context.router
+                            .push(DashboardRouter(children: [CartView()]));
                       },
                       child: Card(
                           margin: const EdgeInsets.only(top: 10),
@@ -204,8 +204,7 @@ class _OrderHistoryState extends State<OrderHistory> {
       {CartModel? cartModel, int? productId, bool more = false}) {
     return GestureDetector(
       onTap: () => more
-          ? context.router
-              .push(DashboardRouter(children: [CartView(cartModel: cartModel)]))
+          ? context.router.push(DashboardRouter(children: [CartView()]))
           : context.router.push(ProductDetailView(
               id: productId!,
               manager: NetworkService.instance.networkManager,

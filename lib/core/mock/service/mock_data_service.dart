@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import '../../extansions/asset_extansion.dart';
+import '../../extensions/asset_extansion.dart';
 import '../model/review/mock_reviews_model.dart';
 
 class MockDataService {

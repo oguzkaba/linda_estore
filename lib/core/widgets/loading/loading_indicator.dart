@@ -6,7 +6,7 @@ import 'package:kartal/kartal.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../constants/app/colors_constants.dart';
-import '../../extansions/asset_extansion.dart';
+import '../../extensions/asset_extansion.dart';
 import '../../init/themes/cubit/theme_cubit.dart';
 
 class LoadingIndicatorWidget extends StatelessWidget {

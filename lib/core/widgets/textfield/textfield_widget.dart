@@ -3,7 +3,7 @@ import 'package:gradient_borders/gradient_borders.dart';
 import 'package:kartal/kartal.dart';
 
 import '../../constants/app/colors_constants.dart';
-import '../../extansions/string_extansion.dart';
+import '../../extensions/string_extansion.dart';
 import '../../init/lang/locale_keys.g.dart';
 
 class TextFieldWidget extends StatefulWidget {

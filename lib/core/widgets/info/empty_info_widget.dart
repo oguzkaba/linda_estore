@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../extansions/asset_extansion.dart';
+import '../../extensions/asset_extansion.dart';
 
 class EmptyInfoWidget extends StatelessWidget {
   final String? text;

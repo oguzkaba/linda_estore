@@ -1,15 +1,17 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/core/init/lang/lang_manager.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/enums/checkout_enums.dart';
-import '../../../../core/extansions/asset_extansion.dart';
-import '../../../../core/extansions/string_extansion.dart';
+import '../../../../core/extensions/asset_extansion.dart';
+import '../../../../core/extensions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../core/widgets/button/button.dart';
@@ -39,7 +41,7 @@ class _CheckoutState extends State<Checkout> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text('Checkout',
+            title: Text(LocaleKeys.cart_checkout_title.locale,
                 style: TextStyle(color: ColorConstants.myBlack)),
             leading: Padding(
               padding: const EdgeInsets.all(4.0),
@@ -70,7 +72,7 @@ class _CheckoutState extends State<Checkout> {
                     _buildDeliveryStep(context),
                     _buildAddressStep(context),
                     _buildPaymentStep(context),
-                    _buildCompleteStep(context),
+                    _buildSuccessStep(context),
                   ],
                 );
               },
@@ -95,7 +97,7 @@ class _CheckoutState extends State<Checkout> {
               EButtonWidget(
                 onPress: () => context.router
                     .push(DashboardRouter(children: [CartView()])),
-                text: 'Cancel',
+                text: LocaleKeys.cart_checkout_button2Text.locale,
                 height: 40,
                 width: 125,
                 bgColor: ColorConstants.myWhite,
@@ -121,11 +123,63 @@ class _CheckoutState extends State<Checkout> {
                     default:
                   }
                 },
-                text: 'Continue',
+                text: LocaleKeys.cart_checkout_buttonText.locale,
                 height: 40,
                 width: 125,
               ),
             ])));
+  }
+
+  Step _buildDeliveryStep(BuildContext context) {
+    return Step(
+        isActive: cState.idx == 0,
+        state: cState.idx > 0 ? StepState.complete : StepState.indexed,
+        title: const Text(''),
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildListTile(context,
+                title: LocaleKeys.cart_checkout_delivery_opt1_title.locale,
+                subTitle: LocaleKeys.cart_checkout_delivery_opt1_content.locale,
+                selected: true),
+            _buildListTile(context,
+                title: LocaleKeys.cart_checkout_delivery_opt2_title.locale,
+                subTitle: LocaleKeys.cart_checkout_delivery_opt2_content.locale,
+                selected: false),
+            _buildListTile(context,
+                title: LocaleKeys.cart_checkout_delivery_opt2_title.locale,
+                subTitle: LocaleKeys.cart_checkout_delivery_opt3_content.locale,
+                selected: false)
+          ],
+        ),
+        label: Text(LocaleKeys.cart_checkout_delivery_title.locale,
+            style: Theme.of(context).textTheme.bodySmall));
+  }
+
+  Step _buildAddressStep(BuildContext context) {
+    return Step(
+        isActive: cState.idx == 1,
+        state: cState.idx > 1 ? StepState.complete : StepState.indexed,
+        title: const Text(''),
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildListTile(context,
+                title: LocaleKeys.cart_checkout_adress_opt1_title.locale,
+                subTitle: LocaleKeys.cart_checkout_adress_opt1_content.locale,
+                selected: true),
+            _buildListTile(context,
+                title: LocaleKeys.cart_checkout_adress_opt2_title.locale,
+                subTitle: LocaleKeys.cart_checkout_adress_opt2_content.locale,
+                selected: false),
+            _buildListTile(context,
+                title: LocaleKeys.cart_checkout_adress_opt3_title.locale,
+                subTitle: LocaleKeys.cart_checkout_adress_opt3_content.locale,
+                selected: false),
+          ],
+        ),
+        label: Text(LocaleKeys.cart_checkout_adress_title.locale,
+            style: Theme.of(context).textTheme.bodySmall));
   }
 
   Step _buildPaymentStep(BuildContext context) {
@@ -180,73 +234,32 @@ class _CheckoutState extends State<Checkout> {
                 ),
                 context.emptySizedWidthBoxLow,
                 Text(
-                  'Save this card details',
+                  LocaleKeys.cart_checkout_payment_saveCard.locale,
                   style: Theme.of(context).textTheme.bodySmall,
                 )
               ]),
             )
           ],
         ),
-        label: const Text('Payment'));
+        label: Text(LocaleKeys.cart_checkout_payment_title.locale,
+            style: Theme.of(context).textTheme.bodySmall));
   }
 
-  Step _buildAddressStep(BuildContext context) {
-    return Step(
-        isActive: cState.idx == 1,
-        state: cState.idx > 1 ? StepState.complete : StepState.indexed,
-        title: const Text(''),
-        content: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildListTile(context,
-                title: 'Home', subTitle: '76614 Gulseth Lane', selected: true),
-            _buildListTile(context,
-                title: 'Work',
-                subTitle: '555 Pierstorff Junction',
-                selected: false),
-            _buildListTile(context,
-                title: 'Other',
-                subTitle: '3848 Farmco Crossing',
-                selected: false),
-          ],
-        ),
-        label: const Text('Address'));
-  }
-
-  Step _buildDeliveryStep(BuildContext context) {
-    return Step(
-        isActive: cState.idx == 0,
-        state: cState.idx > 0 ? StepState.complete : StepState.indexed,
-        title: const Text(''),
-        content: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildListTile(context,
-                title: 'Standart Delivery',
-                subTitle: 'Order will be delivered between 3-5 business days',
-                selected: true),
-            _buildListTile(context,
-                title: 'Next Day Delivery',
-                subTitle:
-                    'Place your order before 6pm and your items will be delivered the next day',
-                selected: false),
-            _buildListTile(context,
-                title: 'Nominated Delivery',
-                subTitle:
-                    'Pick a particular date from the calendar and order will be delivered on selected',
-                selected: false)
-          ],
-        ),
-        label: const Text('Delivery'));
-  }
-
-  Step _buildCompleteStep(BuildContext context) {
+  Step _buildSuccessStep(BuildContext context) {
     return Step(
         state: cState.idx == 3 ? StepState.complete : StepState.indexed,
         title: const Text(''),
-        content: Center(child: Lottie.asset('payment'.toLottie, repeat: false)),
+        content: Center(
+            child: Column(children: [
+          Lottie.asset('payment'.toLottie, repeat: false, height: 300),
+          FadeIn(
+              duration: context.durationNormal,
+              child: Text(LocaleKeys.cart_checkout_success_message.locale,
+                  style: Theme.of(context).textTheme.titleMedium))
+        ])),
         isActive: cState.idx == 3,
-        label: const Text('Success'));
+        label: Text(LocaleKeys.cart_checkout_success_title.locale,
+            style: Theme.of(context).textTheme.bodySmall));
   }
 
   Widget _buildListTile(BuildContext context,

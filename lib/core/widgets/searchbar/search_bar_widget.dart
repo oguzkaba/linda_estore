@@ -5,7 +5,7 @@ import 'package:kartal/kartal.dart';
 
 import '../../../features/product/model/products/products_model.dart';
 import '../../constants/app/colors_constants.dart';
-import '../../extansions/string_extansion.dart';
+import '../../extensions/string_extansion.dart';
 import '../../init/lang/locale_keys.g.dart';
 import '../../init/network/service/network_service.dart';
 import '../../init/routes/routes.gr.dart';

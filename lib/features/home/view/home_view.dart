@@ -2,15 +2,16 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/init/routes/routes.gr.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
-import '../../../core/extansions/string_extansion.dart';
+import '../../../core/extensions/string_extansion.dart';
+import '../../../core/extensions/widget_extansion.dart';
 import '../../../core/init/lang/cubit/language_cubit.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../core/init/lang/translate_remote_entry.dart';
 import '../../../core/init/network/service/network_service.dart';
+import '../../../core/init/routes/routes.gr.dart';
 import '../../../core/init/themes/cubit/theme_cubit.dart';
 import '../../../core/utils/custom_error_widgets.dart';
 import '../../../core/widgets/button/button.dart';
@@ -113,9 +114,9 @@ class _HomeViewState extends State<HomeView> {
                 loaded: (products, productsByCat, isFilterCat) => isFilterCat
                     ? _buildGridProducts(context, productsByCat)
                     : _buildGridProducts(context, products),
-                error: (error) => SliverToBoxAdapter(
-                    child:
-                        ErrorView(errorText: LocaleKeys.error_error.locale)));
+                error: (error) =>
+                    ErrorView(errorText: LocaleKeys.error_error.locale)
+                        .toSliver);
           },
         )
       ]);

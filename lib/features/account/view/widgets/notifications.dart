@@ -5,7 +5,7 @@ import 'package:kartal/kartal.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
 import '../../../../core/constants/app/image_constants.dart';
-import '../../../../core/extansions/string_extansion.dart';
+import '../../../../core/extensions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/widgets/button/iconbutton_widget.dart';
 

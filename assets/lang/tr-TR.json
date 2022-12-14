@@ -83,6 +83,49 @@
             "content": "Bu ürünü silmek istediğinizden emin misiniz?",
             "buttonText": "Sil",
             "button2Text": "Vazgeç"
+        }, 
+        "checkout": {
+            "title": "Ödeme",
+            "delivery": {
+                "title": "Teslimat",
+                "opt1": {
+                    "title": "Standart Teslimat",
+                    "content": "Sipariş 3-5 iş günü arasında teslim edilecektir"
+                },
+                "opt2": {
+                    "title": "Ertesi Gün Teslimat",
+                    "content": "Siparişinizi 18:00'a kadar verin, ürünleriniz ertesi gün teslim edilsin"
+                },
+                "opt3": {
+                    "title": "Belirlenen Teslimat",
+                    "content": "Takvimden belirli bir tarih seçin, siparişiniz seçilen tarihte teslim edilecektir"
+                }
+            },
+            "adress": {
+                "title": "Adres",
+                "opt1": {
+                    "title": "Ev",
+                    "content": "76614 Gülşen Sokağı"
+                },
+                "opt2": {
+                    "title": "İş",
+                    "content": "555 Pierstorff Kavşağı"
+                },
+                "opt3": {
+                    "title": "Diğer",
+                    "content": "3848 Farmco Geçişi"
+                }
+            },
+            "payment": {
+                "title": "Ödeme",
+                "saveCard": "Bu kart ayrıntılarını kaydet"
+            },
+            "success": {
+                "title": "Başarılı",
+                "message": "Ödeme Başarılı"
+            },
+            "buttonText": "Devam",
+            "button2Text": "İptal"
         }
     },
     "favorites": {

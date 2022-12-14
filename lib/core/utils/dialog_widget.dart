@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app/colors_constants.dart';
-import '../extansions/string_extansion.dart';
+import '../extensions/string_extansion.dart';
 import '../init/lang/locale_keys.g.dart';
 
 class CustomDialogWidget {

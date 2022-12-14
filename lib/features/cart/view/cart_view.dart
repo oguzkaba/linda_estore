@@ -3,18 +3,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/enums/checkout_enums.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
-import '../../../core/extansions/string_extansion.dart';
+import '../../../core/enums/checkout_enums.dart';
+import '../../../core/extensions/string_extansion.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../core/init/network/service/network_service.dart';
 import '../../../core/init/routes/routes.gr.dart';
 import '../../../core/utils/custom_error_widgets.dart';
 import '../../../core/utils/dialog_widget.dart';
 import '../../../core/widgets/button/ebutton_widget.dart';
-import '../../../core/widgets/info/empty_info_widget.dart';
 import '../../../core/widgets/button/iconbutton_widget.dart';
+import '../../../core/widgets/info/empty_info_widget.dart';
 import '../../../core/widgets/loading/loading.dart';
 import '../../../core/widgets/textfield/textfield_widget.dart';
 import '../../error/view/error_view.dart';
@@ -24,8 +24,7 @@ import '../bloc/cart_bloc.dart';
 import '../model/cart_model.dart';
 
 class CartView extends StatefulWidget {
-  final CartModel? cartModel;
-  const CartView({super.key, this.cartModel});
+  const CartView({super.key});
 
   @override
   State<CartView> createState() => _CartViewState();
@@ -56,10 +55,7 @@ class _CartViewState extends State<CartView> {
         loading: () =>
             const LoadingIndicatorWidget(lottieName: 'order_loading'),
         loaded: (cartModel) => cartModel.isNullOrEmpty
-            ? EmptyInfoWidget(
-                lottieSrc: 'empty_order',
-                underText:
-                    LocaleKeys.account_action_trackOrder_emptyTitle.locale)
+            ? const LoadingIndicatorWidget(lottieName: 'cart_empty')
             : _buildCartLoaded(cartModel.last),
         error: (error) => ErrorView(errorText: error.toString()),
         orElse: () => context.emptySizedHeightBoxLow,
@@ -183,7 +179,7 @@ class _CartViewState extends State<CartView> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                '${products[cartModel.products[index].productId - 1]!.price} ₺',
+                                                '${products[cartModel.products[index].productId - 1]!.price} ${LocaleKeys.currency.locale}',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleMedium,
@@ -251,7 +247,7 @@ class _CartViewState extends State<CartView> {
                                     Text(LocaleKeys.cart_subTotal.locale),
                                     const Expanded(child: Divider()),
                                     Text(
-                                        '${(total * .82).toStringAsFixed(2)} ₺',
+                                        '${(total * .82).toStringAsFixed(2)} ${LocaleKeys.currency.locale}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall)
@@ -262,7 +258,7 @@ class _CartViewState extends State<CartView> {
                                     Text(LocaleKeys.cart_tax.locale),
                                     const Expanded(child: Divider()),
                                     Text(
-                                        '${(total * .18).toStringAsFixed(2)} ₺',
+                                        '${(total * .18).toStringAsFixed(2)} ${LocaleKeys.currency.locale}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall)
@@ -317,7 +313,7 @@ class _CartViewState extends State<CartView> {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 Text(
-                  '${total.toStringAsFixed(2)} ₺',
+                  '${total.toStringAsFixed(2)} ${LocaleKeys.currency.locale}',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ],

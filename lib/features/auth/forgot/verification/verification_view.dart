@@ -4,7 +4,7 @@ import 'package:kartal/kartal.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
-import '../../../../core/extansions/string_extansion.dart';
+import '../../../../core/extensions/string_extansion.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/routes/routes.gr.dart';
 import '../../../../core/widgets/text/text.dart';

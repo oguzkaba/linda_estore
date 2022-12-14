@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
-import '../../../core/extansions/string_extansion.dart';
+import '../../../core/extensions/string_extansion.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
 import '../../favorite/bloc/favorite_bloc.dart';
 
@@ -35,7 +35,7 @@ class Dashboard extends StatelessWidget {
           loaded: (favList) => AutoTabsScaffold(
                 routes: [
                   const HomeView(),
-                  CartView(cartModel: null),
+                  CartView(),
                   const FavoriteView(),
                   const AccountView()
                 ],

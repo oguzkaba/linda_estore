@@ -83,6 +83,49 @@
       "content": "是否确实要删除此产品？",
       "buttonText": "删除",
       "button2Text": "取消"
+    },
+    "checkout": {
+      "title": "結算",
+      "delivery": {
+        "title": "交貨",
+        "opt1": {
+          "title": "標準交付",
+          "content": "訂單將在 3-5 個工作日內送達"
+        },
+        "opt2": {
+          "title": "次日送達",
+          "content": "下午 6 點之前下單，您的物品將在次日送達"
+        },
+        "opt3": {
+          "title": "指定交貨",
+          "content": "從日曆中選擇一個特定的日期，訂單將在選定的日期交付"
+        }
+      },
+      "adress": {
+        "title": "地址",
+        "opt1": {
+          "title": "主頁",
+          "content": "76614 Gulseth Lane"
+        },
+        "opt2": {
+          "title": "作品",
+          "content": "555 皮爾斯托夫路口"
+        },
+        "opt3": {
+          "title": "其他",
+          "content": "3848 Farmco 十字路口"
+        }
+      },
+      "payment": {
+        "title": "付款",
+        "saveCard": "保存這張卡的詳細信息"
+      },
+      "success": {
+        "title": "成功",
+        "message": "支付成功"
+      },
+      "buttonText": "繼續",
+      "button2Text": "取消"
     }
   },
   "favorites": {

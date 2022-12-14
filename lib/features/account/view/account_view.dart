@@ -5,7 +5,7 @@ import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:kartal/kartal.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
-import '../../../core/extansions/string_extansion.dart';
+import '../../../core/extensions/string_extansion.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../core/init/network/service/network_service.dart';
 import '../../../core/init/routes/routes.gr.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../extansions/string_extansion.dart';
+import '../../extensions/string_extansion.dart';
 
 class LocaleText extends StatelessWidget {
   final String value;
