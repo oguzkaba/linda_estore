@@ -18,6 +18,8 @@ class LoadingIndicatorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Lottie.asset(lottieName.toLottie)));
+    return Scaffold(
+        body: Center(
+            child: Lottie.asset(lottieName.toLottie, height: height ?? 300)));
   }
 }

@@ -2,7 +2,11 @@
 //
 //     final productsModel = productsModelFromJson(jsonString);
 
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
+
+part 'products_model.freezed.dart';
+part 'products_model.g.dart';
 
 List<ProductsModel> productsModelFromJson(String str) =>
     List<ProductsModel>.from(
@@ -11,62 +15,28 @@ List<ProductsModel> productsModelFromJson(String str) =>
 String productsModelToJson(List<ProductsModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class ProductsModel {
-  ProductsModel({
-    this.id,
-    this.title,
-    this.price,
-    this.description,
-    this.category,
-    this.image,
-    this.rating,
-  });
+@freezed
+abstract class ProductsModel with _$ProductsModel {
+  const factory ProductsModel({
+    required int id,
+    required String title,
+    required double price,
+    required String description,
+    required String category,
+    required String image,
+    required Rating rating,
+  }) = _ProductsModel;
 
-  final int? id;
-  final String? title;
-  final double? price;
-  final String? description;
-  final String? category;
-  final String? image;
-  final Rating? rating;
-
-  factory ProductsModel.fromJson(Map<String, dynamic> json) => ProductsModel(
-        id: json['id'],
-        title: json['title'],
-        price: json['price'].toDouble(),
-        description: json['description'],
-        category: json['category'],
-        image: json['image'],
-        rating: Rating.fromJson(json['rating']),
-      );
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'price': price,
-        'description': description,
-        'category': category,
-        'image': image,
-        'rating': rating?.toJson(),
-      };
+  factory ProductsModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductsModelFromJson(json);
 }
 
-class Rating {
-  Rating({
-    required this.rate,
-    required this.count,
-  });
+@freezed
+abstract class Rating with _$Rating {
+  const factory Rating({
+    required double rate,
+    required int count,
+  }) = _Rating;
 
-  final double rate;
-  final int count;
-
-  factory Rating.fromJson(Map<String, dynamic> json) => Rating(
-        rate: json['rate'].toDouble(),
-        count: json['count'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'rate': rate,
-        'count': count,
-      };
+  factory Rating.fromJson(Map<String, dynamic> json) => _$RatingFromJson(json);
 }

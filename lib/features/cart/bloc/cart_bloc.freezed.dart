@@ -21,12 +21,10 @@ mixin _$CartEvent {
     required TResult Function(Dio manager,
             GlobalKey<ScaffoldState>? scaffoldKey, AccountBloc accountBloc)
         fetch,
-    required TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
-        add,
-    required TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
-        remove,
+    required TResult Function(CartModel cartModel, int productId) add,
+    required TResult Function(CartModel cartModel, int productId) remove,
+    required TResult Function(CartModel cartModel, int quantity, int productId)
+        changeQty,
     required TResult Function(CheckoutStateEnum checkoutState) checkout,
   }) =>
       throw _privateConstructorUsedError;
@@ -35,12 +33,10 @@ mixin _$CartEvent {
     TResult? Function(Dio manager, GlobalKey<ScaffoldState>? scaffoldKey,
             AccountBloc accountBloc)?
         fetch,
-    TResult? Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        add,
-    TResult? Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        remove,
+    TResult? Function(CartModel cartModel, int productId)? add,
+    TResult? Function(CartModel cartModel, int productId)? remove,
+    TResult? Function(CartModel cartModel, int quantity, int productId)?
+        changeQty,
     TResult? Function(CheckoutStateEnum checkoutState)? checkout,
   }) =>
       throw _privateConstructorUsedError;
@@ -49,12 +45,10 @@ mixin _$CartEvent {
     TResult Function(Dio manager, GlobalKey<ScaffoldState>? scaffoldKey,
             AccountBloc accountBloc)?
         fetch,
-    TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        add,
-    TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        remove,
+    TResult Function(CartModel cartModel, int productId)? add,
+    TResult Function(CartModel cartModel, int productId)? remove,
+    TResult Function(CartModel cartModel, int quantity, int productId)?
+        changeQty,
     TResult Function(CheckoutStateEnum checkoutState)? checkout,
     required TResult orElse(),
   }) =>
@@ -64,6 +58,7 @@ mixin _$CartEvent {
     required TResult Function(_FetchCart value) fetch,
     required TResult Function(_AddToCart value) add,
     required TResult Function(_RemoveToCart value) remove,
+    required TResult Function(_ChangeQtyToCart value) changeQty,
     required TResult Function(_CheckoutToCart value) checkout,
   }) =>
       throw _privateConstructorUsedError;
@@ -72,6 +67,7 @@ mixin _$CartEvent {
     TResult? Function(_FetchCart value)? fetch,
     TResult? Function(_AddToCart value)? add,
     TResult? Function(_RemoveToCart value)? remove,
+    TResult? Function(_ChangeQtyToCart value)? changeQty,
     TResult? Function(_CheckoutToCart value)? checkout,
   }) =>
       throw _privateConstructorUsedError;
@@ -80,6 +76,7 @@ mixin _$CartEvent {
     TResult Function(_FetchCart value)? fetch,
     TResult Function(_AddToCart value)? add,
     TResult Function(_RemoveToCart value)? remove,
+    TResult Function(_ChangeQtyToCart value)? changeQty,
     TResult Function(_CheckoutToCart value)? checkout,
     required TResult orElse(),
   }) =>
@@ -195,12 +192,10 @@ class _$_FetchCart implements _FetchCart {
     required TResult Function(Dio manager,
             GlobalKey<ScaffoldState>? scaffoldKey, AccountBloc accountBloc)
         fetch,
-    required TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
-        add,
-    required TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
-        remove,
+    required TResult Function(CartModel cartModel, int productId) add,
+    required TResult Function(CartModel cartModel, int productId) remove,
+    required TResult Function(CartModel cartModel, int quantity, int productId)
+        changeQty,
     required TResult Function(CheckoutStateEnum checkoutState) checkout,
   }) {
     return fetch(manager, scaffoldKey, accountBloc);
@@ -212,12 +207,10 @@ class _$_FetchCart implements _FetchCart {
     TResult? Function(Dio manager, GlobalKey<ScaffoldState>? scaffoldKey,
             AccountBloc accountBloc)?
         fetch,
-    TResult? Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        add,
-    TResult? Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        remove,
+    TResult? Function(CartModel cartModel, int productId)? add,
+    TResult? Function(CartModel cartModel, int productId)? remove,
+    TResult? Function(CartModel cartModel, int quantity, int productId)?
+        changeQty,
     TResult? Function(CheckoutStateEnum checkoutState)? checkout,
   }) {
     return fetch?.call(manager, scaffoldKey, accountBloc);
@@ -229,12 +222,10 @@ class _$_FetchCart implements _FetchCart {
     TResult Function(Dio manager, GlobalKey<ScaffoldState>? scaffoldKey,
             AccountBloc accountBloc)?
         fetch,
-    TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        add,
-    TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        remove,
+    TResult Function(CartModel cartModel, int productId)? add,
+    TResult Function(CartModel cartModel, int productId)? remove,
+    TResult Function(CartModel cartModel, int quantity, int productId)?
+        changeQty,
     TResult Function(CheckoutStateEnum checkoutState)? checkout,
     required TResult orElse(),
   }) {
@@ -250,6 +241,7 @@ class _$_FetchCart implements _FetchCart {
     required TResult Function(_FetchCart value) fetch,
     required TResult Function(_AddToCart value) add,
     required TResult Function(_RemoveToCart value) remove,
+    required TResult Function(_ChangeQtyToCart value) changeQty,
     required TResult Function(_CheckoutToCart value) checkout,
   }) {
     return fetch(this);
@@ -261,6 +253,7 @@ class _$_FetchCart implements _FetchCart {
     TResult? Function(_FetchCart value)? fetch,
     TResult? Function(_AddToCart value)? add,
     TResult? Function(_RemoveToCart value)? remove,
+    TResult? Function(_ChangeQtyToCart value)? changeQty,
     TResult? Function(_CheckoutToCart value)? checkout,
   }) {
     return fetch?.call(this);
@@ -272,6 +265,7 @@ class _$_FetchCart implements _FetchCart {
     TResult Function(_FetchCart value)? fetch,
     TResult Function(_AddToCart value)? add,
     TResult Function(_RemoveToCart value)? remove,
+    TResult Function(_ChangeQtyToCart value)? changeQty,
     TResult Function(_CheckoutToCart value)? checkout,
     required TResult orElse(),
   }) {
@@ -302,8 +296,9 @@ abstract class _$$_AddToCartCopyWith<$Res> {
           _$_AddToCart value, $Res Function(_$_AddToCart) then) =
       __$$_AddToCartCopyWithImpl<$Res>;
   @useResult
-  $Res call(
-      {Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId});
+  $Res call({CartModel cartModel, int productId});
+
+  $CartModelCopyWith<$Res> get cartModel;
 }
 
 /// @nodoc
@@ -317,45 +312,43 @@ class __$$_AddToCartCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? manager = null,
-    Object? scaffoldKey = freezed,
+    Object? cartModel = null,
     Object? productId = null,
   }) {
     return _then(_$_AddToCart(
-      manager: null == manager
-          ? _value.manager
-          : manager // ignore: cast_nullable_to_non_nullable
-              as Dio,
-      scaffoldKey: freezed == scaffoldKey
-          ? _value.scaffoldKey
-          : scaffoldKey // ignore: cast_nullable_to_non_nullable
-              as GlobalKey<ScaffoldState>?,
+      cartModel: null == cartModel
+          ? _value.cartModel
+          : cartModel // ignore: cast_nullable_to_non_nullable
+              as CartModel,
       productId: null == productId
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CartModelCopyWith<$Res> get cartModel {
+    return $CartModelCopyWith<$Res>(_value.cartModel, (value) {
+      return _then(_value.copyWith(cartModel: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$_AddToCart implements _AddToCart {
-  const _$_AddToCart(
-      {required this.manager,
-      required this.scaffoldKey,
-      required this.productId});
+  const _$_AddToCart({required this.cartModel, required this.productId});
 
   @override
-  final Dio manager;
-  @override
-  final GlobalKey<ScaffoldState>? scaffoldKey;
+  final CartModel cartModel;
   @override
   final int productId;
 
   @override
   String toString() {
-    return 'CartEvent.add(manager: $manager, scaffoldKey: $scaffoldKey, productId: $productId)';
+    return 'CartEvent.add(cartModel: $cartModel, productId: $productId)';
   }
 
   @override
@@ -363,15 +356,14 @@ class _$_AddToCart implements _AddToCart {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AddToCart &&
-            (identical(other.manager, manager) || other.manager == manager) &&
-            (identical(other.scaffoldKey, scaffoldKey) ||
-                other.scaffoldKey == scaffoldKey) &&
+            (identical(other.cartModel, cartModel) ||
+                other.cartModel == cartModel) &&
             (identical(other.productId, productId) ||
                 other.productId == productId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, manager, scaffoldKey, productId);
+  int get hashCode => Object.hash(runtimeType, cartModel, productId);
 
   @JsonKey(ignore: true)
   @override
@@ -385,15 +377,13 @@ class _$_AddToCart implements _AddToCart {
     required TResult Function(Dio manager,
             GlobalKey<ScaffoldState>? scaffoldKey, AccountBloc accountBloc)
         fetch,
-    required TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
-        add,
-    required TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
-        remove,
+    required TResult Function(CartModel cartModel, int productId) add,
+    required TResult Function(CartModel cartModel, int productId) remove,
+    required TResult Function(CartModel cartModel, int quantity, int productId)
+        changeQty,
     required TResult Function(CheckoutStateEnum checkoutState) checkout,
   }) {
-    return add(manager, scaffoldKey, productId);
+    return add(cartModel, productId);
   }
 
   @override
@@ -402,15 +392,13 @@ class _$_AddToCart implements _AddToCart {
     TResult? Function(Dio manager, GlobalKey<ScaffoldState>? scaffoldKey,
             AccountBloc accountBloc)?
         fetch,
-    TResult? Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        add,
-    TResult? Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        remove,
+    TResult? Function(CartModel cartModel, int productId)? add,
+    TResult? Function(CartModel cartModel, int productId)? remove,
+    TResult? Function(CartModel cartModel, int quantity, int productId)?
+        changeQty,
     TResult? Function(CheckoutStateEnum checkoutState)? checkout,
   }) {
-    return add?.call(manager, scaffoldKey, productId);
+    return add?.call(cartModel, productId);
   }
 
   @override
@@ -419,17 +407,15 @@ class _$_AddToCart implements _AddToCart {
     TResult Function(Dio manager, GlobalKey<ScaffoldState>? scaffoldKey,
             AccountBloc accountBloc)?
         fetch,
-    TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        add,
-    TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        remove,
+    TResult Function(CartModel cartModel, int productId)? add,
+    TResult Function(CartModel cartModel, int productId)? remove,
+    TResult Function(CartModel cartModel, int quantity, int productId)?
+        changeQty,
     TResult Function(CheckoutStateEnum checkoutState)? checkout,
     required TResult orElse(),
   }) {
     if (add != null) {
-      return add(manager, scaffoldKey, productId);
+      return add(cartModel, productId);
     }
     return orElse();
   }
@@ -440,6 +426,7 @@ class _$_AddToCart implements _AddToCart {
     required TResult Function(_FetchCart value) fetch,
     required TResult Function(_AddToCart value) add,
     required TResult Function(_RemoveToCart value) remove,
+    required TResult Function(_ChangeQtyToCart value) changeQty,
     required TResult Function(_CheckoutToCart value) checkout,
   }) {
     return add(this);
@@ -451,6 +438,7 @@ class _$_AddToCart implements _AddToCart {
     TResult? Function(_FetchCart value)? fetch,
     TResult? Function(_AddToCart value)? add,
     TResult? Function(_RemoveToCart value)? remove,
+    TResult? Function(_ChangeQtyToCart value)? changeQty,
     TResult? Function(_CheckoutToCart value)? checkout,
   }) {
     return add?.call(this);
@@ -462,6 +450,7 @@ class _$_AddToCart implements _AddToCart {
     TResult Function(_FetchCart value)? fetch,
     TResult Function(_AddToCart value)? add,
     TResult Function(_RemoveToCart value)? remove,
+    TResult Function(_ChangeQtyToCart value)? changeQty,
     TResult Function(_CheckoutToCart value)? checkout,
     required TResult orElse(),
   }) {
@@ -474,12 +463,10 @@ class _$_AddToCart implements _AddToCart {
 
 abstract class _AddToCart implements CartEvent {
   const factory _AddToCart(
-      {required final Dio manager,
-      required final GlobalKey<ScaffoldState>? scaffoldKey,
+      {required final CartModel cartModel,
       required final int productId}) = _$_AddToCart;
 
-  Dio get manager;
-  GlobalKey<ScaffoldState>? get scaffoldKey;
+  CartModel get cartModel;
   int get productId;
   @JsonKey(ignore: true)
   _$$_AddToCartCopyWith<_$_AddToCart> get copyWith =>
@@ -492,8 +479,9 @@ abstract class _$$_RemoveToCartCopyWith<$Res> {
           _$_RemoveToCart value, $Res Function(_$_RemoveToCart) then) =
       __$$_RemoveToCartCopyWithImpl<$Res>;
   @useResult
-  $Res call(
-      {Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId});
+  $Res call({CartModel cartModel, int productId});
+
+  $CartModelCopyWith<$Res> get cartModel;
 }
 
 /// @nodoc
@@ -507,45 +495,43 @@ class __$$_RemoveToCartCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? manager = null,
-    Object? scaffoldKey = freezed,
+    Object? cartModel = null,
     Object? productId = null,
   }) {
     return _then(_$_RemoveToCart(
-      manager: null == manager
-          ? _value.manager
-          : manager // ignore: cast_nullable_to_non_nullable
-              as Dio,
-      scaffoldKey: freezed == scaffoldKey
-          ? _value.scaffoldKey
-          : scaffoldKey // ignore: cast_nullable_to_non_nullable
-              as GlobalKey<ScaffoldState>?,
+      cartModel: null == cartModel
+          ? _value.cartModel
+          : cartModel // ignore: cast_nullable_to_non_nullable
+              as CartModel,
       productId: null == productId
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CartModelCopyWith<$Res> get cartModel {
+    return $CartModelCopyWith<$Res>(_value.cartModel, (value) {
+      return _then(_value.copyWith(cartModel: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$_RemoveToCart implements _RemoveToCart {
-  const _$_RemoveToCart(
-      {required this.manager,
-      required this.scaffoldKey,
-      required this.productId});
+  const _$_RemoveToCart({required this.cartModel, required this.productId});
 
   @override
-  final Dio manager;
-  @override
-  final GlobalKey<ScaffoldState>? scaffoldKey;
+  final CartModel cartModel;
   @override
   final int productId;
 
   @override
   String toString() {
-    return 'CartEvent.remove(manager: $manager, scaffoldKey: $scaffoldKey, productId: $productId)';
+    return 'CartEvent.remove(cartModel: $cartModel, productId: $productId)';
   }
 
   @override
@@ -553,15 +539,14 @@ class _$_RemoveToCart implements _RemoveToCart {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RemoveToCart &&
-            (identical(other.manager, manager) || other.manager == manager) &&
-            (identical(other.scaffoldKey, scaffoldKey) ||
-                other.scaffoldKey == scaffoldKey) &&
+            (identical(other.cartModel, cartModel) ||
+                other.cartModel == cartModel) &&
             (identical(other.productId, productId) ||
                 other.productId == productId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, manager, scaffoldKey, productId);
+  int get hashCode => Object.hash(runtimeType, cartModel, productId);
 
   @JsonKey(ignore: true)
   @override
@@ -575,15 +560,13 @@ class _$_RemoveToCart implements _RemoveToCart {
     required TResult Function(Dio manager,
             GlobalKey<ScaffoldState>? scaffoldKey, AccountBloc accountBloc)
         fetch,
-    required TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
-        add,
-    required TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
-        remove,
+    required TResult Function(CartModel cartModel, int productId) add,
+    required TResult Function(CartModel cartModel, int productId) remove,
+    required TResult Function(CartModel cartModel, int quantity, int productId)
+        changeQty,
     required TResult Function(CheckoutStateEnum checkoutState) checkout,
   }) {
-    return remove(manager, scaffoldKey, productId);
+    return remove(cartModel, productId);
   }
 
   @override
@@ -592,15 +575,13 @@ class _$_RemoveToCart implements _RemoveToCart {
     TResult? Function(Dio manager, GlobalKey<ScaffoldState>? scaffoldKey,
             AccountBloc accountBloc)?
         fetch,
-    TResult? Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        add,
-    TResult? Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        remove,
+    TResult? Function(CartModel cartModel, int productId)? add,
+    TResult? Function(CartModel cartModel, int productId)? remove,
+    TResult? Function(CartModel cartModel, int quantity, int productId)?
+        changeQty,
     TResult? Function(CheckoutStateEnum checkoutState)? checkout,
   }) {
-    return remove?.call(manager, scaffoldKey, productId);
+    return remove?.call(cartModel, productId);
   }
 
   @override
@@ -609,17 +590,15 @@ class _$_RemoveToCart implements _RemoveToCart {
     TResult Function(Dio manager, GlobalKey<ScaffoldState>? scaffoldKey,
             AccountBloc accountBloc)?
         fetch,
-    TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        add,
-    TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        remove,
+    TResult Function(CartModel cartModel, int productId)? add,
+    TResult Function(CartModel cartModel, int productId)? remove,
+    TResult Function(CartModel cartModel, int quantity, int productId)?
+        changeQty,
     TResult Function(CheckoutStateEnum checkoutState)? checkout,
     required TResult orElse(),
   }) {
     if (remove != null) {
-      return remove(manager, scaffoldKey, productId);
+      return remove(cartModel, productId);
     }
     return orElse();
   }
@@ -630,6 +609,7 @@ class _$_RemoveToCart implements _RemoveToCart {
     required TResult Function(_FetchCart value) fetch,
     required TResult Function(_AddToCart value) add,
     required TResult Function(_RemoveToCart value) remove,
+    required TResult Function(_ChangeQtyToCart value) changeQty,
     required TResult Function(_CheckoutToCart value) checkout,
   }) {
     return remove(this);
@@ -641,6 +621,7 @@ class _$_RemoveToCart implements _RemoveToCart {
     TResult? Function(_FetchCart value)? fetch,
     TResult? Function(_AddToCart value)? add,
     TResult? Function(_RemoveToCart value)? remove,
+    TResult? Function(_ChangeQtyToCart value)? changeQty,
     TResult? Function(_CheckoutToCart value)? checkout,
   }) {
     return remove?.call(this);
@@ -652,6 +633,7 @@ class _$_RemoveToCart implements _RemoveToCart {
     TResult Function(_FetchCart value)? fetch,
     TResult Function(_AddToCart value)? add,
     TResult Function(_RemoveToCart value)? remove,
+    TResult Function(_ChangeQtyToCart value)? changeQty,
     TResult Function(_CheckoutToCart value)? checkout,
     required TResult orElse(),
   }) {
@@ -664,15 +646,210 @@ class _$_RemoveToCart implements _RemoveToCart {
 
 abstract class _RemoveToCart implements CartEvent {
   const factory _RemoveToCart(
-      {required final Dio manager,
-      required final GlobalKey<ScaffoldState>? scaffoldKey,
+      {required final CartModel cartModel,
       required final int productId}) = _$_RemoveToCart;
 
-  Dio get manager;
-  GlobalKey<ScaffoldState>? get scaffoldKey;
+  CartModel get cartModel;
   int get productId;
   @JsonKey(ignore: true)
   _$$_RemoveToCartCopyWith<_$_RemoveToCart> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ChangeQtyToCartCopyWith<$Res> {
+  factory _$$_ChangeQtyToCartCopyWith(
+          _$_ChangeQtyToCart value, $Res Function(_$_ChangeQtyToCart) then) =
+      __$$_ChangeQtyToCartCopyWithImpl<$Res>;
+  @useResult
+  $Res call({CartModel cartModel, int quantity, int productId});
+
+  $CartModelCopyWith<$Res> get cartModel;
+}
+
+/// @nodoc
+class __$$_ChangeQtyToCartCopyWithImpl<$Res>
+    extends _$CartEventCopyWithImpl<$Res, _$_ChangeQtyToCart>
+    implements _$$_ChangeQtyToCartCopyWith<$Res> {
+  __$$_ChangeQtyToCartCopyWithImpl(
+      _$_ChangeQtyToCart _value, $Res Function(_$_ChangeQtyToCart) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? cartModel = null,
+    Object? quantity = null,
+    Object? productId = null,
+  }) {
+    return _then(_$_ChangeQtyToCart(
+      cartModel: null == cartModel
+          ? _value.cartModel
+          : cartModel // ignore: cast_nullable_to_non_nullable
+              as CartModel,
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
+      productId: null == productId
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CartModelCopyWith<$Res> get cartModel {
+    return $CartModelCopyWith<$Res>(_value.cartModel, (value) {
+      return _then(_value.copyWith(cartModel: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_ChangeQtyToCart implements _ChangeQtyToCart {
+  const _$_ChangeQtyToCart(
+      {required this.cartModel,
+      required this.quantity,
+      required this.productId});
+
+  @override
+  final CartModel cartModel;
+  @override
+  final int quantity;
+  @override
+  final int productId;
+
+  @override
+  String toString() {
+    return 'CartEvent.changeQty(cartModel: $cartModel, quantity: $quantity, productId: $productId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ChangeQtyToCart &&
+            (identical(other.cartModel, cartModel) ||
+                other.cartModel == cartModel) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity) &&
+            (identical(other.productId, productId) ||
+                other.productId == productId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, cartModel, quantity, productId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ChangeQtyToCartCopyWith<_$_ChangeQtyToCart> get copyWith =>
+      __$$_ChangeQtyToCartCopyWithImpl<_$_ChangeQtyToCart>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Dio manager,
+            GlobalKey<ScaffoldState>? scaffoldKey, AccountBloc accountBloc)
+        fetch,
+    required TResult Function(CartModel cartModel, int productId) add,
+    required TResult Function(CartModel cartModel, int productId) remove,
+    required TResult Function(CartModel cartModel, int quantity, int productId)
+        changeQty,
+    required TResult Function(CheckoutStateEnum checkoutState) checkout,
+  }) {
+    return changeQty(cartModel, quantity, productId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Dio manager, GlobalKey<ScaffoldState>? scaffoldKey,
+            AccountBloc accountBloc)?
+        fetch,
+    TResult? Function(CartModel cartModel, int productId)? add,
+    TResult? Function(CartModel cartModel, int productId)? remove,
+    TResult? Function(CartModel cartModel, int quantity, int productId)?
+        changeQty,
+    TResult? Function(CheckoutStateEnum checkoutState)? checkout,
+  }) {
+    return changeQty?.call(cartModel, quantity, productId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Dio manager, GlobalKey<ScaffoldState>? scaffoldKey,
+            AccountBloc accountBloc)?
+        fetch,
+    TResult Function(CartModel cartModel, int productId)? add,
+    TResult Function(CartModel cartModel, int productId)? remove,
+    TResult Function(CartModel cartModel, int quantity, int productId)?
+        changeQty,
+    TResult Function(CheckoutStateEnum checkoutState)? checkout,
+    required TResult orElse(),
+  }) {
+    if (changeQty != null) {
+      return changeQty(cartModel, quantity, productId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_FetchCart value) fetch,
+    required TResult Function(_AddToCart value) add,
+    required TResult Function(_RemoveToCart value) remove,
+    required TResult Function(_ChangeQtyToCart value) changeQty,
+    required TResult Function(_CheckoutToCart value) checkout,
+  }) {
+    return changeQty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_FetchCart value)? fetch,
+    TResult? Function(_AddToCart value)? add,
+    TResult? Function(_RemoveToCart value)? remove,
+    TResult? Function(_ChangeQtyToCart value)? changeQty,
+    TResult? Function(_CheckoutToCart value)? checkout,
+  }) {
+    return changeQty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_FetchCart value)? fetch,
+    TResult Function(_AddToCart value)? add,
+    TResult Function(_RemoveToCart value)? remove,
+    TResult Function(_ChangeQtyToCart value)? changeQty,
+    TResult Function(_CheckoutToCart value)? checkout,
+    required TResult orElse(),
+  }) {
+    if (changeQty != null) {
+      return changeQty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChangeQtyToCart implements CartEvent {
+  const factory _ChangeQtyToCart(
+      {required final CartModel cartModel,
+      required final int quantity,
+      required final int productId}) = _$_ChangeQtyToCart;
+
+  CartModel get cartModel;
+  int get quantity;
+  int get productId;
+  @JsonKey(ignore: true)
+  _$$_ChangeQtyToCartCopyWith<_$_ChangeQtyToCart> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -744,12 +921,10 @@ class _$_CheckoutToCart implements _CheckoutToCart {
     required TResult Function(Dio manager,
             GlobalKey<ScaffoldState>? scaffoldKey, AccountBloc accountBloc)
         fetch,
-    required TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
-        add,
-    required TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)
-        remove,
+    required TResult Function(CartModel cartModel, int productId) add,
+    required TResult Function(CartModel cartModel, int productId) remove,
+    required TResult Function(CartModel cartModel, int quantity, int productId)
+        changeQty,
     required TResult Function(CheckoutStateEnum checkoutState) checkout,
   }) {
     return checkout(checkoutState);
@@ -761,12 +936,10 @@ class _$_CheckoutToCart implements _CheckoutToCart {
     TResult? Function(Dio manager, GlobalKey<ScaffoldState>? scaffoldKey,
             AccountBloc accountBloc)?
         fetch,
-    TResult? Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        add,
-    TResult? Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        remove,
+    TResult? Function(CartModel cartModel, int productId)? add,
+    TResult? Function(CartModel cartModel, int productId)? remove,
+    TResult? Function(CartModel cartModel, int quantity, int productId)?
+        changeQty,
     TResult? Function(CheckoutStateEnum checkoutState)? checkout,
   }) {
     return checkout?.call(checkoutState);
@@ -778,12 +951,10 @@ class _$_CheckoutToCart implements _CheckoutToCart {
     TResult Function(Dio manager, GlobalKey<ScaffoldState>? scaffoldKey,
             AccountBloc accountBloc)?
         fetch,
-    TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        add,
-    TResult Function(
-            Dio manager, GlobalKey<ScaffoldState>? scaffoldKey, int productId)?
-        remove,
+    TResult Function(CartModel cartModel, int productId)? add,
+    TResult Function(CartModel cartModel, int productId)? remove,
+    TResult Function(CartModel cartModel, int quantity, int productId)?
+        changeQty,
     TResult Function(CheckoutStateEnum checkoutState)? checkout,
     required TResult orElse(),
   }) {
@@ -799,6 +970,7 @@ class _$_CheckoutToCart implements _CheckoutToCart {
     required TResult Function(_FetchCart value) fetch,
     required TResult Function(_AddToCart value) add,
     required TResult Function(_RemoveToCart value) remove,
+    required TResult Function(_ChangeQtyToCart value) changeQty,
     required TResult Function(_CheckoutToCart value) checkout,
   }) {
     return checkout(this);
@@ -810,6 +982,7 @@ class _$_CheckoutToCart implements _CheckoutToCart {
     TResult? Function(_FetchCart value)? fetch,
     TResult? Function(_AddToCart value)? add,
     TResult? Function(_RemoveToCart value)? remove,
+    TResult? Function(_ChangeQtyToCart value)? changeQty,
     TResult? Function(_CheckoutToCart value)? checkout,
   }) {
     return checkout?.call(this);
@@ -821,6 +994,7 @@ class _$_CheckoutToCart implements _CheckoutToCart {
     TResult Function(_FetchCart value)? fetch,
     TResult Function(_AddToCart value)? add,
     TResult Function(_RemoveToCart value)? remove,
+    TResult Function(_ChangeQtyToCart value)? changeQty,
     TResult Function(_CheckoutToCart value)? checkout,
     required TResult orElse(),
   }) {

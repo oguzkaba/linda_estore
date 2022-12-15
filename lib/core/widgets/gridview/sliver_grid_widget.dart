@@ -44,7 +44,7 @@ class MySliverGridWidget extends StatelessWidget {
   Widget _buildGrid(BuildContext context, int index) {
     return GestureDetector(
         onTap: () => context.router.push(ProductDetailView(
-              id: model[index]!.id!,
+              id: model[index]!.id,
               manager: NetworkService.instance.networkManager,
             )),
         child: Stack(children: [
@@ -68,10 +68,10 @@ class MySliverGridWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 CachedNetworkImage(
-                    imageUrl: model[index]!.image!,
+                    imageUrl: model[index]!.image,
                     fit: BoxFit.contain,
                     height: context.height * .2),
-                Text(model[index]!.title!,
+                Text(model[index]!.title,
                     maxLines: context.isSmallScreen ? 1 : 2,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall),
@@ -86,7 +86,7 @@ class MySliverGridWidget extends StatelessWidget {
                           color: ColorConstants.myYellow,
                           size: 10,
                         ),
-                        Text(' ${model[index]!.rating!.rate} ',
+                        Text(' ${model[index]!.rating.rate} ',
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context).textTheme.bodySmall),
                       ],
@@ -114,14 +114,15 @@ class MySliverGridWidget extends StatelessWidget {
                 return state.maybeWhen(
                     orElse: () => context.emptySizedHeightBoxLow,
                     loaded: (favList) => IconButtonWidget(
-                        onPress: () => context.read<FavoriteBloc>().add(
-                            FavoriteEvent.toogle(index: model[index]!.id!)),
-                        icon: favList.contains(model[index]!.id!)
+                        onPress: () => context
+                            .read<FavoriteBloc>()
+                            .add(FavoriteEvent.toogle(index: model[index]!.id)),
+                        icon: favList.contains(model[index]!.id)
                             ? Icons.favorite_rounded
                             : Icons.favorite_border,
                         size: 18,
                         circleRadius: 18,
-                        iColor: favList.contains(model[index]!.id!)
+                        iColor: favList.contains(model[index]!.id)
                             ? ColorConstants.primaryColor
                             : context.watch<ThemeCubit>().state.isDark
                                 ? ColorConstants.myWhite

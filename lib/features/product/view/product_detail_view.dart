@@ -102,11 +102,11 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                           onPress: () => context
                               .read<FavoriteBloc>()
                               .add(FavoriteEvent.toogle(index: widget.id)),
-                          icon: favList.contains(product.id!)
+                          icon: favList.contains(product.id)
                               ? Icons.favorite_rounded
                               : Icons.favorite_border,
                           size: 16,
-                          iColor: favList.contains(product.id!)
+                          iColor: favList.contains(product.id)
                               ? ColorConstants.primaryColor
                               : ColorConstants.myMediumGrey,
                           tooltip: 'Favorite'));
@@ -123,10 +123,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
             children: [
               Center(
                 child: CachedNetworkImage(
-                    imageUrl: product.image!, height: context.height * .5),
+                    imageUrl: product.image, height: context.height * .5),
               ),
               Padding(padding: context.paddingLow),
-              Text(product.title!,
+              Text(product.title,
                   style: Theme.of(context).textTheme.titleSmall),
               Padding(padding: context.paddingLow),
               GestureDetector(
@@ -137,14 +137,14 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       children: [
                         for (var i = 0; i < 5; i++)
                           Icon(Icons.star,
-                              color: i < product.rating!.rate
+                              color: i < product.rating.rate
                                   ? ColorConstants.myYellow
                                   : ColorConstants.myLightGrey,
                               size: 16),
                       ],
                     ),
                     Text(
-                        ' ( ${product.rating!.count} ${LocaleKeys.home_productDet_review.locale}) ',
+                        ' ( ${product.rating.count} ${LocaleKeys.home_productDet_review.locale}) ',
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodySmall),
                   ],
@@ -157,7 +157,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       .labelMedium
                       ?.copyWith(decoration: TextDecoration.underline)),
               Padding(padding: context.paddingLow),
-              Text(product.description!,
+              Text(product.description,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3,
                   style: Theme.of(context)
@@ -297,7 +297,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                   text: stateCart.maybeWhen(
                     loaded: (cartModel) {
                       cModel = cartModel;
-                      return cModel.last.products.first.productId == widget.id
+                      return cModel.last.products
+                              .where(
+                                  (element) => element.productId == widget.id)
+                              .isNotEmpty
                           ? LocaleKeys.cart_buttonText.locale
                           : LocaleKeys.home_productDet_buttonText.locale;
                     },
@@ -305,23 +308,28 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                   ),
                   onPress: () {
                     stateCart.maybeWhen(
-                      loaded: (cartModel) {
-                        if (cModel.last.products.first.productId == widget.id) {
-                          context.read<CartBloc>().add(CartEvent.checkout(
-                              checkoutState: CheckoutStateEnum.delivery));
-                          context.router.push(const Checkout());
-                        } else {
-                          context.read<CartBloc>().add(CartEvent.add(
-                              manager: widget.manager,
-                              scaffoldKey: widget.scaffoldKey,
-                              productId: widget.id));
-                        }
-                      },
-                      orElse: () => context.read<CartBloc>().add(CartEvent.add(
-                          manager: widget.manager,
-                          scaffoldKey: widget.scaffoldKey,
-                          productId: widget.id)),
-                    );
+                        loaded: (cartModel) {
+                          if (cModel.last.products
+                              .where(
+                                  (element) => element.productId == widget.id)
+                              .isNotEmpty) {
+                            context.read<CartBloc>().add(CartEvent.checkout(
+                                checkoutState: CheckoutStateEnum.delivery));
+                            context.router.push(const Checkout());
+                          } else {
+                            context.read<CartBloc>().add(CartEvent.add(
+                                cartModel: cartModel.last,
+                                productId: widget.id));
+                          }
+                        },
+                        orElse: () => context.read<CartBloc>().add(
+                            CartEvent.add(
+                                cartModel: CartModel(
+                                    id: 5,
+                                    userId: 1,
+                                    date: DateTime.now(),
+                                    products: []),
+                                productId: widget.id)));
                   },
                   width: 125);
             })

@@ -588,6 +588,8 @@ abstract class _$$_ProductLoadedCopyWith<$Res> {
       __$$_ProductLoadedCopyWithImpl<$Res>;
   @useResult
   $Res call({ProductModel product, List<MockReviewsModel> reviews});
+
+  $ProductModelCopyWith<$Res> get product;
 }
 
 /// @nodoc
@@ -614,6 +616,14 @@ class __$$_ProductLoadedCopyWithImpl<$Res>
           : reviews // ignore: cast_nullable_to_non_nullable
               as List<MockReviewsModel>,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductModelCopyWith<$Res> get product {
+    return $ProductModelCopyWith<$Res>(_value.product, (value) {
+      return _then(_value.copyWith(product: value));
+    });
   }
 }
 

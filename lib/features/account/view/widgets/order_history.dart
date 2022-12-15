@@ -176,12 +176,12 @@ class _OrderHistoryState extends State<OrderHistory> {
                                       return cartModel[index].products.length <
                                               3
                                           ? _buildPrdPreview(
-                                              products[productId - 1]!.image!,
+                                              products[productId - 1]!.image,
                                               productId: productId)
                                           : idx < 1
                                               ? _buildPrdPreview(
                                                   products[productId - 1]!
-                                                      .image!,
+                                                      .image,
                                                   productId: productId)
                                               : _buildPrdPreview(
                                                   '+ ${cartModel[index].products.length - 1}',

@@ -31,12 +31,12 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           return widget.products
               .map((e) => e)
               .toList()
-              .where((ProductsModel product) => product.title!
+              .where((ProductsModel product) => product.title
                   .toLowerCase()
                   .contains(textEditingValue.text.toLowerCase()))
               .toList();
         },
-        displayStringForOption: (ProductsModel option) => option.title!,
+        displayStringForOption: (ProductsModel option) => option.title,
         fieldViewBuilder: (BuildContext context,
                 TextEditingController fieldTextEditingController,
                 FocusNode fieldFocusNode,
@@ -100,15 +100,14 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           onTap: () => onSelected(option),
           child: ListTile(
             leading: CachedNetworkImage(
-                imageUrl: option.image!,
+                imageUrl: option.image,
                 fit: BoxFit.contain,
                 width: context.width / 6),
             isThreeLine: false,
             trailing: Text("${option.price} ₺",
                 style: Theme.of(context).textTheme.bodySmall),
-            subtitle:
-                Text(option.description!, overflow: TextOverflow.ellipsis),
-            title: Text(option.title!,
+            subtitle: Text(option.description, overflow: TextOverflow.ellipsis),
+            title: Text(option.title,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall),
           ),
@@ -119,7 +118,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
   void _selectedProduct(BuildContext context, ProductsModel selection) =>
       context.router.push(ProductDetailView(
-          id: selection.id!, manager: NetworkService.instance.networkManager));
+          id: selection.id, manager: NetworkService.instance.networkManager));
 
   void _searcTextChanged(TextEditingController fieldTextEditingController) =>
       setState(() {

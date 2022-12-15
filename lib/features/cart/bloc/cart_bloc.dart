@@ -40,13 +40,55 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       emit(const CartLoading());
       try {
         await Future.delayed(Duration(milliseconds: 500));
+
+        CartModel cartModel = event.cartModel;
+
         emit(_CartLoaded(cartModel: [
-          CartModel(
-              id: 5,
-              userId: 1,
-              date: DateTime.now(),
-              products: [Product(productId: event.productId, quantity: 1)])
+          cartModel.copyWith(products: [
+            ...cartModel.products,
+            Product(productId: event.productId, quantity: 1)
+          ])
         ]));
+      } catch (e) {
+        emit(_CartError(error: e));
+      }
+    });
+
+    on<_RemoveToCart>((event, emit) async {
+      emit(const CartLoading());
+      try {
+        await Future.delayed(Duration(milliseconds: 500));
+        CartModel cartModel = event.cartModel;
+
+        List<Product> newProducts = List.from(cartModel.products);
+        newProducts
+            .removeWhere((element) => element.productId == event.productId);
+        emit(_CartLoaded(
+            cartModel: [cartModel.copyWith(products: newProducts)]));
+      } catch (e) {
+        emit(_CartError(error: e));
+      }
+    });
+
+    on<_ChangeQtyToCart>((event, emit) async {
+      emit(const CartLoading());
+      try {
+        await Future.delayed(Duration(milliseconds: 500));
+
+        List<Product> newProducts = [];
+
+        for (var e in event.cartModel.products) {
+          if (e.productId == event.productId) {
+            newProducts
+                .add(Product(productId: e.productId, quantity: event.quantity));
+          } else {
+            newProducts
+                .add(Product(productId: e.productId, quantity: e.quantity));
+          }
+        }
+
+        emit(_CartLoaded(
+            cartModel: [event.cartModel.copyWith(products: newProducts)]));
       } catch (e) {
         emit(_CartError(error: e));
       }

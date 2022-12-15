@@ -31,15 +31,11 @@ class CartView extends StatefulWidget {
 }
 
 class _CartViewState extends State<CartView> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  final manager = NetworkService.instance.networkManager;
-
   @override
   void initState() {
     super.initState();
   }
 
-  ValueNotifier<List<int>> quantityList = ValueNotifier([]);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -50,15 +46,18 @@ class _CartViewState extends State<CartView> {
               topMargin: 115));
     }, builder: (context, state) {
       return state.maybeWhen(
-        initial: () =>
-            const LoadingIndicatorWidget(lottieName: 'order_loading'),
+        initial: () => EmptyInfoWidget(
+            lottieSrc: 'empty_cart', text: LocaleKeys.cart_emptyTitle.locale),
         loading: () =>
             const LoadingIndicatorWidget(lottieName: 'order_loading'),
-        loaded: (cartModel) => cartModel.isNullOrEmpty
-            ? const LoadingIndicatorWidget(lottieName: 'cart_empty')
+        loaded: (cartModel) => cartModel.last.products.isNullOrEmpty
+            ? EmptyInfoWidget(
+                lottieSrc: 'empty_cart',
+                text: LocaleKeys.cart_emptyTitle.locale)
             : _buildCartLoaded(cartModel.last),
         error: (error) => ErrorView(errorText: error.toString()),
-        orElse: () => context.emptySizedHeightBoxLow,
+        orElse: () => EmptyInfoWidget(
+            lottieSrc: 'empty_cart', text: LocaleKeys.cart_emptyTitle.locale),
       );
     }));
   }
@@ -82,202 +81,195 @@ class _CartViewState extends State<CartView> {
     double total = 0;
     //*Total Cart Price
     for (var e in cartModel.products) {
-      quantityList.value.add(e.quantity);
-      total += e.quantity * products[e.productId - 1]!.price!;
-    }
-    void quantityChangeNotifier(int index) {
-      List<int> newQList = List.from(quantityList.value);
-      quantityList.value = newQList;
+      total += e.quantity * products[e.productId - 1]!.price;
     }
 
-    return ValueListenableBuilder(
-        valueListenable: quantityList,
-        builder: (context, value, child) => quantityList.value.isEmpty
-            ? EmptyInfoWidget(
-                lottieSrc: 'empty_cart',
-                text: LocaleKeys.cart_emptyTitle.locale)
-            : Scaffold(
-                body: SingleChildScrollView(
-                  primary: true,
-                  child: Padding(
-                    padding: context.paddingMedium,
-                    child: Center(
-                      child: Column(
-                        children: [
-                          Text(LocaleKeys.cart_topTitle.locale,
-                              style: Theme.of(context).textTheme.headlineSmall),
-                          Padding(padding: context.paddingLow),
-                          ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: cartModel.products.length,
-                            itemBuilder: (context, index) => Dismissible(
-                              dismissThresholds: const {
-                                DismissDirection.endToStart: 0.6
-                              },
-                              confirmDismiss: (direction) async =>
-                                  await CustomDialogWidget.show(
-                                context: context,
-                                title: LocaleKeys.cart_alert_title.locale,
-                                content: LocaleKeys.cart_alert_content.locale,
-                                press: () {
-                                  context.router.pop(true);
-                                  quantityList.value.removeAt(index);
-                                },
-                              ),
-                              movementDuration: context.durationNormal,
-                              direction: DismissDirection.endToStart,
-                              background: _slideLeftBackground(),
-                              //secondaryBackground: _slideRightBackground(),
-                              key: UniqueKey(),
-                              child: GestureDetector(
-                                onTap: () =>
-                                    context.router.push(ProductDetailView(
-                                  id: cartModel.products[index].productId,
-                                  manager:
-                                      NetworkService.instance.networkManager,
-                                )),
-                                child: Card(
-                                  child: Row(children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                          width: context.width * .24,
-                                          height: context.height / 8,
-                                          child: CachedNetworkImage(
-                                            imageUrl: products[cartModel
-                                                        .products[index]
-                                                        .productId -
-                                                    1]!
-                                                .image!,
-                                            fit: BoxFit.contain,
-                                          )),
-                                    ),
-                                    SizedBox(
-                                      width: context.width * .53,
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                                products[cartModel
-                                                            .products[index]
-                                                            .productId -
-                                                        1]!
-                                                    .title!,
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall),
-                                          ),
-                                          context.emptySizedHeightBoxLow,
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                '${products[cartModel.products[index].productId - 1]!.price} ${LocaleKeys.currency.locale}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  IconButtonWidget(
-                                                      onPress: () {
-                                                        quantityChangeNotifier(
-                                                            index);
-                                                        quantityList.value[
-                                                                    index] ==
-                                                                1
-                                                            ? null
-                                                            : quantityList
-                                                                    .value[
-                                                                index] -= 1;
-                                                        quantityChangeNotifier(
-                                                            index);
-                                                      },
-                                                      circleRadius: 14,
-                                                      size: 12,
-                                                      icon: Icons.remove,
-                                                      iColor: ColorConstants
-                                                          .myBlack,
-                                                      tooltip: 'Remove'),
-                                                  Text(
-                                                    cartModel.products[index]
-                                                        .quantity
-                                                        .toString(),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleMedium,
-                                                  ),
-                                                  IconButtonWidget(
-                                                      onPress: () =>
-                                                          quantityList.value[
-                                                              index] += 1,
-                                                      circleRadius: 14,
-                                                      size: 12,
-                                                      icon: Icons.add,
-                                                      iColor: ColorConstants
-                                                          .myBlack,
-                                                      tooltip: 'Add')
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ]),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const Divider(),
-                          Container(
-                            color: ColorConstants.myWhite,
-                            padding: context.paddingHigh,
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(LocaleKeys.cart_subTotal.locale),
-                                    const Expanded(child: Divider()),
-                                    Text(
-                                        '${(total * .82).toStringAsFixed(2)} ${LocaleKeys.currency.locale}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall)
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(LocaleKeys.cart_tax.locale),
-                                    const Expanded(child: Divider()),
-                                    Text(
-                                        '${(total * .18).toStringAsFixed(2)} ${LocaleKeys.currency.locale}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall)
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Divider(),
-                          TextFieldWidget(
-                              hintText: LocaleKeys.cart_discCode.locale,
-                              sIcon: Icons.check_circle_rounded)
-                        ],
+    return Scaffold(
+        body: SingleChildScrollView(
+          primary: true,
+          child: Padding(
+            padding: context.paddingMedium,
+            child: Center(
+              child: Column(
+                children: [
+                  Text(LocaleKeys.cart_topTitle.locale,
+                      style: Theme.of(context).textTheme.headlineSmall),
+                  Padding(padding: context.paddingLow),
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: cartModel.products.length,
+                    itemBuilder: (context, index) => Dismissible(
+                      dismissThresholds: const {
+                        DismissDirection.endToStart: 0.6
+                      },
+                      confirmDismiss: (direction) async =>
+                          await CustomDialogWidget.show(
+                        context: context,
+                        title: LocaleKeys.cart_alert_title.locale,
+                        content: LocaleKeys.cart_alert_content.locale,
+                        press: () {
+                          context.read<CartBloc>().add(CartEvent.remove(
+                              cartModel: cartModel,
+                              productId: cartModel.products[index].productId));
+                          context.router.pop(true);
+                        },
+                      ),
+                      movementDuration: context.durationNormal,
+                      direction: DismissDirection.endToStart,
+                      background: _slideLeftBackground(),
+                      //secondaryBackground: _slideRightBackground(),
+                      key: UniqueKey(),
+                      child: GestureDetector(
+                        onTap: () => context.router.push(ProductDetailView(
+                          id: cartModel.products[index].productId,
+                          manager: NetworkService.instance.networkManager,
+                        )),
+                        child:
+                            _productCard(context, products, cartModel, index),
                       ),
                     ),
                   ),
-                ),
-                persistentFooterAlignment: AlignmentDirectional.center,
-                persistentFooterButtons: [_buildBottomWidget(context, total)]));
+                  const Divider(),
+                  _productTaxContainer(context, total),
+                  const Divider(),
+                  TextFieldWidget(
+                      hintText: LocaleKeys.cart_discCode.locale,
+                      sIcon: Icons.check_circle_rounded)
+                ],
+              ),
+            ),
+          ),
+        ),
+        persistentFooterAlignment: AlignmentDirectional.center,
+        persistentFooterButtons: [_buildBottomWidget(context, total)]);
+  }
+
+  Container _productTaxContainer(BuildContext context, double total) {
+    return Container(
+      color: ColorConstants.myWhite,
+      padding: context.paddingHigh,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Text(LocaleKeys.cart_subTotal.locale),
+              const Expanded(child: Divider()),
+              Text(
+                  '${(total * .82).toStringAsFixed(2)} ${LocaleKeys.currency.locale}',
+                  style: Theme.of(context).textTheme.bodySmall)
+            ],
+          ),
+          Row(
+            children: [
+              Text(LocaleKeys.cart_tax.locale),
+              const Expanded(child: Divider()),
+              Text(
+                  '${(total * .18).toStringAsFixed(2)} ${LocaleKeys.currency.locale}',
+                  style: Theme.of(context).textTheme.bodySmall)
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Card _productCard(BuildContext context, List<ProductsModel?> products,
+      CartModel cartModel, int index) {
+    return Card(
+      child: Row(children: [
+        _productImage(context, products, cartModel, index),
+        SizedBox(
+          width: context.width * .53,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _productTitle(products, cartModel, index, context),
+              context.emptySizedHeightBoxLow,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '${products[cartModel.products[index].productId - 1]!.price} ${LocaleKeys.currency.locale}',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  Row(
+                    children: [
+                      _decQtyButton(cartModel, index, context),
+                      Text(
+                        cartModel.products[index].quantity.toString(),
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      _incQtyButton(context, cartModel, index)
+                    ],
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ]),
+    );
+  }
+
+  Padding _productImage(BuildContext context, List<ProductsModel?> products,
+      CartModel cartModel, int index) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+          width: context.width * .24,
+          height: context.height / 8,
+          child: CachedNetworkImage(
+            imageUrl: products[cartModel.products[index].productId - 1]!.image,
+            fit: BoxFit.contain,
+          )),
+    );
+  }
+
+  Align _productTitle(List<ProductsModel?> products, CartModel cartModel,
+      int index, BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text(products[cartModel.products[index].productId - 1]!.title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.left,
+          style: Theme.of(context).textTheme.bodySmall),
+    );
+  }
+
+  IconButtonWidget _incQtyButton(
+      BuildContext context, CartModel cartModel, int index) {
+    return IconButtonWidget(
+        onPress: () {
+          context.read<CartBloc>().add(CartEvent.changeQty(
+              cartModel: cartModel,
+              quantity: cartModel.products[index].quantity + 1,
+              productId: cartModel.products[index].productId));
+        },
+        circleRadius: 14,
+        size: 12,
+        icon: Icons.add,
+        iColor: ColorConstants.myBlack,
+        tooltip: 'Add');
+  }
+
+  IconButtonWidget _decQtyButton(
+      CartModel cartModel, int index, BuildContext context) {
+    return IconButtonWidget(
+        onPress: () {
+          cartModel.products[index].quantity == 1
+              ? null
+              : context.read<CartBloc>().add(CartEvent.changeQty(
+                  cartModel: cartModel,
+                  quantity: cartModel.products[index].quantity - 1,
+                  productId: cartModel.products[index].productId));
+        },
+        circleRadius: 14,
+        size: 12,
+        icon: Icons.remove,
+        iColor: ColorConstants.myBlack,
+        tooltip: 'Remove');
   }
 
   Container _slideLeftBackground() {

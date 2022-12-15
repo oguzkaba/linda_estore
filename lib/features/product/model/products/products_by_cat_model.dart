@@ -1,8 +1,12 @@
 // To parse this JSON data, do
 //
-//     final ProductsByCatModel = ProductsByCatModelFromJson(jsonString);
+//     final productsByCatModel = productsByCatModelFromJson(jsonString);
 
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
+
+part 'products_by_cat_model.freezed.dart';
+part 'products_by_cat_model.g.dart';
 
 List<ProductsByCatModel> productsByCatModelFromJson(String str) =>
     List<ProductsByCatModel>.from(
@@ -11,63 +15,28 @@ List<ProductsByCatModel> productsByCatModelFromJson(String str) =>
 String productsByCatModelToJson(List<ProductsByCatModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class ProductsByCatModel {
-  ProductsByCatModel({
-    this.id,
-    this.title,
-    this.price,
-    this.description,
-    this.category,
-    this.image,
-    this.rating,
-  });
-
-  final int? id;
-  final String? title;
-  final double? price;
-  final String? description;
-  final String? category;
-  final String? image;
-  final Rating? rating;
+@freezed
+abstract class ProductsByCatModel with _$ProductsByCatModel {
+  const factory ProductsByCatModel({
+    required int id,
+    required String title,
+    required double price,
+    required String description,
+    required String category,
+    required String image,
+    required Rating rating,
+  }) = _ProductsByCatModel;
 
   factory ProductsByCatModel.fromJson(Map<String, dynamic> json) =>
-      ProductsByCatModel(
-        id: json['id'],
-        title: json['title'],
-        price: json['price'].toDouble(),
-        description: json['description'],
-        category: json['category'],
-        image: json['image'],
-        rating: Rating.fromJson(json['rating']),
-      );
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'price': price,
-        'description': description,
-        'category': category,
-        'image': image,
-        'rating': rating?.toJson(),
-      };
+      _$ProductsByCatModelFromJson(json);
 }
 
-class Rating {
-  Rating({
-    required this.rate,
-    required this.count,
-  });
+@freezed
+abstract class Rating with _$Rating {
+  const factory Rating({
+    required double rate,
+    required int count,
+  }) = _Rating;
 
-  final double rate;
-  final int count;
-
-  factory Rating.fromJson(Map<String, dynamic> json) => Rating(
-        rate: json['rate'].toDouble(),
-        count: json['count'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'rate': rate,
-        'count': count,
-      };
+  factory Rating.fromJson(Map<String, dynamic> json) => _$RatingFromJson(json);
 }

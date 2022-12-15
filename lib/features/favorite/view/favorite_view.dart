@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_wedding_ecommerce/features/cart/model/cart_model.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/extensions/string_extansion.dart';
@@ -99,7 +100,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                     width: context.width * .24,
                     height: context.height / 8,
                     child: CachedNetworkImage(
-                      imageUrl: products[favList[index] - 1]!.image!,
+                      imageUrl: products[favList[index] - 1]!.image,
                       fit: BoxFit.contain,
                     )),
               ),
@@ -110,7 +111,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(products[favList[index] - 1]!.title!,
+                      child: Text(products[favList[index] - 1]!.title,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
@@ -124,15 +125,10 @@ class _FavoriteViewState extends State<FavoriteView> {
                           '${products[favList[index] - 1]!.price} ₺',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
-                        IconButtonWidget(
-                            iColor: ColorConstants.primaryColor,
-                            icon: Icons.shopping_basket_rounded,
-                            onPress: () => context.read<CartBloc>().add(
-                                CartEvent.add(
-                                    manager: manager,
-                                    scaffoldKey: scaffoldKey,
-                                    productId:
-                                        products[favList[index] - 1]!.id!)))
+                        BlocBuilder<CartBloc, CartState>(
+                          builder: (context, state) => _addToCartButton(
+                              context, state, products, favList, index),
+                        ),
                       ],
                     ),
                   ],
@@ -143,6 +139,27 @@ class _FavoriteViewState extends State<FavoriteView> {
         ),
       ),
     );
+  }
+
+  IconButtonWidget _addToCartButton(BuildContext context, CartState cartState,
+      List<ProductsModel?> products, List<int> favList, int index) {
+    return IconButtonWidget(
+        iColor: ColorConstants.primaryColor,
+        icon: Icons.shopping_basket_rounded,
+        onPress: () {
+          var productId = products[favList[index] - 1]!.id;
+          cartState.maybeWhen(
+              loaded: (cartModel) => cartModel.last.products
+                      .where((element) => element.productId == productId)
+                      .isEmpty
+                  ? context.read<CartBloc>().add(CartEvent.add(
+                      cartModel: cartModel.last, productId: productId))
+                  : null,
+              orElse: () => context.read<CartBloc>().add(CartEvent.add(
+                  cartModel: CartModel(
+                      id: 5, userId: 1, date: DateTime.now(), products: []),
+                  productId: products[favList[index] - 1]!.id)));
+        });
   }
 
   Container _slideRightBackground() {
