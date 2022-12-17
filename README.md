@@ -1,4 +1,4 @@
-# linda_wedding_ecommerce
+# linda_estore
 
 A new Flutter project.
 

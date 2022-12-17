@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/features/cart/model/cart_model.dart';
+import 'package:linda_estore/features/cart/model/cart_model.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
 import '../../../core/extensions/string_extansion.dart';

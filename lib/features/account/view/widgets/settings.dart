@@ -39,7 +39,7 @@ class _SettingsState extends State<Settings> {
             elevation: 0.0,
             centerTitle: true),
         body: SettingsList(
-          platform: DevicePlatform.iOS,
+          platform: DevicePlatform.device,
           sections: [
             _appViewOption(context),
             _appSecurity(),

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:linda_wedding_ecommerce/features/auth/register/model/register_request_model.dart';
+import 'package:linda_estore/features/auth/register/model/register_request_model.dart';
 
 import '../../../core/base/model/base_response_model.dart';
 import '../../../core/enums/api_route_enums.dart';

@@ -18,11 +18,11 @@ void main() async {
   Bloc.observer = MyBlocObserver();
 
   //* Update statusbar theme
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: ColorConstants.myWhite,
-    ),
-  );
+  // SystemChrome.setSystemUIOverlayStyle(
+  //   SystemUiOverlayStyle(
+  //     statusBarColor: ColorConstants.myWhite,
+  //   ),
+  // );
 
   //*Localization and hive init
   WidgetsFlutterBinding.ensureInitialized();

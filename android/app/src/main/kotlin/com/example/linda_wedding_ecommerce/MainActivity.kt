@@ -1,4 +1,4 @@
-package com.example.linda_wedding_ecommerce
+package com.example.linda_estore
 
 import io.flutter.embedding.android.FlutterActivity
 

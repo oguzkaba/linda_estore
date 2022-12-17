@@ -1,6 +1,6 @@
 {
-    "name": "linda_wedding_ecommerce",
-    "short_name": "linda_wedding_ecommerce",
+    "name": "linda_estore",
+    "short_name": "linda_estore",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

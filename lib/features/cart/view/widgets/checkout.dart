@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
 import 'package:kartal/kartal.dart';
-import 'package:linda_wedding_ecommerce/core/init/lang/lang_manager.dart';
+import 'package:linda_estore/core/init/lang/lang_manager.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../core/constants/app/colors_constants.dart';
