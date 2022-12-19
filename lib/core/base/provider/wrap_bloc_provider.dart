@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:linda_estore/core/init/network/cubit/internet_cubit.dart';
 
 import '../../../features/account/bloc/account_bloc.dart';
 import '../../../features/auth/bloc/auth_bloc.dart';
@@ -52,6 +53,9 @@ class WrapBlocProvider extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ThemeCubit(),
+        ),
+        BlocProvider(
+          create: (context) => InternetCubit(),
         ),
       ],
       child: child,

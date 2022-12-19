@@ -8,6 +8,8 @@ enum NetworkConnectivityEnums {
     switch (result) {
       case ConnectivityResult.mobile:
         return NetworkConnectivityEnums.on;
+      case ConnectivityResult.ethernet:
+        return NetworkConnectivityEnums.on;
       case ConnectivityResult.wifi:
         return NetworkConnectivityEnums.on;
       case ConnectivityResult.none:

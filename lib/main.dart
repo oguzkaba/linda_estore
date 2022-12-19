@@ -2,16 +2,15 @@ import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'core/init/themes/cubit/theme_cubit.dart';
+
 import 'core/base/provider/wrap_bloc_provider.dart';
 import 'core/constants/app/application_constants.dart';
-import 'core/constants/app/colors_constants.dart';
 import 'core/init/lang/lang_manager.dart';
 import 'core/init/observer/observer.dart';
 import 'core/init/routes/routes.gr.dart';
+import 'core/init/themes/cubit/theme_cubit.dart';
 
 void main() async {
   //* observe bloc logs

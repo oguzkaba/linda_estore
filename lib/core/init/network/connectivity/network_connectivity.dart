@@ -8,7 +8,7 @@ typedef NetworkCallBack = void Function(NetworkConnectivityEnums result);
 
 abstract class INetworkConnectivity {
   Future<NetworkConnectivityEnums> checkNetworkConnectivity();
-  void handleNetworkConnectivity(NetworkCallBack onChange);
+  void handleNetworkConnectivity();
   void dispose();
 }
 
@@ -27,10 +27,13 @@ class NetworkConnectivity extends INetworkConnectivity {
   }
 
   @override
-  void handleNetworkConnectivity(NetworkCallBack onChange) {
-    _subscription = _connectivity.onConnectivityChanged.listen((event) {
-      onChange.call(NetworkConnectivityEnums.checkConnectivity(event));
+  Future<NetworkConnectivityEnums> handleNetworkConnectivity() async {
+    NetworkConnectivityEnums connectivityEnums =
+        await checkNetworkConnectivity();
+    _subscription = _connectivity.onConnectivityChanged.listen((result) {
+      connectivityEnums = NetworkConnectivityEnums.checkConnectivity(result);
     });
+    return connectivityEnums;
   }
 
   @override

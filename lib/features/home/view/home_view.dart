@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+import 'package:linda_estore/core/init/network/cubit/internet_cubit.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../core/constants/app/colors_constants.dart';
@@ -42,7 +43,7 @@ class _HomeViewState extends State<HomeView> {
         manager: manager, scaffoldKey: _scaffoldKey, selectedCat: 0)));
     BlocProvider.of<ProductsBloc>(context).add(
         (ProductsEvent.fetch(manager: manager, scaffoldKey: _scaffoldKey)));
-
+    context.read<InternetCubit>().checkInternetConnection();
     super.initState();
   }
 
@@ -51,11 +52,20 @@ class _HomeViewState extends State<HomeView> {
     return ScaffoldMessenger(
       key: _scaffoldKey,
       child: SafeArea(
-        child: Scaffold(
-          backgroundColor: context.watch<ThemeCubit>().state.isDark
-              ? ColorConstants.myDark
-              : Colors.grey[100],
-          body: _buildBody,
+        child: BlocBuilder<InternetCubit, InternetState>(
+          builder: (context, state) {
+            return state.when(
+                loading: () => CircularProgressIndicator(),
+                check: (isOnline) => isOnline
+                    ? Scaffold(
+                        backgroundColor:
+                            context.watch<ThemeCubit>().state.isDark
+                                ? ColorConstants.myDark
+                                : Colors.grey[100],
+                        body: _buildBody,
+                      )
+                    : Text("Disconnect"));
+          },
         ),
       ),
     );
