@@ -70,7 +70,7 @@ class MySliverGridWidget extends StatelessWidget {
                 CachedNetworkImage(
                     imageUrl: model[index]!.image,
                     fit: BoxFit.contain,
-                    height: context.height * .2),
+                    height: context.height * .15),
                 Text(model[index]!.title,
                     maxLines: context.isSmallScreen ? 1 : 2,
                     overflow: TextOverflow.ellipsis,

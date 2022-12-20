@@ -1,16 +1,36 @@
-# linda_estore
+# Linda E-Store
 
-A new Flutter project.
+A flutter ecommerce application that uses [Fake Store API](https://fakestoreapi.com/) as backend.
 
-## Getting Started
+##  Screens
 
-This project is a starting point for a Flutter application.
+| Splash | Signin | Signup | Forgot | Verification | Login Error | Login Loading | 
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|![](assets/screenshot/1-splash.png) | ![](assets/screenshot/2-sign_in.png) | ![](assets/screenshot/3-sign_up.png) | ![](assets/screenshot/4-forgot.png) | ![](assets/screenshot/5-verification.png) | ![](assets/screenshot/6-login_error.png) | ![](assets/screenshot/7-login_loading.png) |
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Dependencies
+
+- State Management & Design Pattern [BLOC](https://pub.dev/packages/flutter_bloc)
+- Code Generator for Data-Classes/Unions/Cloning [Freezed](https://pub.dev/packages/freezed)
+- Navigation with [AutoRoute](https://pub.dev/packages/auto_route)
+- Network with [Dio](https://pub.dev/packages/dio)
+- Cache Management with [Hive](https://pub.dev/packages/hive_flutter)
+- Localization with [EasyLocalization](https://pub.dev/packages/easy_localization)
+- Connectivity with [Connectivity Plus](https://pub.dev/packages/connectivity_plus)
+- Animation with [Lottie](https://pub.dev/packages/lottie)
+- Utils [Kartal](https://pub.dev/packages/kartal)
+- See file for more... [pubspec](pubspec.yaml)
+
+## Support And Feedback
+
+For support and feedback, you can contact us via email. Thank you.
+> Email: [oguz-kaba@hotmail.com](mailto:oguz-kaba@hotmail.com)
+
+## License
+
+[Apache](LICENSE)
+Coded by [oguzkaba](https://github.com/oguzkaba)
+
